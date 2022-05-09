@@ -1,5 +1,5 @@
-const brands = [{ value: 'Samsung', label: 'Samsung' }, { value: 'Lenovo', label: 'Lenovo' }]
-const placeholder = ['Marcas', 'Otros']
+// const brands = [{ value: 'Samsung', label: 'Samsung' }, { value: 'Lenovo', label: 'Lenovo' }]
+// const placeholder = ['Marcas', 'Otros']
 
 export default function BrandContainer ({ brands, placeholder, onChange, handleSubmit }) {
   return (
