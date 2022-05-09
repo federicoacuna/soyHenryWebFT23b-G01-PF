@@ -14,7 +14,7 @@ export default function SearchBar () {
 
   function handleSubmit (e) {
     e.preventDefault()
-    if (item.lenght === 0) {
+    if (item.length === 0) {
       return (
         alert('Please write an item to search')
       )
