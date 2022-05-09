@@ -5,11 +5,11 @@ import { GET_PRODUCTS } from '../constants'
 export const getProducts = () => {
   return async (dispatch) => {
     try {
-      const { data } = await getProductsService()
+      const products = await getProductsService()
 
       dispatch({
         type: GET_PRODUCTS,
-        payload: data
+        payload: products
       })
     } catch (error) {
       dispatch({
