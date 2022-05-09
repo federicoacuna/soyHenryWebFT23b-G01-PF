@@ -24,7 +24,6 @@ export default function SearchBar () {
     }
   }
 
-  // placeholder
   return (
     <div className={styles.searchBarContainer}>
       <input
