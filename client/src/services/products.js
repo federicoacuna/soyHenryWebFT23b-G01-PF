@@ -5,3 +5,10 @@ export const getProductsService = async () => {
 
   return data
 }
+
+export const getCategoriesService = async () => {
+  const { data } = await axios.get('/categories')
+
+  return data
+}
+

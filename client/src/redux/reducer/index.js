@@ -1,7 +1,9 @@
-import { GET_PRODUCTS } from '../constants'
+import { GET_PRODUCTS, GET_CATEGORIES } from '../constants'
+
 
 const initialState = {
-  products: []
+  products: [],
+  categories: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -10,6 +12,10 @@ const reducer = (state = initialState, action) => {
   switch (type) {
     case GET_PRODUCTS:
       return { ...state, products: payload }
+
+    case GET_CATEGORIES:
+      return { ...state, categories: payload }
+
     default:
       return state
   }
