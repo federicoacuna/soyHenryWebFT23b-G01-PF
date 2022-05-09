@@ -1,0 +1,13 @@
+.searchBarContainer {
+    display: flex;
+}
+
+.searchBox {
+    width: 80%;
+}
+
+.searchButton {
+    align-self: flex-end;
+}
+
+/* placeholder css please remove when completing */
