@@ -1,11 +1,11 @@
-import styles from './SearchBar.module.css'
+import s from './index.module.css'
 
 export default function SearchBar () {
   // placeholder
   return (
-    <div className={styles.searchBarContainer}>
-      <input type='text' placeholder='start typing to search' className={styles.searchBox} />
-      <input type='button' value='Search' className={styles.searchButton} />
+    <div className={s.searchBarContainer}>
+      <input type='text' placeholder='start typing to search' className={s.searchBox} />
+      <input type='button' value='Search' className={s.searchButton} />
     </div>
   )
 }
