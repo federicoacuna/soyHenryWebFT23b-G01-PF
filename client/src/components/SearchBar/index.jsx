@@ -8,7 +8,6 @@ export default function SearchBar () {
   const [item, setItem] = useState('')
 
   function handleInputChange (e) {
-    e.prventDefault()
     setItem(e.target.value)
   }
 
