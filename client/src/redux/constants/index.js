@@ -1,2 +1,3 @@
 export const GET_PRODUCTS = 'GET_PRODUCTS'
 export const GET_CATEGORIES = 'GET_CATEGORIES'
+export const ADD_FILTER_PARAM = 'ADD_FILTER_PARAM'
