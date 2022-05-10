@@ -7,7 +7,13 @@ const PriceFilter = () => {
 
   function onSubmit(e) {
     e.preventDefault();
-    if (Object.values(options) >= 1) {
+    if (Object.values(priceRange).length >= 1) {
+      
+      if(priceRange.minPrice === ''){
+        delete priceRange.minPrice
+      } else if(priceRange.maxPrice === ''){
+        delete priceRange.maxPrice  
+      }
       dispatch(addFilterParams(priceRange));
     }
   }
