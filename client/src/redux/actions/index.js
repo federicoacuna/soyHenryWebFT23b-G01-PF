@@ -1,5 +1,5 @@
-import { getProductsService, getCategoriesService } from '../../services/products'
-
+import { getProductsService } from '../../services/products.service'
+import { getCategoriesService } from '../../services/categories.service'
 import { GET_PRODUCTS, GET_CATEGORIES } from '../constants'
 
 export const getProducts = () => {
