@@ -1,6 +1,7 @@
 import ProductCard from '../../components/ProductCard'
 import NavBar from '../../components/NavBar'
 import SearchBar from '../../components/SearchBar'
+import BrandContainer from '../../components/BrandContainer'
 
 function UsersHome () {
   return (
@@ -8,6 +9,7 @@ function UsersHome () {
       <NavBar />
       <SearchBar />
       <ProductCard />
+      <BrandContainer />
     </div>
   )
 }
