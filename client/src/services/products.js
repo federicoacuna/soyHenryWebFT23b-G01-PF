@@ -1,8 +1,16 @@
 import axios from 'axios'
 
-export const getProductsService = async (option) => {
+export const getProductsService = async (options) => {
+  let urlString = '/product'
 
-  const { data } = await axios.get(`/products?name=${option}`)
+  if (options) {
+    urlString += '?'
+    for (const param of Object.entries(options)) {
+      urlString += `${param[0]}=${param[1]}&`
+    }
+  }
+
+  const { data } = await axios.get(urlString)
   return data
 }
 
@@ -11,4 +19,3 @@ export const getCategoriesService = async () => {
 
   return data
 }
-

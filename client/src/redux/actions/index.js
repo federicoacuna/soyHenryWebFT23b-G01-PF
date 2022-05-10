@@ -2,10 +2,10 @@ import { getProductsService, getCategoriesService } from '../../services/product
 
 import { GET_PRODUCTS, GET_CATEGORIES } from '../constants'
 
-export const getProducts = () => {
+export const getProducts = (options) => {
   return async (dispatch) => {
     try {
-      const products = await getProductsService()
+      const products = await getProductsService(options)
 
       dispatch({
         type: GET_PRODUCTS,
@@ -32,7 +32,7 @@ export const getCategories = () => {
     } catch (error) {
       dispatch({
         type: GET_CATEGORIES,
-         payload: error.message
+        payload: error.message
       })
     }
   }
