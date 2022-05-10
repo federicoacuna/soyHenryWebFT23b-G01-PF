@@ -21,6 +21,7 @@
     "sequelize": "^6.19.0"
   },
   "devDependencies": {
+    "@faker-js/faker": "^6.3.1",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.16",
     "standard": "^17.0.0"
