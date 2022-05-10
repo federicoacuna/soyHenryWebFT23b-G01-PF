@@ -32,7 +32,7 @@ export const getCategories = () => {
     } catch (error) {
       dispatch({
         type: GET_CATEGORIES,
-         payload: error.message
+        payload: error.message
       })
     }
   }

@@ -1,6 +1,5 @@
 import { GET_PRODUCTS, GET_CATEGORIES } from '../constants'
 
-
 const initialState = {
   products: [],
   categories: []
