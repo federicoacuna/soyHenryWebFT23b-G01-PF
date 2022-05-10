@@ -7,6 +7,13 @@ async function get (req, res, next) {
     console.log('error trying to execute getProducts')
   }
 }
+async function getById (req, res, next) {
+  try {
+    res.json(await services.getProductDetail(req.param.id))
+  } catch (error) {
+    console.log('error trying to execute getProducts')
+  }
+}
 
 async function create (req, res, next) {
   // placeholder
@@ -24,5 +31,6 @@ module.exports = {
   get,
   create,
   update,
-  remove
+  remove,
+  getById
 }
