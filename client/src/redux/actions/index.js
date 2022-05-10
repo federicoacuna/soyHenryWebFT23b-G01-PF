@@ -1,11 +1,11 @@
-import { getProductsService } from '../../services/products'
+import { getProductsService, getCategoriesService } from '../../services/products'
 
-import { GET_PRODUCTS } from '../constants'
+import { GET_PRODUCTS, GET_CATEGORIES } from '../constants'
 
-export const getProducts = () => {
+export const getProducts = (options) => {
   return async (dispatch) => {
     try {
-      const products = await getProductsService()
+      const products = await getProductsService(options)
 
       dispatch({
         type: GET_PRODUCTS,
@@ -14,6 +14,24 @@ export const getProducts = () => {
     } catch (error) {
       dispatch({
         type: GET_PRODUCTS,
+        payload: error.message
+      })
+    }
+  }
+}
+
+export const getCategories = () => {
+  return async (dispatch) => {
+    try {
+      const categories = await getCategoriesService()
+
+      dispatch({
+        type: GET_CATEGORIES,
+        payload: categories
+      })
+    } catch (error) {
+      dispatch({
+        type: GET_CATEGORIES,
         payload: error.message
       })
     }

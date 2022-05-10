@@ -1,46 +1,24 @@
-const { Product, Category } = require('../db')
-const { Op } = require('sequelize')
+const { Category } = require('../db')
 
-async function getProducts (options) {
-  const { searchQuery } = options
-
-  const dbSearchOptions = {
-    include: {
-      model: Category,
-      attributes: ['name']
-    }
-  }
-
-  searchQuery && (dbSearchOptions.where = { name: { [Op.iLike]: `%${searchQuery}%` } })
-
-  return await Product.findAll(dbSearchOptions)
+async function getAllCategories () {
+  return await Category.findAll()
 }
 
-async function getProductDetail (productID) {
-  const dbSearchOptions = {
-    include: {
-      model: Category,
-      attributes: ['name', 'id']
-    },
-    where: {
-      id: productID
-    }
-  }
-
-  return await Product.findOne(dbSearchOptions)
+async function createCategory () {
+  // placeholder
 }
 
-async function updateProduct () {
-  // placeholder function
+async function updateCategory () {
+  // placeholder
 }
 
-async function removeProduct () {
-  // placeholder function
+async function removeCategory () {
+  // placeholder
 }
 
 module.exports = {
-  getProducts,
-  getProductDetail,
-  updateProduct,
-  removeProduct
+  getAllCategories,
+  createCategory,
+  updateCategory,
+  removeCategory
 }
