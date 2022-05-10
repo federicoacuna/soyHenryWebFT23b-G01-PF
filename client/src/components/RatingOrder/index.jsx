@@ -4,19 +4,19 @@ import { useDispatch } from 'react-redux'
 
 export default function Rating () {
   const dispatch = useDispatch()
-  const [orderRating, setOrderRating] = useState('')
+  const [orderRating, setOrder] = useState('')
   function handleOrder (e) {
     e.preventDefault()
     dispatch()// aca se despacha la action correspondiente que aun no esta creada
-    setOrderRating(e.target.value)
+    setOrder(['rating',e.target.value])
   }
 
   return (
     <div>
       <select value={orderRating} className={style.ratingOrder} onChange={elem => handleOrder(elem)}>
         <option value='---'>-----</option>
-        <option value='asc'> ASCENDING </option>
-        <option value='des'> DESCENDING </option>
+        <option value='ASC'> ASCENDING </option>
+        <option value='DESC'> DESCENDING </option>
       </select>
     </div>
   )
