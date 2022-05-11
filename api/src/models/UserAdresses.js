@@ -7,11 +7,11 @@ module.exports = sequelize => {
             allownull: false,
         },
         city:{//string
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(20),
             allownull: false,
         },
         street_name:{//string
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(30),
             allownull: false,
         },
         house_number:{//number
@@ -25,10 +25,10 @@ module.exports = sequelize => {
             type: DataTypes.TEXT,       //podría ser tinytext, pero éste admite solo 255 caracteres
         },
         floor_apartment:{//string
-            type:DataTypes.STRING,
+            type:DataTypes.STRING(20),
         },
         state:{//campo
-            type:DataTypes.STRING,
+            type:DataTypes.STRING(30),
             allownull:false,
         }
     })
