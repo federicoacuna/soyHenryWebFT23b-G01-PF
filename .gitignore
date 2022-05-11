@@ -6,11 +6,6 @@
 /client/node_modules
 /.pnp
 .pnp.js
-
-/client/package-lock.json
-/api/package-lock.json
-
-
 # testing
 /coverage
 
@@ -29,7 +24,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-/api/.env
-/api/.env.test
+api/.env
+api/.env.test
 .env
 .env.test
+api/package-lock.json
+client/package-lock.json
