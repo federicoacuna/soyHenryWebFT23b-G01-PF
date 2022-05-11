@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize')
 module.exports = sequelize => {
     sequelize.define('userAdresses',{
         postal_code:{//string
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(20),
             allownull: false,
         },
         city:{//string
