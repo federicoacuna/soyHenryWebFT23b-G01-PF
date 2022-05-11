@@ -27,7 +27,7 @@ function ProductDetail () {
           <p key={id + name}>{name}</p>
         ))}
       </div>
-      <CartButton />
+      <CartButton idDetail={product.id} />
     </div>
   )
 }
