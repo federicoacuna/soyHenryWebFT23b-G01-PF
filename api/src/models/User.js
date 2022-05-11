@@ -35,13 +35,10 @@ module.exports = sequelize => {
       }
     },
     phone: {
-      type: DataTypes.BIGINT,
+      type: DataTypes.STRING(30),
       allownull: false,
       validate: {
-        isInt: true,
-        inLongerThan20 (value) {
-          if (value.toString().length > 20) { throw new Error('Cellphone must be shorter than 20 numbers') }
-        }
+        isAlphanumeric: true
       }
     },
     birthdate: {
@@ -51,8 +48,10 @@ module.exports = sequelize => {
     },
     email: {
       type: DataTypes.STRING(40),
+      unique: true,
       validate: {
         isEmail: true
+
       }
 
     },
@@ -63,5 +62,3 @@ module.exports = sequelize => {
     }
   })
 }
-
-// is: (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)

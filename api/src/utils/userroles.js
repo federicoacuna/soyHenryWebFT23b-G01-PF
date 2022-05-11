@@ -1,11 +1,11 @@
-const { Role } = require('./src/db')
+const { Role } = require('../db')
 const saveProducts3 = async () => {
   try {
-    const roles = await Role.create(
+    await Role.create(
       {
         name: 'admin'
       })
-    const role2 = await Role.create(
+    await Role.create(
       {
         name: 'user'
       })
@@ -15,5 +15,4 @@ const saveProducts3 = async () => {
 }
 
 saveProducts3()
-  .then(result => console.log('all good'))
   .catch(err => console.log(err))
