@@ -1,3 +1,5 @@
+const { DataTypes } = require('sequelize')
+
 module.exports = sequelize => {
     sequelize.define('userPayment', {
         card_number: {
@@ -19,8 +21,8 @@ module.exports = sequelize => {
             type: DataTypes.STRING(20),
             allownull: false,
             validate: {
-            isAlpha: true,
-            notEmpty: true
+                isAlpha: true,
+                notEmpty: true
             }
         }
     })
