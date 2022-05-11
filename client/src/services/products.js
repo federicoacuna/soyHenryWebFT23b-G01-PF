@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const getProductsService = async (options) => {
-  let urlString = '/product'
+  let urlString = '/products'
 
   if (options) {
     urlString += '?'

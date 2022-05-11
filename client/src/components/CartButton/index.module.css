@@ -1,7 +1,4 @@
-.container{
-    background-color: aqua;
-    border: 1px solid black;
-    border-radius: 15px;
-    width: 50px;
-    height: 25px;
+.container {
+  border-radius: 15px;
+  display: inline-block;
 }

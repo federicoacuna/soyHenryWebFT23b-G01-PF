@@ -12,11 +12,11 @@ axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
-  <React.StrictMode>
-    <Router>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </Router>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <Router>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </Router>
+  // </React.StrictMode>
 )
