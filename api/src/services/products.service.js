@@ -2,7 +2,7 @@ const { Product, Category } = require('../db')
 const { Op } = require('sequelize')
 
 async function getProducts (options) {
-  const { searchQuery } = options
+  const { search, brand, minPrice, maxPrice, category, order } = options
 
   const dbSearchOptions = {
     include: {
@@ -11,7 +11,12 @@ async function getProducts (options) {
     }
   }
 
-  searchQuery && (dbSearchOptions.where = { name: { [Op.iLike]: `%${searchQuery}%` } })
+  search && (dbSearchOptions.where.name = { [Op.iLike]: `%${search}%` })
+  brand && (dbSearchOptions.where.brand = brand)
+  minPrice && (dbSearchOptions.where.price = { [Op.gte]: minPrice })
+  maxPrice && (dbSearchOptions.where.price = { [Op.lte]: maxPrice })
+  category && (dbSearchOptions.where.category = category)
+  order && (dbSearchOptions.order = order)
 
   return await Product.findAll(dbSearchOptions)
 }
