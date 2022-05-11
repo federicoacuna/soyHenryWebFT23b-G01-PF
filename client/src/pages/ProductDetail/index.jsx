@@ -1,3 +1,4 @@
+import CartButton from '../../components/CartButton'
 
 function ProductDetail () {
   const product = {
@@ -26,6 +27,7 @@ function ProductDetail () {
           <p key={id + name}>{name}</p>
         ))}
       </div>
+      <CartButton idDetail={product.id} />
     </div>
   )
 }

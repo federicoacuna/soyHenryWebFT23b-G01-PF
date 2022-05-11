@@ -1,11 +1,8 @@
 import styles from './index.module.css'
+import CartButton from '../CartButton'
 
 export default function ProductCard (props) {
   const { productID, name, description, brand, model, price, img, category } = props
-
-  function addToCart () {
-    // placeholder function until cart functionality is added
-  }
 
   return (
     <div className={styles.cardContainer}>
@@ -16,7 +13,7 @@ export default function ProductCard (props) {
       <p className={styles.productInformation}>Categoria: {category}</p>
       <p className={styles.productInformation}>{description}</p>
       <p className={styles.productInformation}>Precio: {price}</p>
-      <button onClick={() => addToCart(productID)} className={styles.addCartButton} value='Add2Cart' />
+      <CartButton id={productID} />
     </div>
   )
 }
