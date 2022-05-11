@@ -14,8 +14,9 @@ export const getProductsService = async (options) => {
   return data
 }
 
-export const getCategoriesService = async () => {
-  const { data } = await axios.get('/categories')
+export const getDetailsProductsService = async (productId) => {
+  const urlString = `/product/${productId}`
 
+  const { data } = await axios.get(urlString)
   return data
 }
