@@ -1,17 +1,15 @@
-// VERIFICAR que el nombre del modelo Users coincida con el de la DB
-const { Users } = require('../db')
+const { user } = require('../db')
 
 async function getUserByEmail (userEmail) {
-  return await Users.findOne({
+  return await user.findOne({
     where: { mail: userEmail }
   })
 }
 
 async function createUser (data) {
-  // VERIFICAR que nombres de parámetros coincidan con los del modelo Users de la DB
   const { username, password, firstname, lastname, phone, birthdate, email } = data
 
-  return await Users.findOrCreate({
+  return await user.findOrCreate({
     where: {
       username,
       password,
@@ -35,11 +33,11 @@ async function updateUser (data) {
   phone && (firstArg.phone = phone)
   email && (firstArg.email = email)
 
-  return await Users.update(firstArg, { where: { id: userId } })
+  return await user.update(firstArg, { where: { id: userId } })
 }
 
 async function removeUser (userId) {
-  return await Users.update({deleted: true}, { where: { id: userId } })
+  return await user.update({deleted: true}, { where: { id: userId } })
 }
 
 module.exports = {
