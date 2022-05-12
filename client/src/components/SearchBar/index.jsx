@@ -26,7 +26,7 @@ export default function SearchBar () {
   return (
     <div className={styles.searchBarContainer}>
       <input
-        type='text' placeholder='start typing to search' className={styles.searchBox}
+        type='text' placeholder='Buscar' className={styles.searchBox}
         value={item}
         onKeyPress={e => e.key === 'Enter' && handleSubmit(e)}
         onChange={e => handleInputChange(e)}

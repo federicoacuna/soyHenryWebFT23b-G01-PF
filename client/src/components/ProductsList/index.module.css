@@ -1,0 +1,7 @@
+.products-container {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  column-gap: 3rem;
+  row-gap: 4rem;
+}
