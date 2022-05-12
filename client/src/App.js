@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom'
 import NavBar from './components/NavBar'
 import UsersHome from './pages/UsersHome'
 import Cart from './pages/Cart'
+import ProductDetail from './pages/ProductDetail'
 import './App.css'
 
 function App () {
@@ -27,6 +28,7 @@ function App () {
       <Routes>
         <Route path='/' element={<UsersHome />} />
         <Route exact path='/cart' element={<Cart />} />
+        <Route exact path='/productDetail' element={<ProductDetail />} />
       </Routes>
     </div>
   )
