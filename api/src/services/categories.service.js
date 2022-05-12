@@ -1,18 +1,20 @@
 const { Category } = require('../db')
 
-async function getAllCategories () {
-  return await Category.findAll()
+function getAllCategories () {
+  return Category.findAll({
+    attributes: ['id', 'name']
+  })
 }
 
-async function createCategory () {
+function createCategory () {
   // placeholder
 }
 
-async function updateCategory () {
+function updateCategory () {
   // placeholder
 }
 
-async function removeCategory () {
+function removeCategory () {
   // placeholder
 }
 
