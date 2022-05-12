@@ -39,9 +39,7 @@ async function updateUser (data) {
 }
 
 async function removeUser (userId) {
-  return await Users.destroy({
-    where: { id: userId }
-  })
+  return await Users.update({deleted: true}, { where: { id: userId } })
 }
 
 module.exports = {
