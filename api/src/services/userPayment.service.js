@@ -6,12 +6,12 @@ async function getAllPayments () {
 
 async function createPayment (data) {
   // VERIFICAR que nombres de parámetros coincidan con los del modelo Payment de la DB
-  const { cardNumber, expirationDate, provider } = data
+  const { card_number, expiration_day, provider } = data
 
   return await userPayment.findOrCreate({
     where: {
-      cardNumber,
-      expirationDate,
+      card_number,
+      expiration_day,
       provider
     }
   })
