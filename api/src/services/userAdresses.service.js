@@ -1,29 +1,27 @@
-// VERIFICAR que el nombre del modelo Adresses coincida con el de la DB
-const { Adresses } = require('../db')
+const { userAdresses } = require('../db')
 
 async function getAllAdresses (useriD) {
-  return await Adresses.findByPk(useriD)
+  return await userAdresses.findByPk(useriD)
 }
 
 async function createAdress (data) {
-  // VERIFICAR que nombres de parámetros coincidan con los del modelo Adresses de la DB
-  const { postalCode, state, city, streetName, houseNumber, floorApartment, deliveryInstructions } = data
+  const { postal_code, city, street_name, house_number, delivery_instructions, floor_apartment,  state } = data
 
-  return await Adresses.findOrCreate({
+  return await userAdresses.findOrCreate({
     where: {
-      postalCode,
-      state,
+      postal_code,
       city,
-      streetName,
-      houseNumber,
-      floorApartment,
-      deliveryInstructions
+      street_name,
+      house_number,
+      delivery_instructions,
+      floor_apartment,
+      state
     }
   })
 }
 
 async function removeAdress (adressId) {
-  return await Adresses.destroy({
+  return await userAdresses.destroy({
     where: { id: adressId }
   })
 }
