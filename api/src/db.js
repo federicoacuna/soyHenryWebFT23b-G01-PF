@@ -2,12 +2,11 @@ require('dotenv').config()
 const { Sequelize } = require('sequelize')
 const fs = require('fs')
 const path = require('path')
-const { resolveSoa } = require('dns')
 const {
   DB_USER, DB_PASSWORD, DB_HOST
 } = process.env
 
-const DB_URL = process.env.DATABASE_URL || `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:3000/ecommerce`
+const DB_URL = process.env.DATABASE_URL || `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:5432/ecommerce`
 
 const sequelize = new Sequelize(DB_URL, {
   logging: false, // set to console.log to see the raw SQL queries
