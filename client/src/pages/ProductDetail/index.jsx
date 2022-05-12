@@ -1,4 +1,5 @@
 import CartButton from '../../components/CartButton'
+import s from '../ProductDetail/index.module.css'
 
 function ProductDetail () {
   const product = {
@@ -15,19 +16,27 @@ function ProductDetail () {
   }
 
   return (
-    <div>
-      <h1>{product.name}</h1>
-      <p>{product.price}</p>
-      <img src={product.img[0]} alt={product.name} />
-      <p>{product.description}</p>
-      <p>{product.brand}</p>
-      <p>{product.model}</p>
-      <div>
-        {product.categories.map(({ id, name }) => (
-          <p key={id + name}>{name}</p>
-        ))}
+    <div className={s.root}>
+      <div className={s.container}>
+        <div className={s.col__1}>
+          <img className={s.product__img} src={product.img[0]} alt={product.name} />
+        </div>
+        <div className={s.col__2}>
+          <h1 className={s.product__title}>{product.name}</h1>
+          <p className={s.product__price}>{product.price}</p>
+          <p className={s.product__description}>{product.description}</p>
+          <p className={s.product__brand}>{product.brand}</p>
+          <p className={s.product__model}>{product.model}</p>
+          <div className={s.product__categories}>
+            {product.categories.map(({ id, name }) => (
+              <p key={id + name}>{name}</p>
+            ))}
+          </div>
+          <div className={s.cartButton}>
+            <CartButton idDetail={product.id} />
+          </div>
+        </div>
       </div>
-      <CartButton idDetail={product.id} />
     </div>
   )
 }
