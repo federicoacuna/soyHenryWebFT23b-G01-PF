@@ -1,12 +1,12 @@
-const services = require('../services/useradresses.service')
+const services = require('../services/userAddresses.service')
 
 async function getById (req, res, next) {
-  const { userId } = req.params;
-  
-  if(!userID) {
+  const { userId } = req.params
+
+  if (!userId) {
     res.status(400).json({ error: 'No addresses where found' })
   }
-    
+
   try {
     const addresses = await services.getAllAdresses(userId)
     addresses ? res.json(addresses) : res.status(404).json({ error: 'No addresses where found' })
