@@ -6,15 +6,23 @@ import axios from 'axios'
 import { Provider } from 'react-redux'
 import store from './redux/store'
 import { BrowserRouter as Router } from 'react-router-dom'
-import { ChakraProvider } from '@chakra-ui/react'
+import { extendTheme, ChakraProvider } from '@chakra-ui/react'
 
 // Setup default base url for axios requests
 axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001'
 
+const colors = {
+  primary: '#2C2C2E',
+  secundary: '#E5E5EA',
+  accent: '#FFFFFF',
+  error: '#FF0000'
+}
+
+const theme = extendTheme({ colors })
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   // <React.StrictMode>
-  <ChakraProvider>
+  <ChakraProvider theme={theme}>
     <Router>
       <Provider store={store}>
         <App />

@@ -33,7 +33,7 @@ function ProductDetail () {
             ))}
           </div>
           <div className={s.cartButton}>
-            <CartButton idDetail={product.id} />
+            <CartButton product={product} />
           </div>
         </div>
       </div>
