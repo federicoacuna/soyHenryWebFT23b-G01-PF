@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize')
 
 module.exports = sequelize => {
-  sequelize.define('user_adresses', {
+  sequelize.define('userAdresses', {
     postalCode: {
       type: DataTypes.STRING(20),
       allownull: false
@@ -31,8 +31,5 @@ module.exports = sequelize => {
       type: DataTypes.STRING(30),
       allownull: false
     }
-  },
-  {
-    underscored: true
   })
 }
