@@ -1,13 +1,13 @@
-const { userAdresses } = require('../db')
+const { userAdress } = require('../db')
 
-async function getAllAdresses (useriD) {
-  return await userAdresses.findByPk(useriD)
+async function getAllAdresses (userId) {
+  return await userAdress.findByPk(userId)
 }
 
 async function createAdress (data) {
   const { postal_code, city, street_name, house_number, delivery_instructions, floor_apartment,  state } = data
 
-  return await userAdresses.findOrCreate({
+  return await userAdress.findOrCreate({
     where: {
       postal_code,
       city,
@@ -21,7 +21,7 @@ async function createAdress (data) {
 }
 
 async function removeAdress (adressId) {
-  return await userAdresses.destroy({
+  return await userAdress.destroy({
     where: { id: adressId }
   })
 }
