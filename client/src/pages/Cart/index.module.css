@@ -1,0 +1,16 @@
+.containerAll{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem;
+}
+
+.container{
+    width: 80%;
+    min-height: 50%;
+    background-color: grey;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

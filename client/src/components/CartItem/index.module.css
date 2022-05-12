@@ -1,0 +1,14 @@
+.container{
+    width: 100%;
+    height: 10rem;
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+.priceAndRemove{
+    display: flex;
+    flex-direction: column;
+}
