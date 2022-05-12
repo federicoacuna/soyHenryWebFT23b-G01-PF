@@ -1,4 +1,4 @@
-const { Product, Category } = require('./src/db')
+const { Product, Category } = require('../db')
 const { faker } = require('@faker-js/faker')
 
 const categories = [
