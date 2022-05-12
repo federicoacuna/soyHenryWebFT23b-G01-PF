@@ -1,16 +1,18 @@
 .cardContainer {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .productImage {
-    
 }
 
 .productInformation {
-
 }
 
 .addCartButton {
-    
+}
+
+img {
+  width: 150px;
+  height: 150px;
 }

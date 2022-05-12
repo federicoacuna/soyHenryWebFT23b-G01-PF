@@ -1,14 +1,12 @@
-import ProductCard from '../../components/ProductCard'
-import NavBar from '../../components/NavBar'
 import SearchBar from '../../components/SearchBar'
 import FilterContainer from '../../components/FilterContainer'
+import ProductList from '../../components/ProductsList'
 
 function UsersHome () {
   return (
     <div>
-      <NavBar />
       <SearchBar />
-      <ProductCard />
+      <ProductList />
       <FilterContainer />
     </div>
   )

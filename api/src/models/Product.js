@@ -1,4 +1,3 @@
-
 const { DataTypes } = require('sequelize')
 
 module.exports = (sequelize) => {
@@ -24,9 +23,11 @@ module.exports = (sequelize) => {
       allowNull: false,
       validate: {
         min: 0.1
-
       }
     },
-    img: DataTypes.ARRAY(DataTypes.STRING)
+    img: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: false
+    }
   })
 }
