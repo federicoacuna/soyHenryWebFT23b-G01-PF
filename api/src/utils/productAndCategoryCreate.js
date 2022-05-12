@@ -71,7 +71,7 @@ const saveProducts = async () => {
           brand: faker.company.companySuffix(),
           model: faker.random.alphaNumeric(7),
           price: faker.commerce.price(15, 1000, 2),
-          img: [images[i][j]],
+          image: [images[i][j]],
           categoryId: i + 1
         })
       }
