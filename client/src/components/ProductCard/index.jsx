@@ -4,9 +4,8 @@ import { Link } from 'react-router-dom'
 
 export default function ProductCard ({ product }) {
   const { name, price, image, category } = product
-
+  
   return (
-
     <div className={styles.cardContainer}>
       <Link to='/productDetail'>
         <h3 className={styles.productTitle}>{name}</h3>
@@ -18,6 +17,5 @@ export default function ProductCard ({ product }) {
       </Link>
       <CartButton product={product} />
     </div>
-
   )
 }
