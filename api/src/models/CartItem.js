@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize')
 
 module.exports = (sequelize) => {
-  sequelize.define('cartItem', {
+  sequelize.define('cart_item', {
     quantity: {
       type: DataTypes.INTEGER,
       validate: {
