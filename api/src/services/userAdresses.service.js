@@ -1,7 +1,9 @@
 const { userAdress } = require('../db')
 
 async function getAllAdresses (userId) {
-  return await userAdress.findByPk(userId)
+  return await userAdress.findAll({
+    where: { user_id: userId }
+  })
 }
 
 async function createAdress (data) {
