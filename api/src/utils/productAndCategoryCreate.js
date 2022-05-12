@@ -58,25 +58,26 @@ const images = [
 ]
 
 const saveProducts = async () => {
-  for (let i = 0; i < categories.length; i++) {
-    try {
-      const category = await Category.create({ name: categories[i] })
+  try {
+    for (let i = 0; i < categories.length; i++) {
+      Category.create({ name: categories[i] })
+    }
 
+    for (let i = 0; i < categories.length; i++) {
       for (let j = 0; j < images[i].length; j++) {
-        const product = await Product.create({
+        Product.create({
           name: faker.lorem.sentence(),
           description: faker.lorem.paragraph(),
           brand: faker.company.companySuffix(),
           model: faker.random.alphaNumeric(7),
           price: faker.commerce.price(15, 1000, 2),
-          img: [images[i][j]]
+          img: [images[i][j]],
+          categoryId: i + 1
         })
-
-        await product.addCategory(category.id)
       }
-    } catch (error) {
-      console.log(error)
     }
+  } catch (error) {
+    console.log(error)
   }
 }
 
