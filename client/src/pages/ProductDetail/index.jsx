@@ -9,7 +9,7 @@ function ProductDetail () {
     brand: 'Inc',
     model: '3vavcbu',
     price: '981.00',
-    img: [
+    image: [
       'https://m.media-amazon.com/images/I/81bc8mA3nKL._AC_SX679_.jpg'
     ],
     categories: [{ name: 'Laptops' }]
@@ -19,7 +19,7 @@ function ProductDetail () {
     <div className={s.root}>
       <div className={s.container}>
         <div className={s.col__1}>
-          <img className={s.product__img} src={product.img[0]} alt={product.name} />
+          <img className={s.product__img} src={product.image[0]} alt={product.name} />
         </div>
         <div className={s.col__2}>
           <h1 className={s.product__title}>{product.name}</h1>

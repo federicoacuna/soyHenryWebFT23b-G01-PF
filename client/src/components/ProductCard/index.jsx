@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 export default function ProductCard ({ product }) {
   const { name, price, image, category } = product
-  
+
   return (
     <div className={styles.cardContainer}>
       <Link to='/productDetail'>
