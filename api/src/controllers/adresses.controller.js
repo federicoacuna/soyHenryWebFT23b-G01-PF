@@ -1,28 +1,35 @@
 const services = require('../services/useradresses.service')
 
 async function getById (req, res, next) {
+  const { userId } = req.params;
+  
+  if(!userID) {
+    res.status(400).json({ error: 'No addresses where found' })
+  }
+    
   try {
-    res.json(await services.getAllAdresses(req.param.userId))
+    const addresses = await services.getAllAdresses(userId)
+    addresses ? res.json(addresses) : res.status(404).json({ error: 'No addresses where found' })
   } catch (error) {
-    console.log('error trying to execute getAllAdresses')
+    res.json(error)
   }
 }
 
 async function create (req, res, next) {
   try {
-    res.send({ message: 'Adress created correctly' }).json(await services.createAdress(req.body))
+    const wasCreated = await services.createAdress(req.body)
+    wasCreated ? res.send({ message: 'Address created correctly' }) : res.status(400).json({ error: 'Address was not created' })
   } catch (error) {
-    console.log('error trying to execute createAdress')
-    res.send({ message: 'Adress was not created' })
+    res.send(error)
   }
 }
 
 async function remove (req, res, next) {
   try {
-    res.send({ message: 'Adress deleted correctly' }).json(await services.removeAdress(req.param.adressId))
+    const wasDeleted = await services.removeAdress(req.param.adressId)
+    wasDeleted ? res.json({ message: 'Address deleted correctly' }) : res.status(400).json({ error: 'Address could not be deleted' })
   } catch (error) {
-    console.log('error trying to execute removeAdress')
-    res.send({ message: 'Adress was not deleted' })
+    res.send(error)
   }
 }
 
