@@ -6,7 +6,7 @@ const {
   DB_USER, DB_PASSWORD, DB_HOST
 } = process.env
 
-const DB_URL = process.env.DATABASE_URL || `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:5432/ecommerce`
+const DB_URL = process.env.DATABASE_URL || `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:3000/ecommerce`
 
 const sequelize = new Sequelize(DB_URL, {
   logging: false, // set to console.log to see the raw SQL queries
@@ -32,7 +32,7 @@ sequelize.models = Object.fromEntries(capsEntries)
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Category, Product, Role, User } = sequelize.models
+const { Category, Product, Role, User, Branch, CartItem, Inventory } = sequelize.models
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
