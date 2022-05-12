@@ -25,7 +25,7 @@ module.exports = (sequelize) => {
         min: 0.1
       }
     },
-    img: {
+    image: {
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false
     }

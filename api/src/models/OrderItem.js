@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize')
 
 module.exports = (sequelize) => {
-  sequelize.define('order_item', {
+  sequelize.define('orderItem', {
     quantity: {
       type: DataTypes.INTEGER,
       allowNull: false
