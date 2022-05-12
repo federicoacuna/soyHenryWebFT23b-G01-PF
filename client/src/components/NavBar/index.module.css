@@ -1,4 +1,39 @@
-.container{
-    width: 100%;
-    background-color: red;
+.container {
+  background-color: #2c2c2e;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  color: #fff;
+  font-weight: 700;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+@media only screen and (max-width: 567px) {
+  .container {
+    flex-direction: column;
+    row-gap: 1rem;
+  }
+}
+
+.container nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  column-gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+@media only screen and (max-width: 567px) {
+  .container nav ul {
+    flex-direction: column;
+    row-gap: 1rem;
+  }
+}
+
+.container nav ul a {
+  color: #fff;
+  text-decoration: none;
 }
