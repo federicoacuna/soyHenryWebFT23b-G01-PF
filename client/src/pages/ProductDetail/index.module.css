@@ -64,12 +64,12 @@
     text-align: left;
     padding: 2%;
 }
-.cartButton button{
+/* .cartButton button{
     background-color: #2C2C2E;
     color: white;
     padding: 3%;
     border-radius: 5px;
-}
+} */
 
 @media (max-width:685px){
     .root{
