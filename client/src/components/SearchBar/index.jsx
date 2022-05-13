@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux'
 import { useState } from 'react'
-import { getProducts } from '../../redux/actions/index'
+import { addFilterParams, clearFilterParams } from '../../redux/actions/index'
 import { Box, Input, Button, Icon } from '@chakra-ui/react'
 import { BsSearch } from 'react-icons/bs'
 import styles from './index.module.css'
@@ -20,9 +20,13 @@ export default function SearchBar () {
         alert('Please write an item to search')
       )
     } else {
-      dispatch(getProducts(item))
+      dispatch(addFilterParams({ name: 'search', value: item }))
       setItem('')
     }
+  }
+
+  function handleClick (e) {
+    dispatch(clearFilterParams())
   }
 
   return (
@@ -53,7 +57,7 @@ export default function SearchBar () {
             color='#ABABAB'
           />
         </Box>
-        <Button bg='primary' color='accent' px='2rem' _hover _active _focus>Clean</Button>
+        <Button bg='primary' color='accent' px='2rem' _hover _active _focus onClick={handleClick} name='Clean'>Clean</Button>
       </form>
     </Box>
   )

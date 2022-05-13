@@ -4,6 +4,7 @@ import {
   GET_CATEGORIES,
   GET_PRODUCT_DETAILS,//eslint-disable-line
   ADD_FILTER_PARAM,
+  CLEAR_FILTER_PARAMS,
   SET_ORDER_TYPE,//eslint-disable-line
   SET_CART_PRODUCTS,
   ADD_PRODUCT_TO_CART,
@@ -35,6 +36,11 @@ const reducer = (state = initialState, action) => {
           ...state.options,
           [payload.name]: [payload.value]
         }
+      }
+    case CLEAR_FILTER_PARAMS:
+      return {
+        ...state,
+        options: {}
       }
 
     case GET_CATEGORIES:
