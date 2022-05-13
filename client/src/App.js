@@ -11,9 +11,13 @@ import './App.css'
 function App () {
   const dispatch = useDispatch()
   const cartProducts = useSelector(state => state.cartProducts)
+  const options = useSelector(state => state.options)
 
   useEffect(() => {
-    dispatch(getProducts())
+    dispatch(getProducts(options))
+  }, [options])
+
+  useEffect(() => {
     const cartProducts = JSON.parse(window.localStorage.getItem('cartProducts')) || []
     dispatch(setCartProducts(cartProducts))
   }, [])//eslint-disable-line

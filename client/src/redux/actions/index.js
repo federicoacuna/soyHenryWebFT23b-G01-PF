@@ -6,6 +6,7 @@ import {
   GET_CATEGORIES,
   GET_PRODUCT_DETAILS,
   ADD_FILTER_PARAM,
+  CLEAR_FILTER_PARAMS,
   SET_ORDER_TYPE,
   SET_CART_PRODUCTS,
   ADD_PRODUCT_TO_CART,
@@ -71,6 +72,12 @@ export const addFilterParams = (options) => {
   return {
     type: ADD_FILTER_PARAM,
     payload: options
+  }
+}
+
+export const clearFilterParams = () => {
+  return {
+    type: CLEAR_FILTER_PARAMS
   }
 }
 
