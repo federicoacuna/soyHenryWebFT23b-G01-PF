@@ -1,8 +1,16 @@
-const get = (req, res) => {
-  res.json({ message: 'Accessing the categories' })
+const Categories = require('../services/categories.service')
+
+const get = async (req, res) => {
+  try {
+    const retrievedCategories = await Categories.getAllCategories()
+    retrievedCategories ? res.json(retrievedCategories) : res.status(404).json({ error: 'No categories where found' })
+  } catch (error) {
+    res.status(400).json(error)
+  }
 }
-const create = (req, res) => {
-  res.json({ message: 'Creating a category' })
+
+const create = async (req, res) => {
+  res.json({ message: 'THIS FUNCTION HAS NOT BEEN IMPLEMENTED YET' })
 }
 
 module.exports = {
