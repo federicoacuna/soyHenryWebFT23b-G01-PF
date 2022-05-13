@@ -1,15 +1,22 @@
-const { user } = require('../db')
+const { User } = require('../db')
 
 async function getUserByEmail (userEmail) {
-  return await user.findOne({
-    where: { mail: userEmail }
+  return await User.findOne({
+    where: { email: userEmail }
   })
+}
+
+async function getById(userId){
+  let user = await User.findOne({
+    where: {id: userId}
+  })
+  return user
 }
 
 async function createUser (data) {
   const { username, password, firstname, lastname, phone, birthdate, email } = data
 
-  return await user.findOrCreate({
+  return await User.findOrCreate({
     where: {
       username,
       password,
@@ -33,11 +40,11 @@ async function updateUser (data) {
   phone && (firstArg.phone = phone)
   email && (firstArg.email = email)
 
-  return await user.update(firstArg, { where: { id: userId } })
+  return await User.update(firstArg, { where: { id: userId } })
 }
 
 async function removeUser (userId) {
-  return await user.update({deleted: true}, { where: { id: userId } })
+  return await User.update({deleted: true}, { where: { id: userId } })
 }
 
 module.exports = {
