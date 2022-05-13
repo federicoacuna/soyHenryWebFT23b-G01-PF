@@ -1,5 +1,8 @@
 import CartButton from '../../components/CartButton'
 import s from '../ProductDetail/index.module.css'
+import { Heading, Center, Container, Flex, Text, Badge, Box, Button } from '@chakra-ui/react'
+import { IoMdArrowRoundBack } from 'react-icons/io'
+import { Link } from 'react-router-dom'
 
 function ProductDetail () {
   const product = {
@@ -16,28 +19,36 @@ function ProductDetail () {
   }
 
   return (
-    <div className={s.root}>
-      <div className={s.container}>
-        <div className={s.col__1}>
-          <img className={s.product__img} src={product.img[0]} alt={product.name} />
-        </div>
-        <div className={s.col__2}>
-          <h1 className={s.product__title}>{product.name}</h1>
-          <p className={s.product__price}>{product.price}</p>
-          <p className={s.product__description}>{product.description}</p>
-          <p className={s.product__brand}>{product.brand}</p>
-          <p className={s.product__model}>{product.model}</p>
-          <div className={s.product__categories}>
-            {product.categories.map(({ id, name }) => (
-              <p key={id + name}>{name}</p>
-            ))}
-          </div>
-          <div className={s.cartButton}>
-            <CartButton idDetail={product.id} />
-          </div>
-        </div>
-      </div>
-    </div>
+    <Flex alignItems='flex-start'>
+      <Link to='/'><Flex position='relative' mt='40px' ml='40px'><IoMdArrowRoundBack size={30} /></Flex></Link>
+      <Center w='100%' h='90vh' p={4}>
+        <Flex alignItems='center' justifyContent='center' boxShadow='lg' borderRadius='10' bg='#E5E5EA' p={4} color='#black'>
+          <Container maxW='md'>
+            <img className={s.product__img} src={product.img[0]} alt={product.name} />
+          </Container>
+          <Container maxW='md'>
+            <Heading textShadow='2px 2px 5px rgba(0,0,0,0.25)'>{product.name}</Heading>
+            <Box pt={3}>
+              {product.categories.map(({ id, name }) => (
+                <Badge key={id + name} variant='solid' bg='#2C2C2E'>{name}</Badge>
+              ))}
+            </Box>
+            <Text fontSize='xl' fontWeight='bold' mt={3}>${product.price}</Text>
+            <Text fontWeight='bold' pt={3}>Especificaciones:</Text>
+            <Text>{product.description}</Text>
+            <Text fontWeight='bold' pt={3}>Marca:</Text>
+            <Text>{product.brand}</Text>
+            <Text fontWeight='bold' pt={3}>Modelo:</Text>
+            <Text>{product.model}</Text>
+
+            <Flex mt='10px' justifyContent='flex-start'>
+              <Button mr='10px' color='white' bg='#2C2C2E' _hover={{ bg: 'black' }}>Comprar Ahora</Button>
+              <CartButton idDetail={product.id} />
+            </Flex>
+          </Container>
+        </Flex>
+      </Center>
+    </Flex>
   )
 }
 
