@@ -24,7 +24,7 @@ function ProductDetail () {
       <Center w='100%' h='90vh' p={4}>
         <Flex alignItems='center' justifyContent='center' boxShadow='lg' borderRadius='10' bg='#E5E5EA' p={4} color='#black'>
           <Container maxW='md'>
-            <img className={s.product__img} src={product.img[0]} alt={product.name} />
+            <img className={s.product__img} src={product.image[0]} alt={product.name} />
           </Container>
           <Container maxW='md'>
             <Heading textShadow='2px 2px 5px rgba(0,0,0,0.25)'>{product.name}</Heading>
@@ -43,7 +43,7 @@ function ProductDetail () {
 
             <Flex mt='10px' justifyContent='flex-start'>
               <Button mr='10px' color='white' bg='#2C2C2E' _hover={{ bg: 'black' }}>Comprar Ahora</Button>
-              <CartButton idDetail={product.id} />
+              <CartButton product={product} />
             </Flex>
           </Container>
         </Flex>
