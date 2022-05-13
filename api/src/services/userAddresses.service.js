@@ -1,35 +1,46 @@
-const { userAddress } = require('../db')
+const { UserAddress } = require('../db')
 
-async function getAllAddresses (userId) {
-  return await userAddress.findAll({
-    where: { user_id: userId }
+async function getUserAddresses (userId) {
+  const userAddresses = await UserAddress.findAll({
+    where: { userId }
   })
+
+  return userAddresses
 }
 
-async function createAddress (data) {
-  const { postalCode, city, streetName, houseNumber, deliveryInstructions, floorApartment, state } = data
+async function createAddress (newAddress) {
+  newAddress.userId = parseInt(newAddress.userId)
+  newAddress.houseNumber = parseInt(newAddress.houseNumber)
+  const { userId, postalCode, country, state, city, streetName, houseNumber } = newAddress
 
-  return await userAddress.findOrCreate({
+  const [, wasCreated] = await UserAddress.findOrCreate({
     where: {
+      userId,
       postalCode,
+      state,
       city,
       streetName,
-      houseNumber,
-      deliveryInstructions,
-      floorApartment,
-      state
-    }
+      houseNumber
+    },
+    defaults: newAddress
   })
+
+  return wasCreated
 }
 
 async function removeAddress (addressId) {
-  return await userAddress.destroy({
+  const [updatedRows] = await UserAddress.update({
+    deleted: true
+  },
+  {
     where: { id: addressId }
   })
+
+  return updatedRows === 1
 }
 
 module.exports = {
-  getAllAddresses,
+  getUserAddresses,
   createAddress,
   removeAddress
 }
