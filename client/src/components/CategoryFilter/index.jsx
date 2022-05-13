@@ -1,15 +1,17 @@
+import { Box, Heading, UnorderedList, ListItem } from '@chakra-ui/react'
+
 export const CategoryFilter = () => {
   return (
-    <div>
-      <h2>Categorías:</h2>
-      <ul>
-        <li>Categoria 1</li>
-        <li>Categoria 2</li>
-        <li>Categoria 3</li>
-        <li>Categoria 4</li>
-        <li>Categoria 5</li>
-      </ul>
-    </div>
+    <Box>
+      <Heading size='sm' mb='0.5rem'>Categorías:</Heading>
+      <UnorderedList ml='0'>
+        <ListItem>Categoria 1</ListItem>
+        <ListItem>Categoria 2</ListItem>
+        <ListItem>Categoria 3</ListItem>
+        <ListItem>Categoria 4</ListItem>
+        <ListItem>Categoria 5</ListItem>
+      </UnorderedList>
+    </Box>
   )
 }
 
