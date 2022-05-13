@@ -1,19 +1,4 @@
-.searchBarContainer {
+.form {
   display: flex;
-  flex-wrap: wrap;
-  margin-top: 1rem;
-  justify-content: center;
-  margin-bottom: 1rem;
+  column-gap: 2rem;
 }
-
-.searchBox {
-  padding: 0.5rem 1rem;
-}
-
-.searchButton {
-  display: block;
-  height: 100%;
-  padding: 0.5rem 1rem;
-}
-
-/* placeholder css please remove when completing */

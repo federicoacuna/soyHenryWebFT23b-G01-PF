@@ -1,11 +1,7 @@
-import React from 'react'
-
 export const CategoryFilter = () => {
-  // useEffect(()=>{
-
-  // },[])
   return (
     <div>
+      <h2>Categorías:</h2>
       <ul>
         <li>Categoria 1</li>
         <li>Categoria 2</li>

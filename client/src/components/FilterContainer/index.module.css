@@ -1,15 +1,1 @@
-.container {
-  width: 200px;
-  height: 100%;
-  border: 1px solid #000;
-  position: sticky;
-  top: 0;
-}
 
-@media screen and (max-width: 768px) {
-  .container {
-    margin-bottom: 1rem;
-    width: 100%;
-    position: static;
-  }
-}

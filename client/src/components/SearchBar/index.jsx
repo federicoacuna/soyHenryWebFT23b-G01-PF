@@ -1,6 +1,8 @@
 import { useDispatch } from 'react-redux'
 import { useState } from 'react'
 import { getProducts } from '../../redux/actions/index'
+import { Box, Input, Button, Icon } from '@chakra-ui/react'
+import { BsSearch } from 'react-icons/bs'
 import styles from './index.module.css'
 
 export default function SearchBar () {
@@ -24,14 +26,35 @@ export default function SearchBar () {
   }
 
   return (
-    <div className={styles.searchBarContainer}>
-      <input
-        type='text' placeholder='Buscar' className={styles.searchBox}
-        value={item}
-        onKeyPress={e => e.key === 'Enter' && handleSubmit(e)}
-        onChange={e => handleInputChange(e)}
-      />
-      <input type='button' value='Search' className={styles.searchButton} />
-    </div>
+    <Box display='flex' marginTop='2rem' justifyContent='center' marginBottom='2rem'>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <Box position='relative'>
+          <Input
+            placeholder='Buscar ...'
+            onChange={handleInputChange}
+            value={item}
+            bg='secondary'
+            color='#000'
+            pl='1rem'
+            pr='2.5rem'
+            _focus
+            borderRadius='1rem'
+            boxShadow='0px 1px 2px 1px rgba(0,0,0,0.25)'
+
+          />
+          <Icon
+            as={BsSearch}
+            position='absolute'
+            right='1rem'
+            top='50%'
+            transform='translateY(-50%)'
+            w='1.5rem'
+            h='1.5rem'
+            color='#ABABAB'
+          />
+        </Box>
+        <Button bg='primary' color='accent' px='2rem' _hover _active _focus>Clean</Button>
+      </form>
+    </Box>
   )
 }

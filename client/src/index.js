@@ -13,7 +13,7 @@ axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:
 
 const colors = {
   primary: '#2C2C2E',
-  secundary: '#E5E5EA',
+  secondary: '#E5E5EA',
   accent: '#FFFFFF',
   error: '#FF0000'
 }
