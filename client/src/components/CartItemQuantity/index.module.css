@@ -1,12 +1,14 @@
 .container{
     display: flex;
     align-items: center;
-    height: 1.5rem;
+    justify-content: space-between;
+    height: 2rem;
+    
+    min-width: 6rem;
 }
 
 .container button{
-    height: 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    
+    background-color: #E5E5EA;
 }
+

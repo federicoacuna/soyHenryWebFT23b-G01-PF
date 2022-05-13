@@ -1,16 +1,56 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+
 .containerAll{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 2rem;
 }
 
+.containerAll .arrow{
+    align-self: flex-start;
+}
+
 .container{
-    width: 80%;
+    margin-top: 1rem;
+    width: 60%;
     min-height: 50%;
-    background-color: grey;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.container .btnDelete{
+    align-self: flex-end;
+}
+
+.container .total{
+    align-self: flex-end;
+    margin-right: 1rem;
+}
+
+.container .btnCheckout{
+    align-self: flex-end;
+}
+
+p span{
+    margin-top: 3rem;
+    font-weight: 600;
+}
+
+.btnCheckout{
+    background-color: #2C2C2E;
+    color: white;
+    border-radius: 1.2rem;
+    padding: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+.btnCheckout:hover{
+    background-color: black;
 }

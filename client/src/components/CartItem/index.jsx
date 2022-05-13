@@ -10,7 +10,7 @@ export default function CartItem ({ product }) {
       <h2>{name}</h2>
       <CartItemQuantity product={product} />
       <div className={s.priceAndRemove}>
-        <p>{quantity} x {price} = {quantity * price}</p>
+        <p>${quantity * price}</p>
         <CartItemRemove product={product} />
       </div>
 
