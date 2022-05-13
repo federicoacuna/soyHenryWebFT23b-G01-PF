@@ -3,7 +3,7 @@ import { Box, Heading, Flex, Input } from '@chakra-ui/react'
 const PriceFilter = () => {
   return (
     <Box mb='1rem'>
-      <Heading size='sm' mb='1rem'>Rango de precio:</Heading>
+      <Heading size='sm' mb='0.5rem'>Rango de precio:</Heading>
       <Flex columnGap='1rem' justifyContent='space-around'>
         <Input
           name='minPrice'
