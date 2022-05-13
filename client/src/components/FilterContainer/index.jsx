@@ -1,12 +1,16 @@
-import React from 'react'
 import CategoryFilter from '../CategoryFilter'
-import s from './index.module.css'
+import PriceFilter from '../PriceFilter'
+import BrandFilter from '../BrandFilter'
+import { Box, Heading } from '@chakra-ui/react'
 
 const FilterContainer = () => {
   return (
-    <div className={s.container}>
+    <Box bg='secondary' padding='1rem' boxShadow='3px 3px 5px 1px rgba(0,0,0,0.25)' borderRadius='1rem' height='max-content'>
+      <Heading size='md' mb='1rem' textTransform='uppercase'>Filtros</Heading>
+      <PriceFilter />
+      <BrandFilter />
       <CategoryFilter />
-    </div>
+    </Box>
   )
 }
 

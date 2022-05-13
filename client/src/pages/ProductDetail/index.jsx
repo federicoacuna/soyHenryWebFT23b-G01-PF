@@ -12,7 +12,7 @@ function ProductDetail () {
     brand: 'Inc',
     model: '3vavcbu',
     price: '981.00',
-    img: [
+    image: [
       'https://m.media-amazon.com/images/I/81bc8mA3nKL._AC_SX679_.jpg'
     ],
     categories: [{ name: 'Laptops' }]
