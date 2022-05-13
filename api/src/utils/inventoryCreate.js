@@ -4,11 +4,15 @@ const saveProducts = async () => {
   try {
     await Inventory.create(
       {
+        branchId: 1,
+        productId: 3,
         stock: 20
       })
     await Inventory.create(
       {
-        stock: 0
+        branchId: 1,
+        productId: 7,
+        stock: 11
       })
   } catch (err) {
     console.log(err)
