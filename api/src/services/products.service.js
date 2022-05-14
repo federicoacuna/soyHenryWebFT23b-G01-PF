@@ -12,7 +12,7 @@ async function getProducts (options) {
     where: {}
   }
   search && (dbSearchOptions.where.name = { [Op.iLike]: `%${search}%` })
-  brand && (dbSearchOptions.where.brand = brand)
+  brand && (dbSearchOptions.where.brandId = brand)
   minPrice && (dbSearchOptions.where.price = { [Op.gte]: minPrice })
   maxPrice && (dbSearchOptions.where.price = { [Op.lte]: maxPrice })
   minPrice && maxPrice && (dbSearchOptions.where.price = { [Op.between]: [minPrice, maxPrice] })
