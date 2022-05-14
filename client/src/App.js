@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getCategories, getProducts, setCartProducts } from './redux/actions'
+import { getBrands, getCategories, getProducts, setCartProducts } from './redux/actions'
 import { Route, Routes } from 'react-router-dom'
 import NavBar from './components/NavBar'
 import UsersHome from './pages/UsersHome'
@@ -16,6 +16,7 @@ function App () {
   useEffect(() => {
     const cartProducts = JSON.parse(window.localStorage.getItem('cartProducts')) || []
     dispatch(setCartProducts(cartProducts))
+    dispatch(getBrands())
     dispatch(getCategories())
   }, [])//eslint-disable-line
 

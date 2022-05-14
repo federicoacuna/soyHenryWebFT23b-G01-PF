@@ -35,7 +35,7 @@ function ProductDetail (props) {
             <Text fontWeight='bold' pt={3}>Especificaciones:</Text>
             <Text>{product.description}</Text>
             <Text fontWeight='bold' pt={3}>Marca:</Text>
-            <Text>{product.brand}</Text>
+            <Text>{product.brand && product.brand.name}</Text>
             <Text fontWeight='bold' pt={3}>Modelo:</Text>
             <Text>{product.model}</Text>
 
