@@ -1,6 +1,7 @@
 
 import {
   GET_PRODUCTS,
+  GET_BRANDS,
   GET_CATEGORIES,
   GET_PRODUCT_DETAILS,//eslint-disable-line
   ADD_FILTER_PARAM,
@@ -15,6 +16,7 @@ import {
 const initialState = {
   products: [],
   cartProducts: [],
+  brands: [],
   categories: [],
   options: {},
   product: {}
@@ -29,12 +31,14 @@ const reducer = (state = initialState, action) => {
         ...state,
         products: payload
       }
+
     case GET_PRODUCT_DETAILS:
       return {
         ...state,
         product: payload
 
       }
+
     case ADD_FILTER_PARAM:
       return {
         ...state,
@@ -43,10 +47,17 @@ const reducer = (state = initialState, action) => {
           [payload.name]: [payload.value]
         }
       }
+
     case CLEAR_FILTER_PARAMS:
       return {
         ...state,
         options: {}
+      }
+
+    case GET_BRANDS:
+      return {
+        ...state,
+        brands: payload
       }
 
     case GET_CATEGORIES:

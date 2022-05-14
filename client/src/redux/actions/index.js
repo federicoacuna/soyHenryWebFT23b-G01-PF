@@ -1,8 +1,10 @@
 import { getProductsService, getDetailsProductsService } from '../../services/products'
+import { getBrandsService } from '../../services/brands'
 import { getCategoriesService } from '../../services/categories'
 
 import {
   GET_PRODUCTS,
+  GET_BRANDS,
   GET_CATEGORIES,
   GET_PRODUCT_DETAILS,
   ADD_FILTER_PARAM,
@@ -44,6 +46,24 @@ export const getProductDetails = (productId) => {
     } catch (error) {
       dispatch({
         type: GET_PRODUCT_DETAILS,
+        payload: error.message
+      })
+    }
+  }
+}
+
+export const getBrands = () => {
+  return async (dispatch) => {
+    try {
+      const brands = await getBrandsService()
+
+      dispatch({
+        type: GET_BRANDS,
+        payload: brands
+      })
+    } catch (error) {
+      dispatch({
+        type: GET_BRANDS,
         payload: error.message
       })
     }
