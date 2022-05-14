@@ -13,9 +13,10 @@ function ProductDetail (props) {
   console.log(product)
   const dispatch = useDispatch()
   const { id } = useParams()
+
   useEffect(() => {
     dispatch(getProductDetails(id))
-  })
+  }, [])//eslint-disable-line
 
   return (
     <Flex alignItems='flex-start'>
