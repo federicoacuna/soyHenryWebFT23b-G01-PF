@@ -37,8 +37,12 @@ conn.sync({ force: true }).then(() => {
   require('./src/utils/userRolesCreate.js')
   require('./src/utils/userCreate.js')
   require('./src/utils/branchCreate.js')
-  // require('./src/utils/cartItemsCreate.js') FIXME: Arreglar seeder
-  // require('./src/utils/inventoryCreate.js') FIXME: Arreglar seeder
+  require('./src/utils/userAddressesSeeder.js')
+  require('./src/utils/branchCreate.js')
+  // require('./src/utils/cartItemsCreate.js') FIXME: descomentar cuando se haya arreglado el seeder
+  // require('./src/utils/inventoryCreate.js') FIXME: descomentar cuando se haya arreglado el seeder
+  require('./src/utils/paymentTypeCreate')
+  // require('./src/utils/paymentCreate.js') FIXME: descomentar cuando se haya arreglado el seeder
   server.listen(port, () => {
     console.log('Backend listening at 3001') // eslint-disable-line no-console
   })
