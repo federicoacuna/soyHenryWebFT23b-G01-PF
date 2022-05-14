@@ -1,14 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { Show, Box, UnorderedList, ListItem, Icon } from '@chakra-ui/react'
+import { Show, Box, UnorderedList, ListItem, Icon, Heading, Text } from '@chakra-ui/react'
 import { TiShoppingCart } from 'react-icons/ti'
 import { BsShop } from 'react-icons/bs'
 import { GrMenu } from 'react-icons/gr'
 import styles from './index.module.css'
+import ModalLogin from '../../components/ModalLogin'
 
 const NavBar = () => {
   const cartProducts = useSelector(state => state.cartProducts.reduce((acc, curr) => acc + curr.quantity, 0))
+  const [modal, setModal] = useState(false)
+
+  // const { isOpen, onToggle } = useDisclosure()
+
+  const handleSubmit = () => {
+    setModal(true)
+    // onToggle()
+  }
 
   return (
     <>
@@ -25,6 +34,9 @@ const NavBar = () => {
                 <Link to='/' className={styles.navLink}>Home</Link>
               </ListItem>
               <ListItem>
+                <Link to='#' onClick={handleSubmit} className={styles.navLink}>Ingresar</Link>
+              </ListItem>
+              <ListItem>
                 <Link to='/cart' className={styles.cartLink}>
                   {cartProducts > 0 ? <span>{cartProducts}</span> : undefined}
                   <Icon as={TiShoppingCart} width='2rem' height='2rem' />
@@ -32,6 +44,12 @@ const NavBar = () => {
               </ListItem>
             </UnorderedList>
           </nav>
+          {/* <Fade inde in={isOpen}> */}
+          <ModalLogin state={modal} setState={setModal}>
+            <Heading color='black' textAlign='center'>Iniciar sesión</Heading>
+            <Text color='black' mt={2} textAlign='center'>Ingresa a tu cuenta para ver tus compras, favoritos, etc.</Text>
+          </ModalLogin>
+          {/* </Fade> */}
         </Box>
       </Show>
 
