@@ -1,4 +1,4 @@
-const { Product, Category } = require('../db')
+const { Product, Category, Brand } = require('../db')
 const { faker } = require('@faker-js/faker')
 
 const categories = [
@@ -12,6 +12,23 @@ const categories = [
   'Smartphones',
   'Consolas',
   'Alfombrillas'
+]
+
+const brands = [
+  'Dell',
+  'HP',
+  'Lenovo',
+  'Asus',
+  'Logitech',
+  'Razer',
+  'Predator',
+  'Mintaka',
+  'MSI',
+  'LG',
+  'Samsung',
+  'Acer',
+  'Apple',
+  'Xiaomi'
 ]
 
 const images = [
@@ -60,19 +77,24 @@ const images = [
 const saveProducts = async () => {
   try {
     for (let i = 0; i < categories.length; i++) {
-      Category.create({ name: categories[i] })
+      await Category.create({ name: categories[i] })
+    }
+
+    for (let i = 0; i < brands.length; i++) {
+      await Brand.create({ name: brands[i] })
     }
 
     for (let i = 0; i < categories.length; i++) {
       for (let j = 0; j < images[i].length; j++) {
-        Product.create({
+        await Product.create({
           name: faker.lorem.sentence(),
           description: faker.lorem.paragraph(),
           brand: faker.company.companySuffix(),
           model: faker.random.alphaNumeric(7),
           price: faker.commerce.price(15, 1000, 2),
           image: [images[i][j]],
-          categoryId: i + 1
+          categoryId: i + 1,
+          brandId: Math.floor(Math.random() * ((brands.length + 1) - 1) + 1)
         })
       }
     }
