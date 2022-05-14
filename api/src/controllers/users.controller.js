@@ -1,9 +1,16 @@
 const Users = require('../services/users.service')
 
 const get = async (req, res) => {
+  const email = req.query.email
+  if(!email) {
+    return res.status(400).json({ error: 'Must provide user email' })
+  }
+  if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+    return res.status(400).json({ error: 'Must provide a valid email' })
+  }
   try {
-    const users = await Users.getUserByEmail(req.query.email)
-    users ? res.json(users) : res.status(400).json({ error: 'No users where found' })
+    const users = await Users.getUserByEmail(email)
+    users.length ? res.json(users) : res.status(400).json({ error: 'No users where found' })
   } catch (error) {
     res.status(400).json(error)
   }
@@ -14,6 +21,9 @@ const getById = async (req, res) => {
 
   if (!id) {
     return res.status(400).json({ error: 'User ID is missing' })
+  }
+  if (!isNaN(parseInt(id))) {
+    return res.status(400).json({ error: 'User ID must be an integer' })
   }
   try {
     const user = await Users.getById(id)
@@ -39,6 +49,9 @@ const update = async (req, res) => {
   if (!id) {
     return res.status(400).json({ error: 'User ID is missing' })
   }
+  if (!isNaN(parseInt(id))) {
+    return res.status(400).json({ error: 'User ID must be an integer' })
+  }
   try {
     const wasUpdated = await Users.updateUser(req.body)
     wasUpdated ? res.json({ message: 'User succesfully updated' }) : res.status(400).json({ error: 'Unable to update user' })
@@ -52,6 +65,9 @@ const remove = async (req, res) => {
 
   if (!id) {
     return res.status(400).json({ error: 'User ID is missing' })
+  }
+  if (!isNaN(parseInt(id))) {
+    return res.status(400).json({ error: 'User ID must be an integer' })
   }
   try {
     const wasRemoved = await Users.removeUser(id)
