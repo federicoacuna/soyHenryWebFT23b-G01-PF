@@ -1,4 +1,4 @@
-const { Product, Category } = require('../db')
+const { Product, Category, Brand } = require('../db')
 const { Op } = require('sequelize')
 
 async function getProducts (options) {
@@ -25,10 +25,16 @@ async function getProducts (options) {
 
 async function getProductDetail (productID) {
   const dbSearchOptions = {
-    include: {
-      model: Category,
-      attributes: ['name', 'id']
-    },
+    include: [
+      {
+        model: Category,
+        attributes: ['name', 'id']
+      },
+      {
+        model: Brand,
+        attributes: ['name', 'id']
+      }
+    ],
     where: {
       id: productID
     }
