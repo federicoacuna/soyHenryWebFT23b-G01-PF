@@ -14,12 +14,12 @@ export const Cart = () => {
 
       <div className={s.container}>
         <div className={s.btnDelete}>
-          <CartDeleteAllProducts />
+          {cartProducts.length ? <CartDeleteAllProducts /> : <p />}
         </div>
 
         <CartItems />
         <p className={s.total}>Total: <span>${cartProducts.reduce((acc, p) => acc + (p.quantity * p.price), 0)}</span> </p>
-        <button className={s.btnCheckout}>Continuar compra</button>
+        {cartProducts.length ? <button className={s.btnCheckout}>Continuar compra</button> : <p />}
       </div>
     </div>
 

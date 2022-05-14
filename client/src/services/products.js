@@ -15,7 +15,7 @@ export const getProductsService = async (options) => {
 }
 
 export const getDetailsProductsService = async (productId) => {
-  const urlString = `/product/${productId}`
+  const urlString = `/products/${productId}`
 
   const { data } = await axios.get(urlString)
   return data

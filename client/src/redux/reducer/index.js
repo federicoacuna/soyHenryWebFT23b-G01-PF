@@ -16,7 +16,8 @@ const initialState = {
   products: [],
   cartProducts: [],
   categories: [],
-  options: {}
+  options: {},
+  product: {}
 }
 
 const reducer = (state = initialState, action) => {
@@ -28,7 +29,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         products: payload
       }
+    case GET_PRODUCT_DETAILS:
+      return {
+        ...state,
+        product: payload
 
+      }
     case ADD_FILTER_PARAM:
       return {
         ...state,

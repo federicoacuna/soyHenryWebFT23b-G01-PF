@@ -35,11 +35,11 @@ export const getProducts = (options) => {
 export const getProductDetails = (productId) => {
   return async (dispatch) => {
     try {
-      const products = await getDetailsProductsService(productId)
+      const product = await getDetailsProductsService(productId)
 
       dispatch({
         type: GET_PRODUCT_DETAILS,
-        payload: products
+        payload: product
       })
     } catch (error) {
       dispatch({
