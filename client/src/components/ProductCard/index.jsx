@@ -1,19 +1,17 @@
 import CartButton from '../CartButton'
-import styles from './index.module.css'
+import s from './index.module.css'
 import { Link } from 'react-router-dom'
 
 export default function ProductCard ({ product }) {
-  const { name, price, image, category } = product
+  const { id, name, price, image } = product
 
   return (
-    <div className={styles.cardContainer}>
-      <Link to='/productDetail'>
-        <h3 className={styles.productTitle}>{name}</h3>
-        <img src={image[0]} alt='Product' className={styles.productImage} />
-        <p className={styles.productInformation}>
-          Categoria: {category.name}
-        </p>
-        <p className={styles.productInformation}>Precio: {price}</p>
+    <div className={s.cardContainer}>
+      <Link className={s.link} to={'/productDetail/' + id}>
+
+        <img src={image[0]} alt='Product' className={s.productImage} />
+        <h3 className={s.productTitle}>{name}</h3>
+        <p>${price}</p>
       </Link>
       <CartButton product={product} />
     </div>

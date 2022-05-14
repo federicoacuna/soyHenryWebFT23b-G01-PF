@@ -1,26 +1,38 @@
 .cardContainer {
+  min-height: 20rem;
+  max-height: 20rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid #000;
-  border-radius: 1rem;
+  justify-content: center;
+  border-radius: 0.8rem;
   padding: 1rem;
+  background-color: #E5E5EA;
+  box-shadow: 3px 3px 5px 1px rgba(0,0,0,0.25);
 }
 
-.productTitle {
-}
-
-.productImage {
-}
-
-.productInformation {
-}
-
-.addCartButton {
-}
-
-img {
-  width: 200px;
-  height: 200px;
+.cardContainer img {
+  width: 6rem;
+  height: 6rem;
   object-fit: contain;
 }
+
+.link{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.link h3{
+  min-width: 80%;
+  max-width: 80%;
+  font-weight: 400;
+}
+
+.link p{
+  align-self: flex-start;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+

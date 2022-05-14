@@ -57,7 +57,7 @@ export default function SearchBar () {
             color='#ABABAB'
           />
         </Box>
-        <Button bg='primary' color='accent' px='2rem' _hover _active _focus onClick={handleClick} name='Clean'>Clean</Button>
+        <Button bg='primary' color='accent' px='2rem' pb='0.2rem' _hover _active _focus onClick={handleClick} name='Clean'>Clean</Button>
       </form>
     </Box>
   )
