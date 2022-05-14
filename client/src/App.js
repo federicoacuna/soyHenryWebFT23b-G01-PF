@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getProducts, setCartProducts } from './redux/actions'
+import { getCategories, getProducts, setCartProducts } from './redux/actions'
 import { Route, Routes } from 'react-router-dom'
 import NavBar from './components/NavBar'
 import UsersHome from './pages/UsersHome'
@@ -14,17 +14,18 @@ function App () {
   const options = useSelector(state => state.options)
 
   useEffect(() => {
-    dispatch(getProducts(options))
-  }, [options])
-
-  useEffect(() => {
     const cartProducts = JSON.parse(window.localStorage.getItem('cartProducts')) || []
     dispatch(setCartProducts(cartProducts))
+    dispatch(getCategories())
   }, [])//eslint-disable-line
 
   useEffect(() => {
     window.localStorage.setItem('cartProducts', JSON.stringify(cartProducts))
   }, [cartProducts])
+
+  useEffect(() => {
+    dispatch(getProducts(options))
+  }, [options])//eslint-disable-line
 
   return (
     <div>
