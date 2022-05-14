@@ -39,6 +39,9 @@ conn.sync({ force: true }).then(() => {
   require('./src/utils/branchCreate.js')
   require('./src/utils/cartItemsCreate.js')
   require('./src/utils/inventoryCreate.js')
+  require('./src/utils/paymentTypeCreate')
+  require('./src/utils/paymentCreate.js')
+  require('./src/utils/addressCreate.js')
   server.listen(port, () => {
     console.log('Backend listening at 3001') // eslint-disable-line no-console
   })
