@@ -6,9 +6,9 @@ async function getUserByEmail (userEmail) {
   })
 }
 
-async function getById(userId){
-  let user = await User.findOne({
-    where: {id: userId}
+async function getById (userId) {
+  const user = await User.findOne({
+    where: { id: userId }
   })
   return user
 }
@@ -44,11 +44,12 @@ async function updateUser (data) {
 }
 
 async function removeUser (userId) {
-  return await User.update({deleted: true}, { where: { id: userId } })
+  return await User.update({ deleted: true }, { where: { id: userId } })
 }
 
 module.exports = {
   getUserByEmail,
+  getById,
   createUser,
   updateUser,
   removeUser
