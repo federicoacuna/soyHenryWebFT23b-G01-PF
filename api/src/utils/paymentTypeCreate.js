@@ -3,10 +3,10 @@ const { PaymentType } = require('../db')
 const saveProducts = async () => {
   try {
     await PaymentType.create({
-      paymentName: 'Tar Crédito'
+      paymentName: 'Tarj. Crédito'
     })
     await PaymentType.create({
-      paymentName: 'Tar Débito'
+      paymentName: 'Tarj. Débito'
     })
     await PaymentType.create({
       paymentName: 'Mercado Pago'

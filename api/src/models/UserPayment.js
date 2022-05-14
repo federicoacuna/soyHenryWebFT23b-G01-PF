@@ -5,10 +5,7 @@ module.exports = sequelize => {
     cardNumber: {
       type: DataTypes.BIGINT,
       allownull: false,
-      unique: true,
-      validate: {
-        isCreditCard: true
-      }
+      unique: true
     },
     expirationDay: {
       type: DataTypes.DATEONLY,
