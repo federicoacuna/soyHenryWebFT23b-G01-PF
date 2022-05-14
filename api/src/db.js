@@ -30,16 +30,16 @@ sequelize.models = Object.fromEntries(capsEntries)
 const { Category, Brand, Product, Role, User, UserAddress, UserPayment, Branch, CartItem, Inventory, Order, OrderItem, PaymentType, WishList, Review } = sequelize.models//eslint-disable-line
 
 // Aca vendrian las relaciones
-Category.hasMany(Product, { foreingKey: { allowNull: false } })
+Category.hasMany(Product, { foreignKey: { allowNull: false } })
 Product.belongsTo(Category)
 
-Brand.hasMany(Product, { foreingKey: { allowNull: false } })
+Brand.hasMany(Product, { foreignKey: { allowNull: false } })
 Product.belongsTo(Brand)
 
 User.hasMany(UserAddress)
 UserAddress.belongsTo(User)
 
-User.hasMany(UserPayment, { foreingKey: { allowNull: false } })
+User.hasMany(UserPayment, { foreignKey: { allowNull: false } })
 UserPayment.belongsTo(User)
 
 PaymentType.hasMany(UserPayment)
@@ -57,16 +57,16 @@ Product.belongsToMany(User, { through: 'cartItem' })
 Product.belongsToMany(Branch, { through: 'inventory' })
 Branch.belongsToMany(Product, { through: 'inventory' })
 
-User.hasMany(Order)
+User.hasMany(Order, { foreignKey: { allowNull: false } })
 Order.belongsTo(User)
 
-UserPayment.hasMany(Order)
+UserPayment.hasMany(Order, { foreignKey: { allowNull: false } })
 Order.belongsTo(UserPayment)
 
-UserAddress.hasMany(Order)
+UserAddress.hasMany(Order, { foreignKey: { allowNull: false } })
 Order.belongsTo(UserAddress)
 
-Branch.hasMany(Order)
+Branch.hasMany(Order, { foreignKey: { allowNull: false } })
 Order.belongsTo(Branch)
 
 Product.belongsToMany(Order, { through: 'orderItem' })
