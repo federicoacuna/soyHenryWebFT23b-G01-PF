@@ -21,7 +21,7 @@ const create = (req, res) => {
     res.status(400).json({ error: 'Must provide user ID' })
   }
   try {
-    const wasCreated = userPayment.create(req.body)
+    const wasCreated = userPayment.createPayment(req.body)
     wasCreated ? res.json({ message: 'Payment method was succesfully registered' }) : res.status(400).json({ error: 'Payment method could not registered' })
   } catch (error) {
     res.status(400).json(error)
@@ -29,14 +29,14 @@ const create = (req, res) => {
 }
 
 const remove = (req, res) => {
-  const { userId } = req.params
+  const { paymentId } = req.params
 
-  if (!userId) {
-    res.status(400).json({ error: 'Must provide user ID' })
+  if (!paymentId) {
+    res.status(400).json({ error: 'Payment Id must be provided' })
   }
   try {
-    const wasUpdated = userPayment.update(req.body)
-    wasUpdated ? res.json({ message: 'Payment method was succesfully registered' }) : res.status(400).json({ error: 'Payment method could not registered' })
+    const wasUpdated = userPayment.removePayment(paymentId)
+    wasUpdated ? res.json({ message: 'Payment method was succesfully deleted' }) : res.status(400).json({ error: 'Payment method could not be deleted' })
   } catch (error) {
     res.status(400).json(error)
   }
