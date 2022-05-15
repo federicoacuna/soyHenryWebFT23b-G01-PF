@@ -21,6 +21,10 @@ module.exports = sequelize => {
         isAlpha: true,
         notEmpty: true
       }
-    }
+    },
+    deleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+      }
   })
 }
