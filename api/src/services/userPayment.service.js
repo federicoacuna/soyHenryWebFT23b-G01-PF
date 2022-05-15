@@ -1,32 +1,36 @@
 const { UserPayment, PaymentType } = require('../db')
 
-async function getAllPayments (userId) {
+async function getUserPayments (userId) {
   return await UserPayment.findAll({
     where: { userId },
     include: PaymentType
   })
 }
 
-async function createPayment (data) {
-  const { cardNumber, expirationDay, provider } = data
+async function createUserPayment (newUserPayment) {
+  const { cardNumber } = newUserPayment
 
-  return await UserPayment.findOrCreate({
+  const [, wasCreated] = await UserPayment.findOrCreate({
     where: {
-      cardNumber,
-      expirationDay,
-      provider
-    }
+      cardNumber
+    },
+    defaults: newUserPayment
   })
+
+  return wasCreated
 }
 
-async function removePayment (paymentId) {
-  return await UserPayment.destroy({
+async function removeUserPayment (paymentId) {
+  const deletedPayment = await UserPayment.update({
+    deleted: true,
     where: { id: paymentId }
   })
+
+  return !!deletedPayment
 }
 
 module.exports = {
-  getAllPayments,
-  createPayment,
-  removePayment
+  getUserPayments,
+  createUserPayment,
+  removeUserPayment
 }
