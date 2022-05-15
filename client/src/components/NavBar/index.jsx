@@ -12,6 +12,8 @@ const NavBar = () => {
   const cartProducts = useSelector(state => state.cartProducts.reduce((acc, curr) => acc + curr.quantity, 0))
   const [modal, setModal] = useState(false)
 
+  const [isRegistrando, setIsRegistrando] = React.useState(false)
+
   // const { isOpen, onToggle } = useDisclosure()
 
   const handleSubmit = () => {
@@ -45,8 +47,8 @@ const NavBar = () => {
             </UnorderedList>
           </nav>
           {/* <Fade inde in={isOpen}> */}
-          <ModalLogin state={modal} setState={setModal}>
-            <Heading color='black' textAlign='center'>Iniciar sesión</Heading>
+          <ModalLogin isRegistrando={isRegistrando} setIsRegistrando={setIsRegistrando} state={modal} setState={setModal}>
+            <Heading color='black' textAlign='center'>{isRegistrando ? 'Registrate' : 'Inicia Sesion'}</Heading>
             <Text color='black' mt={2} textAlign='center'>Ingresa a tu cuenta para ver tus compras, favoritos, etc.</Text>
           </ModalLogin>
           {/* </Fade> */}
