@@ -8,6 +8,8 @@ import Cart from './pages/Cart'
 import ProductDetail from './pages/ProductDetail'
 import './App.css'
 
+import { app } from './config/firebase-config' //eslint-disable-line
+
 function App () {
   const dispatch = useDispatch()
   const cartProducts = useSelector(state => state.cartProducts)

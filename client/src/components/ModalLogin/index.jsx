@@ -4,9 +4,21 @@ import { Stack, InputGroup, Input, Button, Flex, Text, InputLeftElement, InputRi
 import { FcGoogle } from 'react-icons/fc'
 import { AiOutlineClose } from 'react-icons/ai'
 import { MdAlternateEmail, MdOutlineLock } from 'react-icons/md'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 
-export const ModalLogin = ({ children, onToggle, state, setState }) => {
+// Firebase
+// import { app } from '../../config/firebase-config'
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/auth'
+
+export const ModalLogin = ({ children, onToggle, state, setState, isRegistrando, setIsRegistrando }) => {
+  const [auth, setAuth] = React.useState('')
+  // React.useState(//eslint-disable-line
+  //   false || window.localStorage.getItem('auth') === 'true'
+  // )
+
+  const [token, setToken] = React.useState('tuki') //eslint-disable-line
+
   const [values, setValues] = React.useState({
     email: '',
     password: ''
@@ -17,6 +29,20 @@ export const ModalLogin = ({ children, onToggle, state, setState }) => {
   })
   const toast = useToast()
   const [show, setShow] = React.useState(false)
+
+  React.useEffect(() => {
+    firebase.auth().onAuthStateChanged((userCred) => {
+      if (userCred) {
+        setAuth(true)
+        window.localStorage.setItem('auth', 'true')
+        userCred.getIdToken().then((token) => {
+          console.log(token)
+          setToken(token)
+        })
+      }
+    })
+    validate()
+  }, [token,auth,isRegistrando,values]) //eslint-disable-line
 
   const handleChange = (e) => {
     validate()
@@ -31,6 +57,25 @@ export const ModalLogin = ({ children, onToggle, state, setState }) => {
     })
     // onToggle()
   }
+  function crearUsuario (correo, password) {
+    firebase.auth().createUserWithEmailAndPassword(correo, password)
+      .then((userFirebase) => {
+        console.log(userFirebase)
+        setAuth(userFirebase)
+      })
+  }
+
+  function iniciarSesion (correo, password) {
+    firebase.auth().signInWithEmailAndPassword(correo, password)
+      .then((userFirebase) => {
+        setAuth(userFirebase)
+      })
+
+      .catch(error => {
+        alert('user invalid')
+        console.log(error)
+      })
+  }
 
   const handleSubmit = () => {
     if (!values.email || !values.password) {
@@ -41,7 +86,18 @@ export const ModalLogin = ({ children, onToggle, state, setState }) => {
         isClosable: true
       })
     }
+    const correo = values.email
+    const password = values.password
+
+    if (isRegistrando) {
+      crearUsuario(correo, password)
+    }
+    if (!isRegistrando) {
+      iniciarSesion(correo, password)
+    }
+    handleClick()
   }
+
   const ShowPassword = () => {
     setShow(!show)
     // onToggle()
@@ -69,9 +125,35 @@ export const ModalLogin = ({ children, onToggle, state, setState }) => {
       password: error.password
     })
   }
-  React.useEffect(() => {
-    validate()
-  }, [values]) //eslint-disable-line
+
+  const loginWithGoogle = () => {
+    firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())
+      .then((userCred) => {
+        if (userCred) {
+          setAuth(true)
+          window.localStorage.setItem('auth', 'true')
+          handleClick()
+        }
+      })
+  }
+
+  function handleLogOut () {
+    if (auth) {
+      firebase.auth().signOut()
+        .then(() => {
+          setAuth(false)
+          setToken('')
+          window.localStorage.setItem('auth', 'false')
+          alert('sesion cerrada')
+          handleClick()
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    } else {
+      alert('sin sesion iniciada')
+    }
+  }
 
   return (
     <>
@@ -109,9 +191,10 @@ export const ModalLogin = ({ children, onToggle, state, setState }) => {
 
                 <Flex flexDirection='column' justifyContent='center'>
                   <Button onClick={handleSubmit} color='black' mt={3}>Iniciar sesión</Button>
-                  <Button color='black' mt='10px' leftIcon={<FcGoogle />}>Continuar con Google</Button>
-                  <Link to='/signup'><Text color='black' mt={1} mb={10} textAlign='center'>¿No tienes una cuenta? Registrate gratis.</Text></Link>
+                  <Button onClick={loginWithGoogle} color='black' mt='10px' leftIcon={<FcGoogle />}>Continuar con Google</Button>
+                  <Button color='black' mt='10px' onClick={() => setIsRegistrando(!isRegistrando)}>{isRegistrando ? '¿Ya tienes cuenta? Inicia sesion!' : 'Registrate gratis!'}</Button>
                 </Flex>
+                <Button color='black' mt='10px' onClick={handleLogOut}>Log out</Button>
               </Stack>
             </Flex>
           </div>
@@ -120,4 +203,7 @@ export const ModalLogin = ({ children, onToggle, state, setState }) => {
   )
 }
 
+// <Link to='/signup'><Text color='black' mt={1} mb={10} textAlign='center'>¿No tienes una cuenta? Registrate gratis.</Text></Link>
+
+/* <button onClick={()=> setIsRegistrando(!isRegistrando)}> {isRegistrando ? "Ya tienes cuenta? Inicia sesion!" : "No tienes cuenta? Registrate gratis!" }</button> */
 export default ModalLogin
