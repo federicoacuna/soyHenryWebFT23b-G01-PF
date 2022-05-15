@@ -36,7 +36,6 @@ export const ModalLogin = ({ children, onToggle, state, setState, isRegistrando,
         setAuth(true)
         window.localStorage.setItem('auth', 'true')
         userCred.getIdToken().then((token) => {
-          console.log(token)
           setToken(token)
         })
       }
