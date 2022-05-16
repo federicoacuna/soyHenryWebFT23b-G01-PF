@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Text, Button, Flex, Box, Select } from '@chakra-ui/react'
-import { setUserAddresses } from '../../redux/actions/index'
+import { setUserAddress } from '../../redux/actions/index'
 
 const AddressSelector = () => {
   const userAddresses = useSelector(state => state.user.userAddresses)
@@ -25,7 +25,7 @@ const AddressSelector = () => {
             : 'Agrega un domicilio.'}
         </Select>
 
-        <Button colorScheme='blue' onClick={() => dispatch(setUserAddresses(address.value))}>Continuar</Button>
+        <Button colorScheme='blue' onClick={() => dispatch(setUserAddress(address.value))}>Continuar</Button>
 
       </Box>
 
