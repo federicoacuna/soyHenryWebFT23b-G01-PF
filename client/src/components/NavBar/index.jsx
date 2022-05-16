@@ -1,24 +1,45 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Show, Box, UnorderedList, ListItem, Icon, Heading, Text } from '@chakra-ui/react'
 import { TiShoppingCart } from 'react-icons/ti'
 import { BsShop } from 'react-icons/bs'
 import { GrMenu } from 'react-icons/gr'
 import styles from './index.module.css'
 import ModalLogin from '../../components/ModalLogin'
+import firebase from 'firebase/compat/app'
+import { logOut, logIn } from '../../redux/actions'
 
 const NavBar = () => {
   const cartProducts = useSelector(state => state.cartProducts.reduce((acc, curr) => acc + curr.quantity, 0))
   const [modal, setModal] = useState(false)
-
   const [isRegistrando, setIsRegistrando] = React.useState(false)
+  const isAuth = useSelector(state => state.isAuth)
+  const dispatch = useDispatch()
 
   // const { isOpen, onToggle } = useDisclosure()
+  const handleSubmit = (e) => {
+    e.target.name === 'ingresar' && setModal(true)
+    e.target.name === 'salir' && handleLogOut()
+  }
 
-  const handleSubmit = () => {
-    setModal(true)
-    // onToggle()
+  useEffect(() => {
+    JSON.parse(window.localStorage.getItem('auth')) && dispatch(logIn())
+  }, []) // eslint-disable-line
+  function handleLogOut () {
+    if (isAuth) {
+      firebase.auth().signOut()
+        .then(() => {
+          dispatch(logOut())
+          window.localStorage.setItem('auth', 'false')
+          alert('sesion cerrada')
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    } else {
+      alert('sin sesion iniciada')
+    }
   }
 
   return (
@@ -36,7 +57,7 @@ const NavBar = () => {
                 <Link to='/' className={styles.navLink}>Home</Link>
               </ListItem>
               <ListItem>
-                <Link to='#' onClick={handleSubmit} className={styles.navLink}>Ingresar</Link>
+                {isAuth ? <Link to='#' onClick={handleSubmit} className={styles.navLink} name='salir'>Salir</Link> : <Link to='#' onClick={handleSubmit} className={styles.navLink} name='ingresar'>Ingresar</Link>}
               </ListItem>
               <ListItem>
                 <Link to='/cart' className={styles.cartLink}>

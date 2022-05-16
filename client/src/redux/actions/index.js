@@ -13,7 +13,9 @@ import {
   SET_CART_PRODUCTS,
   ADD_PRODUCT_TO_CART,
   REMOVE_PRODUCT_FROM_CART,
-  REMOVE_CART_ITEM
+  REMOVE_CART_ITEM,
+  LOG_IN,
+  LOG_OUT
 } from '../constants'
 
 export const getProducts = (options) => {
@@ -134,5 +136,19 @@ export const removeCartItem = (product) => {
   return {
     type: REMOVE_CART_ITEM,
     payload: product
+  }
+}
+
+// AUTH
+
+export const logIn = () => {
+  return {
+    type: LOG_IN
+  }
+}
+
+export const logOut = () => {
+  return {
+    type: LOG_OUT
   }
 }
