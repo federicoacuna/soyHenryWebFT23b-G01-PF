@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Show, Box, UnorderedList, ListItem, Icon, Heading, Text } from '@chakra-ui/react'
+import {
+  Show, Box, UnorderedList, ListItem, Icon, Heading, Text, Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Button,
+  Avatar,
+  Flex
+} from '@chakra-ui/react'
 import { TiShoppingCart } from 'react-icons/ti'
 import { BsShop } from 'react-icons/bs'
 import { GrMenu } from 'react-icons/gr'
@@ -9,6 +17,7 @@ import styles from './index.module.css'
 import ModalLogin from '../../components/ModalLogin'
 import firebase from 'firebase/compat/app'
 import { logOut, logIn } from '../../redux/actions'
+import { AiFillCaretDown } from 'react-icons/ai'
 
 const NavBar = () => {
   const cartProducts = useSelector(state => state.cartProducts.reduce((acc, curr) => acc + curr.quantity, 0))
@@ -57,8 +66,19 @@ const NavBar = () => {
               <ListItem>
                 <Link to='/' className={styles.navLink}>Home</Link>
               </ListItem>
+              {Object.keys(user).length > 0 &&
+                <Menu>
+                  <Flex alignItems='center'>
+                    <Avatar size='sm' mr={2} name={user.email && user.email.split('@')[0]} src='' />
+                    <MenuButton _hover={{ bg: 'primary' }} _active={{ bg: 'primary' }} _focus={{ boxShadow: 'none' }} p={0} fontSize='1.25rem' fontWeight={700} bg='primary' as={Button} rightIcon={<AiFillCaretDown />}>{user.email ? 'Hola, ' + user.email.split('@')[0] : 'Hola, User'}
+                    </MenuButton>
+                  </Flex>
+                  <MenuList bg='primary'>
+                    <MenuItem _focus={{ boxShadow: 'none' }} _hover={{ bg: '#232324' }} fontSize='1.25rem' bg='primary' onClick={handleSubmit} className={styles.navLink} name='salir'>Cerrar sesión</MenuItem>
+                  </MenuList>
+                </Menu>}
               <ListItem>
-                {Object.keys(user).length > 0 ? <Link to='#' onClick={handleSubmit} className={styles.navLink} name='salir'>Salir</Link> : <Link to='#' onClick={handleSubmit} className={styles.navLink} name='ingresar'>Ingresar</Link>}
+                {Object.keys(user).length < 1 && <Link to='#' onClick={handleSubmit} className={styles.navLink} name='ingresar'>Ingresar</Link>}
               </ListItem>
               <ListItem>
                 <Link to='/cart' className={styles.cartLink}>
