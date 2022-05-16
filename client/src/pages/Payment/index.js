@@ -8,7 +8,7 @@ import { PlaceOrder } from '../../redux/actions/index'
 
 export default function Payment () {
   const dispatch = useDispatch()
-  const userId = useSelector(state => state.userId)
+  const userId = useSelector(state => state.user.id)
   const userAddressId = useSelector(state => state.userAddressId)
   const userPaymentId = useSelector(state => state.userPaymentId)
   const orderItems = useSelector(state => state.cartProducts)
