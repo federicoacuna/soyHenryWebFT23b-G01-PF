@@ -6,9 +6,11 @@ import NavBar from './components/NavBar'
 import UsersHome from './pages/UsersHome'
 import Cart from './pages/Cart'
 import ProductDetail from './pages/ProductDetail'
+import Addresses from './pages/Addresses'
 import './App.css'
 
 import { app } from './config/firebase-config' //eslint-disable-line
+import Payment from './pages/Payment'
 
 function App () {
   const dispatch = useDispatch()
@@ -37,6 +39,8 @@ function App () {
         <Route path='/' element={<UsersHome />} />
         <Route exact path='/cart' element={<Cart />} />
         <Route exact path='/productDetail/:id' element={<ProductDetail />} />
+        <Route exact path='/payment' element={<Payment />} />
+        <Route exact path='/addresses' element={<Addresses />}
       </Routes>
     </div>
   )
