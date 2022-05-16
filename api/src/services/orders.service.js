@@ -37,7 +37,8 @@ async function getOrders (searchOptions) {
 async function createOrder (newOrder) {
   try {
     const createdOrder = await Order.create(newOrder)
-    if (createOrder) {
+    console.log(createOrder)
+    if (createdOrder) {
       const newItems = newOrder.orderItems.map(item => {
         item.orderId = createdOrder.id
         return item
@@ -48,6 +49,7 @@ async function createOrder (newOrder) {
     }
     return false
   } catch (error) {
+    console.log(error)
     return { error: error.message }
   }
 }

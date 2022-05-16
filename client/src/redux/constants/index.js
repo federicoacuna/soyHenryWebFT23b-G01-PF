@@ -17,4 +17,5 @@ export const LOG_OUT = 'LOG_OUT'
 // ORDER BUILD
 export const SET_USER_PAYMENT = 'SET_USER_PAYMENT'
 export const SET_USER_ADDRESS = 'SET_USER_ADDRESS'
+export const SET_ORDER_ITEMS = 'SET_ORDER_ITEMS'
 export const CREATE_ORDER = 'CREATE_ORDER'
