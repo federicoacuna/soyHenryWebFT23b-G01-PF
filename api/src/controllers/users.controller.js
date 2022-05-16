@@ -11,7 +11,8 @@ const get = async (req, res) => {
   // }
   try {
     const user = await usersService.createUser(email)
-    user ? res.json(user) : res.status(400).json({ error: 'Error registering / signing in' })
+    const userDetails = await usersService.getById(user.id)
+    userDetails ? res.json(user) : res.status(400).json({ error: 'Error registering / signing in' })
   } catch (error) {
     res.status(400).json(error)
   }
@@ -22,8 +23,7 @@ const getById = async (req, res) => {
 
   if (!id) {
     return res.status(400).json({ error: 'User ID is missing' })
-  }
-  if (!isNaN(parseInt(id))) {
+  } else if (isNaN(parseInt(id))) {
     return res.status(400).json({ error: 'User ID must be an integer' })
   }
   try {
