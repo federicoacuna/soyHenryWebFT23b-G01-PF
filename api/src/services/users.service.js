@@ -13,20 +13,14 @@ async function getById (userId) {
   return user
 }
 
-async function createUser (data) {
-  const { username, password, firstname, lastname, phone, birthdate, email } = data
-
-  return await User.findOrCreate({
+async function createUser (email) {
+  const [user] = await User.findOrCreate({
     where: {
-      username,
-      password,
-      firstname,
-      lastname,
-      phone,
-      birthdate,
       email
     }
   })
+
+  return user
 }
 
 async function updateUser (data) {
