@@ -3,10 +3,11 @@ import {
   GET_PRODUCTS,
   GET_BRANDS,
   GET_CATEGORIES,
-  GET_PRODUCT_DETAILS,//eslint-disable-line
+  GET_PRODUCT_DETAILS,
   ADD_FILTER_PARAM,
   CLEAR_FILTER_PARAMS,
   SET_ORDER_TYPE,//eslint-disable-line
+  CREATE_ORDER,
   SET_CART_PRODUCTS,
   ADD_PRODUCT_TO_CART,
   REMOVE_PRODUCT_FROM_CART,
@@ -121,6 +122,12 @@ const reducer = (state = initialState, action) => {
           ...state.order,
           addressId: payload
         }
+      }
+
+    case CREATE_ORDER:
+      return {
+        ...state,
+        order: payload
       }
 
     case LOG_IN:

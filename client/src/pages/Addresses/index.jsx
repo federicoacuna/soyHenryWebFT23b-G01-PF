@@ -11,13 +11,16 @@ const AddressSelector = () => {
   })
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
   const handleChange = (e) => {
     setAddress({ value: e.target.value })
   }
+
   const handleClick = (value) => {
     dispatch(setUserAddress(value))
     navigate('/payment')
   }
+
   return (
     <Flex justifyContent='center' alignItems='center' h='80vh' w='100vw'>
       <Box borderRadius={5} boxShadow='lg' bg='#E5E5EA' w='70vw' p={5}>
