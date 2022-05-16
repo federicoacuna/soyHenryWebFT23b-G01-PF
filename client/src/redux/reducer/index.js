@@ -10,7 +10,9 @@ import {
   SET_CART_PRODUCTS,
   ADD_PRODUCT_TO_CART,
   REMOVE_PRODUCT_FROM_CART,
-  REMOVE_CART_ITEM
+  REMOVE_CART_ITEM,
+  LOG_IN,
+  LOG_OUT
 } from '../constants'
 
 const initialState = {
@@ -19,7 +21,8 @@ const initialState = {
   brands: [],
   categories: [],
   options: {},
-  product: {}
+  product: {},
+  isAuth: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -97,6 +100,18 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         cartProducts: state.cartProducts.filter(p => p.id !== payload.id)
+      }
+
+    case LOG_IN:
+      return {
+        ...state,
+        isAuth: true
+      }
+
+    case LOG_OUT:
+      return {
+        ...state,
+        isAuth: false
       }
 
     default:
