@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import CartItems from '../../components/CartItems'
 import CartDeleteAllProducts from '../../components/CartDeleteAllProducts'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import s from './index.module.css'
 import { IoMdArrowRoundBack } from 'react-icons/io'
 import { useState } from 'react'
@@ -11,9 +11,11 @@ import { Heading, Text } from '@chakra-ui/react'
 export const Cart = () => {
   const cartProducts = useSelector(state => state.cartProducts)
   const [modal, setModal] = useState(false)
+  const user = useSelector(state => state.user.id)
+  const navigate = useNavigate()
   // const { isOpen, onToggle } = useDisclosure()
   const handleSubmit = () => {
-    setModal(true)
+    user ? navigate('/addresses') : setModal(true)
     // onToggle()
   }
 

@@ -4,7 +4,7 @@ import s from './index.module.css'
 import { IoMdArrowRoundBack } from 'react-icons/io'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { PlaceOrder } from '../../redux/actions/index'
+import { placeOrder } from '../../redux/actions/index'
 
 export default function Payment () {
   const dispatch = useDispatch()
@@ -15,11 +15,11 @@ export default function Payment () {
 
   function handleClick (e) {
     e.preventDefault()
-    dispatch(PlaceOrder({ // eslint-disable-next-line
-      userId: userId, //eslint-disable-next-line
-      userAddressId: userAddressId, //eslint-disable-next-line
-      userPaymentId: userPaymentId, //eslint-disable-next-line
-      orderItems: orderItems
+    dispatch(placeOrder({
+      userId,
+      userAddressId,
+      userPaymentId,
+      orderItems
     }))
     alert('Su compra ha sido exitosa')
   }

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Text, Button, Flex, Box, Select } from '@chakra-ui/react'
 import { setUserAddress } from '../../redux/actions/index'
+import { useNavigate } from 'react-router-dom'
 
 const AddressSelector = () => {
   const userAddresses = useSelector(state => state.user.userAddresses)
@@ -9,9 +10,13 @@ const AddressSelector = () => {
     value: ''
   })
   const dispatch = useDispatch()
-
+  const navigate = useNavigate()
   const handleChange = (e) => {
     setAddress({ value: e.target.value })
+  }
+  const handleClick = (value) => {
+    dispatch(setUserAddress(value))
+    navigate('/payment')
   }
   return (
     <Flex justifyContent='center' alignItems='center' h='80vh' w='100vw'>
@@ -25,7 +30,7 @@ const AddressSelector = () => {
             : 'Agrega un domicilio.'}
         </Select>
 
-        <Button colorScheme='blue' onClick={() => dispatch(setUserAddress(address.value))}>Continuar</Button>
+        <Button colorScheme='blue' onClick={() => handleClick(address.value)}>Continuar</Button>
 
       </Box>
 
