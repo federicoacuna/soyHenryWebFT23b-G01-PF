@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setUserPayments } from '../../redux/actions'
 
 export default function PaymentSelector () {
-  const paymentSelector = useSelector(state => state.user.payments)
+  const paymentSelector = useSelector(state => state.user.userPayments)
   const dispatch = useDispatch()
 
   return (
@@ -13,7 +13,7 @@ export default function PaymentSelector () {
         <div key={i} className={s.container}>
           <p>{p.provider}</p>
           <p>{p.cardNumber}</p>
-          <button onClick={dispatch(setUserPayments(p.id))}>Seleccionar</button>
+          <button onClick={()=>dispatch(setUserPayments(p.id))}>Seleccionar</button>
         </div>
       ))
       : <p>No hay metodos de pagos</p>}
