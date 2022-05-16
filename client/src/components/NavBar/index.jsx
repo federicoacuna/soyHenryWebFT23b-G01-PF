@@ -14,7 +14,7 @@ const NavBar = () => {
   const cartProducts = useSelector(state => state.cartProducts.reduce((acc, curr) => acc + curr.quantity, 0))
   const [modal, setModal] = useState(false)
   const [isRegistrando, setIsRegistrando] = React.useState(false)
-  const isAuth = useSelector(state => state.isAuth)
+  const user = useSelector(state => state.user)
   const dispatch = useDispatch()
 
   // const { isOpen, onToggle } = useDisclosure()
@@ -26,8 +26,9 @@ const NavBar = () => {
   useEffect(() => {
     JSON.parse(window.localStorage.getItem('auth')) && dispatch(logIn())
   }, []) // eslint-disable-line
+
   function handleLogOut () {
-    if (isAuth) {
+    if (Object.keys(user).length > 0) {
       firebase.auth().signOut()
         .then(() => {
           dispatch(logOut())
@@ -57,7 +58,7 @@ const NavBar = () => {
                 <Link to='/' className={styles.navLink}>Home</Link>
               </ListItem>
               <ListItem>
-                {isAuth ? <Link to='#' onClick={handleSubmit} className={styles.navLink} name='salir'>Salir</Link> : <Link to='#' onClick={handleSubmit} className={styles.navLink} name='ingresar'>Ingresar</Link>}
+                {Object.keys(user).length > 0 ? <Link to='#' onClick={handleSubmit} className={styles.navLink} name='salir'>Salir</Link> : <Link to='#' onClick={handleSubmit} className={styles.navLink} name='ingresar'>Ingresar</Link>}
               </ListItem>
               <ListItem>
                 <Link to='/cart' className={styles.cartLink}>

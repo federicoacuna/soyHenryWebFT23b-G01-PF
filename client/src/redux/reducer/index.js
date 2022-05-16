@@ -22,7 +22,7 @@ const initialState = {
   categories: [],
   options: {},
   product: {},
-  isAuth: false
+  user: {}
 }
 
 const reducer = (state = initialState, action) => {
@@ -105,13 +105,13 @@ const reducer = (state = initialState, action) => {
     case LOG_IN:
       return {
         ...state,
-        isAuth: true
+        user: payload
       }
 
     case LOG_OUT:
       return {
         ...state,
-        isAuth: false
+        user: {}
       }
 
     default:

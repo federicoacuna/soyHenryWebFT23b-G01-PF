@@ -37,16 +37,17 @@ export const ModalLogin = ({ children, onToggle, state, setState, isRegistrando,
 
   // React.useEffect(() => {
   //   firebase.auth().onAuthStateChanged((userCred) => {
+  //     console.log(userCred)
   //     if (userCred) {
-  //       setAuth(true)
   //       window.localStorage.setItem('auth', 'true')
   //       userCred.getIdToken().then((token) => {
+  //         console.log(token)
   //         setToken(token)
   //       })
   //     }
   //   })
   //   validate()
-  // }, [token,auth,isRegistrando,values]) //eslint-disable-line
+  // }, [token,isRegistrando,values]) //eslint-disable-line
 
   useEffect(() => {
     validate()
@@ -66,6 +67,7 @@ export const ModalLogin = ({ children, onToggle, state, setState, isRegistrando,
     })
     // onToggle()
   }
+
   function crearUsuario (correo, password) {
     firebase.auth().createUserWithEmailAndPassword(correo, password)
       .then((userFirebase) => {
@@ -77,13 +79,20 @@ export const ModalLogin = ({ children, onToggle, state, setState, isRegistrando,
 
   function iniciarSesion (correo, password) {
     firebase.auth().signInWithEmailAndPassword(correo, password)
-      .then(userFirebase => {
-        if (userFirebase) {
-          dispatch(logIn())
-          window.localStorage.setItem('auth', 'true')
-        }
+      .then(({ user }) => {
+        user.getIdToken()
+          .then((token) => {
+            toast({
+              description: 'Login exitoso',
+              status: 'success',
+              duration: 5000,
+              isClosable: false
+            })
+            setState(false)
+            window.localStorage.setItem('auth', 'true')
+            dispatch(logIn(token))
+          }).catch(error => console.log(error))
       })
-
       .catch(error => {
         alert('user invalid')
         console.log(error)
@@ -143,12 +152,13 @@ export const ModalLogin = ({ children, onToggle, state, setState, isRegistrando,
 
   const loginWithGoogle = () => {
     firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .then((userCred) => {
-        if (userCred) {
-          dispatch(logIn())
-          window.localStorage.setItem('auth', 'true')
-          handleClick()
-        }
+      .then(({ user }) => {
+        user.getIdToken()
+          .then((token) => {
+            setState(false)
+            window.localStorage.setItem('auth', 'true')
+            dispatch(logIn(token))
+          }).catch(error => console.log(error))
       })
   }
 
@@ -158,7 +168,9 @@ export const ModalLogin = ({ children, onToggle, state, setState, isRegistrando,
         <div className={s.overlay}>
           <div className={s.container}>
             <Flex flexDirection='column'>
-              <Flex cursor='pointer' justifyContent='flex-end'><AiOutlineClose color='black' onClick={handleClick} size={30} /></Flex>
+              <Flex cursor='pointer' justifyContent='flex-end'>
+                <AiOutlineClose color='black' onClick={handleClick} size={30} />
+              </Flex>
               {children}
               <Stack mt={6} spacing={4}>
                 <InputGroup>

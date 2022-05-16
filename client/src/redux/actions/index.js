@@ -1,6 +1,7 @@
 import { getProductsService, getDetailsProductsService } from '../../services/products'
 import { getBrandsService } from '../../services/brands'
 import { getCategoriesService } from '../../services/categories'
+import { sendToken } from '../../services/users'
 
 import {
   GET_PRODUCTS,
@@ -141,9 +142,21 @@ export const removeCartItem = (product) => {
 
 // AUTH
 
-export const logIn = () => {
-  return {
-    type: LOG_IN
+export const logIn = (token) => {
+  return async (dispatch) => {
+    try {
+      const response = await sendToken(token)
+
+      dispatch({
+        type: LOG_IN,
+        payload: response
+      })
+    } catch (error) {
+      dispatch({
+        type: LOG_IN,
+        payload: error.message
+      })
+    }
   }
 }
 
