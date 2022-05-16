@@ -20,7 +20,7 @@ async function getUserAddresses (req, res, next) {
 
 async function create (req, res, next) {
   const newAddress = req.body
-  const requiredData = ['userId', 'postalCode', 'country', 'state', 'city', 'streetName', 'houseNumber']
+  const requiredData = ['userId', 'postalCode', 'state', 'city', 'streetName', 'houseNumber']
   let validationErrors = 'The following mandatory data is missing in your request: '
   const errorLength = validationErrors.length
 

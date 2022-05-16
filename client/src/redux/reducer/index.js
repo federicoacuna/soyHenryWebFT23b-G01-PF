@@ -12,7 +12,9 @@ import {
   REMOVE_PRODUCT_FROM_CART,
   REMOVE_CART_ITEM,
   LOG_IN,
-  LOG_OUT
+  LOG_OUT,
+  SET_USER_PAYMENT,
+  SET_USER_ADDRESS
 } from '../constants'
 
 const initialState = {
@@ -22,7 +24,8 @@ const initialState = {
   categories: [],
   options: {},
   product: {},
-  user: {}
+  user: {},
+  order: {}
 }
 
 const reducer = (state = initialState, action) => {
@@ -100,6 +103,24 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         cartProducts: state.cartProducts.filter(p => p.id !== payload.id)
+      }
+
+    case SET_USER_PAYMENT:
+      return {
+        ...state,
+        order: {
+          ...state.order,
+          paymentId: payload
+        }
+      }
+
+    case SET_USER_ADDRESS:
+      return {
+        ...state,
+        order: {
+          ...state.order,
+          addressId: payload
+        }
       }
 
     case LOG_IN:

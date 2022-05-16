@@ -16,7 +16,9 @@ import {
   REMOVE_PRODUCT_FROM_CART,
   REMOVE_CART_ITEM,
   LOG_IN,
-  LOG_OUT
+  LOG_OUT,
+  SET_USER_ADDRESS,
+  SET_USER_PAYMENT
 } from '../constants'
 
 export const getProducts = (options) => {
@@ -110,7 +112,26 @@ export const setOrder = (order) => {
     payload: order
   }
 }
+// ORDER BUILD
+export const setUserPayment = (paymentId) => {
+  return {
+    type: SET_USER_PAYMENT,
+    payload: paymentId
+  }
+}
 
+export const setUserAddress = (addressId) => {
+  return {
+    type: SET_USER_ADDRESS,
+    payload: addressId
+  }
+}
+
+export const placeOrder = (newOrder) => {
+  return (dispatch) => {
+
+  }
+}
 // CART
 export const setCartProducts = (products) => {
   return {

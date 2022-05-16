@@ -12,7 +12,7 @@ const get = async (req, res) => {
   try {
     const user = await usersService.createUser(email)
     const userDetails = await usersService.getById(user.id)
-    userDetails ? res.json(user) : res.status(400).json({ error: 'Error registering / signing in' })
+    userDetails ? res.json(userDetails) : res.status(400).json({ error: 'Error registering / signing in' })
   } catch (error) {
     res.status(400).json(error)
   }
