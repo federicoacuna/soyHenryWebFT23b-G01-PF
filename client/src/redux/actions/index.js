@@ -2,6 +2,7 @@ import { getProductsService, getDetailsProductsService } from '../../services/pr
 import { getBrandsService } from '../../services/brands'
 import { getCategoriesService } from '../../services/categories'
 import { sendToken } from '../../services/users'
+import { createOrder } from '../../services/orders'
 
 import {
   GET_PRODUCTS,
@@ -18,7 +19,8 @@ import {
   LOG_IN,
   LOG_OUT,
   SET_USER_ADDRESS,
-  SET_USER_PAYMENT
+  SET_USER_PAYMENT,
+  CREATE_ORDER
 } from '../constants'
 
 export const getProducts = (options) => {
@@ -112,6 +114,7 @@ export const setOrder = (order) => {
     payload: order
   }
 }
+
 // ORDER BUILD
 export const setUserPayment = (paymentId) => {
   return {
@@ -128,10 +131,22 @@ export const setUserAddress = (addressId) => {
 }
 
 export const placeOrder = (newOrder) => {
-  return (dispatch) => {
-
+  return async (dispatch) => {
+    try {
+      const order = await createOrder(newOrder)
+      dispatch({
+        type: CREATE_ORDER,
+        payload: order
+      })
+    } catch (error) {
+      dispatch({
+        type: CREATE_ORDER,
+        payload: error.message
+      })
+    }
   }
 }
+
 // CART
 export const setCartProducts = (products) => {
   return {

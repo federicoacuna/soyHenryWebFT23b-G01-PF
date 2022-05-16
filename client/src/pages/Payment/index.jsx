@@ -21,6 +21,7 @@ export default function Payment () {
       userPaymentId,
       orderItems
     }))
+
     alert('Su compra ha sido exitosa')
   }
 
