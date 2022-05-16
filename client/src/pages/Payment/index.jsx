@@ -3,26 +3,14 @@ import PaymentSelector from '../../components/PaymentSelector'
 import s from './index.module.css'
 import { IoMdArrowRoundBack } from 'react-icons/io'
 import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { placeOrder } from '../../redux/actions/index'
 
 export default function Payment () {
   const dispatch = useDispatch()
-  const userId = useSelector(state => state.user.id)
-  const userAddressId = useSelector(state => state.userAddressId)
-  const userPaymentId = useSelector(state => state.userPaymentId)
-  const orderItems = useSelector(state => state.cartProducts)
 
-  function handleClick (e) {
-    e.preventDefault()
-    dispatch(placeOrder({
-      userId,
-      userAddressId,
-      userPaymentId,
-      orderItems
-    }))
-
-    alert('Su compra ha sido exitosa')
+  function handleClick () {
+    dispatch(placeOrder())
   }
 
   return (

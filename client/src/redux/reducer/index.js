@@ -7,7 +7,6 @@ import {
   ADD_FILTER_PARAM,
   CLEAR_FILTER_PARAMS,
   SET_ORDER_TYPE,//eslint-disable-line
-  CREATE_ORDER,
   SET_CART_PRODUCTS,
   ADD_PRODUCT_TO_CART,
   REMOVE_PRODUCT_FROM_CART,
@@ -15,7 +14,9 @@ import {
   LOG_IN,
   LOG_OUT,
   SET_USER_PAYMENT,
-  SET_USER_ADDRESS
+  SET_USER_ADDRESS,
+  SET_ORDER_ITEMS,
+  CREATE_ORDER
 } from '../constants'
 
 const initialState = {
@@ -111,7 +112,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         order: {
           ...state.order,
-          paymentId: payload
+          userPaymentId: payload
         }
       }
 
@@ -120,14 +121,22 @@ const reducer = (state = initialState, action) => {
         ...state,
         order: {
           ...state.order,
-          addressId: payload
+          userAddressId: payload
         }
       }
 
-    case CREATE_ORDER:
+    case SET_ORDER_ITEMS:
       return {
         ...state,
-        order: payload
+        order: {
+          ...state.order,
+          orderItems: state.cartProducts
+        }
+      }
+    case CREATE_ORDER:
+      return {
+        ...state
+        // order: payload
       }
 
     case LOG_IN:

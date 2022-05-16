@@ -1,3 +1,4 @@
+import store from '../store'
 import { getProductsService, getDetailsProductsService } from '../../services/products'
 import { getBrandsService } from '../../services/brands'
 import { getCategoriesService } from '../../services/categories'
@@ -20,6 +21,7 @@ import {
   LOG_OUT,
   SET_USER_ADDRESS,
   SET_USER_PAYMENT,
+  SET_ORDER_ITEMS,
   CREATE_ORDER
 } from '../constants'
 
@@ -130,7 +132,16 @@ export const setUserAddress = (addressId) => {
   }
 }
 
-export const placeOrder = (newOrder) => {
+export const setOrderItems = () => {
+  return {
+    type: SET_ORDER_ITEMS
+  }
+}
+
+export const placeOrder = () => {
+  const state = store.getState()
+  const newOrder = state.order
+  newOrder.userId = state.user.id
   return async (dispatch) => {
     try {
       const order = await createOrder(newOrder)

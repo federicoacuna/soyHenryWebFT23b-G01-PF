@@ -63,10 +63,10 @@ Order.belongsTo(User)
 UserPayment.hasMany(Order, { foreignKey: { allowNull: false } })
 Order.belongsTo(UserPayment)
 
-UserAddress.hasMany(Order, { foreignKey: { allowNull: false } })
+UserAddress.hasMany(Order)
 Order.belongsTo(UserAddress)
 
-Branch.hasMany(Order, { foreignKey: { allowNull: false } })
+Branch.hasMany(Order)
 Order.belongsTo(Branch)
 
 Product.belongsToMany(Order, { through: 'orderItem' })
