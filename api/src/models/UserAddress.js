@@ -6,6 +6,14 @@ module.exports = sequelize => {
       type: DataTypes.STRING(20),
       allownull: false
     },
+    country: {
+      type: DataTypes.STRING(15),
+      allownull: false
+    },
+    state: {
+      type: DataTypes.STRING(30),
+      allownull: false
+    },
     city: {
       type: DataTypes.STRING(20),
       allownull: false
@@ -26,10 +34,6 @@ module.exports = sequelize => {
     },
     floorApartment: {
       type: DataTypes.STRING(20)
-    },
-    state: {
-      type: DataTypes.STRING(30),
-      allownull: false
     }
   })
 }

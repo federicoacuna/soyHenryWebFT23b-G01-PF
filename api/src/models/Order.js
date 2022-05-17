@@ -4,7 +4,7 @@ module.exports = (sequelize) => {
   sequelize.define('order', {
     status: {
       type: DataTypes.STRING,
-      allowNull: false
+      defaultValue: 'CREATED'
     },
     total: {
       type: DataTypes.DECIMAL,
