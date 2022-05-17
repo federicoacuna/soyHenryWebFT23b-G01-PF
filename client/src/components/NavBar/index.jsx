@@ -8,7 +8,8 @@ import {
   MenuItem,
   Button,
   Avatar,
-  Flex
+  Flex,
+  useToast
 } from '@chakra-ui/react'
 import { TiShoppingCart } from 'react-icons/ti'
 import { BsShop } from 'react-icons/bs'
@@ -25,6 +26,7 @@ const NavBar = () => {
   const [isRegistrando, setIsRegistrando] = React.useState(false)
   const user = useSelector(state => state.user)
   const dispatch = useDispatch()
+  const toast = useToast()
 
   // const { isOpen, onToggle } = useDisclosure()
   const handleSubmit = (e) => {
@@ -42,7 +44,12 @@ const NavBar = () => {
         .then(() => {
           dispatch(logOut())
           window.localStorage.setItem('auth', 'false')
-          alert('sesion cerrada')
+          toast({
+            description: 'Sesion cerrada',
+            status: 'warning',
+            duration: 5000,
+            isClosable: false
+          })
         })
         .catch((error) => {
           console.log(error)
