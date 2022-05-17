@@ -35,19 +35,14 @@ export const ModalLogin = ({ children, onToggle, state, setState, isRegistrando,
   const toast = useToast()
   const [show, setShow] = React.useState(false)
 
-  // React.useEffect(() => {
-  //   firebase.auth().onAuthStateChanged((userCred) => {
-  //     console.log(userCred)
-  //     if (userCred) {
-  //       window.localStorage.setItem('auth', 'true')
-  //       userCred.getIdToken().then((token) => {
-  //         console.log(token)
-  //         setToken(token)
-  //       })
-  //     }
-  //   })
-  //   validate()
-  // }, [token,isRegistrando,values]) //eslint-disable-line
+  firebase.auth().onAuthStateChanged(userCred => {
+    if (userCred) {
+      userCred.getIdToken().then(token => {
+        setToken(token)
+        dispatch(logIn(token))
+      })
+    }
+  })
 
   useEffect(() => {
     validate()
@@ -79,24 +74,45 @@ export const ModalLogin = ({ children, onToggle, state, setState, isRegistrando,
 
   function iniciarSesion (correo, password) {
     firebase.auth().signInWithEmailAndPassword(correo, password)
-      .then(({ user }) => {
-        user.getIdToken()
-          .then((token) => {
-            toast({
-              description: 'Login exitoso',
-              status: 'success',
-              duration: 5000,
-              isClosable: false
-            })
-            setState(false)
-            window.localStorage.setItem('auth', 'true')
-            dispatch(logIn(token))
-          }).catch(error => console.log(error))
-      })
-      .catch(error => {
-        alert('user invalid')
+      .then(userFirebase => {
+        if (userFirebase) {
+          toast({
+            description: 'Login exitoso',
+            status: 'success',
+            duration: 5000,
+            isClosable: false
+          })
+          setState(false)
+          window.localStorage.setItem('auth', 'true')
+        }
+      }).catch(error => {
+        toast({
+          description: 'Email o contraseña incorrecto',
+          status: 'error',
+          duration: 3000,
+          isClosable: false
+        })
         console.log(error)
       })
+    // firebase.auth().signInWithEmailAndPassword(correo, password)
+    //   .then(({ user }) => {
+    //     user.getIdToken()
+    //       .then((token) => {
+    //         toast({
+    //           description: 'Login exitoso',
+    //           status: 'success',
+    //           duration: 5000,
+    //           isClosable: false
+    //         })
+    //         setState(false)
+    //         window.localStorage.setItem('auth', 'true')
+    //         dispatch(logIn(token))
+    //       }).catch(error => console.log(error))
+    //   })
+    //   .catch(error => {
+    //     alert('user invalid')
+    //     console.log(error)
+    //   })
   }
 
   const handleSubmit = () => {
