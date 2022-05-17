@@ -27,9 +27,10 @@ const initialState = {
   options: {},
   product: {},
   user: {},
-  order: {}
-}
+  order: {},
+  token: window.localStorage.getItem('token')
 
+}
 const reducer = (state = initialState, action) => {
   const { payload, type } = action
 
@@ -142,13 +143,15 @@ const reducer = (state = initialState, action) => {
     case LOG_IN:
       return {
         ...state,
-        user: payload
+        user: payload.user,
+        token: payload.token
       }
 
     case LOG_OUT:
       return {
         ...state,
-        user: {}
+        user: {},
+        token: ''
       }
 
     default:
