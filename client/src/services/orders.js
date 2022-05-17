@@ -6,9 +6,9 @@ export const createOrder = async (newOrder) => {
     return item
   })
   newOrder.total = newOrder.orderItems.reduce((acc, item) => {
-    return item.quantity * item.price
+    return acc + (item.quantity * item.price)
   }, 0)
-  newOrder.status = 'CREATED'
+
   const { data } = await axios.post('/orders', newOrder)
   return data
 }

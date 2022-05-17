@@ -22,7 +22,8 @@ import {
   SET_USER_ADDRESS,
   SET_USER_PAYMENT,
   SET_ORDER_ITEMS,
-  CREATE_ORDER
+  CREATE_ORDER,
+  CLEAR_CREATED_ORDER
 } from '../constants'
 
 export const getProducts = (options) => {
@@ -155,6 +156,12 @@ export const placeOrder = () => {
         payload: error.message
       })
     }
+  }
+}
+
+export const clearCreatedOrder = () => {
+  return {
+    type: CLEAR_CREATED_ORDER
   }
 }
 
