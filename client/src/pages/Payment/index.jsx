@@ -2,15 +2,29 @@ import React from 'react'
 import PaymentSelector from '../../components/PaymentSelector'
 import s from './index.module.css'
 import { IoMdArrowRoundBack } from 'react-icons/io'
-import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { placeOrder } from '../../redux/actions/index'
+import { useToast } from '@chakra-ui/react'
 
 export default function Payment () {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const paymentID = useSelector(state => state.order.userPaymentId)
+  const toast = useToast()
 
   function handleClick () {
-    dispatch(placeOrder())
+    if (paymentID) {
+      dispatch(placeOrder())
+      navigate('/confirmation')
+    } else {
+      toast({
+        description: 'Debe seleccionar un metodo de pago.',
+        status: 'error',
+        duration: 2500,
+        isClosable: true
+      })
+    }
   }
 
   return (
