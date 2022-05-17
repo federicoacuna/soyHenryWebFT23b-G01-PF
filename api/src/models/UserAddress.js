@@ -34,6 +34,6 @@ module.exports = sequelize => {
     },
     floorApartment: {
       type: DataTypes.STRING(20)
-    }   
+    }
   })
 }
