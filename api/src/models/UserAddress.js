@@ -30,6 +30,10 @@ module.exports = sequelize => {
     state: {
       type: DataTypes.STRING(30),
       allownull: false
+    },
+    country: {
+      type: DataTypes.STRING(40),
+      allownull: false
     }
   })
 }
