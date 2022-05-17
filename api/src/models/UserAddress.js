@@ -7,7 +7,7 @@ module.exports = sequelize => {
       allownull: false
     },
     country: {
-      type: DataTypes.STRING(40),
+      type: DataTypes.STRING(15),
       allownull: false
     },
     state: {
