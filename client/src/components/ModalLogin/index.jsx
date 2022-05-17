@@ -5,51 +5,45 @@ import { FcGoogle } from 'react-icons/fc'
 import { AiOutlineClose } from 'react-icons/ai'
 import { MdAlternateEmail, MdOutlineLock } from 'react-icons/md'
 import { logIn } from '../../redux/actions'
-// import { Link } from 'react-router-dom'
 
-// Firebase
-// import { app } from '../../config/firebase-config'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 import { useDispatch } from 'react-redux'
 
 export const ModalLogin = ({ children, onToggle, state, setState, isRegistrando, setIsRegistrando }) => {
-  // const [auth, setAuth] = React.useState('')
-  // React.useState(//eslint-disable-line
-  //   false || window.localStorage.getItem('auth') === 'true'
-  // )
+  const dispatch = useDispatch()
+  // TOAST DE CHAKRA
+  const toast = useToast()
 
-  const [token, setToken] = React.useState('tuki') //eslint-disable-line
+  // ESTADOS
+  const [token, setToken] = React.useState('') //eslint-disable-line
 
   const [values, setValues] = React.useState({
     email: '',
     password: '',
     passwordRegister: ''
   })
-
   const [errors, setErrors] = React.useState({
     email: '',
     password: ''
   })
-
-  const toast = useToast()
   const [show, setShow] = React.useState(false)
 
-  firebase.auth().onAuthStateChanged(userCred => {
-    if (userCred) {
-      userCred.getIdToken().then(token => {
-        setToken(token)
-        dispatch(logIn(token))
-      })
-    }
-  })
+  // USE EFFECT CON EL DISPATCH DE LOGIN & LA FN DE VALIDATE
 
   useEffect(() => {
+    firebase.auth().onAuthStateChanged(userCred => {
+      if (userCred) {
+        userCred.getIdToken().then(token => {
+          setToken(token)
+          dispatch(logIn(token))
+        })
+      }
+    })
     validate()
-  }, [values]) //eslint-disable-line
+  }, [token ,values]) //eslint-disable-line
 
-  const dispatch = useDispatch()
-
+  // HANDLES
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value })
   }
@@ -61,58 +55,6 @@ export const ModalLogin = ({ children, onToggle, state, setState, isRegistrando,
       password: ''
     })
     // onToggle()
-  }
-
-  function crearUsuario (correo, password) {
-    firebase.auth().createUserWithEmailAndPassword(correo, password)
-      .then((userFirebase) => {
-        console.log(userFirebase)
-        dispatch(logIn())
-        window.localStorage.setItem('auth', 'true')
-      })
-  }
-
-  function iniciarSesion (correo, password) {
-    firebase.auth().signInWithEmailAndPassword(correo, password)
-      .then(userFirebase => {
-        if (userFirebase) {
-          toast({
-            description: 'Login exitoso',
-            status: 'success',
-            duration: 5000,
-            isClosable: false
-          })
-          setState(false)
-          window.localStorage.setItem('auth', 'true')
-        }
-      }).catch(error => {
-        toast({
-          description: 'Email o contraseña incorrecto',
-          status: 'error',
-          duration: 3000,
-          isClosable: false
-        })
-        console.log(error)
-      })
-    // firebase.auth().signInWithEmailAndPassword(correo, password)
-    //   .then(({ user }) => {
-    //     user.getIdToken()
-    //       .then((token) => {
-    //         toast({
-    //           description: 'Login exitoso',
-    //           status: 'success',
-    //           duration: 5000,
-    //           isClosable: false
-    //         })
-    //         setState(false)
-    //         window.localStorage.setItem('auth', 'true')
-    //         dispatch(logIn(token))
-    //       }).catch(error => console.log(error))
-    //   })
-    //   .catch(error => {
-    //     alert('user invalid')
-    //     console.log(error)
-    //   })
   }
 
   const handleSubmit = () => {
@@ -164,6 +106,40 @@ export const ModalLogin = ({ children, onToggle, state, setState, isRegistrando,
       email: error.email,
       password: error.password
     })
+  }
+
+  // FIREBASE
+  function crearUsuario (correo, password) {
+    firebase.auth().createUserWithEmailAndPassword(correo, password)
+      .then((userFirebase) => {
+        console.log(userFirebase)
+        dispatch(logIn())
+        window.localStorage.setItem('auth', 'true')
+      })
+  }
+
+  function iniciarSesion (correo, password) {
+    firebase.auth().signInWithEmailAndPassword(correo, password)
+      .then(userFirebase => {
+        if (userFirebase) {
+          toast({
+            description: 'Login exitoso',
+            status: 'success',
+            duration: 5000,
+            isClosable: false
+          })
+          setState(false)
+          window.localStorage.setItem('auth', 'true')
+        }
+      }).catch(error => {
+        toast({
+          description: 'Email o contraseña incorrecto',
+          status: 'error',
+          duration: 3000,
+          isClosable: false
+        })
+        console.log(error)
+      })
   }
 
   const loginWithGoogle = () => {
@@ -244,7 +220,39 @@ export const ModalLogin = ({ children, onToggle, state, setState, isRegistrando,
   )
 }
 
+export default ModalLogin
+// Comentarios
+
+// import { Link } from 'react-router-dom'
+
+// Firebase
+// import { app } from '../../config/firebase-config'
+
+// const [auth, setAuth] = React.useState('')
+// React.useState(//eslint-disable-line
+//   false || window.localStorage.getItem('auth') === 'true'
+// )
+
+// firebase.auth().signInWithEmailAndPassword(correo, password)
+//   .then(({ user }) => {
+//     user.getIdToken()
+//       .then((token) => {
+//         toast({
+//           description: 'Login exitoso',
+//           status: 'success',
+//           duration: 5000,
+//           isClosable: false
+//         })
+//         setState(false)
+//         window.localStorage.setItem('auth', 'true')
+//         dispatch(logIn(token))
+//       }).catch(error => console.log(error))
+//   })
+//   .catch(error => {
+//     alert('user invalid')
+//     console.log(error)
+//   })
+
 // <Link to='/signup'><Text color='black' mt={1} mb={10} textAlign='center'>¿No tienes una cuenta? Registrate gratis.</Text></Link>
 
-/* <button onClick={()=> setIsRegistrando(!isRegistrando)}> {isRegistrando ? "Ya tienes cuenta? Inicia sesion!" : "No tienes cuenta? Registrate gratis!" }</button> */
-export default ModalLogin
+// <button onClick={()=> setIsRegistrando(!isRegistrando)}> {isRegistrando ? "Ya tienes cuenta? Inicia sesion!" : "No tienes cuenta? Registrate /// gratis!" }</button>
