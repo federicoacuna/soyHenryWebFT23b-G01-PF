@@ -33,6 +33,13 @@ export default function index() {
         validate() && dispatch(createNewPayment(values))
     }
 
+    function handleSelect(e){
+        setValues({
+            ...values,
+            paymentType: e.target.value
+        })
+    }
+
     function validate (){
         let error = {}
         if(!values.cardNumber) {
