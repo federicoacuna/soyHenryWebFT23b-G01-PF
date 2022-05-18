@@ -45,6 +45,7 @@ conn.sync({ force: true }).then(() => {
   // require('./src/utils/paymentCreate.js') // FIXME: descomentar cuando se haya arreglado el seeder
   // require('./src/utils/orderCreate.js') // FIXME: descomentar cuando se haya arreglado el seeder
   // require('./src/utils/orderItemCreate') // FIXME: descomentar cuando se haya arreglado el seeder
+  require('./src/utils/countryCreate')
 
   server.listen(port, () => {
     console.log('Backend listening at 3001') // eslint-disable-line no-console

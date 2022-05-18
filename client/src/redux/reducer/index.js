@@ -6,7 +6,6 @@ import {
   GET_PRODUCT_DETAILS,
   ADD_FILTER_PARAM,
   CLEAR_FILTER_PARAMS,
-  SET_ORDER_TYPE,//eslint-disable-line
   SET_CART_PRODUCTS,
   ADD_PRODUCT_TO_CART,
   REMOVE_PRODUCT_FROM_CART,
@@ -16,7 +15,8 @@ import {
   SET_USER_PAYMENT,
   SET_USER_ADDRESS,
   SET_ORDER_ITEMS,
-  CREATE_ORDER
+  CREATE_ORDER,
+  CLEAR_CREATED_ORDER
 } from '../constants'
 
 const initialState = {
@@ -28,7 +28,9 @@ const initialState = {
   product: {},
   user: {},
   order: {},
+  createdOrder: {},
   token: window.localStorage.getItem('token')
+}
 
 }
 const reducer = (state = initialState, action) => {
@@ -136,10 +138,15 @@ const reducer = (state = initialState, action) => {
       }
     case CREATE_ORDER:
       return {
-        ...state
-        // order: payload
+        ...state,
+        createdOrder: payload
       }
 
+    case CLEAR_CREATED_ORDER:
+      return {
+        ...state,
+        createdOrder: {}
+      }
     case LOG_IN:
       return {
         ...state,
