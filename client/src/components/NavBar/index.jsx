@@ -74,7 +74,7 @@ const NavBar = () => {
                 <Link to='/' className={styles.navLink}>Home</Link>
               </ListItem>
               <ListItem>
-                <Link to='/' className={styles.navLink}>Wishlist</Link>
+                <Link to='/perfil' className={styles.navLink}>Wishlist</Link>
               </ListItem>
               {Object.keys(user).length > 0 &&
                 <Menu>
@@ -84,8 +84,9 @@ const NavBar = () => {
                     </MenuButton>
                   </Flex>
                   <MenuList bg='primary'>
-                    <MenuItem _focus={{ boxShadow: 'none' }} _hover={{ bg: '#232324' }} fontSize='1.25rem' bg='primary' onClick={handleSubmit} className={styles.navLink} name='perfil'>Perfil</MenuItem>
-                    <MenuItem _focus={{ boxShadow: 'none' }} _hover={{ bg: '#232324' }} fontSize='1.25rem' bg='primary' onClick={handleSubmit} className={styles.navLink} name='mis-compras'>Mis compras</MenuItem>
+
+                    <Link to='/perfil'><MenuItem _focus={{ boxShadow: 'none' }} _hover={{ bg: '#232324' }} fontSize='1.25rem' bg='primary' className={styles.navLink} name='perfil'>Perfil</MenuItem></Link>
+                    <Link to='/perfil'><MenuItem _focus={{ boxShadow: 'none' }} _hover={{ bg: '#232324' }} fontSize='1.25rem' bg='primary' className={styles.navLink} name='mis-compras'>Mis compras</MenuItem></Link>
                     <MenuItem _focus={{ boxShadow: 'none' }} _hover={{ bg: '#232324' }} fontSize='1.25rem' bg='primary' onClick={handleSubmit} className={styles.navLink} name='salir'>Salir</MenuItem>
                   </MenuList>
                 </Menu>}
