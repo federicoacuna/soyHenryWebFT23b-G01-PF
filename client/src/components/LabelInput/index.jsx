@@ -1,10 +1,10 @@
 import { HStack, Input } from '@chakra-ui/react'
 
-export default function LabelInput ({ label, placeholder }) {
+export default function LabelInput ({ label, placeholder, onChange, name, value }) {
   return (
     <HStack>
       <label htmlFor={label}>{label}</label>
-      <Input name={label} placeholder={placeholder} variant='flushed' />
+      <Input name={name} placeholder={placeholder} variant='flushed' onChange={onChange} value={value}/>
     </HStack>
   )
 }
