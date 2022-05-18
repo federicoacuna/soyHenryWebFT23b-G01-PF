@@ -1,26 +1,11 @@
 const addressService = require('../services/userAddresses.service')
-
-async function getUserAddresses (req, res, next) {
-  const { userId } = req.params
-
-  if (!userId) {
-    return res.status(400).json({ error: 'Must provide user ID' })
-  }
-  if (isNaN(parseInt(userId))) {
-    return res.status(400).json({ error: 'User ID can only be a integer' })
-  }
-  try {
-    const addresses = await addressService.getUserAddresses(userId)
-
-    addresses.length ? res.json(addresses) : res.status(404).json({ error: 'No addresses where found' })
-  } catch (error) {
-    res.json(error)
-  }
-}
+const usersService = require('../services/users.service.js')
 
 async function create (req, res, next) {
+  const user = await usersService.getUserByEmail(req.user.email)
   const newAddress = req.body
-  const requiredData = ['userId', 'postalCode', 'state', 'city', 'streetName', 'houseNumber']
+  newAddress.userId = user.id
+  const requiredData = ['postalCode', 'state', 'city', 'streetName', 'houseNumber']
   let validationErrors = 'The following mandatory data is missing in your request: '
   const errorLength = validationErrors.length
 
@@ -52,7 +37,6 @@ async function remove (req, res, next) {
 }
 
 module.exports = {
-  getUserAddresses,
   create,
   remove
 }

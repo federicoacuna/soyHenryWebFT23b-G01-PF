@@ -2,14 +2,6 @@ const { DataTypes } = require('sequelize')
 
 module.exports = (sequelize) => {
   sequelize.define('branch', {
-    coordinates: {
-      type: DataTypes.STRING,
-      unique: true
-    },
-    country: {
-      type: DataTypes.STRING(30),
-      allowNull: false
-    },
     state: {
       type: DataTypes.STRING(30),
       allowNull: false
@@ -18,11 +10,11 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING(30),
       allowNull: false
     },
-    street: {
+    streetName: {
       type: DataTypes.STRING(30),
       allowNull: false
     },
-    number: {
+    houseNumber: {
       type: DataTypes.STRING(15),
       allowNull: false
     }
