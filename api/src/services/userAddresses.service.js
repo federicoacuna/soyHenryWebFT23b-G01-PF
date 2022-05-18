@@ -11,7 +11,7 @@ async function getUserAddresses (userId) {
 async function createAddress (newAddress) {
   newAddress.userId = parseInt(newAddress.userId)
   newAddress.houseNumber = parseInt(newAddress.houseNumber)
-  const { userId, postalCode, countryId, state, city, streetName, houseNumber } = newAddress
+  const { userId, postalCode, state, city, streetName, houseNumber } = newAddress
 
   const [, wasCreated] = await UserAddress.findOrCreate({
     where: {

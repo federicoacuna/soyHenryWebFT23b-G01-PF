@@ -1,27 +1,24 @@
-const userPayment = require('../services/userPayment.service')
+const userPayment = require('../services/userPayments.service')
+const usersService = require('../services/users.service.js')
 
-const get = (req, res) => {
-  const { userId } = req.params
+const create = async (req, res) => {
+  const user = await usersService.getUserByEmail(req.user.email)
+  const newPayment = req.body
+  newPayment.userId = user.id
+  const requiredData = ['cardNumber', 'expirationDay', 'provider', 'paymentTypeId']
+  let validationErrors = 'The following mandatory data is missing in your request: '
+  const errorLength = validationErrors.length
 
-  if (!userId) {
-    res.status(400).json({ error: 'Must provide user ID' })
+  for (const column of requiredData) {
+    newPayment[column] || (validationErrors += column + ' ')
   }
+  if (validationErrors.length > errorLength) return res.status(400).json({ error: validationErrors })
+
+  if (typeof (newPayment.expirationDay) === 'number') return res.status(400).json({ error: 'expiration date must meet the following format: YYYY/MM' })
+
   try {
-    const payments = userPayment.getAllPayments(userId)
-    payments ? res.json(payments) : res.status(400).json({ error: 'No payments where found' })
-  } catch (error) {
-    res.status(400).json(error)
-  }
-}
-
-const create = (req, res) => {
-  const { userId } = req.body
-
-  if (!userId) {
-    res.status(400).json({ error: 'Must provide user ID' })
-  }
-  try {
-    const wasCreated = userPayment.createPayment(req.body)
+    const wasCreated = await userPayment.createUserPayment(req.body)
+    console.log(wasCreated)
     wasCreated ? res.json({ message: 'Payment method was succesfully registered' }) : res.status(400).json({ error: 'Payment method could not registered' })
   } catch (error) {
     res.status(400).json(error)
@@ -43,7 +40,6 @@ const remove = (req, res) => {
 }
 
 module.exports = {
-  get,
   create,
   remove
 }
