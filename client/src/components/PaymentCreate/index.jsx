@@ -36,7 +36,7 @@ export default function index() {
     function handleSelect(e){
         setValues({
             ...values,
-            paymentType: e.target.value
+            [e.target.name]: e.target.value
         })
     }
 
