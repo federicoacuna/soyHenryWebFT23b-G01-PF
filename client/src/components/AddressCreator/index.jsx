@@ -50,6 +50,7 @@ function AddressCreator () {
   function handleSubmit () {
     setHasTried(true)
     validate() && Addresses(values)
+    navigate('/cart')
   }
 
   function validate () {
