@@ -26,7 +26,7 @@ const AddressSelector = () => {
   }
 
   return (
-    <><Link to='/addresses'><IoMdArrowRoundBack size={30} _hover={{ bg: 'black' }} /></Link>
+    <><Link to='/cart'><IoMdArrowRoundBack size={30} _hover={{ bg: 'black' }} /></Link>
       <Flex justifyContent='center' alignItems='center' h='80vh' w='100vw'>
         <Box borderRadius={5} boxShadow='lg' bg='#E5E5EA' w='70vw' p={5}>
           <Text fontSize='lg' fontWeight='bold'>Seleccion donde se enviara: </Text>
