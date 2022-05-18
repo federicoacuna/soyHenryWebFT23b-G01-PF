@@ -6,8 +6,7 @@ import { createNewAddress } from '../../redux/actions' //eslint-disable-line
 import {
   FormControl,
   FormLabel,
-  FormErrorMessage, //eslint-disable-line
-  FormHelperText, //eslint-disable-line
+  Text,
   Input,
   Flex,
   InputGroup
