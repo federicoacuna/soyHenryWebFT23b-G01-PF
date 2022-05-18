@@ -199,11 +199,11 @@ export const removeCartItem = (product) => {
 export const logIn = (token) => {
   return async (dispatch) => {
     try {
-      const response = await sendToken(token)
+      const user = await sendToken(token)
 
       dispatch({
         type: LOG_IN,
-        payload: response
+        payload: { user, token }
       })
     } catch (error) {
       dispatch({

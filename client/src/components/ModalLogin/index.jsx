@@ -15,9 +15,6 @@ export const ModalLogin = ({ children, onToggle, state, setState, isRegistrando,
   // TOAST DE CHAKRA
   const toast = useToast()
 
-  // ESTADOS
-  const [token, setToken] = React.useState('') //eslint-disable-line
-
   const [values, setValues] = React.useState({
     email: '',
     password: '',
@@ -29,19 +26,19 @@ export const ModalLogin = ({ children, onToggle, state, setState, isRegistrando,
   })
   const [show, setShow] = React.useState(false)
 
+  // const token = React.useSelector(state => state.token)
   // USE EFFECT CON EL DISPATCH DE LOGIN & LA FN DE VALIDATE
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(userCred => {
+    firebase.auth().onIdTokenChanged(userCred => {
       if (userCred) {
         userCred.getIdToken().then(token => {
-          setToken(token)
           dispatch(logIn(token))
         })
       }
     })
     validate()
-  }, [token ,values]) //eslint-disable-line
+  }, [values]) //eslint-disable-line
 
   // HANDLES
   const handleChange = (e) => {
@@ -112,9 +109,7 @@ export const ModalLogin = ({ children, onToggle, state, setState, isRegistrando,
   function crearUsuario (correo, password) {
     firebase.auth().createUserWithEmailAndPassword(correo, password)
       .then((userFirebase) => {
-        console.log(userFirebase)
-        dispatch(logIn())
-        window.localStorage.setItem('auth', 'true')
+        // COMPLETAR FLUJO DE CONFRIMACION POR MAIL DE LA CREACION DE CUENTA.
       })
   }
 
@@ -153,6 +148,8 @@ export const ModalLogin = ({ children, onToggle, state, setState, isRegistrando,
           }).catch(error => console.log(error))
       })
   }
+
+  // const handleAuth = () => {}
 
   return (
     <>

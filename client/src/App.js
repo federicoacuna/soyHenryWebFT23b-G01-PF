@@ -11,6 +11,7 @@ import './App.css'
 
 import { app } from './config/firebase-config' //eslint-disable-line
 import Payment from './pages/Payment'
+import store from './redux/store'
 
 function App () {
   const dispatch = useDispatch()
@@ -31,6 +32,9 @@ function App () {
   useEffect(() => {
     dispatch(getProducts(options))
   }, [options])//eslint-disable-line
+
+  store.subscribe(() =>
+    window.localStorage.setItem('token', store.getState().token))
 
   return (
     <div>
