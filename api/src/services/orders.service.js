@@ -71,7 +71,7 @@ async function createOrder (newOrder) {
     if (!productList) return false
     const orderItems = []
     for (let i = 0; i < productList.length; i++) {
-      orderItems.push({ id: i + 1, name: productList[i].name, quantity: newItems[i].quantity, price: newItems[i].price })
+      orderItems.push({ id: productList[i].id, name: productList[i].name, quantity: newItems[i].quantity, price: newItems[i].price })
     }
 
     if (!createOrder && !userPaymentData && !userAddressData && !createdItems) return false
@@ -93,7 +93,7 @@ async function createOrder (newOrder) {
       orderItems,
       total: createOrder.total
     }
-    console.log(createdOrder)
+    // console.log(createdOrder)
     return createdOrder
   } catch (error) {
     console.log(error)
