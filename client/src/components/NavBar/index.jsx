@@ -69,9 +69,12 @@ const NavBar = () => {
             <span>Ecommerce</span>
           </Link>
           <nav>
-            <UnorderedList display='flex' alignItems='center' columnGap='1.5rem' margin='0'>
+            <UnorderedList display='flex' alignItems='center' columnGap='1rem' margin='0'>
               <ListItem>
                 <Link to='/' className={styles.navLink}>Home</Link>
+              </ListItem>
+              <ListItem>
+                <Link to='/' className={styles.navLink}>Wishlist</Link>
               </ListItem>
               {Object.keys(user).length > 0 &&
                 <Menu>
