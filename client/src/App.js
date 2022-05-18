@@ -7,6 +7,7 @@ import UsersHome from './pages/UsersHome'
 import Cart from './pages/Cart'
 import ProductDetail from './pages/ProductDetail'
 import Addresses from './pages/Addresses'
+import Perfil from './pages/Perfil'
 import './App.css'
 
 import { app } from './config/firebase-config' //eslint-disable-line
@@ -45,6 +46,7 @@ function App () {
         <Route exact path='/productDetail/:id' element={<ProductDetail />} />
         <Route exact path='/payment' element={<Payment />} />
         <Route exact path='/addresses' element={<Addresses />} />
+        <Route exact path='/perfil' element={<Perfil />} />
       </Routes>
     </div>
   )
