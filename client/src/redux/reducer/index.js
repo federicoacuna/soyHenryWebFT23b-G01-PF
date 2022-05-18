@@ -32,7 +32,6 @@ const initialState = {
   token: window.localStorage.getItem('token')
 }
 
-}
 const reducer = (state = initialState, action) => {
   const { payload, type } = action
 
