@@ -3,7 +3,7 @@ const { UserAddress } = require('../db')
 const validAddress = {
   userId: '1',
   postalCode: '2900',
-  country: 'ARG',
+  countryId: 3,
   state: 'Buenos Aires',
   city: 'San Nicolas',
   streetName: 'Mitre',
@@ -12,7 +12,7 @@ const validAddress = {
 const validAddress2 = {
   userId: '1',
   postalCode: '2900',
-  country: 'ARG',
+  countryId: 8,
   state: 'Buenos Aires',
   city: 'San Nicolas',
   streetName: 'Tucuman',
@@ -21,7 +21,7 @@ const validAddress2 = {
 const validAddress3 = {
   userId: '2',
   postalCode: '2900',
-  country: 'ARG',
+  countryId: 3,
   state: 'Buenos Aires',
   city: 'San Nicolas',
   streetName: 'Cochabamba',

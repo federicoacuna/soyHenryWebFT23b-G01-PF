@@ -4,22 +4,29 @@ const saveProducts = async () => {
   try {
     await Branch.create(
       {
-        coordinates: '1234',
-        country: 'Argentina',
         state: 'Corrientes',
         city: 'Corrientes',
-        street: 'San Martin',
-        number: '5499'
+        streetName: 'San Martin',
+        houseNumber: '5499',
+        countryId: 1
 
       })
     await Branch.create(
       {
-        coordinates: '123499',
-        country: 'Colombia',
         state: 'Perugorria',
         city: 'Cochinilla',
-        street: 'Puerto Madero',
-        number: '42069'
+        streetName: 'Puerto Madero',
+        houseNumber: '42069',
+        countryId: 2
+
+      })
+    await Branch.create(
+      {
+        state: 'West Virginia',
+        city: 'Snowshoe Village',
+        streetName: 'Main St.',
+        houseNumber: '42069',
+        countryId: 5
 
       })
   } catch (err) {

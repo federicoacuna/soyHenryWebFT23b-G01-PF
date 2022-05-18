@@ -1,8 +1,9 @@
 const { Router } = require('express')
 const router = Router()
-const { create, remove, getUserAddresses } = require('../controllers/addresses.controller')
+const { create, remove } = require('../controllers/addresses.controller')
+const middleware = require('../middleware')
 
-router.get('/:userId', getUserAddresses)
+router.use(middleware.decodeToken)
 
 router.post('/', create)
 
