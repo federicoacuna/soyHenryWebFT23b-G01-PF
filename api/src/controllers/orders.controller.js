@@ -48,7 +48,7 @@ const create = async (req, res) => {
   if (!Object.keys(validationErrors).length) {
     try {
       const newOrder = await ordersService.createOrder(req.body)
-      newOrder ? res.json({ message: `Order successfully created under ID ${newOrder}` }) : res.status(400).json({ error: 'Order could not be created' })
+      newOrder ? res.json({ message: `Order successfully created under ID ${newOrder.orderId}`, data: newOrder }) : res.status(400).json({ error: 'Order could not be created' })
     } catch (error) {
       res.status(400).json(error)
     }
