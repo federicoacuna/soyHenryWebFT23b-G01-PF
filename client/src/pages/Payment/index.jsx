@@ -20,7 +20,7 @@ export default function Payment () {
   }
 
   function handleClick (e) {
-    e.target.name === 'payment' && navigate('/')
+    e.target.name === 'payment' && navigate('/createpayment')
     if (paymentID) {
       dispatch(placeOrder())
       navigate('/confirmation')

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux' //eslint-disable-line
 import { useNavigate } from 'react-router-dom'
 import ButtonPrimary from '../ButtonPrimary'
-import Addresses from '../../services/addresses'//eslint-disable-line
+import { createNewAddress } from '../../redux/actions'
+import { useDispatch } from 'react-redux'
 import {
   FormControl,
   FormLabel,
@@ -15,7 +15,7 @@ import {
 
 function AddressCreator () {
   const navigate = useNavigate()
-
+  const dispatch = useDispatch()
   const [hasTried, setHasTried] = useState(false)
   const [errors, setErrors] = useState({//eslint-disable-line
     postalCode: '',
@@ -25,7 +25,7 @@ function AddressCreator () {
     streetName: '',
     houseNumber: '',
     floorApartment: '',
-    deliveryInstruction: ''
+    deliveryInstructions: ''
   })
 
   const [values, setValues] = useState({
@@ -36,7 +36,7 @@ function AddressCreator () {
     streetName: '',
     houseNumber: '',
     floorApartment: '',
-    deliveryInstruction: ''
+    deliveryInstructions: ''
   })
 
   useEffect(() => {
@@ -49,8 +49,8 @@ function AddressCreator () {
 
   function handleSubmit () {
     setHasTried(true)
-    validate() && Addresses(values)
-    navigate('/cart')
+    validate() && dispatch(createNewAddress(values))
+    navigate('/addresses')
   }
 
   function validate () {
@@ -64,7 +64,7 @@ function AddressCreator () {
       streetName: '',
       houseNumber: '',
       floorApartment: '',
-      deliveryInstruction: ''
+      deliveryInstructions: ''
     })
 
     if (values.postalCode === '') {
@@ -108,7 +108,7 @@ function AddressCreator () {
       streetName: '',
       houseNumber: '',
       floorApartment: '',
-      deliveryInstruction: ''
+      deliveryInstructions: ''
     })
     navigate('/cart')
   }
@@ -145,8 +145,8 @@ function AddressCreator () {
       {errors.floorApartment && <Text color='red'>{errors.floorApartment}</Text>}
 
       <FormLabel htmlFor='first-name'>Instrucciones para el envio</FormLabel>
-      <Input onChange={(e) => handleChange(e)} name='deliveryInstruction' type='text' value={values.deliveryInstruction} placeholder='First name' />
-      {errors.deliveryInstruction && <Text color='red'>{errors.deliveryInstruction}</Text>}
+      <Input onChange={(e) => handleChange(e)} name='deliveryInstructions' type='text' value={values.deliveryInstructions} placeholder='First name' />
+      {errors.deliveryInstructions && <Text color='red'>{errors.deliveryInstructions}</Text>}
 
       <Flex flexDirection='row' justifyContent='center'>
         <ButtonPrimary text='Guardar' onclick={handleSubmit} />

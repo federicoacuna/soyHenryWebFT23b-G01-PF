@@ -16,7 +16,7 @@ const AddressSelector = () => {
   const user = useSelector(state => state.user)
 
   const handleClick = (value) => {
-    value.target.name === 'AddAddress' && navigate('/')
+    value.target.name === 'AddAddress' && navigate('/createaddress')
     if (selectedAddress) {
       navigate('/payment')
     } else if (selectedAddress && value.target.name === 'continuar') {

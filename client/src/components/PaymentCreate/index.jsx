@@ -1,10 +1,9 @@
 import LabelInput from '../LabelInput'
-import { Select } from '@chakra-ui/react'
-import ButtonPrimary from '../ButtonPrimary'
-import ButtonSecondary from '../ButtonSecondary'
+import { Select, Button } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
-import Payments from '../../services/payments'
 import { useState } from 'react'
+import { createNewPayment } from '../../redux/actions'
+import { useDispatch } from 'react-redux'
 
 export default function PaymentCreate () {
   const [errors, setErrors] = useState({})
@@ -12,9 +11,10 @@ export default function PaymentCreate () {
     cardNumber: '',
     expirationDay: '',
     provider: '',
-    paymentType: ''
+    paymentTypeId: ''
   })
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   function handleInputChange (e) {
     e.preventDefault()
@@ -28,13 +28,15 @@ export default function PaymentCreate () {
     navigate('/address')
   }
   function handleClick () {
-    validate() && Payments(values)
+    validate()
+    dispatch(createNewPayment(values))
+    // navigate('/confirmation')
   }
 
   function handleSelect (e) {
     setValues({
       ...values,
-      [e.target.name]: e.target.value
+      paymentTypeId: e.target.value
     })
   }
 
@@ -58,8 +60,8 @@ export default function PaymentCreate () {
     <div>
       <form>
         <Select placeholder='Método de pago' onChange={(e) => handleSelect(e)}>
-          <option value='tajCred'>Tarjeta de Crédito</option>
-          <option value='tarjDeb'>Tarjeta de Débito</option>
+          <option value='1'>Tarjeta de Crédito</option>
+          <option value='2'>Tarjeta de Débito</option>
         </Select>
         <LabelInput
           label='Número de Tarjeta'
@@ -86,14 +88,8 @@ export default function PaymentCreate () {
         />
         {errors.provider && <p>{errors.provider}</p>}
       </form>
-      <ButtonSecondary
-        text='Cancelar'
-        onClick={handleBackClick}
-      />
-      <ButtonPrimary
-        text='Continuar'
-        onClick={handleClick}
-      />
+      <Button name='Cancelar' onClick={handleBackClick}>Cancelar</Button>
+      <Button name='Crear' onClick={handleClick}>Continuar</Button>
     </div>
   )
 }

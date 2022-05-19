@@ -8,6 +8,9 @@ import Cart from './pages/Cart'
 import ProductDetail from './pages/ProductDetail'
 import Addresses from './pages/Addresses'
 import Perfil from './pages/Perfil'
+import AddressCreator from './components/AddressCreator'
+import PaymentCreate from './components/PaymentCreate'
+import OrderConfirmation from './components/OrderConfirmation'
 import './App.css'
 
 import { app } from './config/firebase-config' //eslint-disable-line
@@ -47,6 +50,9 @@ function App () {
         <Route exact path='/payment' element={<Payment />} />
         <Route exact path='/addresses' element={<Addresses />} />
         <Route exact path='/perfil' element={<Perfil />} />
+        <Route exact path='/createaddress' element={<AddressCreator />} />
+        <Route exact path='/createpayment' element={<PaymentCreate />} />
+        <Route exact path='/confirmation' element={<OrderConfirmation />} />
       </Routes>
     </div>
   )
