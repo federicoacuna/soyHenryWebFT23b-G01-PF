@@ -27,7 +27,7 @@ const entries = Object.entries(sequelize.models)
 const capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]])
 sequelize.models = Object.fromEntries(capsEntries)
 
-const { Category, Brand, Product, Role, User, UserAddress, UserPayment, Branch, Country, CartItem, Inventory, Order, OrderItem, PaymentType, WishList, Review } = sequelize.models//eslint-disable-line
+const { Category, Brand, Product, Role, User, UserAddress, UserPayment, Branch, Country, CartItem, Inventory, Order, OrderItem, PaymentType, Review } = sequelize.models//eslint-disable-line
 
 // Aca vendrian las relaciones
 Category.hasMany(Product, { foreignKey: { allowNull: false } })
@@ -78,8 +78,8 @@ Order.belongsTo(Branch)
 Product.belongsToMany(Order, { through: 'orderItem' })
 Order.belongsToMany(Product, { through: 'orderItem' })
 
-User.belongsToMany(Product, { through: 'wishlist' })
-Product.belongsToMany(User, { through: 'wishlist' })
+User.belongsToMany(Product, { through: 'wishList' })
+Product.belongsToMany(User, { through: 'wishList' })
 
 module.exports = {
   ...sequelize.models,
