@@ -69,9 +69,12 @@ const NavBar = () => {
             <span>Ecommerce</span>
           </Link>
           <nav>
-            <UnorderedList display='flex' alignItems='center' columnGap='1.5rem' margin='0'>
+            <UnorderedList display='flex' alignItems='center' columnGap='1rem' margin='0'>
               <ListItem>
                 <Link to='/' className={styles.navLink}>Home</Link>
+              </ListItem>
+              <ListItem>
+                <Link to='/perfil' className={styles.navLink}>Wishlist</Link>
               </ListItem>
               {Object.keys(user).length > 0 &&
                 <Menu>
@@ -81,7 +84,10 @@ const NavBar = () => {
                     </MenuButton>
                   </Flex>
                   <MenuList bg='primary'>
-                    <MenuItem _focus={{ boxShadow: 'none' }} _hover={{ bg: '#232324' }} fontSize='1.25rem' bg='primary' onClick={handleSubmit} className={styles.navLink} name='salir'>Cerrar sesión</MenuItem>
+
+                    <Link to='/perfil'><MenuItem _focus={{ boxShadow: 'none' }} _hover={{ bg: '#232324' }} fontSize='1.25rem' bg='primary' className={styles.navLink} name='perfil'>Perfil</MenuItem></Link>
+                    <Link to='/perfil'><MenuItem _focus={{ boxShadow: 'none' }} _hover={{ bg: '#232324' }} fontSize='1.25rem' bg='primary' className={styles.navLink} name='mis-compras'>Mis compras</MenuItem></Link>
+                    <MenuItem _focus={{ boxShadow: 'none' }} _hover={{ bg: '#232324' }} fontSize='1.25rem' bg='primary' onClick={handleSubmit} className={styles.navLink} name='salir'>Salir</MenuItem>
                   </MenuList>
                 </Menu>}
               <ListItem>
