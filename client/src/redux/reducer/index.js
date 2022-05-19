@@ -64,6 +64,15 @@ const reducer = (state = initialState, action) => {
         options: {}
       }
 
+    case SET_SORTING:
+      return {
+        ...state,
+        options: {
+          ...state.options,
+          sort: payload
+        }
+      }
+
     case GET_BRANDS:
       return {
         ...state,
