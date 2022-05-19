@@ -20,7 +20,7 @@ export default function OrderConfirmation () {
   }, []) //eslint-disable-line
 
   function handleClick () {
-    navigate('/home')
+    navigate('/')
   }
 
   return (
@@ -64,7 +64,7 @@ export default function OrderConfirmation () {
             {createdOrder.orderItems.map(item => <ListItem key={item.productId}>{item.name}</ListItem>)}
           </UnorderedList>
           <Button onClick={handleClick}>Aceptar</Button>
-          </div>
+        </div>
         : <LoadingSpinner />}
     </Box>
   )

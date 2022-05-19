@@ -4,6 +4,8 @@ import { getBrandsService } from '../../services/brands'
 import { getCategoriesService } from '../../services/categories'
 import { sendToken } from '../../services/users'
 import { createOrder } from '../../services/orders'
+import { createAddress } from '../../services/addresses'
+import { createPayment } from '../../services/payments'
 
 import {
   GET_PRODUCTS,
@@ -111,10 +113,50 @@ export const clearFilterParams = () => {
   }
 }
 
-export const setOrder = (order) => {
+export const setSorting = (sort) => {
   return {
     type: SET_ORDER_TYPE,
-    payload: order
+    payload: sort
+  }
+}
+
+export const createNewAddress = (newAddress) => {
+  return async (dispatch) => {
+    try {
+      const { token } = store.getState()
+      await createAddress(newAddress)
+      const user = await sendToken(token)
+
+      dispatch({
+        type: LOG_IN,
+        payload: { user, token }
+      })
+    } catch (error) {
+      dispatch({
+        type: LOG_IN,
+        payload: error.message
+      })
+    }
+  }
+}
+
+export const createNewPayment = (newPayment) => {
+  return async (dispatch) => {
+    try {
+      const { token } = store.getState()
+      await createPayment(newPayment)
+      const user = await sendToken(token)
+
+      dispatch({
+        type: LOG_IN,
+        payload: { user, token }
+      })
+    } catch (error) {
+      dispatch({
+        type: LOG_IN,
+        payload: error.message
+      })
+    }
   }
 }
 
@@ -146,9 +188,10 @@ export const placeOrder = () => {
   return async (dispatch) => {
     try {
       const order = await createOrder(newOrder)
+      console.log(order.data)
       dispatch({
         type: CREATE_ORDER,
-        payload: order
+        payload: order.data
       })
     } catch (error) {
       dispatch({

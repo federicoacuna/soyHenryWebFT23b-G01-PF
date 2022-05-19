@@ -1,7 +1,7 @@
 import store from '../redux/store'
 import axios from 'axios'
 
-function Addresses (values) {
+export const createAddress = function (values) {
   console.log(values)
   values.countryId = Number(values.countryId)
 
@@ -18,5 +18,3 @@ function Addresses (values) {
       console.log(error)
     })
 }
-
-export default Addresses
