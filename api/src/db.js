@@ -66,6 +66,12 @@ Order.belongsTo(UserPayment)
 UserAddress.hasMany(Order)
 Order.belongsTo(UserAddress)
 
+Country.hasMany(UserAddress)
+UserAddress.belongsTo(Country)
+
+Country.hasMany(Branch)
+Branch.belongsTo(Country)
+
 Branch.hasMany(Order)
 Order.belongsTo(Branch)
 
