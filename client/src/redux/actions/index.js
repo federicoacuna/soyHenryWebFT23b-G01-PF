@@ -14,7 +14,7 @@ import {
   GET_PRODUCT_DETAILS,
   ADD_FILTER_PARAM,
   CLEAR_FILTER_PARAMS,
-  SET_ORDER_TYPE,
+  SET_SORTING,
   SET_CART_PRODUCTS,
   ADD_PRODUCT_TO_CART,
   REMOVE_PRODUCT_FROM_CART,
@@ -115,7 +115,7 @@ export const clearFilterParams = () => {
 
 export const setSorting = (sort) => {
   return {
-    type: SET_ORDER_TYPE,
+    type: SET_SORTING,
     payload: sort
   }
 }
