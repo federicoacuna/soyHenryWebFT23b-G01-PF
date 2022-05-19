@@ -26,45 +26,48 @@ export default function OrderConfirmation () {
   return (
     <Box>
       {createdOrder.orderId
-        ? <div>
-          <p>Nro. de Orden: {createdOrder.orderId}</p>
-          <p>Fue pagado con:</p>
-          <UserPaymentCard
-            key={userPayment.id}
-            paymentType={userPayment.paymentType}
-            cardNumber={userPayment.cardNumber}
-            expirationDate={userPayment.expirationDate}
-            provider={userPayment.provider}
-            id={userPayment.id}
-          />
-          {userAddress && <p>Su orden sera despachada a:</p>}
-          {
-          userAddress && <AddressCard
-            id={userAddress.id}
-            postalCode={userAddress.postalCode}
-            streetName={userAddress.streetName}
-            houseNumber={userAddress.houseNumber}
-            city={userAddress.city}
-            state={userAddress.state}
-            country={userAddress.country}
-                         />
+        ?//eslint-disable-line 
+          <div>
+            <p>Nro. de Orden: {createdOrder.orderId}</p>
+            <p>Fue pagado con:</p>
+            <UserPaymentCard
+              key={userPayment.id}
+              paymentType={userPayment.paymentType}
+              cardNumber={userPayment.cardNumber}
+              expirationDate={userPayment.expirationDate}
+              provider={userPayment.provider}
+              id={userPayment.id}
+            />
+            {userAddress && <p>Su orden sera despachada a:</p>}
+            {
+          userAddress &&
+            <AddressCard
+              id={userAddress.id}
+              postalCode={userAddress.postalCode}
+              streetName={userAddress.streetName}
+              houseNumber={userAddress.houseNumber}
+              city={userAddress.city}
+              state={userAddress.state}
+              country={userAddress.country}
+            />
           }
-          {branch && <p>Su orden estara disponible para su retiro en:</p>}
-          {
-          branch && <AddressCard
-            id={branch.id}
-            streetName={branch.streetName}
-            houseNumber={branch.houseNumber}
-            city={branch.city}
-            state={branch.state}
-            country={branch.country}
-                    />
+            {branch && <p>Su orden estara disponible para su retiro en:</p>}
+            {
+          branch &&
+            <AddressCard
+              id={branch.id}
+              streetName={branch.streetName}
+              houseNumber={branch.houseNumber}
+              city={branch.city}
+              state={branch.state}
+              country={branch.country}
+            />
           }
-          <UnorderedList>
-            {createdOrder.orderItems.map(item => <ListItem key={item.productId}>{item.name}</ListItem>)}
-          </UnorderedList>
-          <Button onClick={handleClick}>Aceptar</Button>
-        </div>
+            <UnorderedList>
+              {createdOrder.orderItems.map(item => <ListItem key={item.productId}>{item.name}</ListItem>)}
+            </UnorderedList>
+            <Button onClick={handleClick}>Aceptar</Button>
+          </div>
         : <LoadingSpinner />}
     </Box>
   )

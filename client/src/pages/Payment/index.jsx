@@ -1,10 +1,10 @@
-import React from 'react'
 import PaymentSelector from '../../components/PaymentSelector'
 import { IoMdArrowRoundBack } from 'react-icons/io'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { placeOrder } from '../../redux/actions/index'
 import { useToast, Button, Flex, Heading } from '@chakra-ui/react'
+import { createMercadoPagoPreferences } from '../../services/payments'
 
 export default function Payment () {
   const dispatch = useDispatch()
@@ -19,11 +19,17 @@ export default function Payment () {
     navigate('/addresses')
   }
 
-  function handleClick (e) {
+  async function handleClick (e) {
     e.target.name === 'payment' && navigate('/createpayment')
     if (paymentID) {
       dispatch(placeOrder())
-      navigate('/confirmation')
+      // navigate('/confirmation')
+      try {
+        const preferences = await createMercadoPagoPreferences()
+        window.location.replace(preferences.init_point)
+      } catch (error) {
+        console.log(error)
+      }
     } else if (!paymentID && e.target.name === 'buy') {
       toast({
         description: 'Debe seleccionar un método de pago.',
