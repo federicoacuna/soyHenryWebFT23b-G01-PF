@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import s from './index.module.css'
+import DatosPersonales from '../PerfilPersonalData'
 
 export default function PerfilContainer () {
   const [state, setState] = useState('Datos Personales')
@@ -39,7 +40,7 @@ export default function PerfilContainer () {
       </div>
       <div className={s.renderComponent}>
         {state === 'Datos Personales'
-          ? <div>datos personales</div>
+          ? <DatosPersonales />
           : state === 'Historial'
             ? <div>historial</div>
             : state === 'Direcciones de envio'
