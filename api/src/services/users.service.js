@@ -1,4 +1,4 @@
-const { User, UserPayment, UserAddress } = require('../db')
+const { User, UserPayment, UserAddress, WishList, Product } = require('../db')
 
 async function getUserByEmail (userEmail) {
   return await User.findOne({
@@ -10,7 +10,9 @@ async function getById (userId) {
   const user = await User.findOne({
     where: { id: userId },
     include: [{ model: UserAddress, attributes: ['id', 'postalCode', 'city', 'streetName', 'houseNumber', 'state'] },
-      { model: UserPayment, attributes: ['id', 'cardNumber', 'provider'] }]
+      { model: UserPayment, attributes: ['id', 'cardNumber', 'provider'] },
+      { model: Product, attributes: ['name', 'id'], through: { attributes: [] } }
+    ]
   })
   return user
 }
