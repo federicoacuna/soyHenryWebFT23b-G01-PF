@@ -6,7 +6,7 @@ import { sendToken, updateUser } from '../../services/users'
 import { createOrder, getOrders } from '../../services/orders'
 import { createAddress } from '../../services/addresses'
 import { createPayment } from '../../services/payments'
-import { removeFromWishList, insertInWishList } from '../../services/wishList'
+import { removeFromWishList, insertInWishList, getUserWishList } from '../../services/wishList'
 import {
   GET_PRODUCTS,
   GET_BRANDS,
@@ -27,7 +27,8 @@ import {
   CREATE_ORDER,
   CLEAR_CREATED_ORDER,
   GET_ORDERS,
-  UPDATE_WISHLIST
+  UPDATE_WISHLIST,
+  GET_WISHLIST
 } from '../constants'
 
 export const getProducts = (options) => {
@@ -325,6 +326,20 @@ export const deleteFromWishList = (productId) => {
       const wishList = await removeFromWishList(productId)
       dispatch({
         type: UPDATE_WISHLIST,
+        payload: wishList
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const getWishList = () => {
+  return async (dispatch) => {
+    try {
+      const wishList = await getUserWishList()
+      dispatch({
+        type: GET_WISHLIST,
         payload: wishList
       })
     } catch (error) {

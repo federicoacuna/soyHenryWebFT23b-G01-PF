@@ -13,7 +13,7 @@ export const createPayment = function (values) {
 // MERCADO PAGO
 export const createMercadoPagoPreferences = async function () {
   const url = 'https://api.mercadopago.com/checkout/preferences'
-  const { cartProducts, user, order } = store.getState()
+  const { cartProducts: cartProducts, user, order } = store.getState()
   const orderAddress = user.userAddresses.find(address => address.id === order.userAddressId)
 
   const addres = {

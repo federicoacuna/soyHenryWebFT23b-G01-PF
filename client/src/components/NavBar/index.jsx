@@ -17,7 +17,7 @@ import { GrMenu } from 'react-icons/gr'
 import styles from './index.module.css'
 import ModalLogin from '../../components/ModalLogin'
 import firebase from 'firebase/compat/app'
-import { logOut, logIn } from '../../redux/actions'
+import { logOut, logIn, getWishList } from '../../redux/actions'
 import { AiFillCaretDown } from 'react-icons/ai'
 
 const NavBar = () => {
@@ -36,6 +36,7 @@ const NavBar = () => {
 
   useEffect(() => {
     JSON.parse(window.localStorage.getItem('auth')) && dispatch(logIn())
+    dispatch(getWishList())
   }, []) // eslint-disable-line
 
   function handleLogOut () {
