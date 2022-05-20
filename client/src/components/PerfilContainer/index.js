@@ -1,62 +1,137 @@
-import React, { useState } from 'react'
-import s from './index.module.css'
+import React from 'react'
+import { useSelector } from 'react-redux'
+// import s from './index.module.css'
+import { Flex, Tabs, TabPanels, Tab, TabPanel, Box, Heading } from '@chakra-ui/react'
+import { BiUserCircle, BiHistory, BiDirections, BiMoney, BiShoppingBag, BiHeart, BiStar } from 'react-icons/bi'
 import DatosPersonales from '../PerfilPersonalData'
 import MyShopping from '../MyShopping'
 import Reviews from '../Reviews'
+import AddressCard from '../AddressCard'
+import AddressCreator from '../AddressCreator'
+import PaymentCard from '../PaymentCard'
+import PaymentCreate from '../PaymentCreate'
 
 export default function PerfilContainer () {
-  const [state, setState] = useState('Datos Personales')
+  const userAddresses = useSelector(state => state.user.userAddresses)
+  const userPayments = useSelector(state => state.user.userPayments)
 
-  function handleClick (e) {
-    if (e.target.textContent === 'Datos Personales') {
-      setState('Datos Personales')
-    } else if (e.target.textContent === 'Historial') {
-      setState('Historial')
-    } else if (e.target.textContent === 'Direcciones de envio') {
-      setState('Direcciones de envio')
-    } else if (e.target.textContent === 'Metodos de pago') {
-      setState('Metodos de pago')
-    } else if (e.target.textContent === 'Mis compras') {
-      setState('Mis compras')
-    } else if (e.target.textContent === 'Wishlist') {
-      setState('Wishlist')
-    } else if (e.target.textContent === 'Mis reviews') {
-      setState('Mis reviews')
-    }
-  }
   return (
-    <div className={s.container}>
-      <div className={s.navbarColumn}>
-        <nav>
-          <ul>
-            <li onClick={handleClick}>Datos Personales</li>
-            <li onClick={handleClick}>Historial</li>
-            <li onClick={handleClick}>Direcciones de envio</li>
-            <li onClick={handleClick}>Metodos de pago</li>
-            <li onClick={handleClick}>Mis compras</li>
-            <li onClick={handleClick}>Wishlist</li>
-            <li onClick={handleClick}>Mis reviews</li>
-          </ul>
+    <Flex w='85vw'>
+      <Tabs borderColor='active' w='100%'>
+        <Flex flexDirection='row' h='75vh'>
+          <Flex alignItems='flex-start' bg='primary' color='white' flexWrap='wrap' flexDirection='column' justifyContent='space-around'>
+            <Tab
+              justifyContent='flex-start'
+              w='100%' _focus={{ borderColor: 'none' }}
+              _active={{ color: 'white' }}
+              fontWeight={500}
+            ><BiUserCircle /> <Box textAlign='start' ml='10px'>Datos personales</Box>
+            </Tab>
+            <Tab
+              justifyContent='flex-start'
+              w='100%'
+              _focus={{ borderColor: 'none' }}
+              _active={{ color: 'white' }}
+              fontWeight={500}
+            ><BiHistory /> <Box textAlign='start' ml='10px'>Historial</Box>
+            </Tab>
+            <Tab
+              justifyContent='flex-start'
+              w='100%'
+              _focus={{ borderColor: 'none' }}
+              _active={{ color: 'white' }}
+              fontWeight={500}
+            ><BiDirections /> <Box textAlign='start' ml='10px'>Direcciones de envio</Box>
+            </Tab>
+            <Tab
+              justifyContent='flex-start'
+              w='100%'
+              _focus={{ borderColor: 'none' }}
+              _active={{ color: 'white' }}
+              fontWeight={500}
+            ><BiMoney /> <Box textAlign='start' ml='10px'>Metodos de pago</Box>
+            </Tab>
+            <Tab
+              justifyContent='flex-start'
+              w='100%'
+              _focus={{ borderColor: 'none' }}
+              _active={{ color: 'white' }}
+              fontWeight={500}
+            ><BiShoppingBag /> <Box textAlign='start' ml='10px'>Mis compras</Box>
+            </Tab>
+            <Tab
+              justifyContent='flex-start'
+              w='100%'
+              _focus={{ borderColor: 'none' }}
+              _active={{ color: 'white' }}
+              fontWeight={500}
+            ><BiHeart /> <Box textAlign='start' ml='10px'>Lista de deseos</Box>
+            </Tab>
+            <Tab
+              justifyContent='flex-start'
+              w='100%'
+              _focus={{ borderColor: 'none' }}
+              _active={{ color: 'white' }}
+              fontWeight={500}
+            ><BiStar /> <Box textAlign='start' ml='10px'>Opiniones</Box>
+            </Tab>
+          </Flex>
 
-        </nav>
-      </div>
-      <div className={s.renderComponent}>
-        {state === 'Datos Personales'
-          ? <DatosPersonales />
-          : state === 'Historial'
-            ? <div><MyShopping /></div>
-            : state === 'Direcciones de envio'
-              ? <div>Direcciones de envio</div>
-              : state === 'Metodos de pago'
-                ? <div>Metodos de pago</div>
-                : state === 'Mis compras'
-                  ? <div>Mis compras</div>
-                  : state === 'Wishlist'
-                    ? <div>Wishlist</div>
-                    : state === 'Mis reviews'
-                      ? <div><Reviews /></div>
-                      : null}
-      </div>
-    </div>
+          <TabPanels bg='secondary' overflow='scroll'>
+            <TabPanel>
+              <Heading mb={5}>Datos personales</Heading>
+              <DatosPersonales />
+            </TabPanel>
+            <TabPanel>
+              <Heading mb={5}>Historial</Heading>
+            </TabPanel>
+            <TabPanel>
+              <Heading mb={5}>Domicilios</Heading>
+              {/* <Box mb={5}>Elige donde recibir tus compras.</Box> */}
+              {userAddresses && userAddresses.map(address => <AddressCard
+                key={address.id}
+                id={address.id}
+                postalCode={address.postalCode}
+                streetName={address.streetName}
+                houseNumber={address.houseNumber}
+                city={address.city}
+                state={address.state}
+                country={address.country}
+                                                             />)}
+              <Heading mb={5} mt={5}>Agregar un domicilio</Heading>
+              <AddressCreator />
+            </TabPanel>
+            <TabPanel>
+              <Heading mb={2}>Métodos de pago</Heading>
+              {/* <Box mb={5}>Elige cómo quieres pagar tus compras.</Box> */}
+              {userPayments && userPayments.map((payment) => (
+                <PaymentCard
+                  key={payment.id}
+                  paymentType={payment.paymentType}
+                  cardNumber={payment.cardNumber}
+                  expirationDate={payment.expirationDate}
+                  provider={payment.provider}
+                  id={payment.id}
+                />
+              ))}
+              <Heading mb={5} mt={5}>Agregar un método de pago</Heading>
+              <PaymentCreate />
+            </TabPanel>
+            <TabPanel>
+              <Heading mb={5}>Mis compras</Heading>
+              <MyShopping />
+            </TabPanel>
+            <TabPanel>
+              <Heading mb={5}>Lista de deseos</Heading>
+            </TabPanel>
+            <TabPanel>
+              <Heading mb={5}>Opiniones</Heading>
+              <Reviews />
+            </TabPanel>
+          </TabPanels>
+        </Flex>
+
+      </Tabs>
+    </Flex>
   )
 }
