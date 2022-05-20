@@ -19,8 +19,8 @@ import {
   CREATE_ORDER,
   CLEAR_CREATED_ORDER,
   GET_ORDERS,
-  UPDATE_WISHLIST,
-  GET_WISHLIST
+  UPDATE_WISHLIST
+  // GET_WISHLIST
 } from '../constants'
 
 const initialState = {

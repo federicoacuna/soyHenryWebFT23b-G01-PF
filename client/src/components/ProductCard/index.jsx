@@ -1,9 +1,12 @@
 import CartButton from '../CartButton'
 import s from './index.module.css'
 import { Link } from 'react-router-dom'
-import WishListManagerButton from '../WishListManagerButton'
+// import WishListManagerButton from '../WishListManagerButton'
+// import { useSelector } from 'react-redux'
 export default function ProductCard ({ product }) {
   const { id, name, price, image } = product
+  // const wishList = useSelector(state => state.user.products).map(el => el.id)
+  // console.log(wishList)
 
   return (
     <div className={s.cardContainer}>
@@ -14,7 +17,9 @@ export default function ProductCard ({ product }) {
         <p>${price}</p>
       </Link>
       <CartButton product={product} />
-      <WishListManagerButton productId={id} />
+      {/* {wishList
+        ? <WishListManagerButton productId={id} wishList={wishList} />
+        : ''} */}
     </div>
   )
 }
