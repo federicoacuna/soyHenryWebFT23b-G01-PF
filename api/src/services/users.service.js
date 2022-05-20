@@ -1,4 +1,4 @@
-const { User, UserPayment, UserAddress, /* WishList, */ Product } = require('../db')
+const { User, UserPayment, UserAddress } = require('../db')
 
 async function getUserByEmail (userEmail) {
   return await User.findOne({

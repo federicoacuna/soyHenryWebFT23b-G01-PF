@@ -10,7 +10,6 @@ export const removeFromWishList = async function (productId) {
       Authorization: `Bearer ${token}`
     }
   })
-  console.log(data)
   return data
 }
 
@@ -30,6 +29,5 @@ export const getUserWishList = async function () {
       Authorization: `Bearer ${token}`
     }
   })
-  console.log(data)
   return data
 }

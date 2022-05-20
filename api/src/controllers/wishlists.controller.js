@@ -1,4 +1,5 @@
 const usersService = require('../services/users.service')
+
 const wishListService = require('../services/wishList.service.js')
 
 async function get (req, res) {
@@ -12,7 +13,6 @@ async function get (req, res) {
 }
 
 async function create (req, res) {
-  console.log('hola')
   const user = await usersService.getUserByEmail(req.user.email)
   const item = {
     productId: req.body.productId,
@@ -22,6 +22,7 @@ async function create (req, res) {
   try {
     const wasCreated = await wishListService.addToWishList(item)
     const newWishList = await wishListService.getUserWishList(user.id)
+    console.log(newWishList)
     wasCreated
       ? res.json({
         message: 'El item ha sido agregado con exito a favoritos',
@@ -37,7 +38,6 @@ async function create (req, res) {
 }
 
 async function erase (req, res) {
-  console.log('hola')
   const user = await usersService.getUserByEmail(req.user.email)
   const item = {
     productId: req.params.productId,

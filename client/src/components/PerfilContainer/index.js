@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import s from './index.module.css'
 import DatosPersonales from '../PerfilPersonalData'
 import MyShopping from '../MyShopping'
-
+import { WishList } from '../WishList'
 export default function PerfilContainer () {
   const [state, setState] = useState('Datos Personales')
 
@@ -51,7 +51,7 @@ export default function PerfilContainer () {
                 : state === 'Mis compras'
                   ? <div>Mis compras</div>
                   : state === 'Wishlist'
-                    ? <div>Wishlist</div>
+                    ? <div><WishList /></div>
                     : state === 'Mis reviews'
                       ? <div>Mis reviews</div>
                       : null}

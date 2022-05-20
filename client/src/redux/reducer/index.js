@@ -181,7 +181,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         user: {},
-        token: ''
+        token: '',
+        wishlist: []
       }
 
     case UPDATE_WISHLIST:
