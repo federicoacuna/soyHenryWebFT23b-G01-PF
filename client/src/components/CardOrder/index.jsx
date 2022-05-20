@@ -5,10 +5,9 @@ export default function CardOrder ({ id, total, date, orderItems }) {
     <div><p>{id}</p>
       <p>{total}</p>
       <p>{date}</p>
-      <p>{orderItems && orderItems.map(e => {
+      {orderItems.length && orderItems.map(e => {
         return <p key={e.id}>{e.name}</p>
       })}
-      </p>
     </div>
   )
 }

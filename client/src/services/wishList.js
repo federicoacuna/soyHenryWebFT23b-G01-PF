@@ -23,3 +23,13 @@ export const insertInWishList = async function (productId) {
   console.log(data)
   return data
 }
+
+export const getUserWishList = async function () {
+  const { data } = await axios.get(endpoint, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+  console.log(data)
+  return data
+}

@@ -10,9 +10,7 @@ async function getById (userId) {
   const user = await User.findOne({
     where: { id: userId },
     include: [{ model: UserAddress, attributes: ['id', 'postalCode', 'city', 'streetName', 'houseNumber', 'state'] },
-      { model: UserPayment, attributes: ['id', 'cardNumber', 'provider'] },
-      { model: Product, attributes: ['name', 'id'], through: { attributes: [] } }
-    ]
+      { model: UserPayment, attributes: ['id', 'cardNumber', 'provider'] }]
   })
   return user
 }

@@ -20,7 +20,10 @@ import {
   CLEAR_CREATED_ORDER,
   GET_ORDERS,
   UPDATE_WISHLIST,
-  GET_WISHLIST
+  GET_WISHLIST,
+  UPDATE_ADDRESSES,
+  UPDATE_PAYMENTS,
+  UPDATE_CART
 } from '../constants'
 
 const initialState = {
@@ -31,9 +34,11 @@ const initialState = {
   options: {},
   product: {},
   user: {},
+  wishlist: [],
   order: {},
   createdOrder: {},
   orders: [],
+  toast: {},
   token: window.localStorage.getItem('token')
 }
 
@@ -182,11 +187,40 @@ const reducer = (state = initialState, action) => {
     case UPDATE_WISHLIST:
       return {
         ...state,
+        wishlist: payload.payload
+      }
+
+    case GET_WISHLIST:
+      return {
+        ...state,
+        wishlist: payload
+      }
+
+    case UPDATE_ADDRESSES:
+      return {
+        ...state,
         user: {
           ...state.user,
-          products: payload.payload
-        },
-        toast: payload.message || payload.error
+          userAddresses: payload.payload
+        }
+      }
+
+    case UPDATE_PAYMENTS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          userPayments: payload.payload
+        }
+      }
+
+    case UPDATE_CART:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          cart: payload.payload
+        }
       }
 
     default:

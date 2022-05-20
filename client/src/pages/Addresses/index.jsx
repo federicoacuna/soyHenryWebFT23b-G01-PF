@@ -50,8 +50,8 @@ const AddressSelector = () => {
               onclick={() => dispatch(setUserAddress(address.id))}
                                                            />)}
             <Flex justifyContent='flex-end' mt={5}>
-              {userAddresses.length !== 0 && <Button name='continuar' mr={3} colorScheme='blue' onClick={handleClick}>Continuar</Button>}
               <Button name='AddAddress' onClick={handleClick} colorScheme='blue'>Agregar dirección</Button>
+              {userAddresses.length !== 0 && <Button name='continuar' mr={3} colorScheme='blue' onClick={handleClick}>Continuar</Button>}
             </Flex>
           </Flex>
           {/*  eslint-disable-next-line */}
