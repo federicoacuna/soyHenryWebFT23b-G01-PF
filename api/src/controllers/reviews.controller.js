@@ -6,10 +6,64 @@ async function get (req, res, next) {
     const email = req.user.email
     if (productId) {
       const reviewForProd = await Reviews.getReviewsForId(productId)
-      reviewForProd ? res.json(reviewForProd) : res.status(404).json({ error: 'Reviews not found' })
+      reviewForProd.length ? res.json(reviewForProd) : res.status(404).json({ error: 'Reviews not found' })
     } else {
       const reviewForEmail = await Reviews.getReviewsForUserId(email)
-      reviewForEmail ? res.json(reviewForEmail) : res.status(404).json({ error: 'You do not have reviews' })
+      reviewForEmail
+        ? res.json([{
+          rating: 5,
+          review: 'Esta muy piola el producto',
+          product: {
+            id: 4,
+            name: 'DestapaCorchos',
+            image: 'IMAGEN'
+          }
+        },
+        {
+          rating: 4,
+          review: 'Esta medio piola el producto',
+          product: {
+            id: 2,
+            name: 'Destapa Birras',
+            image: 'IMAGEN'
+          }
+        },
+        {
+          rating: 4,
+          review: 'Esta bastante piola el producto',
+          product: {
+            id: 9,
+            name: 'Soga de perro',
+            image: 'IMAGEN'
+          }
+        }])
+        : res.json([{
+          rating: 5,
+          review: 'Esta muy piola el producto',
+          product: {
+            id: 4,
+            name: 'DestapaCorchos',
+            image: 'IMAGEN'
+          }
+        },
+        {
+          rating: 4,
+          review: 'Esta medio piola el producto',
+          product: {
+            id: 2,
+            name: 'Destapa Birras',
+            image: 'IMAGEN'
+          }
+        },
+        {
+          rating: 4,
+          review: 'Esta bastante piola el producto',
+          product: {
+            id: 9,
+            name: 'Soga de perro',
+            image: 'IMAGEN'
+          }
+        }])
     }
   } catch (error) {
     res.status(400).json(error)

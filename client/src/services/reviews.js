@@ -2,31 +2,34 @@ import store from '../redux/store'
 import axios from 'axios'
 
 const { token } = store.getState()
-const endpoint = '/wishlists'
+const endpoint = '/reviews'
 
-export const removeFromWishList = async function (productId) {
-  const { data } = await axios.delete(`${endpoint}/${productId}`, {
+export const updateReview = async function (newData) {
+  const { data } = await axios.put(endpoint, newData, {
     headers: {
       Authorization: `Bearer ${token}`
     }
   })
+
   return data
 }
 
-export const insertInWishList = async function (productId) {
-  const { data } = await axios.post(endpoint, { productId }, {
+export const createReview = async function (newReview) {
+  const { data } = await axios.post(endpoint, newReview, {
     headers: {
       Authorization: `Bearer ${token}`
     }
   })
+
   return data
 }
 
-export const getUserWishList = async function () {
+export const getReviews = async function () {
   const { data } = await axios.get(endpoint, {
     headers: {
       Authorization: `Bearer ${token}`
     }
   })
+
   return data
 }
