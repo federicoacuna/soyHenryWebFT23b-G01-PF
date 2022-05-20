@@ -110,7 +110,7 @@ function AddressCreator () {
       floorApartment: '',
       deliveryInstructions: ''
     })
-    navigate('/cart')
+    navigate('/addresses')
   }
 
   return (

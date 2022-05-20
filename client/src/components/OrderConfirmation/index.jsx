@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { clearCreatedOrder } from '../../redux/actions'
 import AddressCard from '../AddressCard'
 import UserPaymentCard from '../PaymentCard'
-import LoadingSpinner from '../LoadingSpinner'
+// import LoadingSpinner from '../LoadingSpinner'
 
 export default function OrderConfirmation () {
   const dispatch = useDispatch()
@@ -25,21 +25,20 @@ export default function OrderConfirmation () {
 
   return (
     <Box>
-      {createdOrder.orderId
-        ?//eslint-disable-line 
-          <div>
-            <p>Nro. de Orden: {createdOrder.orderId}</p>
-            <p>Fue pagado con:</p>
-            <UserPaymentCard
-              key={userPayment.id}
-              paymentType={userPayment.paymentType}
-              cardNumber={userPayment.cardNumber}
-              expirationDate={userPayment.expirationDate}
-              provider={userPayment.provider}
-              id={userPayment.id}
-            />
-            {userAddress && <p>Su orden sera despachada a:</p>}
-            {
+      {createdOrder?.orderId
+        ? <div>
+          <p>Nro. de Orden: {createdOrder.orderId}</p>
+          <p>Fue pagado con:</p>
+          <UserPaymentCard
+            key={userPayment.id}
+            paymentType={userPayment.paymentType}
+            cardNumber={userPayment.cardNumber}
+            expirationDate={userPayment.expirationDate}
+            provider={userPayment.provider}
+            id={userPayment.id}
+          />
+          {userAddress && <p>Su orden sera despachada a:</p>}
+          {
           userAddress &&
             <AddressCard
               id={userAddress.id}
@@ -51,8 +50,8 @@ export default function OrderConfirmation () {
               country={userAddress.country}
             />
           }
-            {branch && <p>Su orden estara disponible para su retiro en:</p>}
-            {
+          {branch && <p>Su orden estara disponible para su retiro en:</p>}
+          {
           branch &&
             <AddressCard
               id={branch.id}
@@ -63,13 +62,13 @@ export default function OrderConfirmation () {
               country={branch.country}
             />
           }
-            <UnorderedList>
-              {createdOrder.orderItems.map(item => <ListItem key={item.productId}>{item.name}</ListItem>)}
-            </UnorderedList>
-            <Button onClick={handleClick}>Aceptar</Button>
-            {/* eslint-disable-next-line */}
-         </div>
-        : <LoadingSpinner />}
+          <UnorderedList>
+            {createdOrder.orderItems.map((item, index) => <ListItem key={index}>{item.name}</ListItem>)}
+          </UnorderedList>
+          <Button onClick={handleClick}>Aceptar</Button>
+          {/* eslint-disable-next-line */}
+        </div>
+        : <p>A</p>}
     </Box>
   )
 }

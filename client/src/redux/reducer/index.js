@@ -18,7 +18,9 @@ import {
   SET_ORDER_ITEMS,
   CREATE_ORDER,
   CLEAR_CREATED_ORDER,
-  GET_ORDERS
+  GET_ORDERS,
+  UPDATE_WISHLIST,
+  GET_WISHLIST
 } from '../constants'
 
 const initialState = {
@@ -175,6 +177,16 @@ const reducer = (state = initialState, action) => {
         ...state,
         user: {},
         token: ''
+      }
+
+    case UPDATE_WISHLIST:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          products: payload.payload
+        },
+        toast: payload.message || payload.error
       }
 
     default:

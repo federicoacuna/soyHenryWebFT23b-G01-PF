@@ -1,15 +1,14 @@
 const { WishList } = require('../db')
 
 async function addToWishList (newItem) {
-  const { userId, productId } = newItem
-  const [, wasCreated] = await WishList.findOrCreate({
-    where: {
-      userId,
-      productId
-    },
-    defaults: newItem
-  })
-  return wasCreated
+  try {
+    const [, wasCreated] = await WishList.findOrCreate({
+      where: newItem
+    })
+    return wasCreated
+  } catch (error) {
+    return error
+  }
 }
 
 async function removeFromWishList (item) {
@@ -24,8 +23,20 @@ async function removeFromWishList (item) {
 
     return wasDeleted
   } catch (err) {
-    console.log(err)
+    return err
   }
 }
 
-module.exports = { addToWishList, removeFromWishList }
+async function getUserWishList (userId) {
+  try {
+    const wishList = await WishList.findAll({ where: { userId } })
+    return wishList
+  } catch (error) {
+    return error
+  }
+}
+module.exports = {
+  addToWishList,
+  removeFromWishList,
+  getUserWishList
+}

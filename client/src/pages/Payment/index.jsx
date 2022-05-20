@@ -20,23 +20,26 @@ export default function Payment () {
   }
 
   async function handleClick (e) {
-    e.target.name === 'payment' && navigate('/createpayment')
-    if (paymentID) {
-      dispatch(placeOrder())
-      // navigate('/confirmation')
-      try {
-        const preferences = await createMercadoPagoPreferences()
-        window.location.replace(preferences.init_point)
-      } catch (error) {
-        console.log(error)
-      }
-    } else if (!paymentID && e.target.name === 'buy') {
-      toast({
+    if (e.target.name === 'payment') navigate('/createpayment')
+    if (!paymentID) {
+      return toast({
         description: 'Debe seleccionar un método de pago.',
         status: 'error',
         duration: 2500,
         isClosable: true
       })
+    } else {
+      if (paymentID === 'MP') {
+        try {
+          const preferences = await createMercadoPagoPreferences()
+          window.location.replace(preferences.init_point)
+        } catch (error) {
+          console.log(error)
+        }
+      } else {
+        dispatch(placeOrder())
+        navigate('/confirmation')
+      }
     }
   }
 

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 import { updateUserData } from '../../redux/actions'
 import ButtonPrimary from '../ButtonPrimary'
 import {
@@ -14,7 +13,6 @@ import {
 
 export default function UserPersonalData () {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
   const user = useSelector(state => state.user)
   const [userData, setUserData] = useState({
     email: '',
@@ -82,18 +80,17 @@ export default function UserPersonalData () {
 
   function handleSubmit () {
     const newData = {
-      id: user.id,
       firstname: userData.firstname,
       lastname: userData.lastname,
       phone: userData.phone,
       birthdate: userData.birthdate
     }
     validate() && dispatch(updateUserData(newData))
-    navigate('/perfil')
+    // REFRESH DATA FROM REDUX TO FORM
   }
 
   function handleClose () {
-    navigate('/')
+    // REFRESH DATA FROM REDUX TO FORM
   }
 
   return (
@@ -101,7 +98,6 @@ export default function UserPersonalData () {
       <Heading as='h2' size='x1'>DATOS DE SU CUENTA</Heading>
       <FormLabel htmlFor='email'>Su cuenta de email es</FormLabel>
       <Input onChange={(e) => handleChange(e)} name='email' type='text' value={userData.email} placeholder={userData.email} disabled />
-      {/* {errors.email && <Text color='red'>{errors.email}</Text>} */}
 
       <Heading as='h2' size='x1'>DATOS PERSONALES</Heading>
       <FormLabel htmlFor='firstname'>Nombres</FormLabel>

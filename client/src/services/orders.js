@@ -1,4 +1,6 @@
 import axios from 'axios'
+import store from '../redux/store'
+const { token } = store.getState()
 
 export const createOrder = async (newOrder) => {
   newOrder.orderItems = newOrder.orderItems.map(item => {
@@ -9,7 +11,11 @@ export const createOrder = async (newOrder) => {
     return acc + (item.quantity * item.price)
   }, 0)
 
-  const { data } = await axios.post('/orders', newOrder)
+  const { data } = await axios.post('/orders', newOrder, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
   return data
 }
 
@@ -19,6 +25,5 @@ export const getOrders = async (token) => {
       Authorization: `Bearer ${token}`
     }
   })
-
   return data
 }

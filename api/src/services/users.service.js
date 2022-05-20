@@ -36,7 +36,7 @@ async function updateUser (data) {
   phone && (firstArg.phone = phone)
   birthdate && (firstArg.birthdate = birthdate)
 
-  return await User.update({ ...firstArg }, { where: { id } })
+  return await User.update(firstArg, { where: { id } })
 }
 
 async function removeUser (userId) {

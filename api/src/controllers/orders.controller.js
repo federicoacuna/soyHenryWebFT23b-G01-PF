@@ -7,25 +7,23 @@ const get = async (req, res) => {
   try {
     if (!orderId) {
       const user = await usersService.getUserByEmail(req.user.email)
-      ordersService.getOrdersByUser(user)
+      ordersService.getOrdersByUser(user.id)
         .then(retrievedOrders => retrievedOrders ? res.json(retrievedOrders) : res.status(404).json({ error: 'No orders where found matching the search criteria' }))
+    } else {
+      ordersService.getOrderDetails(orderId)
+        .then(orderDetails => orderDetails ? res.json(orderDetails) : res.status(404).json({ error: 'Requested order not found' }))
     }
-    ordersService.getOrderDetails(orderId)
-      .then(orderDetails => orderDetails ? res.json(orderDetails) : res.status(404).json({ error: 'Requested order not found' }))
   } catch (error) {
     res.status(400).json(error)
   }
 }
 
 const create = async (req, res) => {
-  const { userId, userPaymentId, userAddressId, branchId, total, orderItems } = req.body
+  const { userPaymentId, userAddressId, branchId, total, orderItems } = req.body
   const validationErrors = {}
+  const currentUser = await usersService.getUserByEmail(req.user.email)
+  req.body.userId = currentUser.id
 
-  if (!userId) {
-    validationErrors.userId = 'Must provide user ID (buyer)'
-  } else {
-    isNaN(parseInt(userId)) && (validationErrors.userId = 'User ID(buyer) must be an integer')
-  }
   if (!userPaymentId) {
     validationErrors.userPaymentId = 'Must provide user(buyer) payment method ID'
   } else {

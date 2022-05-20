@@ -34,16 +34,19 @@ async function getOrders (searchOptions) {
   }
 }
 
-async function getOrdersByUser (user) {
+async function getOrdersByUser (userId) {
   try {
     const result = await Order.findAll({
       where: {
-        userId: user.id
+        userId
+      },
+      include: {
+        model: Product
       }
     })
     return result
   } catch (error) {
-    return { error: error.message }
+    return error
   }
 }
 
@@ -106,11 +109,10 @@ async function createOrder (newOrder) {
       orderItems,
       total: createOrder.total
     }
-    // console.log(createdOrder)
+
     return createdOrder
   } catch (error) {
-    console.log(error)
-    return { error: error.message }
+    return error
   }
 }
 
