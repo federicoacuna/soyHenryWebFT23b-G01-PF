@@ -6,10 +6,7 @@ import SortingSelector from '../SortingSelector'
 
 function ProductList () {
   const products = useSelector(state => state.products)
-  let wishList = useSelector(state => state.user.products)
 
-  wishList = wishList && wishList.map(item => item.productId)
-  console.log(wishList)
   if (products.message !== undefined) return <div>{products.message}</div>
   if (products.length === 0) return <div>No hay productos</div>
 
@@ -20,7 +17,6 @@ function ProductList () {
         <ProductCard
           key={p.id + p.name}
           product={p}
-          wishlist={wishList}
         />
       ))}
 
