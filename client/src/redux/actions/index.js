@@ -7,6 +7,7 @@ import { createOrder, getOrders } from '../../services/orders'
 import { createAddress } from '../../services/addresses'
 import { createPayment } from '../../services/payments'
 import { removeFromWishList, insertInWishList, getUserWishList } from '../../services/wishList'
+import { getReviews } from '../../services/reviews'
 import {
   GET_PRODUCTS,
   GET_BRANDS,
@@ -28,7 +29,8 @@ import {
   CLEAR_CREATED_ORDER,
   GET_ORDERS,
   UPDATE_WISHLIST,
-  GET_WISHLIST
+  GET_WISHLIST,
+  GET_REVIEWS
 } from '../constants'
 
 export const getProducts = (options) => {
@@ -344,6 +346,24 @@ export const getWishList = () => {
       })
     } catch (error) {
       console.log(error)
+    }
+  }
+}
+
+export const getUserReviews = (token) => {
+  return async (dispatch) => {
+    try {
+      const reviews = await getReviews(token)
+
+      dispatch({
+        type: GET_REVIEWS,
+        payload: reviews
+      })
+    } catch (error) {
+      dispatch({
+        type: GET_REVIEWS,
+        payload: error
+      })
     }
   }
 }

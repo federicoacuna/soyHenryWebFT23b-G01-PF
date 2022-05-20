@@ -29,7 +29,8 @@ async function createReview (email, data) {
       if (userOrder) {
         const orderId = userOrder.map(orden => orden.id)
         const orderItem = await OrderItem.findAll({ where: { orderId } })
-        if (orderItem.find(e => e.id === data.productId)) {
+        if (orderItem.find(e => e.productId === data.productId)) {
+          console.log('regato')
           const idProduct = data.id
           const ratingProduct = data.rating
           const newReview = await Review.findOrCreate({ where: { productId: data.productId, userId: user }, defaults: data })
