@@ -17,7 +17,8 @@ import {
   SET_USER_ADDRESS,
   SET_ORDER_ITEMS,
   CREATE_ORDER,
-  CLEAR_CREATED_ORDER
+  CLEAR_CREATED_ORDER,
+  GET_ORDERS
 } from '../constants'
 
 const initialState = {
@@ -30,6 +31,7 @@ const initialState = {
   user: {},
   order: {},
   createdOrder: {},
+  orders: [],
   token: window.localStorage.getItem('token')
 }
 
@@ -84,6 +86,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         categories: payload
+      }
+    case GET_ORDERS:
+      return {
+        ...state,
+        orders: payload
       }
 
     case SET_CART_PRODUCTS:

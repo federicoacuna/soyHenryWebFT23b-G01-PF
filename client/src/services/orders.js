@@ -12,3 +12,13 @@ export const createOrder = async (newOrder) => {
   const { data } = await axios.post('/orders', newOrder)
   return data
 }
+
+export const getOrders = async (token) => {
+  const { data } = await axios.get('/orders', {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+
+  return data
+}

@@ -34,6 +34,19 @@ async function getOrders (searchOptions) {
   }
 }
 
+async function getOrdersByUser (user) {
+  try {
+    const result = await Order.findAll({
+      where: {
+        userId: user.id
+      }
+    })
+    return result
+  } catch (error) {
+    return { error: error.message }
+  }
+}
+
 async function createOrder (newOrder) {
   try {
     const createOrder = await Order.create(newOrder)
@@ -126,5 +139,6 @@ async function _createItems (newItems) {
 module.exports = {
   getOrders,
   getOrderDetails,
+  getOrdersByUser,
   createOrder
 }
