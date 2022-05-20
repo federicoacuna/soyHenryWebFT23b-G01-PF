@@ -1,11 +1,13 @@
 const ordersService = require('../services/orders.service')
+const usersService = require('../services/users.service')
 
-const get = (req, res) => {
+const get = async (req, res) => {
   const { orderId } = req.params
 
   try {
     if (!orderId) {
-      ordersService.getOrders(req.query)
+      const user = await usersService.getUserByEmail(req.user.email)
+      ordersService.getOrdersByUser(user)
         .then(retrievedOrders => retrievedOrders ? res.json(retrievedOrders) : res.status(404).json({ error: 'No orders where found matching the search criteria' }))
     }
     ordersService.getOrderDetails(orderId)

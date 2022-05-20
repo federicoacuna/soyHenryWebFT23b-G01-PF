@@ -3,7 +3,7 @@ import { getProductsService, getDetailsProductsService } from '../../services/pr
 import { getBrandsService } from '../../services/brands'
 import { getCategoriesService } from '../../services/categories'
 import { sendToken } from '../../services/users'
-import { createOrder } from '../../services/orders'
+import { createOrder, getOrders } from '../../services/orders'
 import { createAddress } from '../../services/addresses'
 import { createPayment } from '../../services/payments'
 import { updateUser } from '../../services/updateuserdata'
@@ -26,7 +26,8 @@ import {
   SET_USER_PAYMENT,
   SET_ORDER_ITEMS,
   CREATE_ORDER,
-  CLEAR_CREATED_ORDER
+  CLEAR_CREATED_ORDER,
+  GET_ORDERS
 } from '../constants'
 
 export const getProducts = (options) => {
@@ -95,6 +96,24 @@ export const getCategories = () => {
     } catch (error) {
       dispatch({
         type: GET_CATEGORIES,
+        payload: error.message
+      })
+    }
+  }
+}
+
+export const getOrdersByUser = (token) => {
+  return async (dispatch) => {
+    try {
+      const result = await getOrders(token)
+
+      dispatch({
+        type: GET_ORDERS,
+        payload: result
+      })
+    } catch (error) {
+      dispatch({
+        type: GET_ORDERS,
         payload: error.message
       })
     }
