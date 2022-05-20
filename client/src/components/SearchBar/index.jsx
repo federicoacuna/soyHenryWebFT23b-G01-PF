@@ -4,6 +4,7 @@ import { addFilterParams, clearFilterParams } from '../../redux/actions/index'
 import { Box, Input, Button, Icon } from '@chakra-ui/react'
 import { BsSearch } from 'react-icons/bs'
 import styles from './index.module.css'
+import SortingSelector from '../SortingSelector'
 
 export default function SearchBar () {
   const dispatch = useDispatch()
@@ -58,6 +59,7 @@ export default function SearchBar () {
           />
         </Box>
         <Button bg='primary' color='accent' px='2rem' pb='0.2rem' _hover _active _focus onClick={handleClick} name='Clean'>Clean</Button>
+        <SortingSelector />
       </form>
     </Box>
   )

@@ -1,9 +1,13 @@
 import { addToWishList, deleteFromWishList } from '../../redux/actions'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
 
-export default function WishListManagerButton ({ productId, wishList }) {
+export default function WishListManagerButton ({ productId }) {
   const dispatch = useDispatch()
+  const wishList = useSelector(state => state.wishlist)
+  const [isInList, setIsInList] = useState(false)
+
   const handleWishList = (e) => {
     if (e.currentTarget.name === 'add') {
       dispatch(addToWishList(productId))
@@ -11,11 +15,13 @@ export default function WishListManagerButton ({ productId, wishList }) {
       dispatch(deleteFromWishList(productId))
     }
   }
-  const isInList = wishList && wishList.includes(productId)
+  useEffect(() => {
+    if (wishList) {
+      setIsInList(!!wishList.find(item => item.productId === productId))
+    }
+  }, [wishList])//eslint-disable-line
 
   return (
-    <>
-      <button onClick={handleWishList} name={isInList ? 'erase' : 'add'}>{isInList ? <AiFillHeart /> : <AiOutlineHeart />}</button>
-    </>
+    <button onClick={handleWishList} name={isInList ? 'erase' : 'add'}>{isInList ? <AiFillHeart /> : <AiOutlineHeart />}</button>
   )
 }

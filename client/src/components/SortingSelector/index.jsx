@@ -11,9 +11,8 @@ export default function SortingSelector () {
 
   return (
     <>
-      <label htmlFor='selector'>Ordenar por:</label>
       <select onChange={(e) => handleSelect(e)} value={sorting || 'none'}>
-        <option value='none'>--Selecciona una opción--</option>
+        <option value='none'>Ordenar por</option>
         <option value='rating,desc'>Mas relevantes</option>
         <option value='price,desc'>Mayor Precio</option>
         <option value='price,asc'>Menor Precio</option>
