@@ -11,13 +11,12 @@ function ProductList () {
 
   return (
     <div className={styles['products-container']}>
-      {products.map(p => (
+      {products && products.map(p => (
         <ProductCard
           key={p.id + p.name}
           product={p}
         />
       ))}
-
     </div>
   )
 }

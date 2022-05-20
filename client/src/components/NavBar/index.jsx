@@ -36,7 +36,9 @@ const NavBar = () => {
 
   useEffect(() => {
     JSON.parse(window.localStorage.getItem('auth')) && dispatch(logIn())
-    dispatch(getWishList())
+    if (user && user.id) {
+      dispatch(getWishList())
+    }
   }, []) // eslint-disable-line
 
   function handleLogOut () {
