@@ -7,7 +7,7 @@ const PriceFilter = () => {
   const options = useSelector(state => state.options)
 
   function handleChange (e) {
-    dispatch(addFilterParams({ name: e.target.name, value: e.target.value }))
+    dispatch(addFilterParams({ name: e.target.name, value: e.target.value.replace(/\D/g, '') }))
   }
 
   return (
