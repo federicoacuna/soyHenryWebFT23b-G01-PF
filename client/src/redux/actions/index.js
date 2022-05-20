@@ -6,6 +6,7 @@ import { sendToken } from '../../services/users'
 import { createOrder, getOrders } from '../../services/orders'
 import { createAddress } from '../../services/addresses'
 import { createPayment } from '../../services/payments'
+import { updateUser } from '../../services/updateuserdata'
 
 import {
   GET_PRODUCTS,
@@ -164,6 +165,26 @@ export const createNewPayment = (newPayment) => {
     try {
       const { token } = store.getState()
       await createPayment(newPayment)
+      const user = await sendToken(token)
+
+      dispatch({
+        type: LOG_IN,
+        payload: { user, token }
+      })
+    } catch (error) {
+      dispatch({
+        type: LOG_IN,
+        payload: error.message
+      })
+    }
+  }
+}
+
+export const updateUserData = (newData) => {
+  return async (dispatch) => {
+    try {
+      const { token } = store.getState()
+      await updateUser(newData)
       const user = await sendToken(token)
 
       dispatch({

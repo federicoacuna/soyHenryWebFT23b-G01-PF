@@ -47,12 +47,11 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
   const { id } = req.params
-  req.body.userId = id
 
   if (!id) {
     return res.status(400).json({ error: 'User ID is missing' })
   }
-  if (!isNaN(parseInt(id))) {
+  if (isNaN(parseInt(id))) {
     return res.status(400).json({ error: 'User ID must be an integer' })
   }
   try {

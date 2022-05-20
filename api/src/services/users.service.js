@@ -1,4 +1,4 @@
-const { User, UserPayment, UserAddress, WishList, Product } = require('../db')
+const { User, UserPayment, UserAddress, /* WishList, */ Product } = require('../db')
 
 async function getUserByEmail (userEmail) {
   return await User.findOne({
@@ -28,17 +28,15 @@ async function createUser (email) {
 }
 
 async function updateUser (data) {
-  // VERIFICAR que los parámetros a modificar sean los que se quieren modificar
-  const { userId, username, password, phone, email } = data
-
+  const { id, firstname, lastname, phone, birthdate } = data
   const firstArg = {}
 
-  username && (firstArg.username = username)
-  password && (firstArg.password = password)
+  firstname && (firstArg.firstname = firstname)
+  lastname && (firstArg.lastname = lastname)
   phone && (firstArg.phone = phone)
-  email && (firstArg.email = email)
+  birthdate && (firstArg.birthdate = birthdate)
 
-  return await User.update(firstArg, { where: { id: userId } })
+  return await User.update({ ...firstArg }, { where: { id } })
 }
 
 async function removeUser (userId) {

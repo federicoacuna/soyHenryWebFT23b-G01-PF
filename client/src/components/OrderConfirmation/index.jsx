@@ -67,7 +67,8 @@ export default function OrderConfirmation () {
               {createdOrder.orderItems.map(item => <ListItem key={item.productId}>{item.name}</ListItem>)}
             </UnorderedList>
             <Button onClick={handleClick}>Aceptar</Button>
-          </div>
+            {/* eslint-disable-next-line */}
+         </div>
         : <LoadingSpinner />}
     </Box>
   )
