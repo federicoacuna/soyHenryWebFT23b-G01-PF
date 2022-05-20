@@ -16,16 +16,19 @@ const AddressSelector = () => {
   const user = useSelector(state => state.user)
 
   const handleClick = (value) => {
-    value.target.name === 'AddAddress' && navigate('/createaddress')
-    if (selectedAddress) {
-      navigate('/payment')
-    } else if (selectedAddress && value.target.name === 'continuar') {
-      toast({
-        description: 'Debe seleccionar una direccion para su envio.',
-        status: 'error',
-        duration: 2500,
-        isClosable: true
-      })
+    if (value.target.name === 'AddAddress') {
+      navigate('/createaddress')
+    } else {
+      if (selectedAddress) {
+        navigate('/payment')
+      } else if (selectedAddress && value.target.name === 'continuar') {
+        toast({
+          description: 'Debe seleccionar una direccion para su envio.',
+          status: 'error',
+          duration: 2500,
+          isClosable: true
+        })
+      }
     }
   }
 

@@ -2,12 +2,11 @@ import store from '../store'
 import { getProductsService, getDetailsProductsService } from '../../services/products'
 import { getBrandsService } from '../../services/brands'
 import { getCategoriesService } from '../../services/categories'
-import { sendToken } from '../../services/users'
+import { sendToken, updateUser } from '../../services/users'
 import { createOrder, getOrders } from '../../services/orders'
 import { createAddress } from '../../services/addresses'
 import { createPayment } from '../../services/payments'
-import { updateUser } from '../../services/updateuserdata'
-
+import { removeFromWishList, insertInWishList } from '../../services/wishList'
 import {
   GET_PRODUCTS,
   GET_BRANDS,
@@ -27,7 +26,8 @@ import {
   SET_ORDER_ITEMS,
   CREATE_ORDER,
   CLEAR_CREATED_ORDER,
-  GET_ORDERS
+  GET_ORDERS,
+  UPDATE_WISHLIST
 } from '../constants'
 
 export const getProducts = (options) => {
@@ -228,7 +228,7 @@ export const placeOrder = () => {
   return async (dispatch) => {
     try {
       const order = await createOrder(newOrder)
-      console.log(order.data)
+      console.log(order)
       dispatch({
         type: CREATE_ORDER,
         payload: order.data
@@ -300,5 +300,35 @@ export const logIn = (token) => {
 export const logOut = () => {
   return {
     type: LOG_OUT
+  }
+}
+
+// USER ACTIVITIES
+
+export const addToWishList = (productId) => {
+  return async (dispatch) => {
+    try {
+      const wishList = await insertInWishList(productId)
+      dispatch({
+        type: UPDATE_WISHLIST,
+        payload: wishList
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const deleteFromWishList = (productId) => {
+  return async (dispatch) => {
+    try {
+      const wishList = await removeFromWishList(productId)
+      dispatch({
+        type: UPDATE_WISHLIST,
+        payload: wishList
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

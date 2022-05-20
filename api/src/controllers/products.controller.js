@@ -3,7 +3,6 @@ const Products = require('../services/products.service')
 async function get (req, res, next) {
   try {
     const retrievedProducts = await Products.getProducts(req.query)
-    console.log(retrievedProducts)
     retrievedProducts ? res.json(retrievedProducts) : res.status(404).json({ error: 'No products where found' })
   } catch (error) {
     res.json(error)

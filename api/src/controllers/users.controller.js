@@ -3,12 +3,6 @@ const usersService = require('../services/users.service')
 const get = async (req, res) => {
   const email = req.user.email
 
-  // if (!email) {
-  //   return res.status(400).json({ error: 'Must provide user email' })
-  // }
-  // if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-  //   return res.status(400).json({ error: 'Must provide a valid email' })
-  // }
   try {
     const user = await usersService.createUser(email)
     const userDetails = await usersService.getById(user.id)
@@ -46,14 +40,9 @@ const create = async (req, res) => {
 }
 
 const update = async (req, res) => {
-  const { id } = req.params
+  const user = await usersService.getUserByEmail(req.user.email)
+  req.body.id = user.id
 
-  if (!id) {
-    return res.status(400).json({ error: 'User ID is missing' })
-  }
-  if (isNaN(parseInt(id))) {
-    return res.status(400).json({ error: 'User ID must be an integer' })
-  }
   try {
     const wasUpdated = await usersService.updateUser(req.body)
     wasUpdated ? res.json({ message: 'User succesfully updated' }) : res.status(400).json({ error: 'Unable to update user' })

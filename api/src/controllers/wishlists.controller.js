@@ -1,27 +1,61 @@
 const usersService = require('../services/users.service')
-const wishList = require('../services/wishList.service.js')
+const wishListService = require('../services/wishList.service.js')
+
+async function get (req, res) {
+  try {
+    const user = await usersService.getUserByEmail(req.user.email)
+    const wishList = await wishListService.getUserWishList(user.id)
+    res.json(wishList)
+  } catch (error) {
+    res.status(400).json(error)
+  }
+}
 
 async function create (req, res) {
+  console.log('hola')
   const user = await usersService.getUserByEmail(req.user.email)
-  const newItem = req.body
-  newItem.userId = user.id
+  const item = {
+    productId: req.body.productId,
+    userId: user.id
+  }
 
   try {
-    const wasCreated = await wishList.addToWishList(newItem)
-    wasCreated ? res.json({ message: 'El item ha sido agregado con exito a favoritos' }) : res.status(404).json({ message: 'El item ya se encuentra en favoritos' })
+    const wasCreated = await wishListService.addToWishList(item)
+    const newWishList = await wishListService.getUserWishList(user.id)
+    wasCreated
+      ? res.json({
+        message: 'El item ha sido agregado con exito a favoritos',
+        payload: newWishList
+      })
+      : res.status(404).json({
+        error: 'El item ya se encuentra en favoritos',
+        payload: newWishList
+      })
   } catch (err) {
     res.status(400).json(err)
   }
 }
 
 async function erase (req, res) {
+  console.log('hola')
   const user = await usersService.getUserByEmail(req.user.email)
-  const { productId } = req.params
-  const item = { userId: user.id, productId }
+  const item = {
+    productId: req.params.productId,
+    userId: user.id
+  }
 
   try {
-    const wasDeleted = await wishList.removeFromWishList(item)
-    wasDeleted ? res.json({ message: 'El item fue removido con exito' }) : res.status(404).json({ message: 'El item no se encuentra en favoritos' })
+    const wasDeleted = await wishListService.removeFromWishList(item)
+    const newWishList = await wishListService.getUserWishList(user.id)
+    wasDeleted
+      ? res.json({
+        message: 'El item ha sido eliminado con exito a favoritos',
+        payload: newWishList
+      })
+      : res.status(404).json({
+        error: 'El item no se encuentra en favoritos',
+        payload: newWishList
+      })
   } catch (err) {
     res.status(400).json(err)
   }
@@ -29,5 +63,6 @@ async function erase (req, res) {
 
 module.exports = {
   create,
-  erase
+  erase,
+  get
 }

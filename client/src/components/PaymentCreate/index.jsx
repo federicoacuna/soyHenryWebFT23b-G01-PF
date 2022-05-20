@@ -25,12 +25,12 @@ export default function PaymentCreate () {
   }
 
   function handleBackClick () {
-    navigate('/address')
+    navigate('/payment')
   }
   function handleClick () {
     validate()
     dispatch(createNewPayment(values))
-    // navigate('/confirmation')
+    navigate('/payment')
   }
 
   function handleSelect (e) {
