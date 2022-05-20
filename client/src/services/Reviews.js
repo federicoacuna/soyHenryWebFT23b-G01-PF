@@ -1,7 +1,7 @@
 import store from '../redux/store'
 import axios from 'axios'
 
-export const createPayment = function (values) {
+export const createNewReview = function (values) {
   const { token } = store.getState()
   axios.post('/reviews', values, {
     headers: {
