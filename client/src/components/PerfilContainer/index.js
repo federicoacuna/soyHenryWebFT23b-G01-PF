@@ -10,6 +10,7 @@ import AddressCard from '../AddressCard'
 import AddressCreator from '../AddressCreator'
 import PaymentCard from '../PaymentCard'
 import PaymentCreate from '../PaymentCreate'
+import WishList from '../WishList'
 
 export default function PerfilContainer () {
   const userAddresses = useSelector(state => state.user.userAddresses)
@@ -123,6 +124,7 @@ export default function PerfilContainer () {
             </TabPanel>
             <TabPanel>
               <Heading mb={5}>Lista de deseos</Heading>
+              <WishList />
             </TabPanel>
             <TabPanel>
               <Heading mb={5}>Opiniones</Heading>
