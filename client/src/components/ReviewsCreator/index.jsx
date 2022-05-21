@@ -53,7 +53,7 @@ export default function Reviews (productName, productId, navigateURL) {
   }
   return (
     <div>
-      <h1>{productName}</h1>
+      {/* <h1>{productName}</h1> */}
       <Slider defaultValue={5} min={1} max={5} step={1} onChangeEnd={(rating) => setValues({ ...values, rating })}>
         <SliderMark value={1} mt='1' ml='-2.5' fontSize='sm'>1</SliderMark>
         <SliderMark value={2} mt='1' ml='-2.5' fontSize='sm'>2</SliderMark>

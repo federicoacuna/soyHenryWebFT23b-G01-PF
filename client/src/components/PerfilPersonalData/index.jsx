@@ -91,6 +91,14 @@ export default function UserPersonalData () {
 
   function handleClose () {
     // REFRESH DATA FROM REDUX TO FORM
+    const oldData = {
+      email: user.email,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      phone: user.phone,
+      birthdate: user.birthdate
+    }
+    dispatch(updateUserData(oldData))
   }
 
   return (
