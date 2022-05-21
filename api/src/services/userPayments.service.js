@@ -1,10 +1,12 @@
 const { UserPayment, PaymentType } = require('../db')
 
 async function getUserPayments (userId) {
-  return await UserPayment.findAll({
+  const userPayments = await UserPayment.findAll({
     where: { userId },
     include: PaymentType
   })
+
+  return userPayments
 }
 
 async function createUserPayment (newUserPayment) {

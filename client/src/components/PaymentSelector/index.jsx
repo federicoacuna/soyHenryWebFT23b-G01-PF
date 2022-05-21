@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUserPayment } from '../../redux/actions'
 import PaymentCard from '../PaymentCard'
 import { Text, Flex } from '@chakra-ui/react'
+import { getUserPayments } from '../../redux/actions/payments.actions'
 
 export default function PaymentSelector ({ children }) {
-  const userPayments = useSelector(state => state.user.userPayments)
+  const userPayments = useSelector(state => state.payments)
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getUserPayments())
+  }, [])//eslint-disable-line
 
   return (
     <Flex justifyContent='center' alignItems='center' h='80vh' w='100vw'>
@@ -28,7 +33,7 @@ export default function PaymentSelector ({ children }) {
           paymentType='Pagar con Mercado Pago'
           expirationDate=''
           provider=''
-          id={3}
+          id='MP'
         />
         <Flex justifyContent='flex-end' mt={5}>
           {children}

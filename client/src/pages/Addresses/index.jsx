@@ -9,6 +9,7 @@ import AddressCard from '../../components/AddressCard'
 
 const AddressSelector = () => {
   const userAddresses = useSelector(state => state.addresses)
+  const orderStatus = useSelector(state => state.order)
   const selectedAddress = useSelector(state => state.order.userAddressId)
   const cartProducts = useSelector(state => state.cartProducts)
   const dispatch = useDispatch()
@@ -17,7 +18,8 @@ const AddressSelector = () => {
   const user = useSelector(state => state.user)
 
   useEffect(() => {
-    dispatch(getUserAddresses())
+    orderStatus.orderItems || navigate('/')
+    orderStatus.orderItems && dispatch(getUserAddresses())
   }, [])//eslint-disable-line
 
   const handleClick = (value) => {

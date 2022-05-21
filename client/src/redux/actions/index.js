@@ -4,7 +4,6 @@ import { getBrandsService } from '../../services/brands'
 import { getCategoriesService } from '../../services/categories'
 import { sendToken, updateUser } from '../../services/users'
 import { createOrder, getOrders } from '../../services/orders'
-import { createPayment } from '../../services/payments'
 import { removeFromWishList, insertInWishList, getUserWishList } from '../../services/wishList'
 import { getAllCountries } from '../../services/countries'
 import { getReviews } from '../../services/reviews'
@@ -158,26 +157,6 @@ export const setSorting = (sort) => {
   return {
     type: SET_SORTING,
     payload: sort
-  }
-}
-
-export const createNewPayment = (newPayment) => {
-  return async (dispatch) => {
-    try {
-      const { token } = store.getState()
-      await createPayment(newPayment)
-      const user = await sendToken(token)
-
-      dispatch({
-        type: LOG_IN,
-        payload: { user, token }
-      })
-    } catch (error) {
-      dispatch({
-        type: LOG_IN,
-        payload: error.message
-      })
-    }
   }
 }
 

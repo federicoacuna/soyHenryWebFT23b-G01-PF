@@ -13,11 +13,11 @@ export default function PaymentCard ({ id, paymentType, cardNumber, expirationDa
     <Flex alignItems='center' bg='white' borderRadius={3} mt={2} mb={2} onClick={onclick}>
       <Flex w='100%' alignItems='center'>
         <Box m={4}>
-          {cardNumber !== undefined &&
+          {cardNumber &&
             <Circle size='40px' bg='secondary' color='white'>
               <FaCreditCard />
             </Circle>}
-          {cardNumber === undefined && <Icon as={MercadoPagoIcon} w='10rem' h='2.5rem' />}
+          {id === 'MP' && <Icon as={MercadoPagoIcon} w='10rem' h='2.5rem' />}
         </Box>
         <VStack pt={3} pb={3} alignItems='flex-start'>
           <Text>{`${provider} ${paymentType} ${cardNumberHidden}`}</Text>

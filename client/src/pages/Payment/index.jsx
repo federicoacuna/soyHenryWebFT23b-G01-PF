@@ -5,10 +5,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { placeOrder } from '../../redux/actions/index'
 import { useToast, Button, Flex, Heading } from '@chakra-ui/react'
 import { createMercadoPagoPreferences } from '../../services/payments'
+import { useEffect } from 'react'
 
 export default function Payment () {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const currentOrderStatus = useSelector(state => state.order)
   const paymentID = useSelector(state => state.order.userPaymentId)
   const cartProducts = useSelector(state => state.cartProducts)
   const userAddresses = useSelector(state => state.user.userAddresses)
@@ -19,8 +21,12 @@ export default function Payment () {
     navigate('/addresses')
   }
 
+  useEffect(() => {
+    if (!currentOrderStatus.userAddressId || !currentOrderStatus.orderItems) navigate('/')
+  }, [])//eslint-disable-line
+
   async function handleClick (e) {
-    if (e.target.name === 'payment') navigate('/createpayment')
+    if (e.target.name === 'payment') return navigate('/createpayment')
     if (!paymentID) {
       return toast({
         description: 'Debe seleccionar un método de pago.',
@@ -28,18 +34,17 @@ export default function Payment () {
         duration: 2500,
         isClosable: true
       })
-    } else {
-      if (paymentID === 'MP') {
-        try {
-          const preferences = await createMercadoPagoPreferences()
-          window.location.replace(preferences.init_point)
-        } catch (error) {
-          console.log(error)
-        }
-      } else {
-        dispatch(placeOrder())
-        navigate('/confirmation')
+    }
+    if (paymentID === 'MP') {
+      try {
+        const preferences = await createMercadoPagoPreferences()
+        window.location.replace(preferences.init_point)
+      } catch (error) {
+        console.log(error)
       }
+    } else {
+      dispatch(placeOrder())
+      navigate('/confirmation')
     }
   }
 
