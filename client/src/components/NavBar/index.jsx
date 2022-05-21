@@ -26,10 +26,14 @@ const NavBar = () => {
   const [modal, setModal] = useState(false)
   const [isRegistrando, setIsRegistrando] = React.useState(false)
   const user = useSelector(state => state.user)
+  const toastToDisplay = useSelector(state => state.toast)
   const dispatch = useDispatch()
   const toast = useToast()
 
-  // const { isOpen, onToggle } = useDisclosure()
+  useEffect(() => {
+    toastToDisplay.title && toast(toastToDisplay)
+  }, [toastToDisplay])//eslint-disable-line
+
   const handleSubmit = (e) => {
     e.target.name === 'ingresar' && setModal(true)
     e.target.name === 'salir' && handleLogOut()
