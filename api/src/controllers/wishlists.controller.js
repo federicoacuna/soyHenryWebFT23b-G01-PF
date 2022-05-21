@@ -12,7 +12,6 @@ async function get (req, res) {
 }
 
 async function create (req, res) {
-  console.log('hola')
   const user = await usersService.getUserByEmail(req.user.email)
   const item = {
     productId: req.body.productId,
@@ -37,7 +36,6 @@ async function create (req, res) {
 }
 
 async function erase (req, res) {
-  console.log('hola')
   const user = await usersService.getUserByEmail(req.user.email)
   const item = {
     productId: req.params.productId,
