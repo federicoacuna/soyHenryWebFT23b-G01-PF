@@ -57,6 +57,7 @@ const countryList = [
   'Venezuela'
 ]
 
+const sequelizeCountryList = countryList.map(country => { return { countryName: country } })
 // const saveCountries = async () => {
 //   try {
 //     for (let i = 0; i < countryList.length; i++) {
@@ -71,7 +72,7 @@ const countryList = [
 
 const saveCountries = async () => {
   try {
-    await Country.bulkCreate(countryList)
+    await Country.bulkCreate(sequelizeCountryList)
   } catch (error) {
     console.log(error)
   }
