@@ -1,4 +1,4 @@
-const { WishList } = require('../db')
+const { WishList, Product } = require('../db')
 
 async function addToWishList (newItem) {
   try {
@@ -29,8 +29,14 @@ async function removeFromWishList (item) {
 
 async function getUserWishList (userId) {
   try {
-    const wishList = await WishList.findAll({ where: { userId } })
-    return wishList
+    const wishList = await WishList.findAll({
+      where: { userId }
+    })
+    const query = await Product.findAll({
+      where: { id: wishList.map(el => el.productId) },
+      attributes: ['image', 'price', 'id', 'name']
+    })
+    return query
   } catch (error) {
     return error
   }

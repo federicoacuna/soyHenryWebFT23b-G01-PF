@@ -1,0 +1,13 @@
+.chinchulin {
+    border:1px solid black;
+    margin-top: 2px;
+    display:flex;
+    height:30%
+}
+.chinchulin img{
+    max-width:10%;
+    max-height: 10%;
+}
+.remove{
+    align-self: flex-end;
+}
