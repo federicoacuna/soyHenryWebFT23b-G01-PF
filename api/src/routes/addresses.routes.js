@@ -1,12 +1,16 @@
 const { Router } = require('express')
 const router = Router()
-const { create, remove } = require('../controllers/addresses.controller')
+const addressesController = require('../controllers/addresses.controller')
 const middleware = require('../middleware')
 
 router.use(middleware.decodeToken)
 
-router.post('/', create)
+router.get('/', addressesController.get)
 
-router.delete('/:addressId', remove)
+router.post('/', addressesController.create)
+
+router.delete('/:addressId', addressesController.remove)
+
+router.put('/:addressId', addressesController.update)
 
 module.exports = router
