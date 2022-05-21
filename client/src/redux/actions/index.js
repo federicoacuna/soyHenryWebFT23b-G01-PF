@@ -4,7 +4,6 @@ import { getBrandsService } from '../../services/brands'
 import { getCategoriesService } from '../../services/categories'
 import { sendToken, updateUser } from '../../services/users'
 import { createOrder, getOrders } from '../../services/orders'
-import { createAddress } from '../../services/addresses'
 import { createPayment } from '../../services/payments'
 import { removeFromWishList, insertInWishList, getUserWishList } from '../../services/wishList'
 import { getAllCountries } from '../../services/countries'
@@ -32,10 +31,7 @@ import {
   SET_ORDER_ITEMS,
   CREATE_ORDER,
   CLEAR_CREATED_ORDER,
-  UPDATE_WISHLIST,
-  UPDATE_ADDRESSES,
-  UPDATE_PAYMENTS,
-  UPDATE_CART
+  UPDATE_WISHLIST
 } from '../constants'
 
 export const getProducts = (options) => {
@@ -162,26 +158,6 @@ export const setSorting = (sort) => {
   return {
     type: SET_SORTING,
     payload: sort
-  }
-}
-
-export const createNewAddress = (newAddress) => {
-  return async (dispatch) => {
-    try {
-      const { token } = store.getState()
-      await createAddress(newAddress)
-      const user = await sendToken(token)
-
-      dispatch({
-        type: LOG_IN,
-        payload: { user, token }
-      })
-    } catch (error) {
-      dispatch({
-        type: LOG_IN,
-        payload: error.message
-      })
-    }
   }
 }
 

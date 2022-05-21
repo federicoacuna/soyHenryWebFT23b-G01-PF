@@ -1,6 +1,13 @@
 const addressService = require('../services/userAddresses.service')
 const usersService = require('../services/users.service.js')
 
+async function get (req, res) {
+  const user = await usersService.getUserByEmail(req.user.email)
+  const allUserAddresses = await addressService.getUserAddresses(user.id)
+
+  allUserAddresses ? res.send(allUserAddresses) : res.status(404).json({ error: 'No se encontraron direcciones' })
+}
+
 async function create (req, res) {
   const user = await usersService.getUserByEmail(req.user.email)
   const newAddress = req.body
