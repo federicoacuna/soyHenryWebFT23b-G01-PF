@@ -17,7 +17,7 @@ import { GrMenu } from 'react-icons/gr'
 import styles from './index.module.css'
 import ModalLogin from '../../components/ModalLogin'
 import firebase from 'firebase/compat/app'
-import { logOut, logIn, getWishList } from '../../redux/actions'
+import { logOut, logIn, getWishList, setToast } from '../../redux/actions'
 import { AiFillCaretDown } from 'react-icons/ai'
 
 const NavBar = () => {
@@ -25,17 +25,20 @@ const NavBar = () => {
   const [modal, setModal] = useState(false)
   const [isRegistrando, setIsRegistrando] = React.useState(false)
   const user = useSelector(state => state.user)
+  const toastToDisplay = useSelector(state => state.toast)
   const dispatch = useDispatch()
   const toast = useToast()
 
-  // const { isOpen, onToggle } = useDisclosure()
+  useEffect(() => {
+    toastToDisplay.title && toast(toastToDisplay)
+  }, [toastToDisplay])//eslint-disable-line
   const handleSubmit = (e) => {
     e.target.name === 'ingresar' && setModal(true)
     e.target.name === 'salir' && handleLogOut()
   }
 
   useEffect(() => {
-    JSON.parse(window.localStorage.getItem('auth')) && dispatch(logIn())
+    window.localStorage.getItem('token') && dispatch(logIn())
     if (user && user.id) {
       dispatch(getWishList())
     }
@@ -46,19 +49,17 @@ const NavBar = () => {
       firebase.auth().signOut()
         .then(() => {
           dispatch(logOut())
-          window.localStorage.setItem('auth', 'false')
-          toast({
-            description: 'Sesion cerrada',
+          dispatch(setToast({
+            title: 'Sesion cerrada',
+            description: 'Tu cuenta ya esta segura!',
             status: 'warning',
             duration: 5000,
             isClosable: false
-          })
+          }))
         })
         .catch((error) => {
           console.log(error)
         })
-    } else {
-      alert('sin sesion iniciada')
     }
   }
 

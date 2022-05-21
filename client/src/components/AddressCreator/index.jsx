@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import ButtonPrimary from '../ButtonPrimary'
-import { createNewAddress } from '../../redux/actions'
+import { createNewAddress } from '../../redux/actions/addresses.actions'
 import { useDispatch } from 'react-redux'
 import {
   FormControl,
   FormLabel,
-  FormErrorMessage, //eslint-disable-line
-  FormHelperText, //eslint-disable-line
   Text,
   Input,
-  Flex
+  Flex,
+  Button
 } from '@chakra-ui/react'
+import { setToast } from '../../redux/actions'
 
 function AddressCreator () {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [hasTried, setHasTried] = useState(false)
-  const [errors, setErrors] = useState({//eslint-disable-line
+  const [errors, setErrors] = useState({
     postalCode: '',
     countryId: '',
     state: '',
@@ -49,10 +48,23 @@ function AddressCreator () {
 
   function handleSubmit () {
     setHasTried(true)
-    validate() && dispatch(createNewAddress(values))
-    navigate('/addresses')
+    if (validate()) {
+      dispatch(createNewAddress(values))
+      navigate('/addresses')
+    } else {
+      dispatch(setToast({
+        title: 'Falta informacion.',
+        description: 'Por favor completa los campos obligatorios.',
+        status: 'error',
+        duration: 7000,
+        isClosable: true
+      }))
+    }
   }
 
+  function handleClose () {
+    navigate('/addresses')
+  }
   function validate () {
     const error = {}
 
@@ -99,20 +111,6 @@ function AddressCreator () {
     if (Object.values(error).length === 0) { return true }
   }
 
-  function handleClose () {
-    setValues({
-      postalCode: '',
-      countryId: '',
-      state: '',
-      city: '',
-      streetName: '',
-      houseNumber: '',
-      floorApartment: '',
-      deliveryInstructions: ''
-    })
-    navigate('/addresses')
-  }
-
   return (
     <FormControl onSubmit={handleSubmit} isRequired>
 
@@ -149,8 +147,8 @@ function AddressCreator () {
       {errors.deliveryInstructions && <Text color='red'>{errors.deliveryInstructions}</Text>}
 
       <Flex flexDirection='row' justifyContent='center'>
-        <ButtonPrimary text='Guardar' onclick={handleSubmit} />
-        <ButtonPrimary text='Cancelar' onclick={handleClose} />
+        <Button onClick={handleClose} name='Cancel'>Cancelar</Button>
+        <Button onClick={handleSubmit} name='Submit'>Guardar</Button>
       </Flex>
     </FormControl>
   )

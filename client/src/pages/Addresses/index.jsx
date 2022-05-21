@@ -1,34 +1,39 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Text, Button, Flex, useToast, Heading } from '@chakra-ui/react'
+import { Text, Button, Flex, Heading, useToast } from '@chakra-ui/react'
 import { setUserAddress } from '../../redux/actions/index'
 import { useNavigate, Link } from 'react-router-dom'
 import { IoMdArrowRoundBack } from 'react-icons/io'
 import AddressCard from '../../components/AddressCard'
+import { getUserAddresses } from '../../redux/actions/addresses.actions'
 
 const AddressSelector = () => {
-  const userAddresses = useSelector(state => state.user.userAddresses)
+  const userAddresses = useSelector(state => state.addresses)
   const selectedAddress = useSelector(state => state.order.userAddressId)
   const cartProducts = useSelector(state => state.cartProducts)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const toast = useToast()
   const user = useSelector(state => state.user)
+  const toast = useToast()
+
+  useEffect(() => {
+    dispatch(getUserAddresses())
+  }, [])//eslint-disable-line
 
   const handleClick = (value) => {
     if (value.target.name === 'AddAddress') {
       navigate('/createaddress')
+    }
+    if (value.target.name === 'continuar' && selectedAddress) {
+      navigate('/payment')
     } else {
-      if (selectedAddress) {
-        navigate('/payment')
-      } else if (selectedAddress && value.target.name === 'continuar') {
-        toast({
-          description: 'Debe seleccionar una direccion para su envio.',
-          status: 'error',
-          duration: 2500,
-          isClosable: true
-        })
-      }
+      toast({
+        title: 'No podemos continuar',
+        description: 'Debe seleccionar una direccion para su envio.',
+        status: 'error',
+        duration: 3500,
+        isClosable: true
+      })
     }
   }
 
@@ -38,7 +43,7 @@ const AddressSelector = () => {
         ? <Flex justifyContent='center' alignItems='center' h='80vh' w='100vw'>
           <Flex flexDirection='column' borderRadius={5} boxShadow='lg' bg='secondary' w='70vw' p={5}>
             <Text p={0} fontSize='2xl' fontWeight='500' mb={2}>¿Donde quieres recibir tu compra? </Text>
-            {userAddresses && userAddresses.map(address => <AddressCard
+            {userAddresses.length && userAddresses.map(address => <AddressCard
               key={address.id}
               id={address.id}
               postalCode={address.postalCode}
@@ -48,7 +53,7 @@ const AddressSelector = () => {
               state={address.state}
               country={address.country}
               onclick={() => dispatch(setUserAddress(address.id))}
-                                                           />)}
+                                                                  />)}
             <Flex justifyContent='flex-end' mt={5}>
               <Button name='AddAddress' onClick={handleClick} colorScheme='blue'>Agregar dirección</Button>
               {userAddresses.length !== 0 && <Button name='continuar' mr={3} colorScheme='blue' onClick={handleClick}>Continuar</Button>}

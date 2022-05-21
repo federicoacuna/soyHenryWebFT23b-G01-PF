@@ -1,8 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-// import s from './index.module.css'
 import { Flex, Tabs, TabPanels, Tab, TabPanel, Box, Heading } from '@chakra-ui/react'
-import { BiUserCircle, BiHistory, BiDirections, BiMoney, BiShoppingBag, BiHeart, BiStar } from 'react-icons/bi'
+import { BiUserCircle, BiHistory, BiDirections, BiMoney, BiHeart, BiStar } from 'react-icons/bi'
 import DatosPersonales from '../PerfilPersonalData'
 import MyShopping from '../MyShopping'
 import Reviews from '../Reviews'
@@ -10,6 +9,7 @@ import AddressCard from '../AddressCard'
 import AddressCreator from '../AddressCreator'
 import PaymentCard from '../PaymentCard'
 import PaymentCreate from '../PaymentCreate'
+import WishList from '../WishList'
 
 export default function PerfilContainer () {
   const userAddresses = useSelector(state => state.user.userAddresses)
@@ -51,14 +51,14 @@ export default function PerfilContainer () {
               fontWeight={500}
             ><BiMoney /> <Box textAlign='start' ml='10px'>Metodos de pago</Box>
             </Tab>
-            <Tab
+            {/* <Tab
               justifyContent='flex-start'
               w='100%'
               _focus={{ borderColor: 'none' }}
               _active={{ color: 'white' }}
               fontWeight={500}
             ><BiShoppingBag /> <Box textAlign='start' ml='10px'>Mis compras</Box>
-            </Tab>
+            </Tab> */}
             <Tab
               justifyContent='flex-start'
               w='100%'
@@ -84,6 +84,7 @@ export default function PerfilContainer () {
             </TabPanel>
             <TabPanel>
               <Heading mb={5}>Historial</Heading>
+              <MyShopping />
             </TabPanel>
             <TabPanel>
               <Heading mb={5}>Domicilios</Heading>
@@ -117,12 +118,12 @@ export default function PerfilContainer () {
               <Heading mb={5} mt={5}>Agregar un método de pago</Heading>
               <PaymentCreate />
             </TabPanel>
-            <TabPanel>
+            {/* <TabPanel>
               <Heading mb={5}>Mis compras</Heading>
-              <MyShopping />
-            </TabPanel>
+            </TabPanel> */}
             <TabPanel>
               <Heading mb={5}>Lista de deseos</Heading>
+              <WishList />
             </TabPanel>
             <TabPanel>
               <Heading mb={5}>Opiniones</Heading>

@@ -4,11 +4,11 @@ import { getBrandsService } from '../../services/brands'
 import { getCategoriesService } from '../../services/categories'
 import { sendToken, updateUser } from '../../services/users'
 import { createOrder, getOrders } from '../../services/orders'
-import { createAddress } from '../../services/addresses'
 import { createPayment } from '../../services/payments'
 import { removeFromWishList, insertInWishList, getUserWishList } from '../../services/wishList'
 import { getReviews } from '../../services/reviews'
 import {
+  SET_TOAST,
   GET_PRODUCTS,
   GET_BRANDS,
   GET_CATEGORIES,
@@ -32,6 +32,13 @@ import {
   GET_WISHLIST,
   GET_REVIEWS
 } from '../constants'
+
+export const setToast = (toast) => {
+  return {
+    type: SET_TOAST,
+    payload: toast
+  }
+}
 
 export const getProducts = (options) => {
   return async (dispatch) => {
@@ -140,26 +147,6 @@ export const setSorting = (sort) => {
   return {
     type: SET_SORTING,
     payload: sort
-  }
-}
-
-export const createNewAddress = (newAddress) => {
-  return async (dispatch) => {
-    try {
-      const { token } = store.getState()
-      await createAddress(newAddress)
-      const user = await sendToken(token)
-
-      dispatch({
-        type: LOG_IN,
-        payload: { user, token }
-      })
-    } catch (error) {
-      dispatch({
-        type: LOG_IN,
-        payload: error.message
-      })
-    }
   }
 }
 

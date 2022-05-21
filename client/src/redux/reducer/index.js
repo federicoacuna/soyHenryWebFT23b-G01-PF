@@ -1,5 +1,6 @@
 
 import {
+  SET_TOAST,
   GET_PRODUCTS,
   GET_BRANDS,
   GET_CATEGORIES,
@@ -24,7 +25,8 @@ import {
   UPDATE_ADDRESSES,
   UPDATE_PAYMENTS,
   UPDATE_CART,
-  GET_REVIEWS
+  GET_REVIEWS,
+  GET_ADDRESSES
 } from '../constants'
 
 const initialState = {
@@ -50,6 +52,12 @@ const reducer = (state = initialState, action) => {
   const { payload, type } = action
 
   switch (type) {
+    case SET_TOAST:
+      return {
+        ...state,
+        toast: payload
+      }
+
     case GET_PRODUCTS:
       return {
         ...state,
@@ -186,7 +194,13 @@ const reducer = (state = initialState, action) => {
         ...state,
         user: {},
         token: '',
-        wishlist: []
+        addresses: [],
+        payments: [],
+        wishlist: [],
+        reviews: [],
+        orders: [],
+        order: {},
+        createdOrder: {}
       }
 
     case UPDATE_WISHLIST:
@@ -201,13 +215,16 @@ const reducer = (state = initialState, action) => {
         wishlist: payload
       }
 
+    case GET_ADDRESSES:
+      return {
+        ...state,
+        addresses: payload
+      }
     case UPDATE_ADDRESSES:
       return {
         ...state,
-        user: {
-          ...state.user,
-          userAddresses: payload.payload
-        }
+        addresses: payload.payload,
+        toast: payload.toast
       }
 
     case UPDATE_PAYMENTS:
