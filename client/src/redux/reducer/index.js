@@ -27,7 +27,8 @@ import {
   UPDATE_ADDRESSES,
   UPDATE_PAYMENTS,
   UPDATE_CART,
-  GET_REVIEWS
+  GET_REVIEWS,
+  GET_PAYMENTS
 } from '../constants'
 
 const initialState = {
@@ -221,11 +222,18 @@ const reducer = (state = initialState, action) => {
         ...state,
         addresses: payload
       }
+
     case UPDATE_ADDRESSES:
       return {
         ...state,
         addresses: payload.payload,
         toast: payload.toast
+      }
+
+    case GET_PAYMENTS:
+      return {
+        ...state,
+        payments: payload
       }
 
     case UPDATE_PAYMENTS:

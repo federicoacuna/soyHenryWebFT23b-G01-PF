@@ -2,7 +2,7 @@ import LabelInput from '../LabelInput'
 import { Select, Button } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-import { createNewPayment } from '../../redux/actions'
+import { createNewPayment } from '../../redux/actions/payments.actions'
 import { useDispatch } from 'react-redux'
 
 export default function PaymentCreate () {

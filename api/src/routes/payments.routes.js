@@ -1,12 +1,14 @@
 const { Router } = require('express')
 const router = Router()
-const { create, remove } = require('../controllers/payments.controller')
+const paymentController = require('../controllers/payments.controller')
 const middleware = require('../middleware')
 
 router.use(middleware.decodeToken)
 
-router.post('/', create)
+router.get('/', paymentController.get)
 
-router.delete('/:paymentId', remove)
+router.post('/', paymentController.create)
+
+router.delete('/:paymentId', paymentController.remove)
 
 module.exports = router

@@ -22,7 +22,7 @@ export const postAddress = async function (newAddress) {
       Authorization: `Bearer ${token}`
     }
   })
-  console.log(data)
+
   return data
 }
 

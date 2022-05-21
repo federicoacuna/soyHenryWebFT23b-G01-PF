@@ -1,19 +1,53 @@
 import store from '../redux/store'
 import axios from 'axios'
 
-export const createPayment = function (values) {
-  const { token } = store.getState()
-  axios.post('/payments', values, {
+const { token } = store.getState()
+const endpoint = '/payments'
+
+export const getPayments = async function () {
+  const { data } = await axios.get(endpoint, {
     headers: {
       Authorization: `Bearer ${token}`
     }
   })
+
+  return data
+}
+
+export const postPayment = async function (newPayment) {
+  const { data } = await axios.post(endpoint, newPayment, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+
+  return data
+}
+
+export const putPayment = async function (updatedPayment) {
+  const { data } = await axios.get(endpoint, updatedPayment, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+
+  return data
+}
+
+export const deletePayment = async function (paymentId) {
+  const { data } = await axios.delete(`${endpoint}/${paymentId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+
+  return data
 }
 
 // MERCADO PAGO
 export const createMercadoPagoPreferences = async function () {
   const url = 'https://api.mercadopago.com/checkout/preferences'
-  const { cartProducts: cartProducts, user, order } = store.getState()
+  const { cartProducts, user, order } = store.getState()
   const orderAddress = user.userAddresses.find(address => address.id === order.userAddressId)
 
   const addres = {

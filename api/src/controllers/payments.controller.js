@@ -1,5 +1,12 @@
-const userPayment = require('../services/userPayments.service')
+const userPaymentService = require('../services/userPayments.service')
 const usersService = require('../services/users.service.js')
+
+async function get (req, res) {
+  const user = await usersService.getUserByEmail(req.user.email)
+  const allUserPayments = await userPaymentService.getUserPayments(user.id)
+
+  allUserPayments ? res.send(allUserPayments) : res.status(404).json({ error: 'No se encontraron direcciones' })
+}
 
 const create = async (req, res) => {
   const user = await usersService.getUserByEmail(req.user.email)
@@ -17,7 +24,7 @@ const create = async (req, res) => {
   if (typeof (newPayment.expirationDay) === 'number') return res.status(400).json({ error: 'expiration date must meet the following format: YYYY/MM' })
 
   try {
-    const wasCreated = await userPayment.createUserPayment(req.body)
+    const wasCreated = await userPaymentService.createUserPayment(req.body)
     wasCreated ? res.json({ message: 'Payment method was succesfully registered' }) : res.status(400).json({ error: 'Payment method could not registered' })
   } catch (error) {
     res.status(400).json(error)
@@ -31,7 +38,7 @@ const remove = (req, res) => {
     res.status(400).json({ error: 'Payment Id must be provided' })
   }
   try {
-    const wasUpdated = userPayment.removePayment(paymentId)
+    const wasUpdated = userPaymentService.removePayment(paymentId)
     wasUpdated ? res.json({ message: 'Payment method was succesfully deleted' }) : res.status(400).json({ error: 'Payment method could not be deleted' })
   } catch (error) {
     res.status(400).json(error)
@@ -40,5 +47,6 @@ const remove = (req, res) => {
 
 module.exports = {
   create,
-  remove
+  remove,
+  get
 }

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import ButtonPrimary from '../ButtonPrimary'
 import { getCountries } from '../../redux/actions'
 import { createNewAddress } from '../../redux/actions/addresses.actions'
 import { useDispatch, useSelector } from 'react-redux'
@@ -11,7 +10,8 @@ import {
   Input,
   Flex,
   Select,
-  useToast
+  useToast,
+  Button
 } from '@chakra-ui/react'
 
 function AddressCreator () {
@@ -49,31 +49,31 @@ function AddressCreator () {
 
   useEffect(() => {
     hasTried && validate()
-    console.log(values)
   }, [values]) //eslint-disable-line
 
   function handleChange (e) {
-    console.log(e.target.name)
-    console.log(e.target.value)
     setValues({
       ...values,
       [e.target.name]: e.target.value
     })
   }
 
-  function handleSubmit () {
-    setHasTried(true)
-    if (validate()) {
-      dispatch(createNewAddress(values))
-      navigate('/addresses')
-    } else {
-      toast({
-        title: 'Falta informacion.',
-        description: 'Por favor completa los campos obligatorios.',
-        status: 'error',
-        duration: 7000,
-        isClosable: true
-      })
+  function handleSubmit (e) {
+    if (e.target.name === 'Close') navigate(-1)
+    else {
+      setHasTried(true)
+      if (validate()) {
+        dispatch(createNewAddress(values))
+        navigate(-1)
+      } else {
+        toast({
+          title: 'Falta informacion.',
+          description: 'Por favor completa los campos obligatorios.',
+          status: 'error',
+          duration: 7000,
+          isClosable: true
+        })
+      }
     }
   }
 
@@ -123,10 +123,6 @@ function AddressCreator () {
     if (Object.values(error).length === 0) { return true }
   }
 
-  function handleClose () {
-    navigate('/addresses')
-  }
-
   return (
     <FormControl onSubmit={handleSubmit} isRequired>
 
@@ -165,8 +161,8 @@ function AddressCreator () {
       {errors.deliveryInstructions && <Text color='red'>{errors.deliveryInstructions}</Text>}
 
       <Flex flexDirection='row' justifyContent='center'>
-        <ButtonPrimary text='Guardar' onclick={handleSubmit} />
-        <ButtonPrimary text='Cancelar' onclick={handleClose} />
+        <Button name='Close' onClick={handleSubmit}>Cancelar</Button>
+        <Button name='Submit' onClick={handleSubmit}>Guardar</Button>
       </Flex>
     </FormControl>
   )
