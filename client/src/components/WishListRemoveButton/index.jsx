@@ -1,12 +1,12 @@
 
 import { ImCross } from 'react-icons/im'
 import { useDispatch } from 'react-redux'
-import { getWishList, deleteFromWishList } from '../../redux/actions/index.js'
+import { deleteFromWishList } from '../../redux/actions/index.js'
 
 export default function WishListButton ({ productId }) {
   const dispatch = useDispatch()
   async function handleClose () {
-    dispatch(deleteFromWishList(productId)).then(dispatch(getWishList))
+    dispatch(deleteFromWishList(productId))
   }
 
   return (
