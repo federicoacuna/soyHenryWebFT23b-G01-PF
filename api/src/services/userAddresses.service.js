@@ -29,7 +29,6 @@ async function createAddress (newAddress) {
 }
 
 async function removeAddress (addressId) {
-  // VERIFICAR SI EN UPDATEDROWS ESTA EL VALOR CORRECTO
   const [updatedRows] = await UserAddress.update({
     deleted: true
   },
@@ -40,13 +39,8 @@ async function removeAddress (addressId) {
   return updatedRows === 1
 }
 
-async function updateAddress (updatedAddress) {
-  // STUB FUNCTION
-}
-
 module.exports = {
   getUserAddresses,
   createAddress,
-  removeAddress,
-  updateAddress
+  removeAddress
 }

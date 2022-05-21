@@ -1,14 +1,7 @@
 const addressService = require('../services/userAddresses.service')
 const usersService = require('../services/users.service.js')
 
-async function get (req, res) {
-  const user = await usersService.getUserByEmail(req.user.email)
-  const allUserAddresses = await addressService.getUserAddresses(user.id)
-
-  allUserAddresses ? res.send(allUserAddresses) : res.status(404).json({ error: 'No se encontraron direcciones' })
-}
-
-async function create (req, res) {
+async function create (req, res, next) {
   const user = await usersService.getUserByEmail(req.user.email)
   const newAddress = req.body
   newAddress.userId = user.id
@@ -24,71 +17,20 @@ async function create (req, res) {
 
   try {
     const wasCreated = await addressService.createAddress(newAddress)
-    const allUserAddresses = await addressService.getUserAddresses(user.id)
-    wasCreated
-      ? res.send({
-        payload: allUserAddresses,
-        message: 'Se guardo la nueva dirección con éxito'
-      })
-      : res.status(400).json({
-        payload: allUserAddresses,
-        error: 'Ya existe la direccion ingresada'
-      })
-  } catch (error) {
-    res.status(400).send(error)
-  }
-}
-
-async function remove (req, res) {
-  const { addressId } = req.params
-  if (!addressId) {
-    return res.status(400).json({ error: 'Must provide the address ID to be deleted' })
-  }
-  if (isNaN(parseInt(addressId))) {
-    return res.status(400).json({ error: 'Invalid address ID' })
-  }
-
-  try {
-    const user = await usersService.getUserByEmail(req.user.email)
-    const wasDeleted = await addressService.removeAddress(addressId)
-    const allUserAddresses = await addressService.getUserAddresses(user.id)
-    wasDeleted
-      ? res.send({
-        payload: allUserAddresses,
-        message: 'Se elimino la dirección con éxito'
-      })
-      : res.status(400).json({
-        payload: allUserAddresses,
-        error: 'No se pudo eliminar la direccion'
-      })
+    wasCreated ? res.send({ message: 'Address created correctly' }) : res.status(400).json({ error: 'Address was not created, it already exists' })
   } catch (error) {
     res.send(error)
   }
 }
 
-async function update (req, res) {
+async function remove (req, res, next) {
   const { addressId } = req.params
   if (!addressId) {
-    return res.status(400).json({ error: 'Must provide the address ID to be updated' })
+    return res.status(400).json({ error: 'Must provide the address ID to be deleted' })
   }
-  if (isNaN(parseInt(addressId))) {
-    return res.status(400).json({ error: 'Invalid address ID' })
-  }
-  const updatedAddress = req.body
-  updatedAddress.id = addressId
   try {
-    const user = await usersService.getUserByEmail(req.user.email)
-    const wasUpdated = await addressService.updateAddress(updatedAddress)
-    const allUserAddresses = await addressService.getUserAddresses(user.id)
-    wasUpdated
-      ? res.send({
-        payload: allUserAddresses,
-        message: 'Se actualizó la dirección con éxito'
-      })
-      : res.status(400).json({
-        payload: allUserAddresses,
-        error: 'No se pudo actualizar la dirección'
-      })
+    const wasDeleted = await addressService.removeAddress(addressId)
+    wasDeleted ? res.json({ message: 'Address deleted correctly' }) : res.status(400).json({ error: 'Address could not be deleted' })
   } catch (error) {
     res.send(error)
   }
@@ -96,7 +38,5 @@ async function update (req, res) {
 
 module.exports = {
   create,
-  get,
-  remove,
-  update
+  remove
 }

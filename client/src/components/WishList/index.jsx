@@ -1,8 +1,7 @@
 import { useSelector } from 'react-redux'
 import s from './index.module.css'
-import WishListCard from '../WishListCard'
-
-export default function WishList () {
+import { WishListCard } from '../WishListCard'
+export function WishList () {
   const product = useSelector(state => state.wishlist)
   return (
     <div className={s.container}>
