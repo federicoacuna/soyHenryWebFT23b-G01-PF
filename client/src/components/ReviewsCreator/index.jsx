@@ -8,7 +8,8 @@ import {
   ButtonGroup,
   Button,
   useToast,
-  SliderMark
+  SliderMark,
+  Heading
 } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
@@ -33,7 +34,8 @@ export default function Reviews (productName, productId, navigateURL) {
     navigate(navigateURL)
   }
   function handleClick () {
-    if (!values.rating === '' && !values.review === '') {
+    if (values.rating !== '' && values.review !== '') {
+      console.log(values)
       createNewReview(values)
       toast({
         description: 'Review creada con éxito.',
@@ -53,7 +55,8 @@ export default function Reviews (productName, productId, navigateURL) {
   }
   return (
     <div>
-      <h1>{productName}</h1>
+      {/* <h1>{productName}</h1> ROMPE */}
+      <Heading>Nombre del producto</Heading>
       <Slider defaultValue={5} min={1} max={5} step={1} onChangeEnd={(rating) => setValues({ ...values, rating })}>
         <SliderMark value={1} mt='1' ml='-2.5' fontSize='sm'>1</SliderMark>
         <SliderMark value={2} mt='1' ml='-2.5' fontSize='sm'>2</SliderMark>
@@ -65,7 +68,8 @@ export default function Reviews (productName, productId, navigateURL) {
           <SliderFilledTrack />
         </SliderTrack>
         <SliderThumb />
-      </Slider>
+      </Slider><br /><br />
+      <br />
       <Textarea placeholder='Deja tu comentario' onChange={handleInputChange} name='review' />
       {/* botones */}
       <ButtonGroup variant='outline' spacing='6'>

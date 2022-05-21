@@ -29,7 +29,16 @@ async function createReview (email, data) {
       if (userOrder) {
         const orderId = userOrder.map(orden => orden.id)
         const orderItem = await OrderItem.findAll({ where: { orderId } })
-        if (orderItem.find(e => e.id === data.productId)) {
+        // orderItem[0].dataValues.productId = 3
+        let boolean = ''
+        orderItem.forEach(async (el) => {
+          if (el.dataValues.productId === data.productId) {
+            boolean = true
+          } else {
+            boolean = false
+          }
+        })
+        if (boolean) {
           const idProduct = data.id
           const ratingProduct = data.rating
           const newReview = await Review.findOrCreate({ where: { productId: data.productId, userId: user }, defaults: data })
@@ -54,3 +63,5 @@ module.exports = {
   getReviewsForId,
   createReview
 }
+
+// orderItem.find(e => e[0].dataValues.productId === data.productId)
