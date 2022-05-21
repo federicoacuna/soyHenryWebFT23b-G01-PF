@@ -7,10 +7,12 @@ import { createOrder, getOrders } from '../../services/orders'
 import { createAddress } from '../../services/addresses'
 import { createPayment } from '../../services/payments'
 import { removeFromWishList, insertInWishList, getUserWishList } from '../../services/wishList'
+import { getAllCountries } from '../../services/countries'
 import {
   GET_PRODUCTS,
   GET_BRANDS,
   GET_CATEGORIES,
+  GET_COUNTRIES,
   GET_PRODUCT_DETAILS,
   ADD_FILTER_PARAM,
   CLEAR_FILTER_PARAMS,
@@ -97,6 +99,23 @@ export const getCategories = () => {
     } catch (error) {
       dispatch({
         type: GET_CATEGORIES,
+        payload: error.message
+      })
+    }
+  }
+}
+
+export const getCountries = () => {
+  return async (dispatch) => {
+    try {
+      const countries = await getAllCountries()
+      dispatch({
+        type: GET_COUNTRIES,
+        payload: countries
+      })
+    } catch (error) {
+      dispatch({
+        type: GET_COUNTRIES,
         payload: error.message
       })
     }
