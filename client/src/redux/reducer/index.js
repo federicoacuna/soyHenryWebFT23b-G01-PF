@@ -3,6 +3,7 @@ import {
   GET_PRODUCTS,
   GET_BRANDS,
   GET_CATEGORIES,
+  GET_COUNTRIES,
   GET_PRODUCT_DETAILS,
   ADD_FILTER_PARAM,
   CLEAR_FILTER_PARAMS,
@@ -32,6 +33,7 @@ const initialState = {
   cartProducts: [],
   brands: [],
   categories: [],
+  countries: [],
   options: {},
   product: {},
   user: {},
@@ -102,6 +104,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         orders: payload
+      }
+    case GET_COUNTRIES:
+      return {
+        ...state,
+        countries: payload.data
       }
 
     case SET_CART_PRODUCTS:

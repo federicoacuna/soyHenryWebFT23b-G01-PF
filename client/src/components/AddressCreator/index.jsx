@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ButtonPrimary from '../ButtonPrimary'
-import { createNewAddress } from '../../redux/actions'
-import { useDispatch } from 'react-redux'
+import { createNewAddress, getCountries } from '../../redux/actions'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   FormControl,
   FormLabel,
-  FormErrorMessage, //eslint-disable-line
-  FormHelperText, //eslint-disable-line
   Text,
   Input,
-  Flex
+  Flex,
+  Select
 } from '@chakra-ui/react'
 
 function AddressCreator () {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const countries = useSelector(state => state.countries)
   const [hasTried, setHasTried] = useState(false)
   const [errors, setErrors] = useState({//eslint-disable-line
     postalCode: '',
+    countryName: '',
     countryId: '',
     state: '',
     city: '',
@@ -30,7 +31,8 @@ function AddressCreator () {
 
   const [values, setValues] = useState({
     postalCode: '',
-    countryId: '',
+    countryName: '',
+    countryId: 1,
     state: '',
     city: '',
     streetName: '',
@@ -41,6 +43,7 @@ function AddressCreator () {
 
   useEffect(() => {
     hasTried && validate()
+    dispatch(getCountries())
   }, [values]) //eslint-disable-line
 
   function handleChange (e) {
@@ -49,6 +52,8 @@ function AddressCreator () {
 
   function handleSubmit () {
     setHasTried(true)
+    values.countryId = countries.filter(c => c.countryName === values.countryName)[0].id
+    console.log('Estoy en AddressCreator:', values)
     validate() && dispatch(createNewAddress(values))
     navigate('/addresses')
   }
@@ -58,6 +63,7 @@ function AddressCreator () {
 
     setErrors({
       postalCode: '',
+      countryName: '',
       countryId: '',
       state: '',
       city: '',
@@ -70,8 +76,8 @@ function AddressCreator () {
     if (values.postalCode === '') {
       error.postalCode = 'Completar campo'
     }
-    if (values.countryId === '') {
-      error.countryId = 'Completar campo'
+    if (values.countryName === '') {
+      error.countryName = 'Completar campo'
     }
     if (values.city === '') {
       error.city = 'Completar campo'
@@ -89,7 +95,7 @@ function AddressCreator () {
     setErrors({
       ...values,
       postalCode: error.postalCode,
-      countryId: error.countryId,
+      countryName: error.countryName,
       state: error.state,
       city: error.city,
       streetName: error.streetName,
@@ -102,6 +108,7 @@ function AddressCreator () {
   function handleClose () {
     setValues({
       postalCode: '',
+      countryName: '',
       countryId: '',
       state: '',
       city: '',
@@ -116,36 +123,38 @@ function AddressCreator () {
   return (
     <FormControl onSubmit={handleSubmit} isRequired>
 
-      <FormLabel htmlFor='first-name'>Codigo postal</FormLabel>
-      <Input onChange={(e) => handleChange(e)} name='postalCode' type='text' value={values.postalCode} placeholder='First name' />
+      <FormLabel htmlFor='postalcode'>Codigo postal</FormLabel>
+      <Input onChange={(e) => handleChange(e)} name='postalCode' type='text' value={values.postalCode} placeholder='Ingrese el código postal' />
       {errors.postalCode && <Text color='red'>{errors.postalCode}</Text>}
 
-      <FormLabel htmlFor='first-name'>Pais</FormLabel>
-      <Input onChange={(e) => handleChange(e)} name='countryId' type='number' value={values.countryId} placeholder='First name' />
-      {errors.countryId && <Text color='red'>{errors.countryId}</Text>}
+      <FormLabel htmlFor='countryName'>Pais</FormLabel>
+      <Select onChange={(e) => handleChange(e)} name='countryName' placeholder='Elija un país para el envío'>
+        {countries.map(country => <option key={country.id} value={country.countryName}>{country.countryName}</option>)}
+      </Select>
+      {errors.countryName && <Text color='red'>{errors.countryName}</Text>}
 
-      <FormLabel htmlFor='first-name'>Provincia</FormLabel>
-      <Input onChange={(e) => handleChange(e)} name='state' type='text' value={values.state} placeholder='First name' />
+      <FormLabel htmlFor='state'>Provincia</FormLabel>
+      <Input onChange={(e) => handleChange(e)} name='state' type='text' value={values.state} placeholder='Ingrese el nombre de la Prvincia' />
       {errors.state && <Text color='red'>{errors.state}</Text>}
 
-      <FormLabel htmlFor='first-name'>Ciudad</FormLabel>
-      <Input onChange={(e) => handleChange(e)} name='city' type='text' value={values.city} placeholder='First name' />
+      <FormLabel htmlFor='city'>Ciudad</FormLabel>
+      <Input onChange={(e) => handleChange(e)} name='city' type='text' value={values.city} placeholder='Ingrese el nombre de la ciudad' />
       {errors.city && <Text color='red'>{errors.city}</Text>}
 
-      <FormLabel htmlFor='first-name'>Calle</FormLabel>
-      <Input onChange={(e) => handleChange(e)} name='streetName' type='text' value={values.streetName} placeholder='First name' />
+      <FormLabel htmlFor='streetName'>Calle</FormLabel>
+      <Input onChange={(e) => handleChange(e)} name='streetName' type='text' value={values.streetName} placeholder='Ingrese nombre de la calle' />
       {errors.streetName && <Text color='red'>{errors.streetName}</Text>}
 
-      <FormLabel htmlFor='first-name'>Nro de puerta</FormLabel>
-      <Input onChange={(e) => handleChange(e)} name='houseNumber' type='number' value={values.houseNumber} placeholder='First name' />
+      <FormLabel htmlFor='houseNumber'>Nro de puerta</FormLabel>
+      <Input onChange={(e) => handleChange(e)} name='houseNumber' type='number' value={values.houseNumber} placeholder='Ingrese número de puerta del domicilio' />
       {errors.houseNumber && <Text color='red'>{errors.houseNumber}</Text>}
 
-      <FormLabel htmlFor='first-name'>Piso / depto</FormLabel>
-      <Input onChange={(e) => handleChange(e)} name='floorApartment' type='text' value={values.floorApartment} placeholder='First name' />
+      <FormLabel htmlFor='floorApartment'>Piso / depto</FormLabel>
+      <Input onChange={(e) => handleChange(e)} name='floorApartment' type='text' value={values.floorApartment} placeholder='Ingrese número de apartamento si aplica' />
       {errors.floorApartment && <Text color='red'>{errors.floorApartment}</Text>}
 
-      <FormLabel htmlFor='first-name'>Instrucciones para el envio</FormLabel>
-      <Input onChange={(e) => handleChange(e)} name='deliveryInstructions' type='text' value={values.deliveryInstructions} placeholder='First name' />
+      <FormLabel htmlFor='deliveryInstructions'>Instrucciones para el envio</FormLabel>
+      <Input onChange={(e) => handleChange(e)} name='deliveryInstructions' type='text' value={values.deliveryInstructions} placeholder='Ingrese instruccione adicionales para el envío si aplica' />
       {errors.deliveryInstructions && <Text color='red'>{errors.deliveryInstructions}</Text>}
 
       <Flex flexDirection='row' justifyContent='center'>
