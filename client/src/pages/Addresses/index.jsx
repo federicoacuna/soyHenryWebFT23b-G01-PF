@@ -26,7 +26,8 @@ const AddressSelector = () => {
     }
     if (value.target.name === 'continuar' && selectedAddress) {
       navigate('/payment')
-    } else {
+    }
+    if (value.target.name === 'continuar' && !selectedAddress) {
       toast({
         title: 'No podemos continuar',
         description: 'Debe seleccionar una direccion para su envio.',
@@ -56,7 +57,7 @@ const AddressSelector = () => {
                                                                           />)}
             <Flex justifyContent='flex-end' mt={5}>
               <Button name='AddAddress' onClick={handleClick} colorScheme='blue'>Agregar dirección</Button>
-              {userAddresses.length !== 0 && <Button name='continuar' mr={3} colorScheme='blue' onClick={handleClick}>Continuar</Button>}
+              <Button name='continuar' mr={3} colorScheme='blue' onClick={handleClick}>Continuar</Button>
             </Flex>
           </Flex>
           {/*  eslint-disable-next-line */}
