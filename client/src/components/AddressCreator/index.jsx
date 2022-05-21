@@ -9,7 +9,8 @@ import {
   Text,
   Input,
   Flex,
-  Select
+  Select,
+  useToast
 } from '@chakra-ui/react'
 
 function AddressCreator () {
@@ -17,7 +18,7 @@ function AddressCreator () {
   const dispatch = useDispatch()
   const countries = useSelector(state => state.countries)
   const [hasTried, setHasTried] = useState(false)
-  const [errors, setErrors] = useState({//eslint-disable-line
+  const [errors, setErrors] = useState({
     postalCode: '',
     countryName: '',
     countryId: '',
@@ -28,7 +29,6 @@ function AddressCreator () {
     floorApartment: '',
     deliveryInstructions: ''
   })
-
   const [values, setValues] = useState({
     postalCode: '',
     countryName: '',
@@ -40,10 +40,14 @@ function AddressCreator () {
     floorApartment: '',
     deliveryInstructions: ''
   })
+  const toast = useToast()
+
+  useEffect(() => {
+    dispatch(getCountries())
+  }, [])//eslint-disable-line
 
   useEffect(() => {
     hasTried && validate()
-    dispatch(getCountries())
   }, [values]) //eslint-disable-line
 
   function handleChange (e) {
@@ -53,8 +57,18 @@ function AddressCreator () {
   function handleSubmit () {
     setHasTried(true)
     values.countryId = countries.filter(c => c.countryName === values.countryName)[0].id
-    console.log('Estoy en AddressCreator:', values)
-    validate() && dispatch(createNewAddress(values))
+    if (validate()) {
+      dispatch(createNewAddress(values))
+      navigate('/addresses')
+    } else {
+      toast({
+        title: 'Falta informacion.',
+        description: 'Por favor completa los campos obligatorios.',
+        status: 'error',
+        duration: 7000,
+        isClosable: true
+      })
+    }
     navigate('/addresses')
   }
 
@@ -106,17 +120,6 @@ function AddressCreator () {
   }
 
   function handleClose () {
-    setValues({
-      postalCode: '',
-      countryName: '',
-      countryId: '',
-      state: '',
-      city: '',
-      streetName: '',
-      houseNumber: '',
-      floorApartment: '',
-      deliveryInstructions: ''
-    })
     navigate('/addresses')
   }
 
