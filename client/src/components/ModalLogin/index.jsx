@@ -5,12 +5,11 @@ import { FcGoogle } from 'react-icons/fc'
 import { AiOutlineClose } from 'react-icons/ai'
 import { MdAlternateEmail, MdOutlineLock } from 'react-icons/md'
 import { logIn } from '../../redux/actions'
-
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 import { useDispatch } from 'react-redux'
 
-export const ModalLogin = ({ children, onToggle, state, setState, isRegistrando, setIsRegistrando }) => {
+export const ModalLogin = ({ children, state, setState, isRegistrando, setIsRegistrando }) => {
   const dispatch = useDispatch()
   // TOAST DE CHAKRA
   const toast = useToast()
@@ -26,7 +25,6 @@ export const ModalLogin = ({ children, onToggle, state, setState, isRegistrando,
   })
   const [show, setShow] = React.useState(false)
 
-  // const token = React.useSelector(state => state.token)
   // USE EFFECT CON EL DISPATCH DE LOGIN & LA FN DE VALIDATE
 
   useEffect(() => {
@@ -51,7 +49,6 @@ export const ModalLogin = ({ children, onToggle, state, setState, isRegistrando,
       email: '',
       password: ''
     })
-    // onToggle()
   }
 
   const handleSubmit = () => {
@@ -67,17 +64,16 @@ export const ModalLogin = ({ children, onToggle, state, setState, isRegistrando,
     const password = values.password
 
     if (isRegistrando) {
-      crearUsuario(correo, password)
+      handleLogIn('register', correo, password)
     }
     if (!isRegistrando) {
-      iniciarSesion(correo, password)
+      handleLogIn('email', correo, password)
     }
     handleClick()
   }
 
   const ShowPassword = () => {
     setShow(!show)
-    // onToggle()
   }
 
   const validate = () => {
@@ -106,50 +102,37 @@ export const ModalLogin = ({ children, onToggle, state, setState, isRegistrando,
   }
 
   // FIREBASE
-  function crearUsuario (correo, password) {
-    firebase.auth().createUserWithEmailAndPassword(correo, password)
-      .then((userFirebase) => {
-        // COMPLETAR FLUJO DE CONFRIMACION POR MAIL DE LA CREACION DE CUENTA.
-      })
-  }
 
-  function iniciarSesion (correo, password) {
-    firebase.auth().signInWithEmailAndPassword(correo, password)
-      .then(userFirebase => {
-        if (userFirebase) {
-          toast({
-            description: 'Login exitoso',
-            status: 'success',
-            duration: 5000,
-            isClosable: false
-          })
-          setState(false)
-          window.localStorage.setItem('auth', 'true')
-        }
-      }).catch(error => {
-        toast({
-          description: 'Email o contraseña incorrecto',
-          status: 'error',
-          duration: 3000,
-          isClosable: false
-        })
-        console.log(error)
+  function handleLogIn (type, correo, password) {
+    function toaster (message = 'Login exitoso') {
+      toast({
+        description: message,
+        status: 'success',
+        duration: 5000,
+        isClosable: false
       })
-  }
-
-  const loginWithGoogle = () => {
-    firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .then(({ user }) => {
-        user.getIdToken()
-          .then((token) => {
-            setState(false)
-            window.localStorage.setItem('auth', 'true')
-            dispatch(logIn(token))
-          }).catch(error => console.log(error))
+    }
+    try {
+      if (type === 'google') {
+        firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).then((user) => user && toaster())
+      }
+      if (type === 'email') {
+        firebase.auth().signInWithEmailAndPassword(correo, password).then((user) => (user && toaster()))
+      }
+      if (type === 'register') {
+        firebase.auth().createUserWithEmailAndPassword(correo, password)
+          .then((user) => (user && toaster('Usuario Registrado con Exito')))
+      }
+      setState(false)
+    } catch (error) {
+      toast({
+        description: `${error}`,
+        status: 'failure',
+        duration: 5000,
+        isClosable: false
       })
+    }
   }
-
-  // const handleAuth = () => {}
 
   return (
     <>
@@ -206,7 +189,7 @@ export const ModalLogin = ({ children, onToggle, state, setState, isRegistrando,
 
                 <Flex flexDirection='column' justifyContent='center'>
                   <Button onClick={handleSubmit} color='black' mt={3}>{isRegistrando ? 'Registrarse' : 'Iniciar sesión'}</Button>
-                  <Button onClick={loginWithGoogle} color='black' mt='10px' leftIcon={<FcGoogle />}>Continuar con Google</Button>
+                  <Button onClick={() => handleLogIn('google')} color='black' mt='10px' leftIcon={<FcGoogle />}>Continuar con Google</Button>
                   <Button color='black' mt='10px' onClick={() => setIsRegistrando(!isRegistrando)}>{isRegistrando ? '¿Ya tienes cuenta? Inicia sesion!' : 'Registrate gratis!'}</Button>
                 </Flex>
               </Stack>
@@ -218,38 +201,3 @@ export const ModalLogin = ({ children, onToggle, state, setState, isRegistrando,
 }
 
 export default ModalLogin
-// Comentarios
-
-// import { Link } from 'react-router-dom'
-
-// Firebase
-// import { app } from '../../config/firebase-config'
-
-// const [auth, setAuth] = React.useState('')
-// React.useState(//eslint-disable-line
-//   false || window.localStorage.getItem('auth') === 'true'
-// )
-
-// firebase.auth().signInWithEmailAndPassword(correo, password)
-//   .then(({ user }) => {
-//     user.getIdToken()
-//       .then((token) => {
-//         toast({
-//           description: 'Login exitoso',
-//           status: 'success',
-//           duration: 5000,
-//           isClosable: false
-//         })
-//         setState(false)
-//         window.localStorage.setItem('auth', 'true')
-//         dispatch(logIn(token))
-//       }).catch(error => console.log(error))
-//   })
-//   .catch(error => {
-//     alert('user invalid')
-//     console.log(error)
-//   })
-
-// <Link to='/signup'><Text color='black' mt={1} mb={10} textAlign='center'>¿No tienes una cuenta? Registrate gratis.</Text></Link>
-
-// <button onClick={()=> setIsRegistrando(!isRegistrando)}> {isRegistrando ? "Ya tienes cuenta? Inicia sesion!" : "No tienes cuenta? Registrate /// gratis!" }</button>
