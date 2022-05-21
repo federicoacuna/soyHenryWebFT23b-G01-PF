@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   Show, Box, UnorderedList, ListItem, Icon, Heading, Text, Menu,
@@ -21,6 +21,7 @@ import { logOut, logIn, getWishList } from '../../redux/actions'
 import { AiFillCaretDown } from 'react-icons/ai'
 
 const NavBar = () => {
+  const navigate = useNavigate()
   const cartProducts = useSelector(state => state.cartProducts.reduce((acc, curr) => acc + curr.quantity, 0))
   const [modal, setModal] = useState(false)
   const [isRegistrando, setIsRegistrando] = React.useState(false)
@@ -53,6 +54,7 @@ const NavBar = () => {
             duration: 5000,
             isClosable: false
           })
+          navigate('/')
         })
         .catch((error) => {
           console.log(error)
