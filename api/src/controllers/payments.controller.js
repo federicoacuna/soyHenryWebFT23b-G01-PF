@@ -18,7 +18,6 @@ const create = async (req, res) => {
 
   try {
     const wasCreated = await userPayment.createUserPayment(req.body)
-    console.log(wasCreated)
     wasCreated ? res.json({ message: 'Payment method was succesfully registered' }) : res.status(400).json({ error: 'Payment method could not registered' })
   } catch (error) {
     res.status(400).json(error)

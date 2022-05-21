@@ -231,7 +231,6 @@ export const placeOrder = () => {
   return async (dispatch) => {
     try {
       const order = await createOrder(newOrder)
-      console.log(order)
       dispatch({
         type: CREATE_ORDER,
         payload: order.data
@@ -317,7 +316,6 @@ export const addToWishList = (productId) => {
         payload: wishList
       })
     } catch (error) {
-      console.log(error)
     }
   }
 }
@@ -331,7 +329,6 @@ export const deleteFromWishList = (productId) => {
         payload: wishList
       })
     } catch (error) {
-      console.log(error)
     }
   }
 }
@@ -345,7 +342,6 @@ export const getWishList = () => {
         payload: wishList
       })
     } catch (error) {
-      console.log(error)
     }
   }
 }
