@@ -17,7 +17,7 @@ import { GrMenu } from 'react-icons/gr'
 import styles from './index.module.css'
 import ModalLogin from '../../components/ModalLogin'
 import firebase from 'firebase/compat/app'
-import { logOut, setProfileTab } from '../../redux/actions'
+import { getWishList, logOut, setProfileTab } from '../../redux/actions'
 import { AiFillCaretDown } from 'react-icons/ai'
 
 const NavBar = () => {
@@ -30,6 +30,10 @@ const NavBar = () => {
   const toastToDisplay = useSelector(state => state.toast)
   const dispatch = useDispatch()
   const toast = useToast()
+
+  useEffect(() => {
+    dispatch(getWishList())
+  }, [token])//eslint-disable-line
 
   useEffect(() => {
     toastToDisplay.title && toast(toastToDisplay)
