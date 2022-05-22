@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 // import s from './index.module.css'
 import { Flex, Tabs, TabPanels, Tab, TabPanel, Box, Heading } from '@chakra-ui/react'
-import { BiUserCircle, BiHistory, BiDirections, BiMoney, BiShoppingBag, BiHeart, BiStar } from 'react-icons/bi'
+import { BiUserCircle, BiDirections, BiMoney, BiShoppingBag, BiHeart, BiStar } from 'react-icons/bi'
 import DatosPersonales from '../PerfilPersonalData'
 import MyShopping from '../MyShopping'
 import Reviews from '../Reviews'
@@ -28,14 +28,14 @@ export default function PerfilContainer () {
               fontWeight={500}
             ><BiUserCircle /> <Box textAlign='start' ml='10px'>Datos personales</Box>
             </Tab>
-            <Tab
+            {/* <Tab
               justifyContent='flex-start'
               w='100%'
               _focus={{ borderColor: 'none' }}
               _active={{ color: 'white' }}
               fontWeight={500}
             ><BiHistory /> <Box textAlign='start' ml='10px'>Historial</Box>
-            </Tab>
+            </Tab> */}
             <Tab
               justifyContent='flex-start'
               w='100%'
@@ -83,9 +83,9 @@ export default function PerfilContainer () {
               <Heading mb={5}>Datos personales</Heading>
               <DatosPersonales />
             </TabPanel>
-            <TabPanel>
+            {/* <TabPanel>
               <Heading mb={5}>Historial</Heading>
-            </TabPanel>
+            </TabPanel> */}
             <TabPanel>
               <Heading mb={5}>Domicilios</Heading>
               {/* <Box mb={5}>Elige donde recibir tus compras.</Box> */}
