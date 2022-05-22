@@ -17,7 +17,7 @@ import { GrMenu } from 'react-icons/gr'
 import styles from './index.module.css'
 import ModalLogin from '../../components/ModalLogin'
 import firebase from 'firebase/compat/app'
-import { logOut, getWishList } from '../../redux/actions'
+import { logOut, getWishList, setProfileTab } from '../../redux/actions'
 import { AiFillCaretDown } from 'react-icons/ai'
 
 const NavBar = () => {
@@ -67,6 +67,11 @@ const NavBar = () => {
     }
   }
 
+  function handleClick (tab) {
+    dispatch(setProfileTab(tab))
+    navigate('/perfil')
+  }
+
   return (
     <>
       {/* Desktop */}
@@ -82,7 +87,7 @@ const NavBar = () => {
                 <Link to='/' className={styles.navLink}>Home</Link>
               </ListItem>
               <ListItem>
-                <Link to='/perfil/4' className={styles.navLink}>Wishlist</Link>
+                <div className={styles.navLink} onClick={() => handleClick(4)}>Wishlist</div>
               </ListItem>
               {Object.keys(user).length > 0 &&
                 <Menu>
@@ -93,8 +98,8 @@ const NavBar = () => {
                   </Flex>
                   <MenuList bg='primary'>
 
-                    <Link to='/perfil/0'><MenuItem _focus={{ boxShadow: 'none' }} _hover={{ bg: '#232324' }} fontSize='1.25rem' bg='primary' className={styles.navLink} name='perfil'>Perfil</MenuItem></Link>
-                    <Link to='/perfil/3'><MenuItem _focus={{ boxShadow: 'none' }} _hover={{ bg: '#232324' }} fontSize='1.25rem' bg='primary' className={styles.navLink} name='mis-compras'>Mis compras</MenuItem></Link>
+                    <Link to='/perfil/' onClick={() => handleClick(0)}><MenuItem _focus={{ boxShadow: 'none' }} _hover={{ bg: '#232324' }} fontSize='1.25rem' bg='primary' className={styles.navLink} name='perfil'>Perfil</MenuItem></Link>
+                    <Link to='/perfil/' onClick={() => handleClick(3)}><MenuItem _focus={{ boxShadow: 'none' }} _hover={{ bg: '#232324' }} fontSize='1.25rem' bg='primary' className={styles.navLink} name='mis-compras'>Mis compras</MenuItem></Link>
                     <MenuItem _focus={{ boxShadow: 'none' }} _hover={{ bg: '#232324' }} fontSize='1.25rem' bg='primary' onClick={handleSubmit} className={styles.navLink} name='salir'>Salir</MenuItem>
                   </MenuList>
                 </Menu>}
