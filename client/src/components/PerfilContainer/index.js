@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 // import s from './index.module.css'
 import { Flex, Tabs, TabPanels, Tab, TabPanel, Box, Heading, Button } from '@chakra-ui/react'
 import { BiUserCircle, BiDirections, BiMoney, BiShoppingBag, BiHeart, BiStar } from 'react-icons/bi'
@@ -11,20 +11,21 @@ import AddressCreator from '../AddressCreator'
 import PaymentCard from '../PaymentCard'
 import PaymentCreate from '../PaymentCreate'
 import WishList from '../WishList'
+import { setProfileTab } from '../../redux/actions'
 
 export default function PerfilContainer () {
   const userAddresses = useSelector(state => state.user.userAddresses)
   const userPayments = useSelector(state => state.user.userPayments)
   const [Click, setClick] = useState(false)
-
+  const tabIndex = useSelector(state => state.profileTab)
   const handleClick = () => {
     // setClick(true)
     Click === false ? setClick(true) : setClick(false)
   }
-
+  const dispatch = useDispatch()
   return (
     <Flex w='85vw'>
-      <Tabs borderColor='active' w='100%'>
+      <Tabs borderColor='active' w='100%' index={tabIndex} onChange={(index) => dispatch(setProfileTab(index))}>
         <Flex flexDirection='row' h='75vh'>
           <Flex alignItems='flex-start' bg='primary' color='white' flexWrap='wrap' flexDirection='column' justifyContent='space-around'>
             <Tab
