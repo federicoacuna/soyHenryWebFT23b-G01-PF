@@ -1,0 +1,23 @@
+.container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.container button{
+    width:7rem;
+    margin:0.5rem;
+    padding: 0.5rem;
+    border-radius: 0.4rem;
+    background:#2c2c2e;
+    color:white;
+    font-weight: 500;
+
+}
+.container span{
+    margin:0.5rem;
+    padding: 0.5rem;
+    font-weight: 700;
+    color:black
+}

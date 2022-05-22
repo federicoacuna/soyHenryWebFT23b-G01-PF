@@ -17,19 +17,23 @@ import { GrMenu } from 'react-icons/gr'
 import styles from './index.module.css'
 import ModalLogin from '../../components/ModalLogin'
 import firebase from 'firebase/compat/app'
-import { logOut, setProfileTab } from '../../redux/actions'
+import { getWishList, logOut, setProfileTab } from '../../redux/actions'
 import { AiFillCaretDown } from 'react-icons/ai'
 
 const NavBar = () => {
   const navigate = useNavigate()
   const cartProducts = useSelector(state => state.cartProducts.reduce((acc, curr) => acc + curr.quantity, 0))
   const [modal, setModal] = useState(false)
-  const [isRegistrando, setIsRegistrando] = React.useState(false)
+  const [isRegistrando, setIsRegistrando] = useState(false)
+  const token = useSelector(state => state.token)
   const user = useSelector(state => state.user)
   const toastToDisplay = useSelector(state => state.toast)
-  // const wishList = useSelector(state => state.wishlist)
   const dispatch = useDispatch()
   const toast = useToast()
+
+  useEffect(() => {
+    dispatch(getWishList())
+  }, [token])//eslint-disable-line
 
   useEffect(() => {
     toastToDisplay.title && toast(toastToDisplay)
@@ -40,14 +44,8 @@ const NavBar = () => {
     e.target.name === 'salir' && handleLogOut()
   }
 
-  // useEffect(() => {
-  //   if (user && user.id) {
-  //     dispatch(getWishList())
-  //   }
-  // },[wishlist]) // eslint-disable-line
-
   function handleLogOut () {
-    if (Object.keys(user).length > 0) {
+    if (token) {
       firebase.auth().signOut()
         .then(() => {
           dispatch(logOut())
@@ -87,26 +85,26 @@ const NavBar = () => {
               <ListItem>
                 <Link to='/' className={styles.navLink}>Home</Link>
               </ListItem>
-              <ListItem>
-                {Object.keys(user).length > 0 && <div className={styles.navLink} onClick={() => handleClick(4)}>Wishlist</div>}
-              </ListItem>
-              {Object.keys(user).length > 0 &&
-                <Menu>
-                  <Flex alignItems='center'>
-                    <Avatar size='sm' mr={2} name={user.email && user.email.split('@')[0]} src='' />
-                    <MenuButton _hover={{ bg: 'primary' }} _active={{ bg: 'primary' }} _focus={{ boxShadow: 'none' }} p={0} fontSize='1.25rem' fontWeight={700} bg='primary' as={Button} rightIcon={<AiFillCaretDown />}>{user.firstname ? 'Hola, ' + user.firstname : user.email ? 'Hola, ' + user.email.split('@')[0] : 'Hola, User'}
-                    </MenuButton>
-                  </Flex>
-                  <MenuList bg='primary'>
+              {token
+                ? <>
+                  <ListItem>
+                    <div className={styles.navLink} onClick={() => handleClick(4)}>Wishlist</div>
+                  </ListItem>
+                  <Menu>
+                    <Flex alignItems='center'>
+                      <Avatar size='sm' mr={2} name={user.email && user.email.split('@')[0]} src='' />
+                      <MenuButton _hover={{ bg: 'primary' }} _active={{ bg: 'primary' }} _focus={{ boxShadow: 'none' }} p={0} fontSize='1.25rem' fontWeight={700} bg='primary' as={Button} rightIcon={<AiFillCaretDown />}>{user.firstname ? 'Hola, ' + user.firstname : user.email ? 'Hola, ' + user.email.split('@')[0] : 'Hola, User'}
+                      </MenuButton>
+                    </Flex>
+                    <MenuList bg='primary'>
 
-                    <Link to='/perfil/' onClick={() => handleClick(0)}><MenuItem _focus={{ boxShadow: 'none' }} _hover={{ bg: '#232324' }} fontSize='1.25rem' bg='primary' className={styles.navLink} name='perfil'>Perfil</MenuItem></Link>
-                    <Link to='/perfil/' onClick={() => handleClick(3)}><MenuItem _focus={{ boxShadow: 'none' }} _hover={{ bg: '#232324' }} fontSize='1.25rem' bg='primary' className={styles.navLink} name='mis-compras'>Mis compras</MenuItem></Link>
-                    <MenuItem _focus={{ boxShadow: 'none' }} _hover={{ bg: '#232324' }} fontSize='1.25rem' bg='primary' onClick={handleSubmit} className={styles.navLink} name='salir'>Salir</MenuItem>
-                  </MenuList>
-                </Menu>}
-              <ListItem>
-                {Object.keys(user).length < 1 && <Link to='#' onClick={handleSubmit} className={styles.navLink} name='ingresar'>Ingresar</Link>}
-              </ListItem>
+                      <Link to='/perfil/' onClick={() => handleClick(0)}><MenuItem _focus={{ boxShadow: 'none' }} _hover={{ bg: '#232324' }} fontSize='1.25rem' bg='primary' className={styles.navLink} name='perfil'>Perfil</MenuItem></Link>
+                      <Link to='/perfil/' onClick={() => handleClick(3)}><MenuItem _focus={{ boxShadow: 'none' }} _hover={{ bg: '#232324' }} fontSize='1.25rem' bg='primary' className={styles.navLink} name='mis-compras'>Mis compras</MenuItem></Link>
+                      <MenuItem _focus={{ boxShadow: 'none' }} _hover={{ bg: '#232324' }} fontSize='1.25rem' bg='primary' onClick={handleSubmit} className={styles.navLink} name='salir'>Salir</MenuItem>
+                    </MenuList>
+                  </Menu>
+                  </>//eslint-disable-line
+                : <ListItem><Link to='#' onClick={handleSubmit} className={styles.navLink} name='ingresar'>Ingresar</Link></ListItem>}
               <ListItem>
                 <Link to='/cart' className={styles.cartLink}>
                   {cartProducts > 0 ? <span>{cartProducts}</span> : undefined}
