@@ -17,7 +17,7 @@ import { GrMenu } from 'react-icons/gr'
 import styles from './index.module.css'
 import ModalLogin from '../../components/ModalLogin'
 import firebase from 'firebase/compat/app'
-import { logOut, setProfileTab, getWishList } from '../../redux/actions'
+import { logOut, setProfileTab } from '../../redux/actions'
 import { AiFillCaretDown } from 'react-icons/ai'
 
 const NavBar = () => {
@@ -27,6 +27,7 @@ const NavBar = () => {
   const [isRegistrando, setIsRegistrando] = React.useState(false)
   const user = useSelector(state => state.user)
   const toastToDisplay = useSelector(state => state.toast)
+  // const wishList = useSelector(state => state.wishlist)
   const dispatch = useDispatch()
   const toast = useToast()
 
@@ -39,11 +40,11 @@ const NavBar = () => {
     e.target.name === 'salir' && handleLogOut()
   }
 
-  useEffect(() => {
-    if (user && user.id) {
-      dispatch(getWishList())
-    }
-  }, [user]) // eslint-disable-line
+  // useEffect(() => {
+  //   if (user && user.id) {
+  //     dispatch(getWishList())
+  //   }
+  // },[wishlist]) // eslint-disable-line
 
   function handleLogOut () {
     if (Object.keys(user).length > 0) {

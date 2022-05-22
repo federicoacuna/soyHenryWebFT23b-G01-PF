@@ -4,7 +4,7 @@ import { Stack, InputGroup, Input, Button, Flex, Text, InputLeftElement, InputRi
 import { FcGoogle } from 'react-icons/fc'
 import { AiOutlineClose } from 'react-icons/ai'
 import { MdAlternateEmail, MdOutlineLock } from 'react-icons/md'
-import { getWishList, logIn } from '../../redux/actions' //eslint-disable-line
+import { logIn, getWishList } from '../../redux/actions' //eslint-disable-line
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 import { useDispatch } from 'react-redux'
@@ -100,6 +100,7 @@ export const ModalLogin = ({ children, state, setState, isRegistrando, setIsRegi
     async function passToken () {
       firebase.auth().currentUser.getIdToken().then(token => {
         dispatch(logIn(token))
+        dispatch(getWishList())
       })
     }
 
