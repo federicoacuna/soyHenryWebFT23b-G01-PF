@@ -48,7 +48,7 @@ export const getProducts = (options) => {
 
       dispatch({
         type: GET_PRODUCTS,
-        payload: products
+        payload: products.rows
       })
     } catch (error) {
       dispatch({
