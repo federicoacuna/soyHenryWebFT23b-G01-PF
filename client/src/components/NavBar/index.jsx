@@ -17,7 +17,7 @@ import { GrMenu } from 'react-icons/gr'
 import styles from './index.module.css'
 import ModalLogin from '../../components/ModalLogin'
 import firebase from 'firebase/compat/app'
-import { logOut, getWishList, setProfileTab } from '../../redux/actions'
+import { logOut, setProfileTab, getWishList } from '../../redux/actions'
 import { AiFillCaretDown } from 'react-icons/ai'
 
 const NavBar = () => {
