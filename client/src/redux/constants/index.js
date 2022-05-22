@@ -1,4 +1,5 @@
 export const SET_TOAST = 'SET_TOAST'
+export const SET_PROFILE_TAB = 'SET_PROFILE_TAB'
 export const GET_PRODUCTS = 'GET_PRODUCTS'
 export const GET_BRANDS = 'GET_BRANDS'
 export const GET_CATEGORIES = 'GET_CATEGORIES'

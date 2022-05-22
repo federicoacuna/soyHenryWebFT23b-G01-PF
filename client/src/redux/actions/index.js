@@ -8,6 +8,7 @@ import { removeFromWishList, insertInWishList, getUserWishList } from '../../ser
 import { getAllCountries } from '../../services/countries'
 import { getReviews } from '../../services/reviews'
 import {
+  SET_PROFILE_TAB,
   GET_PRODUCTS,
   GET_BRANDS,
   GET_CATEGORIES,
@@ -32,6 +33,13 @@ import {
   CLEAR_CREATED_ORDER,
   UPDATE_WISHLIST
 } from '../constants'
+
+export const setProfileTab = (tabIndex) => {
+  return {
+    type: SET_PROFILE_TAB,
+    payload: tabIndex
+  }
+}
 
 export const getProducts = (options) => {
   return async (dispatch) => {

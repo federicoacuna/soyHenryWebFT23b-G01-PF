@@ -1,6 +1,7 @@
 
 import {
   SET_TOAST,
+  SET_PROFILE_TAB,
   GET_PRODUCTS,
   GET_BRANDS,
   GET_CATEGORIES,
@@ -41,6 +42,7 @@ const initialState = {
   options: {},
   product: {},
   user: {},
+  profileTab: 0,
   addresses: [],
   payments: [],
   wishlist: [],
@@ -57,6 +59,12 @@ const reducer = (state = initialState, action) => {
   const { payload, type } = action
 
   switch (type) {
+    case SET_PROFILE_TAB:
+      return {
+        ...state,
+        profileTab: payload
+      }
+
     case SET_TOAST:
       return {
         ...state,
