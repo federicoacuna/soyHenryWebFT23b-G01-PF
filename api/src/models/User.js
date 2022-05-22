@@ -3,45 +3,31 @@ const { DataTypes } = require('sequelize')
 module.exports = sequelize => {
   sequelize.define('user', {
     email: {
-      type: DataTypes.STRING(40),
+      type: DataTypes.STRING(60),
       unique: true,
       validate: {
         isEmail: true
-
       }
     },
     firstname: {
-      type: DataTypes.STRING(12),
-      allownull: true,
-      validate: {
-        isAlpha: true,
-        notEmpty: true
-      }
+      type: DataTypes.STRING(40),
+      allownull: true
     },
     lastname: {
-      type: DataTypes.STRING(15),
-      allownull: false,
-      validate: {
-        isAlpha: true,
-        notEmpty: true
-      }
+      type: DataTypes.STRING(40),
+      allownull: false
     },
     phone: {
-      type: DataTypes.STRING(30),
-      allownull: true,
-      validate: {
-        isAlphanumeric: true
-      }
+      type: DataTypes.STRING(40),
+      allownull: true
     },
     birthdate: {
       type: DataTypes.DATEONLY,
       allownull: true
-
     },
     deleted: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
-
     }
   })
 }

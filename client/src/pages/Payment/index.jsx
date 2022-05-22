@@ -59,6 +59,5 @@ export default function Payment () {
         </PaymentSelector>
       </Flex>
     </>
-
   )
 }

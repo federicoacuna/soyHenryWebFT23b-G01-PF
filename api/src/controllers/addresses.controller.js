@@ -12,7 +12,7 @@ async function create (req, res) {
   const user = await usersService.getUserByEmail(req.user.email)
   const newAddress = req.body
   newAddress.userId = user.id
-  const requiredData = ['postalCode', 'state', 'city', 'streetName', 'houseNumber']
+  const requiredData = ['postalCode', 'state', 'city', 'streetName', 'houseNumber', 'countryId']
   let validationErrors = 'The following mandatory data is missing in your request: '
   const errorLength = validationErrors.length
   for (const column of requiredData) {
@@ -22,6 +22,7 @@ async function create (req, res) {
 
   try {
     const wasCreated = await addressService.createAddress(newAddress)
+    console.log('LA PUTA MADRE')
     const allUserAddresses = await addressService.getUserAddresses(user.id)
     wasCreated
       ? res.send({

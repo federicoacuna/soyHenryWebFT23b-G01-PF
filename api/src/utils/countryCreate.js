@@ -58,17 +58,6 @@ const countryList = [
 ]
 
 const sequelizeCountryList = countryList.map(country => { return { countryName: country } })
-// const saveCountries = async () => {
-//   try {
-//     for (let i = 0; i < countryList.length; i++) {
-//       await Country.create({
-//         countryName: countryList[i]
-//       })
-//     }
-//   } catch (error) {
-//     console.log(error)
-//   }
-// }
 
 const saveCountries = async () => {
   try {

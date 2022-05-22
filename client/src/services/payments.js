@@ -50,13 +50,14 @@ export const deletePayment = async function (paymentId) {
 // MERCADO PAGO
 export const createMercadoPagoPreferences = async function () {
   const url = 'https://api.mercadopago.com/checkout/preferences'
-  const { cartProducts, user, order } = store.getState()
-  const orderAddress = user.userAddresses.find(address => address.id === order.userAddressId)
+  const { cartProducts, user, order, addresses } = store.getState()
+  const orderAddress = addresses.find(address => address.id === order.userAddressId)
   order.userId = user.id
   order.total = order.orderItems.reduce((acc, item) => {
     return acc + (item.quantity * item.price)
   }, 0)
-  const addres = {
+
+  const address = {
     zip_code: orderAddress.postalCode.toString(),
     street_name: orderAddress.streetName,
     street_number: orderAddress.houseNumber
@@ -77,7 +78,7 @@ export const createMercadoPagoPreferences = async function () {
     payer: {
       phone: {},
       identification: {},
-      addres
+      addres: address
     },
     payment_methods: {
       excluded_payment_methods: [
