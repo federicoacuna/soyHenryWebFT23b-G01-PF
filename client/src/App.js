@@ -52,7 +52,7 @@ function App () {
         <Route exact path='/perfil' element={<Perfil />} />
         <Route exact path='/createaddress' element={<AddressCreator />} />
         <Route exact path='/createpayment' element={<PaymentCreate />} />
-        <Route exact path='/confirmation' element={<OrderConfirmation />} />
+        <Route path='/confirmation/:orderId' element={<OrderConfirmation />} />
       </Routes>
     </div>
   )

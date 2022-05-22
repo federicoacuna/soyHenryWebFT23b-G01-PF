@@ -1,10 +1,13 @@
+require('dotenv').config()
+const axios = require('axios')
 const { Order, OrderItem, UserAddress, UserPayment, PaymentType, Country, Product } = require('../db')
 
-async function getOrderDetails (orderId) {
+async function getOrderDetails (orderId, userId) {
   try {
     const orderData = await Order.findOne({
       where: {
-        id: orderId
+        id: orderId,
+        userId
       },
       include: [{
         model: UserAddress
@@ -138,9 +141,24 @@ async function _createItems (newItems) {
   }
 }
 
+async function validatePaymentId (paymentId) {
+  try {
+    const { data } = await axios.get(`https://api.mercadopago.com/v1/payments/${paymentId}`, {
+      headers: {
+        Authorization: `Bearer ${process.env.MERCADO_PAGO_ACCESS_TOKEN}`
+      }
+    })
+
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 module.exports = {
   getOrders,
   getOrderDetails,
   getOrdersByUser,
-  createOrder
+  createOrder,
+  validatePaymentId
 }

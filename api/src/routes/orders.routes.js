@@ -1,7 +1,10 @@
 const { Router } = require('express')
 const router = Router()
-const { create, remove, get, update } = require('../controllers/orders.controller')
+const { create, remove, get, update, mpValidator } = require('../controllers/orders.controller')
 const middleware = require('../middleware')
+
+// MERCADO PAGO
+router.get('/mp', mpValidator)
 
 router.use(middleware.decodeToken)
 

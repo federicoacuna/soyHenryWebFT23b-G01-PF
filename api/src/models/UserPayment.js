@@ -4,21 +4,16 @@ module.exports = sequelize => {
   sequelize.define('userPayment', {
     cardNumber: {
       type: DataTypes.BIGINT,
-      allownull: false,
-      unique: true
+      allownull: true
     },
     expirationDay: {
       type: DataTypes.DATEONLY,
-      allownull: false,
-      validate: {
-        isDate: true
-      }
+      allownull: true
     },
     provider: {
       type: DataTypes.STRING(20),
       allownull: false,
       validate: {
-        isAlpha: true,
         notEmpty: true
       }
     },

@@ -20,7 +20,7 @@ export default function PaymentSelector ({ children }) {
         {userPayments && userPayments.map((payment) => (
           <PaymentCard
             key={payment.id}
-            onclick={() => dispatch(setUserPayment(payment.id))}
+            onclick={() => dispatch(setUserPayment(payment.id, payment.paymentType))}
             paymentType={payment.paymentType}
             cardNumber={payment.cardNumber}
             expirationDate={payment.expirationDate}
@@ -28,13 +28,6 @@ export default function PaymentSelector ({ children }) {
             id={payment.id}
           />
         ))}
-        <PaymentCard
-          onclick={() => dispatch(setUserPayment('MP'))}
-          paymentType='Pagar con Mercado Pago'
-          expirationDate=''
-          provider=''
-          id='MP'
-        />
         <Flex justifyContent='flex-end' mt={5}>
           {children}
         </Flex>

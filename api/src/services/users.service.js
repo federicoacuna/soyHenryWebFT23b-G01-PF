@@ -1,4 +1,4 @@
-const { User, UserPayment, UserAddress, /* WishList, */ Product } = require('../db')
+const { User, UserPayment, UserAddress } = require('../db')
 
 async function getUserByEmail (userEmail) {
   return await User.findOne({
@@ -16,12 +16,18 @@ async function getById (userId) {
 }
 
 async function createUser (email) {
-  const [user] = await User.findOrCreate({
+  const [user, wasCreated] = await User.findOrCreate({
     where: {
       email
     }
   })
-
+  if (wasCreated) {
+    await UserPayment.create({
+      userId: user.id,
+      paymentTypeId: 3,
+      provider: 'Mercado Pago'
+    })
+  }
   return user
 }
 

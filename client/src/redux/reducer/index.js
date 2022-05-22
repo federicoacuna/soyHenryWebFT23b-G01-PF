@@ -28,7 +28,8 @@ import {
   UPDATE_PAYMENTS,
   UPDATE_CART,
   GET_REVIEWS,
-  GET_PAYMENTS
+  GET_PAYMENTS,
+  GET_ORDER_DETAILS
 } from '../constants'
 
 const initialState = {
@@ -48,6 +49,7 @@ const initialState = {
   orders: [],
   reviews: [],
   toast: {},
+  orderDetails: {},
   token: window.localStorage.getItem('token')
 }
 
@@ -158,7 +160,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         order: {
           ...state.order,
-          userPaymentId: payload
+          userPaymentId: payload[0],
+          paymentType: payload[1]
         }
       }
 
@@ -258,6 +261,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         reviews: payload
+      }
+
+    case GET_ORDER_DETAILS:
+      return {
+        ...state,
+        orderDetails: payload
       }
     default:
       return state

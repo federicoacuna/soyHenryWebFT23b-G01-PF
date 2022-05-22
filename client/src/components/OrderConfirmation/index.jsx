@@ -1,19 +1,22 @@
 import { Box, ListItem, UnorderedList, Button } from '@chakra-ui/react'
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearCreatedOrder } from '../../redux/actions'
 import AddressCard from '../AddressCard'
 import UserPaymentCard from '../PaymentCard'
+import { getOrderDetails } from '../../redux/actions/orders.actions'
 // import LoadingSpinner from '../LoadingSpinner'
 
 export default function OrderConfirmation () {
   const dispatch = useDispatch()
-  const createdOrder = useSelector(state => state.createdOrder)
+  const createdOrder = useSelector(state => state.orderDetails)
   const navigate = useNavigate()
   const { userPayment, userAddress, branch } = createdOrder
+  const { orderId } = useParams()
 
   useEffect(() => {
+    dispatch(getOrderDetails(orderId))
     return () => {
       dispatch(clearCreatedOrder())
     }
@@ -25,9 +28,9 @@ export default function OrderConfirmation () {
 
   return (
     <Box>
-      {createdOrder?.orderId
+      {createdOrder?.id
         ? <div>
-          <p>Nro. de Orden: {createdOrder.orderId}</p>
+          <p>Nro. de Orden: {createdOrder.id}</p>
           <p>Fue pagado con:</p>
           <UserPaymentCard
             key={userPayment.id}
