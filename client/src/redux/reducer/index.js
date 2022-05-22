@@ -35,6 +35,7 @@ import {
 
 const initialState = {
   products: [],
+  pagination: {},
   cartProducts: [],
   brands: [],
   categories: [],
@@ -74,7 +75,8 @@ const reducer = (state = initialState, action) => {
     case GET_PRODUCTS:
       return {
         ...state,
-        products: payload
+        products: payload.rows,
+        pagination: payload.pagination
       }
 
     case GET_PRODUCT_DETAILS:
