@@ -49,7 +49,7 @@ const NavBar = () => {
       firebase.auth().signOut()
         .then(() => {
           dispatch(logOut())
-          window.localStorage.setItem('auth', 'false')
+          window.localStorage.clear()
           toast({
             description: 'Sesion cerrada',
             status: 'warning',

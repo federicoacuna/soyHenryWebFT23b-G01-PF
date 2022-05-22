@@ -40,7 +40,7 @@ import {
 const initialState = {
   products: [],
   pagination: {},
-  cartProducts: [],
+  cartProducts: JSON.parse(window.localStorage.getItem('cartProducts')) || [],
   brands: [],
   categories: [],
   countries: [],
@@ -57,8 +57,7 @@ const initialState = {
   reviews: [],
   toast: {},
   orderDetails: {},
-  token: window.localStorage.getItem('token'),
-  cartProducts: window.localStorage.getItem('cartProducts')
+  token: window.localStorage.getItem('token')
 }
 
 const reducer = (state = initialState, action) => {
@@ -220,7 +219,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         user: {},
         token: '',
-        wishlist: []
+        wishlist: [],
+        cartProducts: []
       }
 
     case UPDATE_WISHLIST:
