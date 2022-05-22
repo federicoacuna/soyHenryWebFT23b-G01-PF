@@ -181,10 +181,10 @@ export const updateUserData = (newData) => {
 }
 
 // ORDER BUILD
-export const setUserPayment = (paymentId) => {
+export const setUserPayment = (paymentId, paymentType) => {
   return {
     type: SET_USER_PAYMENT,
-    payload: paymentId
+    payload: [paymentId, paymentType]
   }
 }
 

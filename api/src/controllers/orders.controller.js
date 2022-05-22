@@ -10,7 +10,8 @@ const get = async (req, res) => {
       ordersService.getOrdersByUser(user.id)
         .then(retrievedOrders => retrievedOrders ? res.json(retrievedOrders) : res.status(404).json({ error: 'No orders where found matching the search criteria' }))
     } else {
-      ordersService.getOrderDetails(orderId)
+      const user = await usersService.getUserByEmail(req.user.email)
+      ordersService.getOrderDetails(orderId, user.id)
         .then(orderDetails => orderDetails ? res.json(orderDetails) : res.status(404).json({ error: 'Requested order not found' }))
     }
   } catch (error) {
@@ -27,7 +28,7 @@ const create = async (req, res) => {
   if (!userPaymentId) {
     validationErrors.userPaymentId = 'Must provide user(buyer) payment method ID'
   } else {
-    isNaN(parseInt(userPaymentId)) && (validationErrors.userPaymentId = 'User(buyer) payment method ID must be an integer')
+    (isNaN(parseInt(userPaymentId)) || userPaymentId === 'MP') && (validationErrors.userPaymentId = 'User(buyer) payment method ID must be an integer')
   }
   if (!userAddressId && !branchId) {
     validationErrors.userAddressId = 'Must provide user(buyer) delivery address ID or branch ID(pickup site)'
@@ -65,9 +66,46 @@ const remove = async (req, res) => {
   res.json({ message: 'THIS FUNCTION HAS NOT BEEN IMPLEMENTED YET' })
 }
 
+const mpValidator = async (req, res) => {
+  const paymentId = req.query.payment_id
+
+  const paymentDetails = await ordersService.validatePaymentId(paymentId)
+
+  if (paymentDetails.status === 'approved') {
+    const { order } = paymentDetails.metadata
+
+    const newOrder = {
+      userId: order.user_id,
+      userAddressId: order.user_address_id,
+      userPaymentId: order.user_payment_id,
+      total: order.total,
+      orderItems: order.order_items.map(item => {
+        return {
+          productId: item.id,
+          quantity: item.quantity,
+          price: item.price
+        }
+      }),
+      status: 'CREATED'
+    }
+
+    try {
+      const createdOrder = await ordersService.createOrder(newOrder)
+      const succesURL = `${process.env.FRONTEND_URL || 'http://localhost:3000/'}confirmation/${createdOrder.orderId}`
+      createdOrder && res.redirect(succesURL)
+    } catch (error) {
+      console.log(error)
+    }
+  } else {
+    const failureURL = `${process.env.FRONTEND_URL || 'http://localhost:3000/'}`
+    res.redirect(failureURL)
+  }
+}
+
 module.exports = {
   create,
   get,
   update,
-  remove
+  remove,
+  mpValidator
 }

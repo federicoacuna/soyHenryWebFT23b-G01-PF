@@ -19,10 +19,10 @@ export const getUserAddresses = () => {
   }
 }
 
-export const createNewAddress = (newAddress) => {
+export const createNewAddress = (newAddress, token) => {
   return async (dispatch) => {
     try {
-      const response = await postAddress(newAddress)
+      const response = await postAddress(newAddress, token)
       response.toast = {
         title: 'Direccion Agregada.',
         description: 'Ya puedes recibir ahi tu envío.',

@@ -1,10 +1,10 @@
 import store from '../redux/store'
 import axios from 'axios'
 
-const { token } = store.getState()
 const endpoint = '/payments'
 
 export const getPayments = async function () {
+  const { token } = store.getState()
   const { data } = await axios.get(endpoint, {
     headers: {
       Authorization: `Bearer ${token}`
@@ -15,6 +15,7 @@ export const getPayments = async function () {
 }
 
 export const postPayment = async function (newPayment) {
+  const { token } = store.getState()
   const { data } = await axios.post(endpoint, newPayment, {
     headers: {
       Authorization: `Bearer ${token}`
@@ -25,6 +26,7 @@ export const postPayment = async function (newPayment) {
 }
 
 export const putPayment = async function (updatedPayment) {
+  const { token } = store.getState()
   const { data } = await axios.get(endpoint, updatedPayment, {
     headers: {
       Authorization: `Bearer ${token}`
@@ -35,6 +37,7 @@ export const putPayment = async function (updatedPayment) {
 }
 
 export const deletePayment = async function (paymentId) {
+  const { token } = store.getState()
   const { data } = await axios.delete(`${endpoint}/${paymentId}`, {
     headers: {
       Authorization: `Bearer ${token}`
@@ -49,7 +52,10 @@ export const createMercadoPagoPreferences = async function () {
   const url = 'https://api.mercadopago.com/checkout/preferences'
   const { cartProducts, user, order } = store.getState()
   const orderAddress = user.userAddresses.find(address => address.id === order.userAddressId)
-
+  order.userId = user.id
+  order.total = order.orderItems.reduce((acc, item) => {
+    return acc + (item.quantity * item.price)
+  }, 0)
   const addres = {
     zip_code: orderAddress.postalCode.toString(),
     street_name: orderAddress.streetName,
@@ -88,12 +94,13 @@ export const createMercadoPagoPreferences = async function () {
       receiver_address: {}
     },
     back_urls: {
-      success: 'http://localhost:3000/confirmation',
-      pending: 'http://localhost:3000/confirmation',
-      failure: 'http://localhost:3000/confirmation'
+      success: 'http://localhost:3001/orders/mp',
+      pending: 'http://localhost:3001/confirmation/pending',
+      failure: 'http://localhost:3001/confirmation/failure'
     },
     differential_pricing: {},
     metadata: {
+      order
     }
   }
 

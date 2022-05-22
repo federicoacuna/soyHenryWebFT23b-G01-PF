@@ -18,6 +18,7 @@ function AddressCreator () {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const countries = useSelector(state => state.countries)
+  const token = useSelector(state => state.token)
   const [hasTried, setHasTried] = useState(false)
   const [errors, setErrors] = useState({
     postalCode: '',
@@ -62,8 +63,8 @@ function AddressCreator () {
     if (e.target.name === 'Close') navigate(-1)
     else {
       setHasTried(true)
-      if (validate()) {
-        dispatch(createNewAddress(values))
+      if (validate() && token) {
+        dispatch(createNewAddress(values, token))
         navigate(-1)
       } else {
         toast({
