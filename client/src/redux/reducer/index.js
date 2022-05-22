@@ -57,7 +57,7 @@ const initialState = {
   toast: {},
   orderDetails: {},
   token: window.localStorage.getItem('token'),
-  cartLocalStorage: window.localStorage.getItem('cartProducts')
+  cartProducts: window.localStorage.getItem('cartProducts')
 }
 
 const reducer = (state = initialState, action) => {
