@@ -4,9 +4,8 @@ import { Heading, Center, Container, Flex, Text, Button } from '@chakra-ui/react
 import { IoMdArrowRoundBack } from 'react-icons/io'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-
 import { useEffect } from 'react'
-import { getProductDetails } from '../../redux/actions'
+import { getProductDetails, addProductToCart } from '../../redux/actions'
 
 function ProductDetail (props) {
   const product = useSelector(state => state.product)
@@ -22,6 +21,11 @@ function ProductDetail (props) {
   useEffect(() => {
     dispatch(getProductDetails(id))
   }, [])//eslint-disable-line
+
+  const compraAhora = () => {
+    dispatch(addProductToCart(product))
+    navigate('/cart')
+  }
 
   return (
     <Flex alignItems='flex-start'>
@@ -45,7 +49,7 @@ function ProductDetail (props) {
             <Text>{product.model}</Text>
 
             <Flex mt='10px' justifyContent='flex-start'>
-              <Button mr='10px' color='white' bg='#2C2C2E' _hover={{ bg: 'black' }}>Comprar Ahora</Button>
+              <Button mr='10px' color='white' bg='#2C2C2E' _hover={{ bg: 'black' }} onClick={compraAhora}>Comprar Ahora</Button>
               <CartButton product={product} />
               {props.reviewable === true ? <Button onClick={handleClick}> Agregar Reseña </Button> : null}
             </Flex>
