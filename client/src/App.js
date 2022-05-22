@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getBrands, getCategories, getProducts, setCartProducts } from './redux/actions'
+import { getBrands, getCategories, getProducts } from './redux/actions'
 import { Route, Routes } from 'react-router-dom'
 import NavBar from './components/NavBar'
 import UsersHome from './pages/UsersHome'
@@ -19,19 +19,12 @@ import store from './redux/store'
 
 function App () {
   const dispatch = useDispatch()
-  const cartProducts = useSelector(state => state.cartProducts)
   const options = useSelector(state => state.options)
 
   useEffect(() => {
-    const cartProducts = JSON.parse(window.localStorage.getItem('cartProducts')) || []
-    dispatch(setCartProducts(cartProducts))
     dispatch(getBrands())
     dispatch(getCategories())
   }, [])//eslint-disable-line
-
-  useEffect(() => {
-    window.localStorage.setItem('cartProducts', JSON.stringify(cartProducts))
-  }, [cartProducts])
 
   useEffect(() => {
     dispatch(getProducts(options))
@@ -39,6 +32,9 @@ function App () {
 
   store.subscribe(() =>
     window.localStorage.setItem('token', store.getState().token))
+
+  store.subscribe(() =>
+    window.localStorage.setItem('cartProducts', JSON.stringify(store.getState().cartProducts)))
 
   return (
     <div>
