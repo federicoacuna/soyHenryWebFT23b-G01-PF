@@ -27,9 +27,9 @@ export default function Payment () {
 
   async function handleClick (e) {
     if (e.target.name === 'payment') return navigate('/createpayment')
-    if (!currentOrderStatus.paymentType.id) {
+    if (!currentOrderStatus.paymentType) {
       return toast({
-        description: 'Debe seleccionar un método de pago.',
+        description: 'Debes seleccionar un método de pago.',
         status: 'error',
         duration: 2500,
         isClosable: true
@@ -54,8 +54,8 @@ export default function Payment () {
       <IoMdArrowRoundBack size={30} _hover={{ bg: 'black' }} onClick={link} cursor='pointer' />
       <Flex h='100%'>
         <PaymentSelector>
-          <Button name='payment' mr={3} colorScheme='blue' onClick={handleClick}>Agregar método de pago</Button>
-          <Button name='buy' colorScheme='blue' onClick={handleClick}>Comprar</Button>
+          <Button name='payment' m={3} _hover={{ color: 'white' }} color='white' bg='button' onClick={handleClick}>Agregar método de pago</Button>
+          <Button name='buy' m={3} _hover={{ color: 'white' }} color='white' bg='button' onClick={handleClick}>Comprar</Button>
         </PaymentSelector>
       </Flex>
     </>
