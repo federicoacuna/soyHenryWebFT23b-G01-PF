@@ -2,12 +2,16 @@ const { Product, Category, Brand } = require('../db')
 const { Op } = require('sequelize')
 
 async function getProducts (options) {
-  const { search, brand, minPrice, maxPrice, category, sort } = options
+  const { search, brand, minPrice, maxPrice, category, sort, page } = options
+  const itemsPerPage = 8
+  const offset = page ? itemsPerPage * (page - 1) : 0
   const dbSearchOptions = {
     include: {
       model: Category,
       attributes: ['name']
     },
+    limit: itemsPerPage,
+    offset,
     where: {}
   }
   search && (dbSearchOptions.where.name = { [Op.iLike]: `%${search}%` })
