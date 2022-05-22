@@ -19,10 +19,10 @@ export const getUserAddresses = () => {
   }
 }
 
-export const createNewAddress = (newAddress, token) => {
+export const createNewAddress = (newAddress) => {
   return async (dispatch) => {
     try {
-      const response = await postAddress(newAddress, token)
+      const response = await postAddress(newAddress)
       response.toast = {
         title: 'Direccion Agregada.',
         description: 'Ya puedes recibir ahi tu envío.',
@@ -35,6 +35,13 @@ export const createNewAddress = (newAddress, token) => {
         payload: response
       })
     } catch (error) {
+      error.toast = {
+        title: 'Error interno.',
+        description: 'No pudimos guardar tu direccion.',
+        status: 'error',
+        duration: 4500,
+        isClosable: true
+      }
       dispatch({
         type: UPDATE_ADDRESSES,
         payload: error
@@ -59,6 +66,13 @@ export const removeAddress = (addressId) => {
         payload: response
       })
     } catch (error) {
+      error.toast = {
+        title: 'Error interno.',
+        description: 'No pudimos guardar tu direccion.',
+        status: 'error',
+        duration: 4500,
+        isClosable: true
+      }
       dispatch({
         type: UPDATE_ADDRESSES,
         payload: error

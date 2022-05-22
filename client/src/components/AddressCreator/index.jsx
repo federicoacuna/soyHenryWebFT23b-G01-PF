@@ -22,7 +22,6 @@ function AddressCreator () {
   const [hasTried, setHasTried] = useState(false)
   const [errors, setErrors] = useState({
     postalCode: '',
-    countryName: '',
     countryId: '',
     state: '',
     city: '',
@@ -33,8 +32,7 @@ function AddressCreator () {
   })
   const [values, setValues] = useState({
     postalCode: '',
-    countryName: '',
-    countryId: 1,
+    countryId: 0,
     state: '',
     city: '',
     streetName: '',
@@ -60,6 +58,7 @@ function AddressCreator () {
   }
 
   function handleSubmit (e) {
+    console.log(values)
     if (e.target.name === 'Close') navigate(-1)
     else {
       setHasTried(true)
@@ -83,7 +82,6 @@ function AddressCreator () {
 
     setErrors({
       postalCode: '',
-      countryName: '',
       countryId: '',
       state: '',
       city: '',
@@ -94,27 +92,27 @@ function AddressCreator () {
     })
 
     if (values.postalCode === '') {
-      error.postalCode = 'Completar campo'
+      error.postalCode = 'Por favor complete el codigo postal'
     }
-    if (values.countryId === '') {
-      error.countryName = 'Completar campo'
+    if (values.countryId === 0) {
+      error.countryId = 'Por favor elija un pais '
     }
     if (values.city === '') {
-      error.city = 'Completar campo'
+      error.city = 'Por favor complete la ciudad'
     }
     if (values.streetName === '') {
-      error.streetName = 'Completar campo'
+      error.streetName = 'Por favor complete el nombre de la calle'
     }
     if (values.houseNumber === '') {
-      error.houseNumber = 'Completar campo'
+      error.houseNumber = 'Por favor el numero de puerta'
     }
     if (values.state === '') {
-      error.state = 'Completar campo'
+      error.state = 'Por favor complete su provincia / estado'
     }
 
     setErrors({
       postalCode: error.postalCode,
-      countryName: error.countryName,
+      countryId: error.countryId,
       state: error.state,
       city: error.city,
       streetName: error.streetName,
@@ -131,11 +129,11 @@ function AddressCreator () {
       <Input onChange={(e) => handleChange(e)} name='postalCode' type='text' value={values.postalCode} placeholder='Ingrese el código postal' />
       {errors.postalCode && <Text color='red'>{errors.postalCode}</Text>}
 
-      <FormLabel htmlFor='countryName'>Pais</FormLabel>
+      <FormLabel htmlFor='countryId'>Pais</FormLabel>
       <Select onChange={(e) => handleChange(e)} name='countryId' placeholder='Elija un país para el envío'>
         {countries.map(country => <option key={country.id} value={country.id}>{country.countryName}</option>)}
       </Select>
-      {errors.countryName && <Text color='red'>{errors.countryName}</Text>}
+      {errors.countryId && <Text color='red'>{errors.countryId}</Text>}
 
       <FormLabel htmlFor='state'>Provincia</FormLabel>
       <Input onChange={(e) => handleChange(e)} name='state' type='text' value={values.state} placeholder='Ingrese el nombre de la Provincia' />

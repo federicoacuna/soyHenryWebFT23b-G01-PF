@@ -11,11 +11,8 @@ module.exports = sequelize => {
       allownull: true
     },
     provider: {
-      type: DataTypes.STRING(20),
-      allownull: false,
-      validate: {
-        notEmpty: true
-      }
+      type: DataTypes.STRING(40),
+      allownull: false
     },
     deleted: {
       type: DataTypes.BOOLEAN,

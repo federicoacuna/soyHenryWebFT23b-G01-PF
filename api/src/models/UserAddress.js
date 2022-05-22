@@ -11,25 +11,26 @@ module.exports = sequelize => {
       allownull: false
     },
     city: {
-      type: DataTypes.STRING(20),
+      type: DataTypes.STRING(40),
       allownull: false
     },
     streetName: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING(40),
       allownull: false
     },
     houseNumber: {
-      type: DataTypes.INTEGER,
-      allownull: false,
-      validate: {
-        isNumeric: true
-      }
+      type: DataTypes.STRING(15),
+      allownull: false
     },
     deliveryInstructions: {
       type: DataTypes.TEXT
     },
     floorApartment: {
       type: DataTypes.STRING(20)
+    },
+    deleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     }
   })
 }

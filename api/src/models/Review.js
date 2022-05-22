@@ -4,11 +4,10 @@ module.exports = (sequelize) => {
   sequelize.define('review', {
     rating: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       validate: {
         min: 1,
-        max: 5,
-        isInt: true
+        max: 5
       }
     },
     review: {

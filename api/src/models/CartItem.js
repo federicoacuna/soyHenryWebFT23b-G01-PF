@@ -5,7 +5,7 @@ module.exports = (sequelize) => {
     quantity: {
       type: DataTypes.INTEGER,
       validate: {
-        min: 0
+        min: 1
       }
     }
   })
