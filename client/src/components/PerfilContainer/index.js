@@ -16,13 +16,21 @@ import { setProfileTab } from '../../redux/actions'
 export default function PerfilContainer () {
   const userAddresses = useSelector(state => state.user.userAddresses)
   const userPayments = useSelector(state => state.user.userPayments)
-  const [Click, setClick] = useState(false)
+  const [Click, setClick] = useState({
+    payment: false,
+    address: false
+  })
   const tabIndex = useSelector(state => state.profileTab)
-  const handleClick = () => {
+  const handleClickAddress = () => {
     // setClick(true)
-    Click === false ? setClick(true) : setClick(false)
+    Click.address === false ? setClick({ ...Click, address: true }) : setClick({ ...Click, address: false })
+  }
+  const handleClickPayment = () => {
+    // setClick(true)
+    Click.payment === false ? setClick({ ...Click, payment: true }) : setClick({ ...Click, payment: false })
   }
   const dispatch = useDispatch()
+
   return (
     <Flex w='85vw'>
       <Tabs borderColor='active' w='100%' index={tabIndex} onChange={(index) => dispatch(setProfileTab(index))}>
@@ -49,7 +57,7 @@ export default function PerfilContainer () {
               _focus={{ borderColor: 'none' }}
               _active={{ color: 'white' }}
               fontWeight={500}
-            ><BiDirections /> <Box textAlign='start' ml='10px'>Direcciones de envio</Box>
+            ><BiDirections /> <Box textAlign='start' ml='10px'>Direcciones</Box>
             </Tab>
             <Tab
               justifyContent='flex-start'
@@ -81,7 +89,7 @@ export default function PerfilContainer () {
               _focus={{ borderColor: 'none' }}
               _active={{ color: 'white' }}
               fontWeight={500}
-            ><BiStar /> <Box textAlign='start' ml='10px'>Opiniones</Box>
+            ><BiStar /> <Box textAlign='start' ml='10px'>Reseñas</Box>
             </Tab>
           </Flex>
 
@@ -94,7 +102,7 @@ export default function PerfilContainer () {
               <Heading mb={5}>Historial</Heading>
             </TabPanel> */}
             <TabPanel>
-              <Heading mb={5}>Domicilios</Heading>
+              <Heading mb={5}>Direcciones</Heading>
               {/* <Box mb={5}>Elige donde recibir tus compras.</Box> */}
               {userAddresses && userAddresses.map(address => <AddressCard
                 key={address.id}
@@ -106,9 +114,9 @@ export default function PerfilContainer () {
                 state={address.state}
                 country={address.country}
                                                              />)}
-              <Button onClick={handleClick}>Agregar un domicilio</Button>
-              {Click && <><Heading mb={5} mt={5}>Agregar un domicilio</Heading>
-                <AddressCreator />
+              <Button _hover={{ color: 'white' }} color='white' bg='button' onClick={handleClickAddress}>Agregar una dirección</Button>
+              {Click.address && <><Heading mb={5} mt={5}>Agregar una dirección</Heading>
+                <AddressCreator handleClickAddress={handleClickAddress} />
                 {/* eslint-disable-next-line */}
               </>}
 
@@ -126,8 +134,11 @@ export default function PerfilContainer () {
                   id={payment.id}
                 />
               ))}
-              <Heading mb={5} mt={5}>Agregar un método de pago</Heading>
-              <PaymentCreate />
+              <Button _hover={{ color: 'white' }} color='white' bg='button' onClick={handleClickPayment}>Agregar método de pago</Button>
+              {Click.payment && <><Heading mb={5} mt={5}>Agregar un método de pago</Heading>
+                <PaymentCreate handleClickPayment={handleClickPayment} />
+                {/* eslint-disable-next-line */}
+              </>}
             </TabPanel>
             <TabPanel>
               <Heading mb={5}>Mis compras</Heading>
@@ -138,7 +149,7 @@ export default function PerfilContainer () {
               <WishList />
             </TabPanel>
             <TabPanel>
-              <Heading mb={5}>Opiniones</Heading>
+              <Heading mb={5}>Reseñas</Heading>
               <Reviews />
             </TabPanel>
           </TabPanels>

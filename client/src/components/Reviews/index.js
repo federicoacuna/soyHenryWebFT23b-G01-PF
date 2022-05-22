@@ -26,17 +26,19 @@ export default function Reviews () {
   // ]
   return (
     <>
-      {reviews && <div className={s.container}>{reviews.length && reviews.map(r => (
-        <ReviewCard
-          key={r.product.id}
-          rating={r.rating}
-          review={r.review}
-          productId={r.product.id}
-          productName={r.product.name}
-          productImage={r.product.image}
-        />
-      ))}
-      </div>}{/* eslint-disable-line */}
+      <div className={s.container}>{reviews.length > 0
+        ? reviews.map(r => (
+          <ReviewCard
+            key={r.product.id}
+            rating={r.rating}
+            review={r.review}
+            productId={r.product.id}
+            productName={r.product.name}
+            productImage={r.product.image}
+          />
+        ))
+        : 'No tienes reseñas.'}
+      </div>{/* eslint-disable-line */}
     </>
   )
 }

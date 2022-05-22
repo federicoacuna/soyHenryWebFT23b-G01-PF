@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { createNewPayment } from '../../redux/actions/payments.actions'
 import { useDispatch } from 'react-redux'
 
-export default function PaymentCreate () {
+export default function PaymentCreate ({ handleClickPayment }) {
   const [errors, setErrors] = useState({})
   const [values, setValues] = useState({
     cardNumber: '',
@@ -25,10 +25,12 @@ export default function PaymentCreate () {
   }
 
   function handleBackClick () {
+    handleClickPayment()
     navigate('/payment')
   }
-  function handleClick () {
+  function handleSubmit () {
     validate()
+    handleClickPayment()
     dispatch(createNewPayment(values))
     navigate('/payment')
   }
@@ -89,7 +91,7 @@ export default function PaymentCreate () {
         {errors.provider && <p>{errors.provider}</p>}
       </form>
       <Button name='Cancelar' onClick={handleBackClick}>Cancelar</Button>
-      <Button name='Crear' onClick={handleClick}>Continuar</Button>
+      <Button name='Crear' onClick={handleSubmit}>Continuar</Button>
     </div>
   )
 }

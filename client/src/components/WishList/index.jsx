@@ -8,7 +8,7 @@ export default function WishList () {
       {(product.length > 0)
         ? product.map((el, i) =>
           <WishListCard id={el.id} image={el.image} price={el.price} name={el.name} key={i} />)
-        : 'Aun no tiene Items en su WishList'}
+        : 'No has agregado productos a la lista de deseos.'}
     </div>
 
   )

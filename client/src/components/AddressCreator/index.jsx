@@ -14,7 +14,7 @@ import {
   Button
 } from '@chakra-ui/react'
 
-function AddressCreator () {
+function AddressCreator ({ handleClickAddress }) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const countries = useSelector(state => state.countries)
@@ -59,8 +59,19 @@ function AddressCreator () {
 
   function handleSubmit (e) {
     console.log(values)
-    if (e.target.name === 'Close') navigate(-1)
-    else {
+    if (e.target.name === 'Close') {
+      navigate(-1)
+      // setValues({
+      //   postalCode: '',
+      //   countryId: 0,
+      //   state: '',
+      //   city: '',
+      //   streetName: '',
+      //   houseNumber: '',
+      //   floorApartment: '',
+      //   deliveryInstructions: ''
+      // })
+    } else {
       setHasTried(true)
       if (validate() && token) {
         dispatch(createNewAddress(values, token))
@@ -75,6 +86,7 @@ function AddressCreator () {
         })
       }
     }
+    handleClickAddress()
   }
 
   function validate () {
@@ -131,7 +143,7 @@ function AddressCreator () {
 
       <FormLabel htmlFor='countryId'>Pais</FormLabel>
       <Select onChange={(e) => handleChange(e)} name='countryId' placeholder='Elija un país para el envío'>
-        {countries.map(country => <option key={country.id} value={country.id}>{country.countryName}</option>)}
+        {countries && countries.map(country => <option key={country.id} value={country.id}>{country.countryName}</option>)}
       </Select>
       {errors.countryId && <Text color='red'>{errors.countryId}</Text>}
 
@@ -160,8 +172,8 @@ function AddressCreator () {
       {errors.deliveryInstructions && <Text color='red'>{errors.deliveryInstructions}</Text>}
 
       <Flex flexDirection='row' justifyContent='center'>
-        <Button name='Close' onClick={handleSubmit}>Cancelar</Button>
-        <Button name='Submit' onClick={handleSubmit}>Guardar</Button>
+        <Button m={3} _hover={{ color: 'white' }} bg='error' color='white' name='Close' onClick={handleSubmit}>Cancelar</Button>
+        <Button m={3} _hover={{ color: 'white' }} bg='success' color='white' name='Submit' onClick={handleSubmit}>Guardar</Button>
       </Flex>
     </FormControl>
   )
