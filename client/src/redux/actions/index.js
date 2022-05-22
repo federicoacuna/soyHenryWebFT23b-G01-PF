@@ -293,6 +293,10 @@ export const addToWishList = (productId) => {
         payload: wishList
       })
     } catch (error) {
+      dispatch({
+        type: UPDATE_WISHLIST,
+        payload: []
+      })
     }
   }
 }
@@ -306,6 +310,10 @@ export const deleteFromWishList = (productId) => {
         payload: wishList
       })
     } catch (error) {
+      dispatch({
+        type: UPDATE_WISHLIST,
+        payload: []
+      })
     }
   }
 }
@@ -319,6 +327,10 @@ export const getWishList = () => {
         payload: wishList
       })
     } catch (error) {
+      dispatch({
+        type: GET_WISHLIST,
+        payload: []
+      })
     }
   }
 }

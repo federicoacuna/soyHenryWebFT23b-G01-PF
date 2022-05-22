@@ -22,7 +22,6 @@ async function create (req, res) {
 
   try {
     const wasCreated = await addressService.createAddress(newAddress)
-    console.log('LA PUTA MADRE')
     const allUserAddresses = await addressService.getUserAddresses(user.id)
     wasCreated
       ? res.send({
