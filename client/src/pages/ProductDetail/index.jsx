@@ -2,7 +2,7 @@ import CartButton from '../../components/CartButton'
 import s from '../ProductDetail/index.module.css'
 import { Heading, Center, Container, Flex, Text, Button } from '@chakra-ui/react'
 import { IoMdArrowRoundBack } from 'react-icons/io'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { useEffect } from 'react'
@@ -13,6 +13,11 @@ function ProductDetail (props) {
   console.log(product)
   const dispatch = useDispatch()
   const { id } = useParams()
+  const navigate = useNavigate()
+
+  function handleClick () {
+    navigate('/reviews', { productId: product.id })
+  }
 
   useEffect(() => {
     dispatch(getProductDetails(id))
@@ -42,6 +47,7 @@ function ProductDetail (props) {
             <Flex mt='10px' justifyContent='flex-start'>
               <Button mr='10px' color='white' bg='#2C2C2E' _hover={{ bg: 'black' }}>Comprar Ahora</Button>
               <CartButton product={product} />
+              {props.reviewable === true ? <Button onClick={handleClick}> Agregar Reseña </Button> : null}
             </Flex>
           </Container>
         </Flex>
