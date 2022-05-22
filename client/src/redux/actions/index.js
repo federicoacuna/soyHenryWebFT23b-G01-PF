@@ -295,8 +295,10 @@ export const logOut = () => {
 export const addToWishList = (productId) => {
   return async (dispatch) => {
     try {
-      let wishList = await insertInWishList(productId)
-      if (wishList.payload === undefined) { wishList = { ...wishList, payload: [] } }
+      const wishList = await insertInWishList(productId)
+      if (!wishList.payload || !Array.isArray(wishList.payload)) { 
+        wishList.payload: []
+      }
       dispatch({
         type: UPDATE_WISHLIST,
         payload: wishList
@@ -314,6 +316,9 @@ export const deleteFromWishList = (productId) => {
   return async (dispatch) => {
     try {
       const wishList = await removeFromWishList(productId)
+      if (!wishList.payload || !Array.isArray(wishList.payload)) { 
+        wishList.payload: []
+      }
       dispatch({
         type: UPDATE_WISHLIST,
         payload: wishList
@@ -331,7 +336,9 @@ export const getWishList = () => {
   return async (dispatch) => {
     try {
       let wishList = await getUserWishList()
-      if (!Array.isArray(wishList)) { wishList = [] }
+      if (!Array.isArray(wishList)) { 
+        wishList = [] 
+      }
       dispatch({
         type: GET_WISHLIST,
         payload: wishList
