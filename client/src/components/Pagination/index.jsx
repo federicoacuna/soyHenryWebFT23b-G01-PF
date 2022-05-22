@@ -1,20 +1,20 @@
-import { useDispatch } from 'react-redux'
-import { addFilterParams } from '../../redux/actions/system.actions'
+import { useDispatch, useSelector } from 'react-redux'
+import { addFilterParams } from '../../redux/actions'
 import s from './index.module.css'
 export default function Pagination () {
   const dispatch = useDispatch()
-let { currentPage, hasNext, hasPrevious } = useSelector(state => state.pagination)// eslint-disable-line
+  const { currentPage, hasNext, hasPrevious } = useSelector(state => state.pagination)
 
   function handlePages (e) {
     if (e.target.name === 'next' && hasNext) {
       dispatch(addFilterParams({
-        name: 'page', 
-        value: currentPage + 1
+        name: 'page',
+        value: parseInt(currentPage) + 1
       }))
     } else if (e.target.name === 'back' && hasPrevious) {
       dispatch(addFilterParams({
         name: 'page',
-        value: currentPage - 1
+        value: parseInt(currentPage) - 1
       }))
     }
   }
