@@ -5,13 +5,13 @@ import { createNewAddress } from '../../redux/actions/addresses.actions'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   FormControl,
-  FormLabel,
   Text,
   Input,
   Flex,
   Select,
   useToast,
-  Button
+  Button,
+  Box
 } from '@chakra-ui/react'
 
 function AddressCreator ({ handleClickAddress }) {
@@ -135,47 +135,44 @@ function AddressCreator ({ handleClickAddress }) {
   }
 
   return (
-    <FormControl onSubmit={handleSubmit} isRequired>
+    <Box mt='1rem' display='flex' justifyContent='center' alignSelf='center'>
+      <Box>
+        <FormControl display='flex' flexDirection='column' justifyContent='center' alignItems='center' p='1rem' borderRadius='0.8rem' width='30rem' bg='white' boxShadow='3px 3px 5px 1px rgba(0, 0, 0, 0.25)' onSubmit={handleSubmit} isRequired>
 
-      <FormLabel htmlFor='postalcode'>Codigo postal</FormLabel>
-      <Input onChange={(e) => handleChange(e)} name='postalCode' type='text' value={values.postalCode} placeholder='Ingrese el código postal' />
-      {errors.postalCode && <Text color='red'>{errors.postalCode}</Text>}
+          <Input mb='1rem' _focus={{ outline: 'none' }} onChange={(e) => handleChange(e)} name='postalCode' type='text' value={values.postalCode} placeholder='Ingrese el código postal' />
+          {errors.postalCode && <Text color='red'>{errors.postalCode}</Text>}
 
-      <FormLabel htmlFor='countryId'>Pais</FormLabel>
-      <Select onChange={(e) => handleChange(e)} name='countryId' placeholder='Elija un país para el envío'>
-        {countries && countries.map(country => <option key={country.id} value={country.id}>{country.countryName}</option>)}
-      </Select>
-      {errors.countryId && <Text color='red'>{errors.countryId}</Text>}
+          <Select mb='1rem' _focus={{ outline: 'none' }} onChange={(e) => handleChange(e)} name='countryId' placeholder='Elija un país para el envío'>
+            {countries && countries.map(country => <option key={country.id} value={country.id}>{country.countryName}</option>)}
+          </Select>
+          {errors.countryId && <Text color='red'>{errors.countryId}</Text>}
 
-      <FormLabel htmlFor='state'>Provincia</FormLabel>
-      <Input onChange={(e) => handleChange(e)} name='state' type='text' value={values.state} placeholder='Ingrese el nombre de la Provincia' />
-      {errors.state && <Text color='red'>{errors.state}</Text>}
+          <Input mb='1rem' _focus={{ outline: 'none' }} onChange={(e) => handleChange(e)} name='state' type='text' value={values.state} placeholder='Ingrese el nombre de la Provincia' />
+          {errors.state && <Text color='red'>{errors.state}</Text>}
 
-      <FormLabel htmlFor='city'>Ciudad</FormLabel>
-      <Input onChange={(e) => handleChange(e)} name='city' type='text' value={values.city} placeholder='Ingrese el nombre de la ciudad' />
-      {errors.city && <Text color='red'>{errors.city}</Text>}
+          <Input mb='1rem' _focus={{ outline: 'none' }} onChange={(e) => handleChange(e)} name='city' type='text' value={values.city} placeholder='Ingrese el nombre de la ciudad' />
+          {errors.city && <Text color='red'>{errors.city}</Text>}
 
-      <FormLabel htmlFor='streetName'>Calle</FormLabel>
-      <Input onChange={(e) => handleChange(e)} name='streetName' type='text' value={values.streetName} placeholder='Ingrese el nombre de la calle' />
-      {errors.streetName && <Text color='red'>{errors.streetName}</Text>}
+          <Input mb='1rem' _focus={{ outline: 'none' }} onChange={(e) => handleChange(e)} name='streetName' type='text' value={values.streetName} placeholder='Ingrese el nombre de la calle' />
+          {errors.streetName && <Text color='red'>{errors.streetName}</Text>}
 
-      <FormLabel htmlFor='houseNumber'>Nro de puerta</FormLabel>
-      <Input onChange={(e) => handleChange(e)} name='houseNumber' type='number' value={values.houseNumber} placeholder='Ingrese el número de puerta del domicilio' />
-      {errors.houseNumber && <Text color='red'>{errors.houseNumber}</Text>}
+          <Input mb='1rem' _focus={{ outline: 'none' }} onChange={(e) => handleChange(e)} name='houseNumber' type='number' value={values.houseNumber} placeholder='Ingrese el número de puerta del domicilio' />
+          {errors.houseNumber && <Text color='red'>{errors.houseNumber}</Text>}
 
-      <FormLabel htmlFor='floorApartment'>Piso / depto</FormLabel>
-      <Input onChange={(e) => handleChange(e)} name='floorApartment' type='text' value={values.floorApartment} placeholder='Ingrese el número de apartamento si aplica' />
-      {errors.floorApartment && <Text color='red'>{errors.floorApartment}</Text>}
+          <Input mb='1rem' _focus={{ outline: 'none' }} onChange={(e) => handleChange(e)} name='floorApartment' type='text' value={values.floorApartment} placeholder='Ingrese el número de apartamento si aplica' />
+          {errors.floorApartment && <Text color='red'>{errors.floorApartment}</Text>}
 
-      <FormLabel htmlFor='deliveryInstructions'>Instrucciones para el envio</FormLabel>
-      <Input onChange={(e) => handleChange(e)} name='deliveryInstructions' type='text' value={values.deliveryInstructions} placeholder='Ingrese instrucciones adicionales para el envío si aplican' />
-      {errors.deliveryInstructions && <Text color='red'>{errors.deliveryInstructions}</Text>}
+          <Input mb='1rem' _focus={{ outline: 'none' }} onChange={(e) => handleChange(e)} name='deliveryInstructions' type='text' value={values.deliveryInstructions} placeholder='Ingrese instrucciones adicionales para el envío si aplican' />
+          {errors.deliveryInstructions && <Text color='red'>{errors.deliveryInstructions}</Text>}
+        </FormControl>
+        <Flex mt='1rem' width='30rem' flexDirection='row' justifyContent='flex-end' alignItems='center'>
+          <Button _hover={{ color: 'white' }} bg='error' color='white' name='Close' onClick={handleSubmit}>Cancelar</Button>
+          <Button ml='1rem' _hover={{ color: 'white' }} bg='success' color='white' name='Submit' onClick={handleSubmit}>Guardar</Button>
+        </Flex>
+      </Box>
 
-      <Flex flexDirection='row' justifyContent='center'>
-        <Button m={3} _hover={{ color: 'white' }} bg='error' color='white' name='Close' onClick={handleSubmit}>Cancelar</Button>
-        <Button m={3} _hover={{ color: 'white' }} bg='success' color='white' name='Submit' onClick={handleSubmit}>Guardar</Button>
-      </Flex>
-    </FormControl>
+    </Box>
+
   )
 }
 

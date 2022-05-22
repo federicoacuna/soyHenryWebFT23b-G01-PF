@@ -115,7 +115,7 @@ export default function PerfilContainer () {
                 country={address.country}
                                                              />)}
               <Button _hover={{ color: 'white' }} color='white' bg='button' onClick={handleClickAddress}>Agregar una dirección</Button>
-              {Click.address && <><Heading mb={5} mt={5}>Agregar una dirección</Heading>
+              {Click.address && <>
                 <AddressCreator handleClickAddress={handleClickAddress} />
                 {/* eslint-disable-next-line */}
               </>}
@@ -135,7 +135,7 @@ export default function PerfilContainer () {
                 />
               ))}
               <Button _hover={{ color: 'white' }} color='white' bg='button' onClick={handleClickPayment}>Agregar método de pago</Button>
-              {Click.payment && <><Heading mb={5} mt={5}>Agregar un método de pago</Heading>
+              {Click.payment && <>
                 <PaymentCreate handleClickPayment={handleClickPayment} />
                 {/* eslint-disable-next-line */}
               </>}
