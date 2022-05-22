@@ -28,6 +28,13 @@ export const ModalLogin = ({ children, state, setState, isRegistrando, setIsRegi
   // USE EFFECT CON EL DISPATCH DE LOGIN & LA FN DE VALIDATE
 
   useEffect(() => {
+    firebase.auth().onIdTokenChanged(user => {
+      if (user) {
+        user.getIdToken().then(token => {
+          dispatch(logIn(token))
+        })
+      }
+    })
     validate()
   }, [values]) //eslint-disable-line
 
@@ -97,12 +104,12 @@ export const ModalLogin = ({ children, state, setState, isRegistrando, setIsRegi
   // FIREBASE
 
   function handleLogIn (type, correo, password) {
-    async function passToken () {
-      firebase.auth().currentUser.getIdToken().then(token => {
-        dispatch(logIn(token))
-        dispatch(getWishList())
-      })
-    }
+    // async function passToken () {
+    //   firebase.auth().currentUser.getIdToken().then(token => {
+    //     dispatch(logIn(token))
+    //     dispatch(getWishList())
+    //   })
+    // }
 
     function toaster (message = 'Login exitoso') {
       toast({
@@ -115,17 +122,17 @@ export const ModalLogin = ({ children, state, setState, isRegistrando, setIsRegi
     try {
       if (type === 'google') {
         firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())
-          .then(user => user && passToken())
+          // .then(user => user && passToken())
           .then(() => toaster())
       }
       if (type === 'email') {
         firebase.auth().signInWithEmailAndPassword(correo, password)
-          .then(user => user && passToken())
+          // .then(user => user && passToken())
           .then(() => (toaster()))
       }
       if (type === 'register') {
         firebase.auth().createUserWithEmailAndPassword(correo, password)
-          .then(user => user && passToken())
+          // .then(user => user && passToken())
           .then(() => (toaster('Usuario Registrado con Exito')))
       }
       setState(false)

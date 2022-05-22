@@ -13,7 +13,6 @@ function UsersHome () {
   firebase.auth().onIdTokenChanged(user => {
     if (user) {
       user.getIdToken().then(token => {
-        console.log(token)
         dispatch(logIn(token))
       })
     }
