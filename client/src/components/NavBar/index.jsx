@@ -87,7 +87,7 @@ const NavBar = () => {
                 <Link to='/' className={styles.navLink}>Home</Link>
               </ListItem>
               <ListItem>
-                <div className={styles.navLink} onClick={() => handleClick(4)}>Wishlist</div>
+                {Object.keys(user).length > 0 && <div className={styles.navLink} onClick={() => handleClick(4)}>Wishlist</div>}
               </ListItem>
               {Object.keys(user).length > 0 &&
                 <Menu>
