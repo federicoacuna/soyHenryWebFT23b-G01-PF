@@ -25,14 +25,25 @@ export default function PaymentCreate ({ handleClickPayment }) {
   }
 
   function handleBackClick () {
-    handleClickPayment()
-    navigate('/payment')
+    if (handleClickPayment) {
+      handleClickPayment()
+      navigate('/payment')
+    } else {
+      navigate('/payment')
+    }
   }
+
   function handleSubmit () {
-    validate()
-    handleClickPayment()
-    dispatch(createNewPayment(values))
-    navigate('/payment')
+    if (handleClickPayment) {
+      validate()
+      handleClickPayment()
+      dispatch(createNewPayment(values))
+      navigate('/payment')
+    } else {
+      validate()
+      dispatch(createNewPayment(values))
+      navigate('/payment')
+    }
   }
 
   function handleSelect (e) {
