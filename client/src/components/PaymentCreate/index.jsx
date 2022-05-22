@@ -1,7 +1,7 @@
 import LabelInput from '../LabelInput'
-import { Select, Button, Box } from '@chakra-ui/react'
+import { Select, Button, useToast, Box } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { createNewPayment } from '../../redux/actions/payments.actions'
 import { useDispatch } from 'react-redux'
 import s from './index.module.css'
@@ -14,8 +14,14 @@ export default function PaymentCreate ({ handleClickPayment }) {
     provider: '',
     paymentTypeId: ''
   })
+  const [hasTried, setHasTried] = useState(false)
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const toast = useToast()
+
+  useEffect(() => {
+    hasTried && validate()
+  }, [values]) //eslint-disable-line
 
   function handleInputChange (e) {
     e.preventDefault()
@@ -27,23 +33,45 @@ export default function PaymentCreate ({ handleClickPayment }) {
 
   function handleBackClick () {
     if (handleClickPayment) {
+      setHasTried(true)
+      navigate(-1)
       handleClickPayment()
-      navigate('/payment')
     } else {
+      setHasTried(true)
       navigate('/payment')
     }
   }
 
   function handleSubmit () {
     if (handleClickPayment) {
-      validate()
-      handleClickPayment()
-      dispatch(createNewPayment(values))
-      navigate('/payment')
+      setHasTried(true)
+      if (validate()) {
+        navigate(-1)
+        dispatch(createNewPayment(values))
+        handleClickPayment()
+      } else {
+        toast({
+          title: 'Falta informacion.',
+          description: 'Por favor completa los campos obligatorios.',
+          status: 'error',
+          duration: 7000,
+          isClosable: true
+        })
+      }
     } else {
-      validate()
-      dispatch(createNewPayment(values))
-      navigate('/payment')
+      setHasTried(true)
+      if (validate()) {
+        dispatch(createNewPayment(values))
+        navigate('/payment')
+      } else {
+        toast({
+          title: 'Falta informacion.',
+          description: 'Por favor completa los campos obligatorios.',
+          status: 'error',
+          duration: 7000,
+          isClosable: true
+        })
+      }
     }
   }
 
@@ -56,6 +84,7 @@ export default function PaymentCreate ({ handleClickPayment }) {
 
   function validate () {
     const error = {}
+    setErrors({})
     if (!values.cardNumber) {
       error.cardNumber = 'Debe ingresar los números de la tarjeta'
       return false
@@ -69,6 +98,7 @@ export default function PaymentCreate ({ handleClickPayment }) {
       return false
     }
     setErrors(error)
+    if (Object.values(error).length === 0) { return true }
   }
   return (
     <div className={s.container}>
