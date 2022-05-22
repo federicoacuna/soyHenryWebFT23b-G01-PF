@@ -57,10 +57,17 @@ export default function UserPersonalData () {
     }
 
     // Check Last Name - between 3 and 30 characters
+    // ^[0-9]*$
     if (!userData.lastname) {
       error.lastname = 'Completar campo.'
     } else if (!/^([a-zA-ZÀ-ÖØ-öø-ÿ]{3,30})+\.?(( |-)[a-zA-ZÀ-ÖØ-öø-ÿ]+\.?)*$/.test(userData.lastname)) {
       error.lastname = 'Apellido inválido.'
+    }
+
+    if (!userData.phone) {
+      error.phone = 'Completar campo.'
+    } else if (!/^[0-9]*$/.test(userData.phone)) {
+      error.phone = 'Número de móvil inválido.'
     }
 
     setErrors({
@@ -105,19 +112,19 @@ export default function UserPersonalData () {
     <FormControl onSubmit={handleSubmit} isRequired>
       <Heading as='h2' size='x1'>DATOS DE SU CUENTA</Heading>
       <FormLabel htmlFor='email'>Su cuenta de email es</FormLabel>
-      <Input onChange={(e) => handleChange(e)} name='email' type='text' value={userData.email} placeholder={userData.email} disabled />
+      <Input onChange={(e) => handleChange(e)} name='email' type='text' value={userData.email || ''} placeholder={userData.email} disabled />
 
       <Heading as='h2' size='x1'>DATOS PERSONALES</Heading>
       <FormLabel htmlFor='firstname'>Nombres</FormLabel>
-      <Input onChange={(e) => handleChange(e)} name='firstname' type='text' value={userData.firstname} placeholder={userData.firstname ? userData.firstname : 'No has registrado nombres aún'} />
+      <Input onChange={(e) => handleChange(e)} name='firstname' type='text' value={userData.firstname || ''} placeholder={userData.firstname ? userData.firstname : 'No has registrado nombres aún'} />
       {errors.firstname && <Text color='red'>{errors.firstname}</Text>}
 
       <FormLabel htmlFor='lastname'>Apellidos</FormLabel>
-      <Input onChange={(e) => handleChange(e)} name='lastname' type='text' value={userData.lastname} placeholder={userData.lastname ? userData.lastname : 'No has registrado apellidos aún'} />
+      <Input onChange={(e) => handleChange(e)} name='lastname' type='text' value={userData.lastname || ''} placeholder={userData.lastname ? userData.lastname : 'No has registrado apellidos aún'} />
       {errors.lastname && <Text color='red'>{errors.lastname}</Text>}
 
       <FormLabel htmlFor='phone'>Número de movil</FormLabel>
-      <Input onChange={(e) => handleChange(e)} name='phone' type='text' value={userData.phone} placeholder={userData.phone ? userData.phone : 'No has registrado tu movil aún'} />
+      <Input onChange={(e) => handleChange(e)} name='phone' type='text' value={userData.phone || ''} placeholder={userData.phone ? userData.phone : 'No has registrado tu movil aún'} />
       {errors.phone && <Text color='red'>{errors.phone}</Text>}
 
       <FormLabel htmlFor='birthdate'>¿Quieres cambiar tu fecha de nacimiento {userData.birthdate}?</FormLabel>
