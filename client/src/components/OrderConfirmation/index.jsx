@@ -6,6 +6,7 @@ import { clearCreatedOrder } from '../../redux/actions'
 import AddressCard from '../AddressCard'
 import UserPaymentCard from '../PaymentCard'
 import { getOrderDetails } from '../../redux/actions/orders.actions'
+import s from './index.module.css'
 // import LoadingSpinner from '../LoadingSpinner'
 
 export default function OrderConfirmation () {
@@ -27,21 +28,23 @@ export default function OrderConfirmation () {
   }
 
   return (
-    <Box>
-      {createdOrder?.id
-        ? <div>
-          <p>Nro. de Orden: {createdOrder.id}</p>
-          <p>Fue pagado con:</p>
-          <UserPaymentCard
-            key={userPayment.id}
-            paymentType={userPayment.paymentType}
-            cardNumber={userPayment.cardNumber}
-            expirationDate={userPayment.expirationDate}
-            provider={userPayment.provider}
-            id={userPayment.id}
-          />
-          {userAddress && <p>Su orden sera despachada a:</p>}
-          {
+    <div className={s.containerAll}>
+      <div className={s.container}>
+        <Box bg='success' p='1rem' borderRadius='0.8rem'>
+          {createdOrder?.id
+            ? <div>
+              <p>Nro. de Orden: {createdOrder.id}</p>
+              <p>Fue pagado con:</p>
+              <UserPaymentCard
+                key={userPayment.id}
+                paymentType={userPayment.paymentType}
+                cardNumber={userPayment.cardNumber}
+                expirationDate={userPayment.expirationDate}
+                provider={userPayment.provider}
+                id={userPayment.id}
+              />
+              {userAddress && <p>Su orden sera despachada a:</p>}
+              {
           userAddress &&
             <AddressCard
               id={userAddress.id}
@@ -53,8 +56,8 @@ export default function OrderConfirmation () {
               country={userAddress.country}
             />
           }
-          {branch && <p>Su orden estara disponible para su retiro en:</p>}
-          {
+              {branch && <p>Su orden estara disponible para su retiro en:</p>}
+              {
           branch &&
             <AddressCard
               id={branch.id}
@@ -65,13 +68,17 @@ export default function OrderConfirmation () {
               country={branch.country}
             />
           }
-          <UnorderedList>
-            {createdOrder.orderItems.map((item, index) => <ListItem key={index}>{item.name}</ListItem>)}
-          </UnorderedList>
-          <Button onClick={handleClick}>Aceptar</Button>
-          {/* eslint-disable-next-line */}
+              <UnorderedList>
+                {createdOrder.orderItems.map((item, index) => <ListItem key={index}>{item.name}</ListItem>)}
+              </UnorderedList>
+              <Button border='1px' borderColor='white' _hover={{ color: 'white' }} bg='success' color='white' onClick={handleClick}>Aceptar</Button>
+              {/* eslint-disable-next-line */}
         </div>
-        : <p>A</p>}
-    </Box>
+            : <p>A</p>}
+        </Box>
+      </div>
+
+    </div>
+
   )
 }
