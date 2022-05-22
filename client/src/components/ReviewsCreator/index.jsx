@@ -49,6 +49,7 @@ export default function Reviews (productName, productId, navigateURL) {
         isClosable: true
       })
     }
+    console.log('Fede comunista, devolve la papa')
     // navigate(navigateURL)
   }
   return (
