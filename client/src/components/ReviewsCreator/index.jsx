@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-import { createNewReview } from '../../services/Reviews'
+import { createReview } from '../../services/reviews'
 
 export default function Reviews (productName, productId, navigateURL) {
   const toast = useToast()
@@ -33,8 +33,8 @@ export default function Reviews (productName, productId, navigateURL) {
     navigate(navigateURL)
   }
   function handleClick () {
-    if (!values.rating === '' && !values.review === '') {
-      createNewReview(values)
+    if (values.rating && values.review !== '') {
+      createReview(values)
       toast({
         description: 'Review creada con éxito.',
         status: 'success',
