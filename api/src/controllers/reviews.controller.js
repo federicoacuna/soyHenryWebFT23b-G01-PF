@@ -10,60 +10,8 @@ async function get (req, res, next) {
     } else {
       const reviewForEmail = await Reviews.getReviewsForUserId(email)
       reviewForEmail
-        ? res.json([{
-          rating: 5,
-          review: 'Esta muy piola el producto',
-          product: {
-            id: 4,
-            name: 'DestapaCorchos',
-            image: 'IMAGEN'
-          }
-        },
-        {
-          rating: 4,
-          review: 'Esta medio piola el producto',
-          product: {
-            id: 2,
-            name: 'Destapa Birras',
-            image: 'IMAGEN'
-          }
-        },
-        {
-          rating: 4,
-          review: 'Esta bastante piola el producto',
-          product: {
-            id: 9,
-            name: 'Soga de perro',
-            image: 'IMAGEN'
-          }
-        }])
-        : res.json([{
-          rating: 5,
-          review: 'Esta muy piola el producto',
-          product: {
-            id: 4,
-            name: 'DestapaCorchos',
-            image: 'IMAGEN'
-          }
-        },
-        {
-          rating: 4,
-          review: 'Esta medio piola el producto',
-          product: {
-            id: 2,
-            name: 'Destapa Birras',
-            image: 'IMAGEN'
-          }
-        },
-        {
-          rating: 4,
-          review: 'Esta bastante piola el producto',
-          product: {
-            id: 9,
-            name: 'Soga de perro',
-            image: 'IMAGEN'
-          }
-        }])
+        ? res.json(reviewForEmail)
+        : res.status(404).json({ error: 'Reviews not found' })
     }
   } catch (error) {
     res.status(400).json(error)
