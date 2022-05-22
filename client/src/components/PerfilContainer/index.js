@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 // import s from './index.module.css'
-import { Flex, Tabs, TabPanels, Tab, TabPanel, Box, Heading } from '@chakra-ui/react'
+import { Flex, Tabs, TabPanels, Tab, TabPanel, Box, Heading, Button } from '@chakra-ui/react'
 import { BiUserCircle, BiDirections, BiMoney, BiShoppingBag, BiHeart, BiStar } from 'react-icons/bi'
 import DatosPersonales from '../PerfilPersonalData'
 import MyShopping from '../MyShopping'
@@ -15,6 +15,12 @@ import WishList from '../WishList'
 export default function PerfilContainer () {
   const userAddresses = useSelector(state => state.user.userAddresses)
   const userPayments = useSelector(state => state.user.userPayments)
+  const [Click, setClick] = useState(false)
+
+  const handleClick = () => {
+    // setClick(true)
+    Click === false ? setClick(true) : setClick(false)
+  }
 
   return (
     <Flex w='85vw'>
@@ -99,8 +105,12 @@ export default function PerfilContainer () {
                 state={address.state}
                 country={address.country}
                                                              />)}
-              <Heading mb={5} mt={5}>Agregar un domicilio</Heading>
-              <AddressCreator />
+              <Button onClick={handleClick}>Agregar un domicilio</Button>
+              {Click && <><Heading mb={5} mt={5}>Agregar un domicilio</Heading>
+                <AddressCreator />
+                {/* eslint-disable-next-line */}
+              </>}
+
             </TabPanel>
             <TabPanel>
               <Heading mb={2}>Métodos de pago</Heading>
