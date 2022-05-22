@@ -15,7 +15,9 @@ const colors = {
   primary: '#2C2C2E',
   secondary: '#E5E5EA',
   accent: '#FFFFFF',
-  error: '#FF0000'
+  error: '#FC8181',
+  success: '#38A169',
+  button: '#00B5D8'
 }
 
 const theme = extendTheme({ colors })

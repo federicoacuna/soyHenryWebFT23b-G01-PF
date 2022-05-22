@@ -76,7 +76,7 @@ const NavBar = () => {
     <>
       {/* Desktop */}
       <Show breakpoint='(min-width: 641px)'>
-        <Box bg='primary' display='flex' justifyContent='space-between' color='accent' alignItems='center' p='1rem' maxWidth='1440px' margin='0 auto'>
+        <Box bg='primary' display='flex' justifyContent='space-between' color='accent' alignItems='center' p='1rem' margin='0 auto'>
           <Link to='/' className={styles.logo}>
             <Icon width='2rem' height='2rem' name='logo' as={BsShop} />
             <span>Ecommerce</span>
@@ -93,7 +93,7 @@ const NavBar = () => {
                 <Menu>
                   <Flex alignItems='center'>
                     <Avatar size='sm' mr={2} name={user.email && user.email.split('@')[0]} src='' />
-                    <MenuButton _hover={{ bg: 'primary' }} _active={{ bg: 'primary' }} _focus={{ boxShadow: 'none' }} p={0} fontSize='1.25rem' fontWeight={700} bg='primary' as={Button} rightIcon={<AiFillCaretDown />}>{user.email ? 'Hola, ' + user.email.split('@')[0] : 'Hola, User'}
+                    <MenuButton _hover={{ bg: 'primary' }} _active={{ bg: 'primary' }} _focus={{ boxShadow: 'none' }} p={0} fontSize='1.25rem' fontWeight={700} bg='primary' as={Button} rightIcon={<AiFillCaretDown />}>{user.firstname ? 'Hola, ' + user.firstname : user.email ? 'Hola, ' + user.email.split('@')[0] : 'Hola, User'}
                     </MenuButton>
                   </Flex>
                   <MenuList bg='primary'>

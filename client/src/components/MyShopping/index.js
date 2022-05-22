@@ -15,9 +15,11 @@ export default function MyShopping () {
   }, [])//eslint-disable-line
 
   return (
-    <div className={s.container}>{orders.length && orders.map(p => (
-      <CardOrder key={p.id} id={p.id} total={p.total} date={p.createdAt} orderItems={p.products} />
-    ))}
+    <div className={s.container}>{orders.length > 0
+      ? orders.map(p => (
+        <CardOrder key={p.id} id={p.id} total={p.total} date={p.createdAt} orderItems={p.products} />
+      ))
+      : 'No has realizado ninguna compra.'}
     </div>
   )
 }

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { updateUserData } from '../../redux/actions'
-import ButtonPrimary from '../ButtonPrimary'
 import {
+  Button,
   FormControl,
   FormLabel,
   Text,
@@ -132,8 +132,8 @@ export default function UserPersonalData () {
       {errors.birthname && <Text color='red'>{errors.birthname}</Text>}
 
       <Flex flexDirection='row' justifyContent='end'>
-        <ButtonPrimary text='Guardar' onclick={handleSubmit} />
-        <ButtonPrimary text='Cancelar' onclick={handleClose} />
+        <Button m={3} _hover={{ color: 'white' }} color='white' bg='success' onClick={handleSubmit}>Guardar</Button>
+        <Button m={3} _hover={{ color: 'white' }} color='white' bg='error' onClick={handleClose}>Cancelar</Button>
       </Flex>
     </FormControl>
   )
