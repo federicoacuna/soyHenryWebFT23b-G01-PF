@@ -30,7 +30,8 @@ import {
   UPDATE_CART,
   GET_REVIEWS,
   GET_PAYMENTS,
-  GET_ORDER_DETAILS
+  GET_ORDER_DETAILS,
+  SET_PAGE
 } from '../constants'
 
 const initialState = {
@@ -226,6 +227,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         wishlist: payload
+      }
+
+    case SET_PAGE:
+      return {
+        ...state,
+        pagination: payload
       }
 
     case GET_ADDRESSES:
