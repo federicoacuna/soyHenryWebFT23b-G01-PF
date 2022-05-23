@@ -8,6 +8,7 @@ import { removeFromWishList, insertInWishList, getUserWishList } from '../../ser
 import { getAllCountries } from '../../services/countries'
 import { getReviews } from '../../services/reviews'
 import {
+  SET_TOAST,
   SET_PROFILE_TAB,
   GET_PRODUCTS,
   GET_BRANDS,
@@ -31,7 +32,8 @@ import {
   SET_ORDER_ITEMS,
   CREATE_ORDER,
   CLEAR_CREATED_ORDER,
-  UPDATE_WISHLIST
+  UPDATE_WISHLIST,
+  UPDATE_USER
 } from '../constants'
 
 export const setProfileTab = (tabIndex) => {
@@ -171,18 +173,32 @@ export const setSorting = (sort) => {
 export const updateUserData = (newData) => {
   return async (dispatch) => {
     try {
-      const { token } = store.getState()
-      await updateUser(newData)
-      const user = await sendToken(token)
-
+      const updatedUser = await updateUser(newData)
+      const toast = {
+        title: 'Actualizado.',
+        description: 'Ya tenemos tu nueva informacion guardada.',
+        status: 'success',
+        duration: 5000,
+        isClosable: true
+      }
       dispatch({
-        type: LOG_IN,
-        payload: { user, token }
+        type: UPDATE_USER,
+        payload: {
+          payload: updatedUser,
+          toast
+        }
       })
     } catch (error) {
+      const toast = {
+        title: 'Error.',
+        description: 'No pudimos actualizar tu informacion.',
+        status: 'error',
+        duration: 5000,
+        isClosable: true
+      }
       dispatch({
-        type: LOG_IN,
-        payload: error.message
+        type: SET_TOAST,
+        payload: toast
       })
     }
   }

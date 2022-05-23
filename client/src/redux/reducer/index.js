@@ -25,6 +25,7 @@ import {
   UPDATE_WISHLIST,
   GET_WISHLIST,
   GET_ADDRESSES,
+  UPDATE_USER,
   UPDATE_ADDRESSES,
   UPDATE_PAYMENTS,
   UPDATE_CART,
@@ -255,6 +256,12 @@ const reducer = (state = initialState, action) => {
         payments: payload
       }
 
+    case UPDATE_USER:
+      return {
+        ...state,
+        user: payload.payload,
+        toast: payload.toast
+      }
     case UPDATE_PAYMENTS:
       return {
         ...state,

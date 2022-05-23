@@ -14,6 +14,7 @@ import {
 export default function UserPersonalData () {
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
+  const [hasTried, setHasTried] = useState(false)
   const [userData, setUserData] = useState({
     email: '',
     firstname: '',
@@ -30,12 +31,11 @@ export default function UserPersonalData () {
 
   useEffect(() => {
     setUserData({
-      ...userData,
-      email: user.email /* ? user.email : 'ecommerce@ecommerce.com' */,
-      firstname: user.firstname ? user.firstname : '',
-      lastname: user.lastname ? user.lastname : '',
-      phone: user.phone ? user.phone : '',
-      birthdate: user.birthdate ? user.birthdate : '2000-01-01'
+      email: user.email,
+      firstname: user.firstname || '',
+      lastname: user.lastname || '',
+      phone: user.phone || '',
+      birthdate: user.birthdate || '2000-01-01'
     })
   }, [user]) //eslint-disable-line
 
@@ -71,7 +71,6 @@ export default function UserPersonalData () {
     }
 
     setErrors({
-      ...userData,
       firstname: error.firstname,
       lastname: error.lastname,
       phone: error.phone,
@@ -82,30 +81,38 @@ export default function UserPersonalData () {
   }
 
   function handleChange (e) {
+    hasTried && validate()
     setUserData({ ...userData, [e.target.name]: e.target.value })
   }
 
   function handleSubmit () {
-    const newData = {
-      firstname: userData.firstname,
-      lastname: userData.lastname,
-      phone: userData.phone,
-      birthdate: userData.birthdate
+    setHasTried(true)
+    if (validate()) {
+      const newData = {
+        firstname: userData.firstname,
+        lastname: userData.lastname,
+        phone: userData.phone,
+        birthdate: userData.birthdate
+      }
+      dispatch(updateUserData(newData))
     }
-    validate() && dispatch(updateUserData(newData))
-    // REFRESH DATA FROM REDUX TO FORM
   }
 
   function handleClose () {
-    // REFRESH DATA FROM REDUX TO FORM
-    const oldData = {
+    setUserData({
       email: user.email,
-      firstname: user.firstname,
-      lastname: user.lastname,
-      phone: user.phone,
-      birthdate: user.birthdate
-    }
-    dispatch(updateUserData(oldData))
+      firstname: user.firstname || '',
+      lastname: user.lastname || '',
+      phone: user.phone || '',
+      birthdate: user.birthdate || '2000-01-01'
+    })
+    setErrors({
+      firstname: '',
+      lastname: '',
+      phone: '',
+      birthdate: ''
+    })
+    setHasTried(false)
   }
 
   return (

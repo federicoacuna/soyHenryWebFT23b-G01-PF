@@ -58,35 +58,37 @@ function AddressCreator ({ handleClickAddress }) {
   }
 
   function handleSubmit (e) {
-    console.log(values)
-    if (e.target.name === 'Close') {
-      navigate(-1)
-      // setValues({
-      //   postalCode: '',
-      //   countryId: 0,
-      //   state: '',
-      //   city: '',
-      //   streetName: '',
-      //   houseNumber: '',
-      //   floorApartment: '',
-      //   deliveryInstructions: ''
-      // })
-    } else {
-      setHasTried(true)
-      if (validate() && token) {
-        dispatch(createNewAddress(values, token))
-        navigate(-1)
-      } else {
-        toast({
-          title: 'Falta informacion.',
-          description: 'Por favor completa los campos obligatorios.',
-          status: 'error',
-          duration: 7000,
-          isClosable: true
-        })
-      }
+    if (e.target.name === 'Close' && handleClickAddress) {
+      setValues({
+        postalCode: '',
+        countryId: 0,
+        state: '',
+        city: '',
+        streetName: '',
+        houseNumber: '',
+        floorApartment: '',
+        deliveryInstructions: ''
+      })
+      return handleClickAddress()
     }
-    handleClickAddress()
+    if (e.target.name === 'Close' && !handleClickAddress) {
+      return navigate(-1)
+    }
+
+    setHasTried(true)
+    if (validate() && token) {
+      dispatch(createNewAddress(values))
+      if (handleClickAddress) return handleClickAddress()
+      navigate(-1)
+    } else {
+      toast({
+        title: 'Falta informacion.',
+        description: 'Por favor completa los campos obligatorios.',
+        status: 'error',
+        duration: 7000,
+        isClosable: true
+      })
+    }
   }
 
   function validate () {

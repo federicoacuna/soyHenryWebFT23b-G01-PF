@@ -14,16 +14,12 @@ export const sendToken = async (token) => {
   return data
 }
 
-export const updateUser = function (newData) {
-  axios.put(endpoint, newData, {
+export const updateUser = async function (newData) {
+  const { data } = await axios.put(endpoint, newData, {
     headers: {
       Authorization: `Bearer ${token}`
     }
   })
-    .then(res => {
-      console.log(res)
-    })
-    .catch(error => {
-      console.log(error)
-    })
+
+  return data
 }
