@@ -95,6 +95,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         options: {
           ...state.options,
+          page: 1,
           [payload.name]: [payload.value]
         }
       }

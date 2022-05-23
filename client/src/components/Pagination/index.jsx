@@ -6,7 +6,8 @@ import s from './index.module.css'
 export default function Pagination () {
   const dispatch = useDispatch()
   const { currentPage, hasNext, hasPrevious } = useSelector(state => state.pagination)
-
+  const shouldDisplay = !(parseInt(currentPage) === 1 && !hasNext)
+  console.log(shouldDisplay)
   function handlePages (e) {
     if (e === 'next' && hasNext) {
       dispatch(addFilterParams({
@@ -22,10 +23,13 @@ export default function Pagination () {
   }
 
   return (
-    <div className={s.container}>
-      <div onClick={() => handlePages('back')} name='back' disabled={!hasPrevious}><BsFillArrowLeftSquareFill /></div>
-      <span>{currentPage}</span>
-      <div onClick={() => handlePages('next')} name='next' disabled={!hasNext}><BsFillArrowRightSquareFill /></div>
-    </div>
+    <>
+      {shouldDisplay &&
+        <div className={s.container}>
+          <div onClick={() => handlePages('back')} name='back' disabled={!hasPrevious}><BsFillArrowLeftSquareFill /></div>
+          <span>{currentPage}</span>
+          <div onClick={() => handlePages('next')} name='next' disabled={!hasNext}><BsFillArrowRightSquareFill /></div>
+        </div>}
+    </>
   )
 }
