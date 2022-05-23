@@ -14,7 +14,7 @@ function ProductDetail (props) {
   const navigate = useNavigate()
 
   function handleClick () {
-    navigate(`/reviews/${product.id}`)
+    navigate(`/createreview/${product.id}`)
   }
 
   useEffect(() => {

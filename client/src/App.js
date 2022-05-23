@@ -10,6 +10,7 @@ import Addresses from './pages/Addresses'
 import Perfil from './pages/Perfil'
 import AddressCreator from './components/AddressCreator'
 import PaymentCreate from './components/PaymentCreate'
+import ReviewCreator from './components/ReviewsCreator'
 import OrderConfirmation from './components/OrderConfirmation'
 import './App.css'
 
@@ -48,6 +49,7 @@ function App () {
         <Route exact path='/perfil' element={<Perfil />} />
         <Route exact path='/createaddress' element={<AddressCreator />} />
         <Route exact path='/createpayment' element={<PaymentCreate />} />
+        <Route exact path='/createreview/:productId' element={<ReviewCreator />} />
         <Route path='/confirmation/:orderId' element={<OrderConfirmation />} />
       </Routes>
     </div>

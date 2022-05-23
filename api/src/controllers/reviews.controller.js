@@ -22,8 +22,9 @@ async function create (req, res, next) {
   const email = req.user.email
   const data = req.body
   try {
-    const review = await Reviews.createReview(email, data)
-    review ? res.json(review) : res.status(400).json({ error: 'Error adding review' })
+    await Reviews.createReview(email, data)
+    const reviewForEmail = await Reviews.getReviewsForUserId(email)
+    reviewForEmail ? res.json(reviewForEmail) : res.status(400).json({ error: 'Error adding review' })
   } catch (error) {
     res.status(400).json(error)
   }
