@@ -3,8 +3,7 @@ import store from '../redux/store'
 
 const endpoint = '/users'
 
-export const sendToken = async () => {
-  const { token } = store.getState()
+export const sendToken = async (token) => {
   const { data } = await axios.get(endpoint, {
     headers: {
       Authorization: `Bearer ${token}`
