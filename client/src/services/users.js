@@ -1,10 +1,10 @@
 import axios from 'axios'
 import store from '../redux/store'
 
-const { token } = store.getState()
 const endpoint = '/users'
 
-export const sendToken = async (token) => {
+export const sendToken = async () => {
+  const { token } = store.getState()
   const { data } = await axios.get(endpoint, {
     headers: {
       Authorization: `Bearer ${token}`
@@ -15,6 +15,7 @@ export const sendToken = async (token) => {
 }
 
 export const updateUser = async function (newData) {
+  const { token } = store.getState()
   const { data } = await axios.put(endpoint, newData, {
     headers: {
       Authorization: `Bearer ${token}`
