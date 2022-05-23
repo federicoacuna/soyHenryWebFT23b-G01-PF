@@ -5,7 +5,7 @@ import { Flex, Tabs, TabPanels, Tab, TabPanel, Box, Heading, Button } from '@cha
 import { BiUserCircle, BiDirections, BiMoney, BiShoppingBag, BiHeart, BiStar } from 'react-icons/bi'
 import DatosPersonales from '../PerfilPersonalData'
 import MyShopping from '../MyShopping'
-import Reviews from '../Reviews'
+import ReviewsContainer from '../ReviewsContainer'
 import AddressCreator from '../AddressCreator'
 import PaymentCard from '../PaymentCard'
 import PaymentCreate from '../PaymentCreate'
@@ -151,7 +151,7 @@ export default function PerfilContainer () {
             </TabPanel>
             <TabPanel>
               <Heading mb={5}>Reseñas</Heading>
-              <Reviews />
+              <ReviewsContainer />
             </TabPanel>
           </TabPanels>
         </Flex>

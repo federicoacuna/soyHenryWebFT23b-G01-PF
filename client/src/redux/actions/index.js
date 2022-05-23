@@ -368,10 +368,10 @@ export const getWishList = () => {
   }
 }
 
-export const getUserReviews = (token) => {
+export const getUserReviews = () => {
   return async (dispatch) => {
     try {
-      const reviews = await getReviews(token)
+      const reviews = await getReviews()
 
       dispatch({
         type: GET_REVIEWS,

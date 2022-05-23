@@ -2,10 +2,20 @@ const { User, Review, Order, OrderItem, Product } = require('../db')
 
 async function getReviewsForUserId (email) {
   try {
-    let user = await User.findOne({ where: { email } })
-    user = user.id
-    const reviewsForUser = await Review.findAll({ where: { userId: user } })
-    return reviewsForUser
+    const user = await User.findOne({ where: { email } })
+    const userId = user.id
+    const reviewsForUser = await Review.findAll({ where: userId, raw: true })
+    const productsReviewed = await Product.findAll({
+      where: {
+        id: reviewsForUser.map(review => review.productId)
+      },
+      raw: true
+    })
+    const results = reviewsForUser.map(review => {
+      review.product = productsReviewed.find(product => product.id === review.productId)
+      return review
+    })
+    return results
   } catch (error) {
     return error
   }
