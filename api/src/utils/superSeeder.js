@@ -11,6 +11,7 @@ const {
   UserAddress,
   UserPayment,
   Order,
+  OrderItem,
   WishList,
   Review
 } = require('../db')
@@ -752,17 +753,40 @@ const orders = [
   // Órdenes del usuario 2
   {
     status: 'CREATED',
-    total: 15000,
+    total: 102.098,
     userId: 2,
     userPaymentId: 1,
     userAddressId: 1
   },
   {
     status: 'CREATED',
-    total: 500,
+    total: 82.999,
     userId: 2,
     userPaymentId: 1,
     branchId: 2
+  }
+]
+
+const orderItems = [
+  // Artículos de la orden 1
+  {
+    quantity: 1,
+    price: 99.999,
+    productId: 4,
+    orderId: 1
+  },
+  {
+    quantity: 1,
+    price: 2.099,
+    productId: 10,
+    orderId: 1
+  },
+  // Artículos de la orden 2
+  {
+    quantity: 1,
+    price: 82.999,
+    productId: 5,
+    orderId: 2
   }
 ]
 
@@ -885,9 +909,15 @@ const superSeeder = async () => {
   }
   console.log('Métodos de pago cargados en la base de datos --> ✅')
 
-  // Carga de órdenes de pago
+  // Carga de órdenes
   for (let i = 0; i < orders.length; i++) {
     await Order.create(orders[i])
+  }
+  console.log('Órdenes cargadas en la base de datos --> ✅')
+
+  // Carga de atículos en las órdenes
+  for (let i = 0; i < orderItems.length; i++) {
+    await OrderItem.create(orderItems[i])
   }
   console.log('Órdenes cargadas en la base de datos --> ✅')
 
