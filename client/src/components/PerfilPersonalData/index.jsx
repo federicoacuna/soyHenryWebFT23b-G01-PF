@@ -139,8 +139,8 @@ export default function UserPersonalData () {
       {errors.birthname && <Text color='red'>{errors.birthname}</Text>}
 
       <Flex flexDirection='row' justifyContent='end'>
-        <Button m={3} _hover={{ color: 'white' }} color='white' bg='success' onClick={handleSubmit}>Guardar</Button>
-        <Button m={3} _hover={{ color: 'white' }} color='white' bg='error' onClick={handleClose}>Cancelar</Button>
+        <Button m={3} _hover={{ color: 'gray' }} color='#2C2C2E' border='2px' borderColor='#2C2C2E' onClick={handleClose}>Cancelar</Button>
+        <Button m={3} _hover={{ color: 'gray' }} color='white' bg='#2C2C2E' onClick={handleSubmit}>Guardar</Button>
       </Flex>
     </FormControl>
   )

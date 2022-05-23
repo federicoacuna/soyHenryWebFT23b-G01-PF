@@ -2,7 +2,7 @@ import CartButton from '../CartButton'
 import s from './index.module.css'
 import { Link } from 'react-router-dom'
 import WishListManagerButton from '../WishListManagerButton'
-export default function ProductCard ({ product }) {
+export default function ProductCard ({ product, shouldDisplay }) {
   const { id, name, price, image } = product
 
   return (
@@ -14,7 +14,7 @@ export default function ProductCard ({ product }) {
         <p>${price}</p>
       </Link>
       <CartButton product={product} />
-      <WishListManagerButton productId={id} />
+      {shouldDisplay && <WishListManagerButton productId={id} />}
     </div>
   )
 }

@@ -43,9 +43,9 @@ const AddressSelector = () => {
         <Flex flexDirection='column' borderRadius={5} boxShadow='lg' bg='secondary' w='70vw' p={5}>
           <Text p={0} fontSize='2xl' fontWeight='500' mb={2}>¿Donde quieres recibir tu compra? </Text>
           {Array.isArray(userAddresses) && <AddressContainer />}
-          <Flex justifyContent='flex-end' mt={5}>
-            <Button name='AddAddress' onClick={handleClick} colorScheme='blue'>Agregar dirección</Button>
-            <Button name='continuar' mr={3} colorScheme='blue' onClick={handleClick}>Continuar</Button>
+          <Flex justifyContent='flex-end' mt={5} gap='1rem'>
+            <Button name='AddAddress' onClick={handleClick} _hover={{ color: 'gray' }} color='#2C2C2E' border='2px' borderColor='#2C2C2E'>Agregar dirección</Button>
+            <Button name='continuar' mr={3} _hover={{ color: 'gray' }} color='white' bg='#2C2C2E' onClick={handleClick}>Continuar</Button>
           </Flex>
         </Flex>
         {/*  eslint-disable-next-line */}
