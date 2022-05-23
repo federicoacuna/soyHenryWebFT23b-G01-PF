@@ -15,7 +15,7 @@ import { useState } from 'react'
 import { createReview } from '../../redux/actions/reviews.action'
 import { useDispatch } from 'react-redux'
 
-export default function Reviews (navigateURL) {
+export default function Reviews () {
   const { productId } = useParams()
   const dispatch = useDispatch()
   const toast = useToast()
@@ -33,12 +33,17 @@ export default function Reviews (navigateURL) {
     })
   }
   function handleBackClick () {
-    navigate(navigateURL)
+    setValues({
+      rating: 5,
+      review: '',
+      productId
+    })
+    navigate(-1)
   }
   function handleClick () {
     if (values.rating && values.review !== '') {
       dispatch(createReview(values))
-      console.log(values)
+      navigate(-1)
     } else {
       toast({
         description: 'Necesita completar los campos.',
@@ -47,7 +52,6 @@ export default function Reviews (navigateURL) {
         isClosable: true
       })
     }
-    // navigate(navigateURL)
   }
   return (
     <div>

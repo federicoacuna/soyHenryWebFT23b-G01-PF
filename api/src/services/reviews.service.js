@@ -39,12 +39,10 @@ async function createReview (email, data) {
       if (userOrder) {
         const orderId = userOrder.map(orden => orden.id)
         const orderItem = await OrderItem.findAll({ where: { orderId } })
-        let boolean = ''
+        let boolean = false
         orderItem.forEach(async (el) => {
           if (el.dataValues.productId === data.productId) {
             boolean = true
-          } else {
-            boolean = false
           }
         })
         if (boolean) {

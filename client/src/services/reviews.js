@@ -21,7 +21,7 @@ export const postReview = async function (newReview) {
       Authorization: `Bearer ${token}`
     }
   })
-  console.log('service', data)
+
   return data
 }
 
