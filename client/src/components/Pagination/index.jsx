@@ -1,17 +1,19 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { addFilterParams } from '../../redux/actions'
+import { BsFillArrowLeftSquareFill, BsFillArrowRightSquareFill } from 'react-icons/bs'
+
 import s from './index.module.css'
 export default function Pagination () {
   const dispatch = useDispatch()
   const { currentPage, hasNext, hasPrevious } = useSelector(state => state.pagination)
 
   function handlePages (e) {
-    if (e.target.name === 'next' && hasNext) {
+    if (e === 'next' && hasNext) {
       dispatch(addFilterParams({
         name: 'page',
         value: parseInt(currentPage) + 1
       }))
-    } else if (e.target.name === 'back' && hasPrevious) {
+    } else if (e === 'back' && hasPrevious) {
       dispatch(addFilterParams({
         name: 'page',
         value: parseInt(currentPage) - 1
@@ -21,10 +23,9 @@ export default function Pagination () {
 
   return (
     <div className={s.container}>
-      <button onClick={handlePages} name='back' disabled={!hasPrevious}> Anterior</button>
+      <div onClick={() => handlePages('back')} name='back' disabled={!hasPrevious}><BsFillArrowLeftSquareFill /></div>
       <span>{currentPage}</span>
-      <button onClick={handlePages} name='next' disabled={!hasNext}>Siguiente </button>
+      <div onClick={() => handlePages('next')} name='next' disabled={!hasNext}><BsFillArrowRightSquareFill /></div>
     </div>
-
   )
 }
