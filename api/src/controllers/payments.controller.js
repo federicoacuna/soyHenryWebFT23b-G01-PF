@@ -3,9 +3,13 @@ const usersService = require('../services/users.service.js')
 
 async function get (req, res) {
   const user = await usersService.getUserByEmail(req.user.email)
-  const allUserPayments = await userPaymentService.getUserPayments(user.id)
+  try {
+    const allUserPayments = await userPaymentService.getUserPayments(user.id)
 
-  allUserPayments ? res.send(allUserPayments) : res.status(404).json({ error: 'No se encontraron direcciones' })
+    allUserPayments ? res.status(200).send(allUserPayments) : res.status(404).json({ error: 'No se encontraron direcciones' })
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 const create = async (req, res) => {
@@ -25,7 +29,7 @@ const create = async (req, res) => {
 
   try {
     const wasCreated = await userPaymentService.createUserPayment(req.body)
-    wasCreated ? res.json({ message: 'Payment method was succesfully registered' }) : res.status(400).json({ error: 'Payment method could not registered' })
+    wasCreated ? res.status(200).json({ message: 'Payment method was succesfully registered' }) : res.status(400).json({ error: 'Payment method could not registered' })
   } catch (error) {
     res.status(400).json(error)
   }
@@ -39,7 +43,7 @@ const remove = (req, res) => {
   }
   try {
     const wasUpdated = userPaymentService.removePayment(paymentId)
-    wasUpdated ? res.json({ message: 'Payment method was succesfully deleted' }) : res.status(400).json({ error: 'Payment method could not be deleted' })
+    wasUpdated ? res.status(200).json({ message: 'Payment method was succesfully deleted' }) : res.status(400).json({ error: 'Payment method could not be deleted' })
   } catch (error) {
     res.status(400).json(error)
   }

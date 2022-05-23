@@ -35,6 +35,13 @@ export const createNewPayment = (newPayment) => {
         payload: response
       })
     } catch (error) {
+      error.toast = {
+        title: 'Error interno.',
+        description: 'No pudimos agregar tu método de pago.',
+        status: 'error',
+        duration: 4500,
+        isClosable: true
+      }
       dispatch({
         type: UPDATE_PAYMENTS,
         payload: error
@@ -59,6 +66,13 @@ export const removePayment = (paymentId) => {
         payload: response
       })
     } catch (error) {
+      error.toast = {
+        title: 'Error interno.',
+        description: 'No pudimos eliminar el método de pago.',
+        status: 'error',
+        duration: 4500,
+        isClosable: true
+      }
       dispatch({
         type: UPDATE_PAYMENTS,
         payload: error
@@ -83,6 +97,13 @@ export const updatePayment = (paymentId) => {
         payload: response
       })
     } catch (error) {
+      error.toast = {
+        title: 'Error interno.',
+        description: 'No pudimos actualizar el método de pago.',
+        status: 'error',
+        duration: 4500,
+        isClosable: true
+      }
       dispatch({
         type: UPDATE_PAYMENTS,
         payload: error
