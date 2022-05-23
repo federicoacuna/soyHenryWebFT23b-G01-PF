@@ -6,29 +6,21 @@ import { BiUserCircle, BiDirections, BiMoney, BiShoppingBag, BiHeart, BiStar } f
 import DatosPersonales from '../PerfilPersonalData'
 import MyShopping from '../MyShopping'
 import Reviews from '../Reviews'
-import AddressCard from '../AddressCard'
 import AddressCreator from '../AddressCreator'
 import PaymentCard from '../PaymentCard'
 import PaymentCreate from '../PaymentCreate'
 import WishList from '../WishList'
 import { setProfileTab, getCountries } from '../../redux/actions'
 import { getUserAddresses } from '../../redux/actions/addresses.actions'
+import AddressContainer from '../AddressContainer'
 
 export default function PerfilContainer () {
   const dispatch = useDispatch()
-  const userAddresses = useSelector(state => state.user.userAddresses)
-  const allUserAddresses = useSelector(state => state.addresses)
-  const countries = useSelector(state => state.countries)
   const userPayments = useSelector(state => state.user.userPayments)
   const [Click, setClick] = useState({
     payment: false,
     address: false
   })
-
-  allUserAddresses && allUserAddresses.forEach(address => { address.countryName = countries.find(each => each.id === address.countryId).countryName })
-  userAddresses && userAddresses.forEach(address => { address.country = allUserAddresses.find(each => each.id === address.id).countryName })
-  console.log('Estoy en PerfilContainer 1:', userAddresses)
-  console.log('Estoy en PerfilContainer 2:', allUserAddresses)
 
   useEffect(() => {
     dispatch(getCountries())
@@ -118,16 +110,7 @@ export default function PerfilContainer () {
             <TabPanel>
               <Heading mb={5}>Direcciones</Heading>
               {/* <Box mb={5}>Elige donde recibir tus compras.</Box> */}
-              {userAddresses && userAddresses.map(address => <AddressCard
-                key={address.id}
-                id={address.id}
-                postalCode={address.postalCode}
-                streetName={address.streetName}
-                houseNumber={address.houseNumber}
-                city={address.city}
-                state={address.state}
-                country={address.country}
-                                                             />)}
+              <AddressContainer />
               <Button _hover={{ color: 'white' }} color='white' bg='button' onClick={handleClickAddress}>Agregar una dirección</Button>
               {Click.address && <>
                 <AddressCreator handleClickAddress={handleClickAddress} />

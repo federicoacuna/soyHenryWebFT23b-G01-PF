@@ -1,8 +1,11 @@
-const { UserAddress } = require('../db')
+const { UserAddress, Country } = require('../db')
 
 async function getUserAddresses (userId) {
   const userAddresses = await UserAddress.findAll({
-    where: { userId }
+    where: { userId },
+    include: {
+      model: Country
+    }
   })
 
   return userAddresses
