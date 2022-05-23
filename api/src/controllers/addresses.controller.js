@@ -24,7 +24,7 @@ async function create (req, res) {
     const wasCreated = await addressService.createAddress(newAddress)
     const allUserAddresses = await addressService.getUserAddresses(user.id)
     wasCreated
-      ? res.send({
+      ? res.status(200).send({
         payload: allUserAddresses,
         message: 'Se guardo la nueva dirección con éxito'
       })
@@ -51,7 +51,7 @@ async function remove (req, res) {
     const wasDeleted = await addressService.removeAddress(addressId)
     const allUserAddresses = await addressService.getUserAddresses(user.id)
     wasDeleted
-      ? res.send({
+      ? res.status(200).send({
         payload: allUserAddresses,
         message: 'Se elimino la dirección con éxito'
       })
@@ -79,7 +79,7 @@ async function update (req, res) {
     const wasUpdated = await addressService.updateAddress(updatedAddress)
     const allUserAddresses = await addressService.getUserAddresses(user.id)
     wasUpdated
-      ? res.send({
+      ? res.status(200).send({
         payload: allUserAddresses,
         message: 'Se actualizó la dirección con éxito'
       })
