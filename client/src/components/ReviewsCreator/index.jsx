@@ -10,11 +10,14 @@ import {
   useToast,
   SliderMark
 } from '@chakra-ui/react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useState } from 'react'
-import { createReview } from '../../services/reviews'
+import { createReview } from '../../redux/actions/reviews.action'
+import { useDispatch } from 'react-redux'
 
-export default function Reviews ({ productName, navigateURL, productId }) {
+export default function Reviews (navigateURL) {
+  const { productId } = useParams()
+  const dispatch = useDispatch()
   const toast = useToast()
   const navigate = useNavigate()
   const [values, setValues] = useState({
@@ -34,13 +37,8 @@ export default function Reviews ({ productName, navigateURL, productId }) {
   }
   function handleClick () {
     if (values.rating && values.review !== '') {
-      createReview(values)
-      toast({
-        description: 'Review creada con éxito.',
-        status: 'success',
-        duration: 5000,
-        isClosable: true
-      })
+      dispatch(createReview(values))
+      console.log(values)
     } else {
       toast({
         description: 'Necesita completar los campos.',
@@ -49,7 +47,6 @@ export default function Reviews ({ productName, navigateURL, productId }) {
         isClosable: true
       })
     }
-    console.log('Fede comunista, devolve la papa')
     // navigate(navigateURL)
   }
   return (

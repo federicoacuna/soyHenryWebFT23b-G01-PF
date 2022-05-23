@@ -14,13 +14,14 @@ export const updateReview = async function (newData) {
   return data
 }
 
-export const createReview = async function (newReview) {
+export const postReview = async function (newReview) {
+  newReview.productId = parseInt(newReview.productId)
   const { data } = await axios.post(endpoint, newReview, {
     headers: {
       Authorization: `Bearer ${token}`
     }
   })
-
+  console.log('service', data)
   return data
 }
 
