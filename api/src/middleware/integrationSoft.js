@@ -1,20 +1,20 @@
 const admin = require('../config/firebase-config')
 
 class IntegrationSoft {
-  async decodeToken (req, res, next) {
-    const token = req.headers.authorization?.split(' ')[1]
+  async decodeSoft (req, res, next) {
     try {
-      const decodeValue = await admin.auth().verifyIdToken(token)
-      if (decodeValue) {
-        req.user = decodeValue
-        return next()
-      } else {
-        return next()
+      const token = req.headers.authorization?.split(' ')[1]
+      if (token) {
+        const decodeValue = await admin.auth().verifyIdToken(token)
+        if (decodeValue) {
+          req.user = decodeValue
+        }
       }
+      return next()
     } catch (error) {
       return res.json(error)
     }
   }
 }
 
-module.export = new IntegrationSoft()
+module.exports = new IntegrationSoft()

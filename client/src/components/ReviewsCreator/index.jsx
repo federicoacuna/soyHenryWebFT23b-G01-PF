@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { createReview } from '../../services/reviews'
 
-export default function Reviews (productName, productId, navigateURL) {
+export default function Reviews ({ productName, navigateURL, productId }) {
   const toast = useToast()
   const navigate = useNavigate()
   const [values, setValues] = useState({
