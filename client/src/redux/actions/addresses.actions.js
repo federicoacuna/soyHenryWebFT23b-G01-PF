@@ -97,6 +97,13 @@ export const updateAddress = (addressId) => {
         payload: response
       })
     } catch (error) {
+      error.toast = {
+        title: 'Error interno.',
+        description: 'No pudimos actualizar la dirección.',
+        status: 'success',
+        duration: 6500,
+        isClosable: true
+      }
       dispatch({
         type: UPDATE_ADDRESSES,
         payload: error
