@@ -40,14 +40,11 @@ const create = async (req, res) => {
 }
 
 const update = async (req, res) => {
-  const user = await usersService.getUserByEmail(req.user.email)
-  req.body.id = user.id
-
   try {
-    const wasUpdated = await usersService.updateUser(req.body)
-    wasUpdated ? res.json({ message: 'User succesfully updated' }) : res.status(400).json({ error: 'Unable to update user' })
+    const user = await usersService.updateUser(req)
+    user ? res.json(user) : res.status(400).json({ error: 'Unable to update user' })
   } catch (error) {
-    res.status(400).json(error)
+    res.status(404).json(error)
   }
 }
 

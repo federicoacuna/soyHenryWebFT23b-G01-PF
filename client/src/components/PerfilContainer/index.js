@@ -110,11 +110,15 @@ export default function PerfilContainer () {
             <TabPanel>
               <Heading mb={5}>Direcciones</Heading>
               {/* <Box mb={5}>Elige donde recibir tus compras.</Box> */}
-              <AddressContainer />
-              <Button _hover={{ color: 'white' }} color='white' bg='button' onClick={handleClickAddress}>Agregar una dirección</Button>
-              {Click.address && <>
-                <AddressCreator handleClickAddress={handleClickAddress} />
-                {/* eslint-disable-next-line */}
+              {Click.address
+                ? <>
+                  <AddressContainer />
+                  <Button _hover={{ color: 'white' }} color='white' bg='button' onClick={handleClickAddress}>Agregar una dirección</Button>
+                  {/* eslint-disable-next-line */}
+                </>
+                : <>
+                  <AddressCreator handleClickAddress={handleClickAddress} />
+                  {/* eslint-disable-next-line */}
               </>}
 
             </TabPanel>
