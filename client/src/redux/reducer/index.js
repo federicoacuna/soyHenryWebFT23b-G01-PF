@@ -177,7 +177,7 @@ const reducer = (state = initialState, action) => {
         order: {
           ...state.order,
           userPaymentId: payload[0],
-          paymentType: payload[1]
+          paymentTypeId: payload[1]
         }
       }
 

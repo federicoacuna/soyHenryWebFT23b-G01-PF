@@ -20,8 +20,8 @@ export default function PaymentSelector ({ children }) {
         {userPayments && userPayments.map((payment) => (
           <PaymentCard
             key={payment.id}
-            onclick={() => dispatch(setUserPayment(payment.id, payment.paymentType))}
-            paymentType={payment.paymentType}
+            onclick={() => dispatch(setUserPayment(payment.id, payment.paymentTypeId))}
+            paymentTypeId={payment.paymentTypeId}
             cardNumber={payment.cardNumber}
             expirationDate={payment.expirationDate}
             provider={payment.provider}
