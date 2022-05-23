@@ -10,16 +10,17 @@ async function get (req, res, next) {
 }
 async function getById (req, res, next) {
   try {
-    let retrievedProduct = await productsService.getProductDetail(req.params.id)
+    const retrievedProduct = await productsService.getProductDetail(req.params.id)
+
     if (req.user) {
       const user = req.user.email
       const canReview = await productsService.canReview(req.params.id, user)
-      retrievedProduct = retrievedProduct.toJSON()
       retrievedProduct.canReview = canReview
     }
     retrievedProduct ? res.json(retrievedProduct) : res.status(404).json({ error: 'Requested product was not found' })
   } catch (error) {
     res.status(400).json(error)
+    console.log(error)
   }
 }
 

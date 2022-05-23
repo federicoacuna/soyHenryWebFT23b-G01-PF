@@ -1,4 +1,4 @@
-const { Product, Category, Brand, User, Order, OrderItem } = require('../db')
+const { Product, Category, Brand, Review, User, Order, OrderItem } = require('../db')
 const { Op } = require('sequelize')
 
 async function getProducts (options) {
@@ -49,7 +49,11 @@ async function getProductDetail (productID, user) {
     }
   }
 
-  return await Product.findOne(dbSearchOptions)
+  const product = (await Product.findOne(dbSearchOptions)).toJSON()
+  const reviews = await Review.findAll({ where: { productId: productID } })
+  product.reviews = reviews
+
+  return product
 }
 
 async function canReview (productId, email) {
