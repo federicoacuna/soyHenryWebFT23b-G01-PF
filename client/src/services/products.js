@@ -1,4 +1,5 @@
 import axios from 'axios'
+import store from '../redux/store'
 
 export const getProductsService = async (options) => {
   let urlString = '/products'
@@ -15,8 +16,22 @@ export const getProductsService = async (options) => {
 }
 
 export const getDetailsProductsService = async (productId) => {
-  const urlString = `/products/${productId}`
+  try {
+    const { token } = store.getState()
+    const urlString = `/products/${productId}`
+    if (token) {
+      const { data } = await axios.get(urlString, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
 
-  const { data } = await axios.get(urlString)
-  return data
+      return data
+    } else {
+      const { data } = await axios.get(urlString)
+      return data
+    }
+  } catch (error) {
+    return error
+  }
 }

@@ -1,4 +1,4 @@
-const { Product, Category, Brand } = require('../db')
+const { Product, Category, Brand, User, Order, OrderItem } = require('../db')
 const { Op } = require('sequelize')
 
 async function getProducts (options) {
@@ -21,7 +21,7 @@ async function getProducts (options) {
   return await Product.findAll(dbSearchOptions)
 }
 
-async function getProductDetail (productID) {
+async function getProductDetail (productID, user) {
   const dbSearchOptions = {
     include: [
       {
@@ -41,6 +41,34 @@ async function getProductDetail (productID) {
   return await Product.findOne(dbSearchOptions)
 }
 
+async function canReview (productId, email) {
+  try {
+    // console.log(productId)
+    if (email) {
+      let userId = await User.findOne({ where: { email } })
+      userId = userId.id
+      const userOrders = await Order.findAll({ where: { userId } })
+      if (userOrders) {
+        const orderId = userOrders.map(orden => orden.id)
+        const orderItem = await OrderItem.findAll({ where: { orderId } })
+        // console.log(orderItem)
+        let boolean = false
+        productId = Number(productId)
+        orderItem.forEach((el) => {
+          if (el.dataValues.productId === productId) {
+            boolean = true
+            return true
+          }
+        })
+        // console.log(boolean)
+        return boolean
+      }
+    }
+  } catch (error) {
+    return error
+  }
+}
+
 async function updateProduct () {
   // placeholder function
 }
@@ -53,5 +81,6 @@ module.exports = {
   getProducts,
   getProductDetail,
   updateProduct,
-  removeProduct
+  removeProduct,
+  canReview
 }

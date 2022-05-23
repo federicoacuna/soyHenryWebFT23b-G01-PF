@@ -9,13 +9,12 @@ import { getProductDetails, addProductToCart } from '../../redux/actions'
 
 function ProductDetail (props) {
   const product = useSelector(state => state.product)
-  console.log(product)
   const dispatch = useDispatch()
   const { id } = useParams()
   const navigate = useNavigate()
 
   function handleClick () {
-    navigate('/reviews', { productId: product.id })
+    navigate(`/reviews/${product.id}`)
   }
 
   useEffect(() => {
@@ -51,7 +50,7 @@ function ProductDetail (props) {
             <Flex mt='10px' justifyContent='flex-start'>
               <Button mr='10px' color='white' bg='#2C2C2E' _hover={{ bg: 'black' }} onClick={compraAhora}>Comprar Ahora</Button>
               <CartButton product={product} />
-              {props.reviewable === true ? <Button onClick={handleClick}> Agregar Reseña </Button> : null}
+              {product.canReview === true ? <Button mr='10px' color='white' bg='#2C2C2E' _hover={{ bg: 'black' }} onClick={handleClick}> Agregar Reseña </Button> : null}
             </Flex>
           </Container>
         </Flex>
