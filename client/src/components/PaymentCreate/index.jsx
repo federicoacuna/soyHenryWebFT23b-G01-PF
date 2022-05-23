@@ -162,10 +162,9 @@ export default function PaymentCreate ({ handleClickPayment }) {
           />
           {errors.provider && <p>{errors.provider}</p>}
         </form>
-        <Button name='Cancelar' onClick={(e) => handleBackClick(e)} _hover={{ color: 'white' }} bg='error' mr='1rem' color='white'>Cancelar</Button>
-        <Button name='Crear' onClick={(e) => handleSubmit(e)} _hover={{ color: 'white' }} bg='success' color='white'>Continuar</Button>
+        <Button name='Cancelar' onClick={(e) => handleBackClick(e)} _hover={{ color: 'gray' }} color='#2C2C2E' border='2px' borderColor='#2C2C2E' mr='1rem'>Cancelar</Button>
+        <Button name='Crear' onClick={(e) => handleSubmit(e)} _hover={{ color: 'gray' }} bg='#2C2C2E' color='white'>Continuar</Button>
       </Box>
-
     </div>
   )
 }

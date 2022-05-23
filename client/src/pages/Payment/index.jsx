@@ -54,8 +54,8 @@ export default function Payment () {
       <IoMdArrowRoundBack size={30} _hover={{ bg: 'black' }} onClick={link} cursor='pointer' />
       <Flex h='100%'>
         <PaymentSelector>
-          <Button name='payment' m={3} _hover={{ color: 'white' }} color='white' bg='button' onClick={handleClick}>Agregar método de pago</Button>
-          <Button name='buy' m={3} _hover={{ color: 'white' }} color='white' bg='button' onClick={handleClick}>Comprar</Button>
+          <Button name='payment' m={3} _hover={{ color: 'gray' }} color='#2C2C2E' border='2px' borderColor='#2C2C2E' onClick={handleClick}>Agregar método de pago</Button>
+          <Button name='buy' m={3} _hover={{ color: 'white' }} color='white' bg='#2C2C2E' onClick={handleClick}>Comprar</Button>
         </PaymentSelector>
       </Flex>
     </>

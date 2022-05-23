@@ -110,10 +110,10 @@ export default function PerfilContainer () {
             <TabPanel>
               <Heading mb={5}>Direcciones</Heading>
               {/* <Box mb={5}>Elige donde recibir tus compras.</Box> */}
-              {Click.address
+              {!Click.address
                 ? <>
                   <AddressContainer />
-                  <Button _hover={{ color: 'white' }} color='white' bg='button' onClick={handleClickAddress}>Agregar una dirección</Button>
+                  <Button _hover={{ color: 'white' }} color='white' bg='#2C2C2E' onClick={handleClickAddress}>Agregar una dirección</Button>
                   {/* eslint-disable-next-line */}
                 </>
                 : <>
@@ -135,7 +135,7 @@ export default function PerfilContainer () {
                   id={payment.id}
                 />
               ))}
-              <Button _hover={{ color: 'white' }} color='white' bg='button' onClick={handleClickPayment}>Agregar método de pago</Button>
+              <Button _hover={{ color: 'white' }} color='white' bg='#2C2C2E' onClick={handleClickPayment}>Agregar método de pago</Button>
               {Click.payment && <>
                 <PaymentCreate handleClickPayment={handleClickPayment} />
                 {/* eslint-disable-next-line */}
