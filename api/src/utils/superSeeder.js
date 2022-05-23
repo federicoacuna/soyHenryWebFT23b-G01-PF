@@ -720,12 +720,12 @@ const userPayments = [
     expirationDay: '2025-11-30',
     provider: 'Visa',
     userId: 2,
-    paymentId: 1
+    paymentTypeId: 1
   },
   {
     provider: 'Mercado Pago',
     userId: 2,
-    paymentId: 3
+    paymentTypeId: 3
   },
   // Métodos de pago del usuario 3
   {
@@ -733,18 +733,18 @@ const userPayments = [
     expirationDay: '2030-11-25',
     provider: 'MasterCard',
     userId: 3,
-    paymentId: 1
+    paymentTypeId: 1
   },
   {
     provider: 'Mercado Pago',
     userId: 3,
-    paymentId: 3
+    paymentTypeId: 3
   },
   // Métodos de pago del usuario 4
   {
     provider: 'Mercado Pago',
     userId: 4,
-    paymentId: 3
+    paymentTypeId: 3
   }
 ]
 

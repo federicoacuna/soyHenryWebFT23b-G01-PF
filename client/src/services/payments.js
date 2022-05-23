@@ -70,7 +70,7 @@ export const createMercadoPagoPreferences = async function () {
     category_id: product.categoryId,
     quantity: product.quantity,
     currency_id: 'ARS',
-    unit_price: Number(product.price)
+    unit_price: Number(product.price.replace('.', ''))
   }))
 
   const body = {

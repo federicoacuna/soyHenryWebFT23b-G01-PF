@@ -27,7 +27,7 @@ export default function Payment () {
 
   async function handleClick (e) {
     if (e.target.name === 'payment') return navigate('/createpayment')
-    if (!currentOrderStatus.paymentType) {
+    if (!currentOrderStatus.paymentTypeId) {
       return toast({
         description: 'Debes seleccionar un método de pago.',
         status: 'error',
@@ -36,7 +36,7 @@ export default function Payment () {
       })
     }
 
-    if (currentOrderStatus.paymentType.id === 3) {
+    if (currentOrderStatus.paymentTypeId === 3) {
       try {
         const preferences = await createMercadoPagoPreferences()
         window.location.replace(preferences.init_point)

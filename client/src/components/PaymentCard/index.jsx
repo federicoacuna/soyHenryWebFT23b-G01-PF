@@ -4,7 +4,7 @@ import { MdCheckCircleOutline as CheckIcon } from 'react-icons/md'
 import { FaCreditCard } from 'react-icons/fa'
 import { ReactComponent as MercadoPagoIcon } from '../../assets/logo/mercadoPago.svg'
 
-export default function PaymentCard ({ id, paymentType, cardNumber, expirationDate, provider, onclick }) {
+export default function PaymentCard ({ id, paymentTypeId, cardNumber, expirationDate, provider, onclick }) {
   const cardNumberHidden = cardNumber && `****-****-****-${cardNumber.slice(-4)}`
   const selectedId = useSelector(state => state.order.userPaymentId)
   const imSelected = selectedId === id
@@ -17,10 +17,10 @@ export default function PaymentCard ({ id, paymentType, cardNumber, expirationDa
             <Circle size='40px' bg='secondary' color='white'>
               <FaCreditCard />
             </Circle>}
-          {paymentType === 3 && <Icon as={MercadoPagoIcon} w='10rem' h='2.5rem' />}
+          {paymentTypeId === 3 && <Icon as={MercadoPagoIcon} w='10rem' h='2.5rem' />}
         </Box>
         <VStack pt={3} pb={3} alignItems='flex-start'>
-          {paymentType === 3 ? <Text>{`${provider} ${paymentType} ${cardNumberHidden}`}</Text> : <Text>{`${provider}`}</Text>}
+          {paymentTypeId !== 3 ? <Text>{`${provider} ${cardNumberHidden}`}</Text> : <Text>{`${provider}`}</Text>}
         </VStack>
       </Flex>
       <Flex m={5} justifyContent='center'>
