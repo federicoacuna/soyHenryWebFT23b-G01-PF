@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 // import s from './index.module.css'
 import { Flex, Tabs, TabPanels, Tab, TabPanel, Box, Heading, Button } from '@chakra-ui/react'
@@ -11,15 +11,30 @@ import AddressCreator from '../AddressCreator'
 import PaymentCard from '../PaymentCard'
 import PaymentCreate from '../PaymentCreate'
 import WishList from '../WishList'
-import { setProfileTab } from '../../redux/actions'
+import { setProfileTab, getCountries } from '../../redux/actions'
+import { getUserAddresses } from '../../redux/actions/addresses.actions'
 
 export default function PerfilContainer () {
+  const dispatch = useDispatch()
   const userAddresses = useSelector(state => state.user.userAddresses)
+  const allUserAddresses = useSelector(state => state.addresses)
+  const countries = useSelector(state => state.countries)
   const userPayments = useSelector(state => state.user.userPayments)
   const [Click, setClick] = useState({
     payment: false,
     address: false
   })
+
+  allUserAddresses && allUserAddresses.forEach(address => { address.countryName = countries.find(each => each.id === address.countryId).countryName })
+  userAddresses && userAddresses.forEach(address => { address.country = allUserAddresses.find(each => each.id === address.id).countryName })
+  console.log('Estoy en PerfilContainer 1:', userAddresses)
+  console.log('Estoy en PerfilContainer 2:', allUserAddresses)
+
+  useEffect(() => {
+    dispatch(getCountries())
+    dispatch(getUserAddresses())
+  }, [])//eslint-disable-line
+
   const tabIndex = useSelector(state => state.profileTab)
   const handleClickAddress = () => {
     // setClick(true)
@@ -29,7 +44,6 @@ export default function PerfilContainer () {
     // setClick(true)
     Click.payment === false ? setClick({ ...Click, payment: true }) : setClick({ ...Click, payment: false })
   }
-  const dispatch = useDispatch()
 
   return (
     <Flex w='85vw'>
