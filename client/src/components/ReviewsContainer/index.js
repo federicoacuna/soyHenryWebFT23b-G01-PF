@@ -10,20 +10,11 @@ export default function Reviews () {
   const reviews = useSelector(state => state.reviews)
 
   useEffect(() => {
-    dispatch(getUserReviews(token))
+    if (token && token.length) {
+      dispatch(getUserReviews())
+    }
   }, [])//eslint-disable-line
 
-  // const array = [
-  //   {
-  //     rating: 5,
-  //     review: 'Esta piola el producto',
-  //     product: {
-  //       id: 1,
-  //       name: 'DestapaCorchos',
-  //       image: 'IMAGEN'
-  //     }
-  //   }
-  // ]
   return (
     <>
       <div className={s.container}>{reviews.length > 0
