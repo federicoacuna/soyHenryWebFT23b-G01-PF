@@ -1,26 +1,48 @@
 const { Category } = require('../db')
 
-function getAllCategories () {
-  return Category.findAll({
+async function getAllCategories () {
+  return await Category.findAll({
     attributes: ['id', 'name']
   })
 }
 
-function createCategory () {
-  // placeholder
+async function createCategory (data) {
+  let { name } = data
+  name = name.toLowerCase().split(' ').map(n => { return n.charAt(0).toUpperCase() + n.slice(1) }).join(' ')
+  try {
+    console.log('Estoy en Services:', name)
+    const [, wasCreated] = await Category.findOrCreate({
+      where: {
+        name
+      }
+    })
+    return wasCreated
+  } catch (error) {
+    console.log(error)
+    return error
+  }
+}
+
+async function removeCategory (id) {
+  try {
+    const wasDeleted = await Category.destroy({
+      where: {
+        id
+      }
+    })
+    return wasDeleted
+  } catch (error) {
+    return error
+  }
 }
 
 function updateCategory () {
   // placeholder
 }
 
-function removeCategory () {
-  // placeholder
-}
-
 module.exports = {
   getAllCategories,
   createCategory,
-  updateCategory,
-  removeCategory
+  removeCategory,
+  updateCategory
 }
