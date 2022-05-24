@@ -1,7 +1,7 @@
 import store from '../store'
 import { getProductsService, getDetailsProductsService } from '../../services/products'
 import { getBrandsService } from '../../services/brands'
-import { getCategoriesService } from '../../services/categories'
+import { getCategoriesService, postCategoryService, deleteCategoryService } from '../../services/categories'
 import { sendToken, updateUser } from '../../services/users'
 import { createOrder, getOrders } from '../../services/orders'
 import { removeFromWishList, insertInWishList, getUserWishList } from '../../services/wishList'
@@ -33,7 +33,9 @@ import {
   CREATE_ORDER,
   CLEAR_CREATED_ORDER,
   UPDATE_WISHLIST,
-  UPDATE_USER
+  UPDATE_USER,
+  ADD_CATEGORY,
+  REMOVE_CATEGORY
 } from '../constants'
 
 export const setProfileTab = (tabIndex) => {
@@ -110,6 +112,68 @@ export const getCategories = () => {
       dispatch({
         type: GET_CATEGORIES,
         payload: error.message
+      })
+    }
+  }
+}
+
+export const postCategory = (newCategory) => {
+  return async (dispatch) => {
+    try {
+      const response = await postCategoryService(newCategory)
+      response.toast = {
+        title: 'Categoría Agregada.',
+        description: 'Ya puedes usar esta categoría.',
+        status: 'success',
+        duration: 6500,
+        isClosable: true
+      }
+      dispatch({
+        type: ADD_CATEGORY,
+        payload: response
+      })
+    } catch (error) {
+      error.toast = {
+        title: 'Error interno.',
+        description: 'No pudimos agregar la categoría.',
+        status: 'error',
+        duration: 4500,
+        isClosable: true
+      }
+      dispatch({
+        type: ADD_CATEGORY,
+        payload: error
+      })
+    }
+  }
+}
+
+export const removeCategory = (newData) => {
+  return async (dispatch) => {
+    try {
+      const response = await deleteCategoryService(newData)
+      response.toast = {
+        title: 'Categoría Eliminada.',
+        description: 'Ya no se podra utilizar la categoría.',
+        status: 'success',
+        duration: 6500,
+        isClosable: true
+      }
+      dispatch({
+        type: REMOVE_CATEGORY,
+        payload: response
+      })
+    } catch (error) {
+      error.toast = {
+        title: 'Error interno.',
+        description: 'No pudimos eliminar la categoría.',
+        status: 'error',
+        duration: 4500,
+        isClosable: true
+      }
+      dispatch({
+        type: REMOVE_CATEGORY,
+        payload: error
       })
     }
   }

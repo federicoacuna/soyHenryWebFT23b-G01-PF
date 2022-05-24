@@ -35,7 +35,9 @@ import {
   GET_CART,
   CLEAR_CART_ITEMS,
   DELETE_CART_ITEM,
-  UPDATE_CART_USER
+  UPDATE_CART_USER,
+  ADD_CATEGORY,
+  REMOVE_CATEGORY
 } from '../constants'
 
 const initialState = {
@@ -126,6 +128,18 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         categories: payload
+      }
+    case ADD_CATEGORY:
+      return {
+        ...state,
+        categories: payload.payload ? payload.payload : state.categories,
+        toast: payload.toast
+      }
+    case REMOVE_CATEGORY:
+      return {
+        ...state,
+        categories: payload.payload ? payload.payload : state.categories,
+        toast: payload.toast
       }
     case GET_ORDERS:
       return {
