@@ -2,18 +2,26 @@ const ordersService = require('../services/orders.service')
 const usersService = require('../services/users.service')
 
 const get = async (req, res) => {
-  const { orderId } = req.params
-
   try {
-    if (!orderId) {
-      const user = await usersService.getUserByEmail(req.user.email)
+    const user = await usersService.getUserByEmail(req.user.email)
+    if (user.roleId === 2) {
+      ordersService.admAllOrders()
+        .then(allOrders => allOrders ? res.json(allOrders) : res.status(404).json({ error: 'No orders' }))
+    } else {
       ordersService.getOrdersByUser(user.id)
         .then(retrievedOrders => retrievedOrders ? res.json(retrievedOrders) : res.status(404).json({ error: 'No orders where found matching the search criteria' }))
-    } else {
-      const user = await usersService.getUserByEmail(req.user.email)
-      ordersService.getOrderDetails(orderId, user.id)
-        .then(orderDetails => orderDetails ? res.json(orderDetails) : res.status(404).json({ error: 'Requested order not found' }))
     }
+  } catch (error) {
+    res.status(400).json(error)
+  }
+}
+
+const getById = async (req, res) => {
+  const { orderId } = req.params
+  try {
+    const user = await usersService.getUserByEmail(req.user.email)
+    ordersService.getOrderDetails(orderId, user.id)
+      .then(orderDetails => orderDetails ? res.json(orderDetails) : res.status(404).json({ error: 'Requested order not found' }))
   } catch (error) {
     res.status(400).json(error)
   }
@@ -59,7 +67,19 @@ const create = async (req, res) => {
 }
 
 const update = async (req, res) => {
-  res.json({ message: 'THIS FUNCTION HAS NOT BEEN IMPLEMENTED YET' })
+  const user = await usersService.getUserByEmail(req.user.email)
+  const { orderId } = req.params
+  try {
+    console.log(orderId, req.body)
+    if (user.roleId === 1) {
+      const update = await ordersService.updateOrder(orderId, req.body)
+      update ? res.json(update) : res.status(400).json({ error: 'Error trying update order' })
+    } else {
+      res.json({ message: 'THIS FUNCTION HAS NOT BEEN IMPLEMENTED YET' })
+    }
+  } catch (error) {
+    res.status(400).json(error)
+  }
 }
 
 const remove = async (req, res) => {
@@ -105,6 +125,7 @@ const mpValidator = async (req, res) => {
 module.exports = {
   create,
   get,
+  getById,
   update,
   remove,
   mpValidator

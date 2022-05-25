@@ -34,7 +34,7 @@ const remove = async (req, res) => {
     const wasDeleted = await CategoriesService.removeCategory(categoryId)
     console.log(wasDeleted)
     const all = await CategoriesService.getAllCategories()
-    wasDeleted
+    wasDeleted > 0
       ? res.status(200).json({
         message: 'La categoría ha sido eliminada exitosamente',
         payload: all

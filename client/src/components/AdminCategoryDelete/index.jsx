@@ -32,6 +32,7 @@ export default function AdminCategoryAdd () {
 
   function handleClose () {
     setValues({ categoryId: 0 })
+    setErrors({ categoryId: '' })
   }
 
   function validate () {
