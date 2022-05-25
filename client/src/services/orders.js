@@ -1,8 +1,8 @@
 import axios from 'axios'
 import store from '../redux/store'
 
-export const createOrder = async (newOrder) => {
-  const { token } = store.getState()
+export const postOrder = async (newOrder) => {
+  const { token } = store.getState().users
   newOrder.orderItems = newOrder.orderItems.map(item => {
     item.productId = item.id
     return item
@@ -20,7 +20,7 @@ export const createOrder = async (newOrder) => {
 }
 
 export const getOrders = async () => {
-  const { token } = store.getState()
+  const { token } = store.getState().users
   const { data } = await axios.get('/orders', {
     headers: {
       Authorization: `Bearer ${token}`
@@ -29,9 +29,29 @@ export const getOrders = async () => {
   return data
 }
 
-export const getDetails = async (orderId) => {
-  const { token } = store.getState()
+export const getOrder = async (orderId) => {
+  const { token } = store.getState().users
   const { data } = await axios.get(`/orders/${orderId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+  return data
+}
+
+export const putOrder = async (orderId) => {
+  const { token } = store.getState().users
+  const { data } = await axios.put(`/orders/${orderId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+  return data
+}
+
+export const deleteOrder = async (orderId) => {
+  const { token } = store.getState().users
+  const { data } = await axios.delete(`/orders/${orderId}`, {
     headers: {
       Authorization: `Bearer ${token}`
     }

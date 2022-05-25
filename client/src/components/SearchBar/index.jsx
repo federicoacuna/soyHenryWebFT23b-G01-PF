@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux'
 import { useState } from 'react'
-import { addFilterParams } from '../../redux/actions/index'
+import { addProductFilter } from '../../redux/actions/products.actions'
 import { Box, Input, Icon } from '@chakra-ui/react'
 import { BiSearchAlt } from 'react-icons/bi'
 import styles from './index.module.css'
@@ -21,7 +21,7 @@ export default function SearchBar () {
         alert('Please write an item to search')
       )
     } else {
-      dispatch(addFilterParams({ name: 'search', value: item }))
+      dispatch(addProductFilter({ name: 'search', value: item }))
       setItem('')
     }
   }

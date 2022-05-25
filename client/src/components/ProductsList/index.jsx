@@ -5,8 +5,8 @@ import ProductCard from '../ProductCard'
 import styles from './index.module.css'
 
 function ProductList () {
-  const products = useSelector(state => state.products)
-  const token = useSelector(state => state.token)
+  const products = useSelector(state => state.products.data)
+  const token = useSelector(state => state.users.token)
   const shouldDisplay = !!token
   if (products.message !== undefined) return <div>{products.message}</div>
   if (products.length === 0) return <div>No hay productos</div>
@@ -14,10 +14,10 @@ function ProductList () {
   return (
     <div className={styles.container}>
       <div className={styles['products-container']}>
-        {products && products.map(p => (
+        {Array.isArray(products) && products.map(product => (
           <ProductCard
-            key={p.id + p.name}
-            product={p}
+            key={product.id + product.name}
+            product={product}
             shouldDisplay={shouldDisplay}
           />
         ))}

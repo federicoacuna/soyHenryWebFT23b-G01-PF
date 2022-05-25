@@ -1,15 +1,16 @@
-import CartButton from '../../components/CartButton'
-import s from '../ProductDetail/index.module.css'
+import CartButton from '../CartButton'
+import s from './index.module.css'
 import { Heading, Center, Container, Flex, Text, Button } from '@chakra-ui/react'
 import { IoMdArrowRoundBack } from 'react-icons/io'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
-import { getProductDetails, addProductToCart } from '../../redux/actions'
-import ReviewCard from '../../components/ReviewCard'
+import { getProductDetails } from '../../redux/actions/products.actions'
+import ReviewCard from '../ReviewCard'
+import BuyNowButton from '../BuyNowButton'
 
-function ProductDetail (props) {
-  const product = useSelector(state => state.product)
+function ProductDetail () {
+  const product = useSelector(state => state.products.productDetail)
   const dispatch = useDispatch()
   const { id } = useParams()
   const navigate = useNavigate()
@@ -21,11 +22,6 @@ function ProductDetail (props) {
   useEffect(() => {
     dispatch(getProductDetails(id))
   }, [])//eslint-disable-line
-
-  const compraAhora = () => {
-    dispatch(addProductToCart(product))
-    navigate('/cart')
-  }
 
   return (
     <Flex alignItems='flex-start'>
@@ -50,7 +46,7 @@ function ProductDetail (props) {
               <Text>{product.model}</Text>
 
               <Flex mt='10px' justifyContent='flex-start'>
-                <Button mr='10px' color='white' bg='#2C2C2E' _hover={{ bg: 'black' }} onClick={compraAhora}>Comprar Ahora</Button>
+                <BuyNowButton />
                 <CartButton product={product} />
                 {product.canReview === true ? <Button mr='10px' color='white' bg='#2C2C2E' _hover={{ bg: 'black' }} onClick={handleClick}> Agregar Reseña </Button> : null}
               </Flex>

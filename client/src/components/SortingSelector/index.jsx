@@ -1,14 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { setSorting } from '../../redux/actions/index'
+import { setProductSorting } from '../../redux/actions/products.actions'
 import { Box } from '@chakra-ui/react'
 import s from './index.module.css'
 
 export default function SortingSelector () {
   const dispatch = useDispatch()
-  const sorting = useSelector(state => state.options.sort)
+  const sorting = useSelector(state => state.products.filter.sort)
 
   function handleSelect (e) {
-    e.target.value !== 'none' && dispatch(setSorting(e.target.value))
+    e.target.value !== 'none' && dispatch(setProductSorting(e.target.value))
   }
 
   return (

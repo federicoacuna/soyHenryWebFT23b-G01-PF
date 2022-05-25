@@ -4,7 +4,7 @@ import { Stack, InputGroup, Input, Button, Flex, Text, InputLeftElement, InputRi
 import { FcGoogle } from 'react-icons/fc'
 import { AiOutlineClose } from 'react-icons/ai'
 import { MdAlternateEmail, MdOutlineLock } from 'react-icons/md'
-import { logIn, getWishList } from '../../redux/actions' //eslint-disable-line
+import { logIn} from '../../redux/actions/users.actions' //eslint-disable-line
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 import { useDispatch } from 'react-redux'

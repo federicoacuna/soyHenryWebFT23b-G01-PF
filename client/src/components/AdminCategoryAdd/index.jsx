@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { FormControl, Input, Flex, Button, Text, useToast } from '@chakra-ui/react'
-import { postCategory } from '../../redux/actions'
+import { createNewCategory } from '../../redux/actions/categories.actions'
 
 export default function AdminCategoryAdd () {
   const dispatch = useDispatch()
   const [hasTried, setHasTried] = useState(false)
-  const token = useSelector(state => state.token)
+  const token = useSelector(state => state.users.token)
   const [category, setCategory] = useState({ name: '' })
   const [errors, setErrors] = useState({ name: '' })
   const toast = useToast()
@@ -40,7 +40,7 @@ export default function AdminCategoryAdd () {
   function handleSubmit () {
     setHasTried(true)
     if (validate() && token) {
-      dispatch(postCategory(category))
+      dispatch(createNewCategory(category))
       setCategory({ name: '' })
     } else {
       toast({

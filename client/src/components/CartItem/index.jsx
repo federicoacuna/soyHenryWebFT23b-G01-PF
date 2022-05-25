@@ -1,11 +1,34 @@
-import CartItemRemove from '../CartItemRemove'
-import CartItemQuantity from '../CartItemQuantity'
-import { Flex, Box, Text, Image } from '@chakra-ui/react' //eslint-disable-line
 import { Link } from 'react-router-dom'
-// import s from './index.module.css'
+import { Flex, Text, Image } from '@chakra-ui/react'
+import { HiPlusSm, HiMinus } from 'react-icons/hi'
+import { useSelector, useDispatch } from 'react-redux'
+import { updateCart } from '../../redux/actions/cart.actions'
 
 export default function CartItem ({ product }) {
   const { name, image, price, quantity } = product
+  const cartList = useSelector(state => state.cart.items)
+  const dispatch = useDispatch()
+
+  function handleClick (e) {
+    let updatedCartList = cartList.slice()
+    if (e.target.name === 'increase') {
+      updatedCartList = updatedCartList.map(item => {
+        item.id === product.id && item.quantity++
+        return item
+      })
+    }
+    if (e.target.name === 'decrease' && quantity > 1) {
+      updatedCartList = updatedCartList.map(item => {
+        item.id === product.id && item.quantity--
+        return item
+      })
+    }
+    if (e.target.name === 'remove') {
+      updatedCartList = updatedCartList.filter(item => item.id !== product.id)
+    }
+    dispatch(updateCart(updatedCartList))
+  }
+
   return (
     <Flex mt='1rem' mb='1rem' w='61.3rem' flexDirection='column' boxShadow='md'>
       <Flex mr='1.6rem' ml='1.6rem' justifyContent='center' mt='1.6rem'>
@@ -13,11 +36,17 @@ export default function CartItem ({ product }) {
           <Image w='7.2rem' h='7.2rem' objectFit='contain' src={image[0]} alt={name} />
         </Flex>
         <Text mr='6.5rem' w='21.8rem' textOverflow='ellipsis' overflow='hidden'>{name}</Text>
-        <CartItemQuantity product={product} />
+        <Flex justifyContent='center' w='7.5rem' h='2.7rem' mr='5.4rem' border='1px' borderColor='secondary' borderRadius='5px'>
+          <Flex color='accent' justifyContent='space-between' alignItems='center' w='5.5rem'>
+            <button name='decrease' onClick={handleClick}><HiMinus size={25} /></button>
+            <Text color='primary'>{product.quantity}</Text>
+            <button name='increase' onClick={handleClick}><HiPlusSm size={25} /></button>
+          </Flex>
+        </Flex>
         <Text textAlign='center' w='6.2rem' fontSize='1.5rem'>${quantity * price.split('.')[0]}</Text>
       </Flex>
       <Flex width='30rem' ml='2.3rem' mt='2rem' justifyContent='space-between' mb='1.6rem' color='accent'>
-        <CartItemRemove product={product} />
+        <Text cursor='pointer' name='remove' onClick={handleClick}>Eliminar</Text>
         <Link to=''><Text>Guardar en lista de deseos</Text></Link>
         <Link to=''><Text>Comprar ahora</Text></Link>
       </Flex>

@@ -1,13 +1,13 @@
 import { Box, Heading, Flex, Input } from '@chakra-ui/react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addFilterParams } from '../../redux/actions'
+import { addProductFilter } from '../../redux/actions/products.actions'
 
 const PriceFilter = () => {
   const dispatch = useDispatch()
-  const options = useSelector(state => state.options)
+  const filters = useSelector(state => state.products.filter)
 
   function handleChange (e) {
-    dispatch(addFilterParams({ name: e.target.name, value: e.target.value.replace(/\D/g, '') }))
+    dispatch(addProductFilter({ name: e.target.name, value: e.target.value.replace(/\D/g, '') }))
   }
 
   return (
@@ -16,7 +16,7 @@ const PriceFilter = () => {
       <Flex columnGap='1rem' justifyContent='space-around'>
         <Input
           onChange={handleChange}
-          value={options.minPrice || ''}
+          value={filters.minPrice || ''}
           name='minPrice'
           type='text'
           placeholder='Mínimo'
@@ -30,7 +30,7 @@ const PriceFilter = () => {
 
         <Input
           onChange={handleChange}
-          value={options.maxPrice || ''}
+          value={filters.maxPrice || ''}
           name='maxPrice'
           type='text'
           placeholder='Máximo'

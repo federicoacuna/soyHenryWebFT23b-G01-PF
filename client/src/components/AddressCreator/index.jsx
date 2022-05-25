@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { getCountries } from '../../redux/actions'
+import { getCountriesList } from '../../redux/actions/countries.actions'
 import { createNewAddress } from '../../redux/actions/addresses.actions'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -43,7 +43,7 @@ function AddressCreator ({ handleClickAddress }) {
   const toast = useToast()
 
   useEffect(() => {
-    dispatch(getCountries())
+    dispatch(getCountriesList())
   }, [])//eslint-disable-line
 
   useEffect(() => {
