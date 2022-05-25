@@ -37,7 +37,8 @@ import {
   DELETE_CART_ITEM,
   UPDATE_CART_USER,
   ADD_CATEGORY,
-  REMOVE_CATEGORY
+  REMOVE_CATEGORY,
+  GET_ALL_ORDERS
 } from '../constants'
 
 const initialState = {
@@ -326,6 +327,11 @@ const reducer = (state = initialState, action) => {
         cartProducts: payload
       }
 
+    case GET_ALL_ORDERS:
+      return {
+        ...state,
+        orders: payload
+      }
     default:
       return state
   }
