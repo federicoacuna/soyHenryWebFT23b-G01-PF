@@ -29,9 +29,29 @@ export const getOrders = async () => {
   return data
 }
 
+export const getOrdersId = async () => {
+  const { token } = store.getState()
+  const { data } = await axios.get('/orders', {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+  return data
+}
+
 export const getDetails = async (orderId) => {
   const { token } = store.getState()
   const { data } = await axios.get(`/orders/${orderId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+  return data
+}
+
+export const orderUpdate = async (orderId, status) => {
+  const { token } = store.getState()
+  const { data } = await axios.put(`/orders/${orderId}`, { status }, {
     headers: {
       Authorization: `Bearer ${token}`
     }

@@ -35,7 +35,8 @@ import {
   GET_CART,
   CLEAR_CART_ITEMS,
   DELETE_CART_ITEM,
-  UPDATE_CART_USER
+  UPDATE_CART_USER,
+  GET_ALL_ORDERS
 } from '../constants'
 
 const initialState = {
@@ -312,6 +313,11 @@ const reducer = (state = initialState, action) => {
         cartProducts: payload
       }
 
+    case GET_ALL_ORDERS:
+      return {
+        ...state,
+        orders: payload
+      }
     default:
       return state
   }
