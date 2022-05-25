@@ -2,7 +2,8 @@ const { Category } = require('../db')
 
 async function getAllCategories () {
   return await Category.findAll({
-    attributes: ['id', 'name']
+    where: { deleted: false },
+    attributes: { exclude: ['deleted', 'createdAt', 'updatedAt'] }
   })
 }
 
@@ -24,7 +25,7 @@ async function createCategory (data) {
 
 async function removeCategory (id) {
   try {
-    const wasDeleted = await Category.destroy({
+    const wasDeleted = await Category.update({ deleted: true }, {
       where: {
         id
       }
