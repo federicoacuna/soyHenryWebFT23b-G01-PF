@@ -32,91 +32,94 @@ export default function UserProfile () {
   }
 
   return (
-    <Flex w='85vw'>
-      <Tabs borderColor='active' w='100%' index={tabIndex} onChange={(index) => dispatch(setUsersPanelTab(index))}>
-        <Flex flexDirection='row' h='75vh'>
-          <Flex alignItems='flex-start' bg='primary' color='white' flexWrap='wrap' flexDirection='column' justifyContent='space-around'>
-            <Tab
-              justifyContent='flex-start'
-              w='100%' _focus={{ borderColor: 'none' }}
-              _active={{ color: 'white' }}
-              fontWeight={500}
-            ><BiUserCircle /> <Box textAlign='start' ml='10px'>Datos personales</Box>
-            </Tab>
-            <Tab
-              justifyContent='flex-start'
-              w='100%'
-              _focus={{ borderColor: 'none' }}
-              _active={{ color: 'white' }}
-              fontWeight={500}
-            ><BiDirections /> <Box textAlign='start' ml='10px'>Direcciones</Box>
-            </Tab>
-            <Tab
-              justifyContent='flex-start'
-              w='100%'
-              _focus={{ borderColor: 'none' }}
-              _active={{ color: 'white' }}
-              fontWeight={500}
-            ><BiShoppingBag /> <Box textAlign='start' ml='10px'>Mis compras</Box>
-            </Tab>
-            <Tab
-              justifyContent='flex-start'
-              w='100%'
-              _focus={{ borderColor: 'none' }}
-              _active={{ color: 'white' }}
-              fontWeight={500}
-            ><BiHeart /> <Box textAlign='start' ml='10px'>Lista de deseos</Box>
-            </Tab>
-            <Tab
-              justifyContent='flex-start'
-              w='100%'
-              _focus={{ borderColor: 'none' }}
-              _active={{ color: 'white' }}
-              fontWeight={500}
-            ><BiStar /> <Box textAlign='start' ml='10px'>Reseñas</Box>
-            </Tab>
-          </Flex>
+    <Flex justifyContent='center' pl='7rem' pr='7rem' pt='3rem' pb='3rem'>
+      <Flex w='100%'>
+        <Tabs borderColor='active' boxShadow='md' w='100%' index={tabIndex} onChange={(index) => dispatch(setUsersPanelTab(index))}>
+          <Flex flexDirection='row' h='75vh'>
+            <Flex alignItems='flex-start' bg='white' color='#333333' flexWrap='wrap' flexDirection='column' justifyContent='space-around'>
+              <Tab
+                justifyContent='flex-start'
+                w='100%' _focus={{ borderColor: 'none' }}
+                _active={{ color: 'white' }}
+                fontWeight={500}
+              ><BiUserCircle /> <Box textAlign='start' ml='10px'>Datos personales</Box>
+              </Tab>
+              <Tab
+                justifyContent='flex-start'
+                w='100%'
+                _focus={{ borderColor: 'none' }}
+                _active={{ color: 'white' }}
+                fontWeight={500}
+              ><BiDirections /> <Box textAlign='start' ml='10px'>Direcciones</Box>
+              </Tab>
+              <Tab
+                justifyContent='flex-start'
+                w='100%'
+                _focus={{ borderColor: 'none' }}
+                _active={{ color: 'white' }}
+                fontWeight={500}
+              ><BiShoppingBag /> <Box textAlign='start' ml='10px'>Mis compras</Box>
+              </Tab>
+              <Tab
+                justifyContent='flex-start'
+                w='100%'
+                _focus={{ borderColor: 'none' }}
+                _active={{ color: 'white' }}
+                fontWeight={500}
+              ><BiHeart /> <Box textAlign='start' ml='10px'>Lista de deseos</Box>
+              </Tab>
+              <Tab
+                justifyContent='flex-start'
+                w='100%'
+                _focus={{ borderColor: 'none' }}
+                _active={{ color: 'white' }}
+                fontWeight={500}
+              ><BiStar /> <Box textAlign='start' ml='10px'>Reseñas</Box>
+              </Tab>
+            </Flex>
 
-          <TabPanels bg='secondary' overflow='scroll'>
-            <TabPanel>
-              <Heading mb={5}>Datos personales</Heading>
-              <DatosPersonales />
-            </TabPanel>
-            {/* <TabPanel>
+            <TabPanels bg='white' borderLeft='2px' borderStyle='inherit' ml='1rem' borderColor='#333333' overflow='auto'>
+              <TabPanel>
+                <Heading mb={5}>Datos personales</Heading>
+                <DatosPersonales />
+              </TabPanel>
+              {/* <TabPanel>
               <Heading mb={5}>Historial</Heading>
             </TabPanel> */}
-            <TabPanel>
-              <Heading mb={5}>Direcciones</Heading>
-              {/* <Box mb={5}>Elige donde recibir tus compras.</Box> */}
-              {!Click.address
-                ? <>
-                  <AddressContainer />
-                  <Button _hover={{ color: 'white' }} color='white' bg='#2C2C2E' onClick={handleClickAddress}>Agregar una dirección</Button>
-                  {/* eslint-disable-next-line */}
+              <TabPanel>
+                <Heading mb={5}>Direcciones</Heading>
+                {/* <Box mb={5}>Elige donde recibir tus compras.</Box> */}
+                {!Click.address
+                  ? <>
+                    <AddressContainer />
+                    <Button _hover={{ color: 'white' }} color='white' bg='#2C2C2E' onClick={handleClickAddress}>Agregar una dirección</Button>
+                    {/* eslint-disable-next-line */}
                 </>
-                : <>
-                  <AddressCreator handleClickAddress={handleClickAddress} />
-                  {/* eslint-disable-next-line */}
+                  : <>
+                    <AddressCreator handleClickAddress={handleClickAddress} />
+                    {/* eslint-disable-next-line */}
               </>}
 
-            </TabPanel>
+              </TabPanel>
 
-            <TabPanel>
-              <Heading mb={5}>Mis compras</Heading>
-              <MyShopping />
-            </TabPanel>
-            <TabPanel>
-              <Heading mb={5}>Lista de deseos</Heading>
-              <WishList />
-            </TabPanel>
-            <TabPanel>
-              <Heading mb={5}>Reseñas</Heading>
-              <ReviewsContainer />
-            </TabPanel>
-          </TabPanels>
-        </Flex>
+              <TabPanel>
+                <Heading mb={5}>Mis compras</Heading>
+                <MyShopping />
+              </TabPanel>
+              <TabPanel>
+                <Heading mb={5}>Lista de deseos</Heading>
+                <WishList />
+              </TabPanel>
+              <TabPanel>
+                <Heading mb={5}>Reseñas</Heading>
+                <ReviewsContainer />
+              </TabPanel>
+            </TabPanels>
+          </Flex>
 
-      </Tabs>
+        </Tabs>
+      </Flex>
     </Flex>
+
   )
 }

@@ -100,13 +100,14 @@ const NavBar = () => {
                     <MenuItem _focus={{ boxShadow: 'none' }} fontSize='1rem' bg='#333333' onClick={handleSubmit} name='salir'>Salir</MenuItem>
                   </MenuList>
                 </Menu>
-                <Link to='/cart'>
-                  {cartProducts > 0 ? <span>{cartProducts}</span> : undefined}
-                  <BsCart fontSize='1.7rem' color='#333333' />
-                </Link>
                   </>//eslint-disable-line
               : <ListItem fontSize='1.25rem' mr='2.5rem'><Link to='#' onClick={handleSubmit} name='ingresar'>Ingresar</Link></ListItem>}
-            <ListItem display='flex' alignItems='flex-start' width='100%' className={s.trapecio} />
+            <ListItem display='flex' alignItems='flex-start' className={s.trapecio}>
+              <Link to='/cart' className={s.cartLink}>
+                {cartProducts > 0 ? <span>{cartProducts}</span> : undefined}
+                <BsCart fontSize='1.7rem' color='#333333' />
+              </Link>
+            </ListItem>
           </UnorderedList>
         </Box>
         <ModalLogin isRegistrando={isRegistrando} setIsRegistrando={setIsRegistrando} state={modal} setState={setModal}>
