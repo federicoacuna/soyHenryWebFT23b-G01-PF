@@ -17,8 +17,8 @@ import {
 function AddressCreator ({ handleClickAddress }) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const countries = useSelector(state => state.countries)
-  const token = useSelector(state => state.token)
+  const countries = useSelector(state => state.countries.data)
+  const token = useSelector(state => state.users.token)
   const [hasTried, setHasTried] = useState(false)
   const [errors, setErrors] = useState({
     postalCode: '',

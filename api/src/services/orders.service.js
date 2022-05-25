@@ -20,9 +20,6 @@ async function getOrderDetails (orderId, userId) {
       },
       include: [{
         model: UserAddress
-      },
-      {
-        model: UserPayment
       }]
     })
     const order = await orderData.toJSON()

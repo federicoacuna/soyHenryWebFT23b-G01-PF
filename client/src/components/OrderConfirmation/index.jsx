@@ -5,21 +5,19 @@ import { useDispatch, useSelector } from 'react-redux'
 import { updateCart } from '../../redux/actions/cart.actions'
 import { getOrderDetails } from '../../redux/actions/orders.actions'
 import AddressCard from '../AddressCard'
-import UserPaymentCard from '../PaymentCard'
 import s from './index.module.css'
-// import LoadingSpinner from '../LoadingSpinner'
 
 export default function OrderConfirmation () {
   const dispatch = useDispatch()
-  const createdOrder = useSelector(state => state.orderDetails)
+  const createdOrder = useSelector(state => state.orders.orderDetails)
   const navigate = useNavigate()
-  const { userPayment, userAddress, branch } = createdOrder
+  const { userAddress, branch } = createdOrder
   const { orderId } = useParams()
 
   useEffect(() => {
     dispatch(getOrderDetails(orderId))
     dispatch(updateCart([]))
-  }, [createdOrder]) //eslint-disable-line
+  }, []) //eslint-disable-line
 
   function handleClick () {
     navigate('/')
@@ -33,14 +31,6 @@ export default function OrderConfirmation () {
             ? <div>
               <p>Nro. de Orden: {createdOrder.id}</p>
               <p>Fue pagado con:</p>
-              <UserPaymentCard
-                key={userPayment.id}
-                paymentType={userPayment.paymentType}
-                cardNumber={userPayment.cardNumber}
-                expirationDate={userPayment.expirationDate}
-                provider={userPayment.provider}
-                id={userPayment.id}
-              />
               {userAddress && <p>Su orden sera despachada a:</p>}
               {
           userAddress &&

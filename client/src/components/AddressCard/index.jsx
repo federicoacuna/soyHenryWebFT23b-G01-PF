@@ -4,8 +4,8 @@ import { FaMapMarkerAlt } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
 
 export default function AddressCard ({ id, streetName, houseNumber, postalCode, city, state, country, onclick }) {
-  const selectedId = useSelector(state => state.order.userAddressId)
-  const imSelected = selectedId === id
+  const selectedAddress = useSelector(state => state.orders.order.address)
+  const imSelected = selectedAddress ? selectedAddress.id === id : false
   return (
     <Flex alignItems='center' bg='white' borderRadius={3} mt={2} mb={2} onClick={onclick}>
       <Flex w='100%' alignItems='center'>

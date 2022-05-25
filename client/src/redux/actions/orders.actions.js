@@ -86,11 +86,11 @@ export const getOrdersList = (filters) => {
   }
 }
 
-export const getOrderDetails = () => {
+export const getOrderDetails = (orderId) => {
   return async (dispatch) => {
     try {
-      const order = await getOrder()
-
+      const order = await getOrder(orderId)
+      console.log(order)
       dispatch({
         type: GET_ORDER_DETAILS,
         payload: order

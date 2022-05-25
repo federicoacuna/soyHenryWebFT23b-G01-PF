@@ -6,7 +6,7 @@ import { setOrderAddress } from '../../redux/actions/orders.actions'
 import AddressCard from '../AddressCard'
 
 export default function AddressContainer () {
-  const addresses = useSelector(state => state.addresses)
+  const addresses = useSelector(state => state.addresses.data)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export default function AddressContainer () {
             city={address.city}
             state={address.state}
             country={address.country.countryName}
-            onclick={() => dispatch(setOrderAddress(address.id))}
+            onclick={() => dispatch(setOrderAddress(address))}
                                    />
         )
         : <Spinner />}
