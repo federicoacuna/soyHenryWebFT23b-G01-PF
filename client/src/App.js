@@ -37,7 +37,7 @@ function App () {
     window.localStorage.setItem('token', store.getState().users.token))
 
   store.subscribe(() =>
-    window.localStorage.setItem('cartProducts', JSON.stringify(store.getState().cart.items)))
+    window.localStorage.setItem('cart', JSON.stringify(store.getState().cart.localItems)))
 
   return (
     <div>

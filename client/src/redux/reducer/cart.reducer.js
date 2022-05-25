@@ -17,7 +17,7 @@ const cart = (state = initialState, action) => {
     case ADD_CART_ITEM:
       return {
         ...state,
-        localItems: state.localItems.findIndex(item => item.id === payload.id) !== -1 ? [...state.localItems, payload] : state.localItems
+        localItems: state.localItems.findIndex(item => item.id === payload.id) !== -1 ? [...state.localItems, payload] : [...state.localItems, payload]
       }
     default:
       return state

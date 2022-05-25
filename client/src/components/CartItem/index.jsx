@@ -6,24 +6,24 @@ import { updateCart } from '../../redux/actions/cart.actions'
 
 export default function CartItem ({ product }) {
   const { name, image, price, quantity } = product
-  const cartList = useSelector(state => state.cart.items)
+  const cartList = useSelector(state => state.cart.localItems)
   const dispatch = useDispatch()
 
-  function handleClick (e) {
+  function handleClick (operation) {
     let updatedCartList = cartList.slice()
-    if (e.target.name === 'increase') {
+    if (operation === 'increase') {
       updatedCartList = updatedCartList.map(item => {
         item.id === product.id && item.quantity++
         return item
       })
     }
-    if (e.target.name === 'decrease' && quantity > 1) {
+    if (operation === 'decrease' && quantity > 1) {
       updatedCartList = updatedCartList.map(item => {
         item.id === product.id && item.quantity--
         return item
       })
     }
-    if (e.target.name === 'remove') {
+    if (operation === 'remove') {
       updatedCartList = updatedCartList.filter(item => item.id !== product.id)
     }
     dispatch(updateCart(updatedCartList))
@@ -38,15 +38,15 @@ export default function CartItem ({ product }) {
         <Text mr='6.5rem' w='21.8rem' textOverflow='ellipsis' overflow='hidden'>{name}</Text>
         <Flex justifyContent='center' w='7.5rem' h='2.7rem' mr='5.4rem' border='1px' borderColor='secondary' borderRadius='5px'>
           <Flex color='accent' justifyContent='space-between' alignItems='center' w='5.5rem'>
-            <button name='decrease' onClick={handleClick}><HiMinus size={25} /></button>
+            <button onClick={() => handleClick('decrease')}><HiMinus size={25} /></button>
             <Text color='primary'>{product.quantity}</Text>
-            <button name='increase' onClick={handleClick}><HiPlusSm size={25} /></button>
+            <button onClick={() => handleClick('increase')}><HiPlusSm size={25} /></button>
           </Flex>
         </Flex>
-        <Text textAlign='center' w='6.2rem' fontSize='1.5rem'>${quantity * price.split('.')[0]}</Text>
+        <Text textAlign='center' w='6.2rem' fontSize='1.5rem'>${quantity * price.split('.').join('')}</Text>
       </Flex>
       <Flex width='30rem' ml='2.3rem' mt='2rem' justifyContent='space-between' mb='1.6rem' color='accent'>
-        <Text cursor='pointer' name='remove' onClick={handleClick}>Eliminar</Text>
+        <Text cursor='pointer' onClick={() => handleClick('remove')}>Eliminar</Text>
         <Link to=''><Text>Guardar en lista de deseos</Text></Link>
         <Link to=''><Text>Comprar ahora</Text></Link>
       </Flex>
