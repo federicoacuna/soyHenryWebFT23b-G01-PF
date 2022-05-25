@@ -35,8 +35,7 @@ const orders = (state = initialState, action) => {
         ...state,
         order: {
           ...state.order,
-          addressID: payload.addressID,
-          isBranch: payload.isBranch
+          address: payload
         }
       }
 

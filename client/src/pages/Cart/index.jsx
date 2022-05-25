@@ -10,15 +10,15 @@ import WishList from '../../components/WishList'
 export const Cart = () => {
   const cartProducts = useSelector(state => state.cart.localItems)
   const [modal, setModal] = useState(false)
-  const userId = useSelector(state => state.users.user.id)
+  const token = useSelector(state => state.users.token)
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const totalProductCount = cartProducts.reduce((acc, p) => acc + (p.quantity * p.price.split('.').join('')), 0)
 
   const handleSubmit = () => {
-    dispatch(setOrderItems())
-    userId ? navigate('/addresses') : setModal(true)
+    dispatch(setOrderItems(cartProducts))
+    token ? navigate('/addresses') : setModal(true)
   }
 
   return (

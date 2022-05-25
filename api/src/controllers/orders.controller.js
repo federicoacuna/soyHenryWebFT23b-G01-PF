@@ -92,12 +92,12 @@ const mpValidator = async (req, res) => {
   const paymentDetails = await ordersService.validatePaymentId(paymentId)
 
   if (paymentDetails.status === 'approved') {
-    const { order } = paymentDetails.metadata
-
+    const order = paymentDetails.metadata
+    console.log(order)
     const newOrder = {
-      userId: order.user_id,
-      userAddressId: order.user_address_id,
-      userPaymentId: order.user_payment_id,
+      userId: order.user.id,
+      userAddressId: order.address.id,
+      userPaymentId: 3,
       total: order.total,
       orderItems: order.order_items.map(item => {
         return {
