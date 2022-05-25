@@ -9,7 +9,7 @@ async function getUserPayments (userId) {
 
     return userPayments
   } catch (error) {
-    console.log(error)
+    return error
   }
 }
 
@@ -26,7 +26,7 @@ async function createUserPayment (newUserPayment) {
 
     return wasCreated
   } catch (error) {
-    console.log(error)
+    return error
   }
 }
 
@@ -37,9 +37,9 @@ async function removeUserPayment (paymentId) {
       where: { id: paymentId }
     })
 
-    return !!deletedPayment
+    return deletedPayment
   } catch (error) {
-    console.log(error)
+    return error
   }
 }
 

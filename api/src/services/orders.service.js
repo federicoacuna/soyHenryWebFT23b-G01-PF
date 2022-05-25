@@ -160,14 +160,14 @@ async function validatePaymentId (paymentId) {
 
     return data
   } catch (error) {
-    console.log(error)
+    return error
   }
 }
 
 async function updateOrder (orderId, value) {
   try {
     const order = await Order.findOne({ where: { id: orderId } })
-    console.log('service', orderId, value, order)
+
     order.update(value)
     return order
   } catch (error) {

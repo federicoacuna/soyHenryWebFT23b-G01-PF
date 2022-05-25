@@ -18,7 +18,6 @@ async function createCategory (data) {
     })
     return wasCreated
   } catch (error) {
-    console.log(error)
     return error
   }
 }
