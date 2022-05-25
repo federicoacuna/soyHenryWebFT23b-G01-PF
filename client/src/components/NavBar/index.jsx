@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  Show, Box, UnorderedList, ListItem, Icon, Heading, Text, Menu,
+  Box, UnorderedList, ListItem, Icon, Heading, Text, Menu,
   MenuButton,
   MenuList,
   MenuItem,
@@ -11,14 +11,15 @@ import {
   Flex,
   useToast
 } from '@chakra-ui/react'
-import { TiShoppingCart } from 'react-icons/ti'
-import { BsShop } from 'react-icons/bs'
-import { GrMenu } from 'react-icons/gr'
-import styles from './index.module.css'
+import { BsCart, BsShopWindow } from 'react-icons/bs'
+
+import s from './index.module.css'
 import ModalLogin from '../../components/ModalLogin'
 import firebase from 'firebase/compat/app'
 import { getWishList, logOut, setProfileTab } from '../../redux/actions'
 import { AiFillCaretDown } from 'react-icons/ai'
+import SearchBar from '../SearchBar'
+import { MdOutlineFavoriteBorder } from 'react-icons/md'
 
 const NavBar = () => {
   const navigate = useNavigate()
@@ -72,67 +73,55 @@ const NavBar = () => {
   }
 
   return (
-    <>
-      {/* Desktop */}
-      <Show breakpoint='(min-width: 641px)'>
-        <Box bg='primary' display='flex' justifyContent='space-between' color='accent' alignItems='center' p='1rem' margin='0 auto'>
-          <Link to='/' className={styles.logo}>
-            <Icon width='2rem' height='2rem' name='logo' as={BsShop} />
-            <span>Ecommerce</span>
-          </Link>
-          <nav>
-            <UnorderedList display='flex' alignItems='center' columnGap='1rem' margin='0'>
-              <ListItem>
-                <Link to='/' className={styles.navLink}>Home</Link>
-              </ListItem>
-              {token
-                ? <>
-                  <ListItem>
-                    <div className={styles.navLink} onClick={() => handleClick(4)}>Wishlist</div>
-                  </ListItem>
-                  <Menu>
-                    <Flex alignItems='center'>
-                      <Avatar size='sm' mr={2} name={user.email && user.email.split('@')[0]} src='' />
-                      <MenuButton _hover={{ bg: 'primary' }} _active={{ bg: 'primary' }} _focus={{ boxShadow: 'none' }} p={0} fontSize='1.25rem' fontWeight={700} bg='primary' as={Button} rightIcon={<AiFillCaretDown />}>{user.firstname ? 'Hola, ' + user.firstname : user.email ? 'Hola, ' + user.email.split('@')[0] : 'Hola, User'}
-                      </MenuButton>
-                    </Flex>
-                    <MenuList bg='primary'>
-
-                      <Link to='/perfil/' onClick={() => handleClick(0)}><MenuItem _focus={{ boxShadow: 'none' }} _hover={{ bg: '#232324' }} fontSize='1.25rem' bg='primary' className={styles.navLink} name='perfil'>Perfil</MenuItem></Link>
-                      <Link to='/perfil/' onClick={() => handleClick(3)}><MenuItem _focus={{ boxShadow: 'none' }} _hover={{ bg: '#232324' }} fontSize='1.25rem' bg='primary' className={styles.navLink} name='mis-compras'>Mis compras</MenuItem></Link>
-                      <MenuItem _focus={{ boxShadow: 'none' }} _hover={{ bg: '#232324' }} fontSize='1.25rem' bg='primary' onClick={handleSubmit} className={styles.navLink} name='salir'>Salir</MenuItem>
-                    </MenuList>
-                  </Menu>
+    <Box>
+      <Box position='relative' height='5rem' bg='#333333' display='flex' justifyContent='space-between' color='accent' alignItems='center' pl='7rem' pr='7rem'>
+        <Link to='/' className={s.logo}>
+          <Icon width='1.7rem' height='1.7rem' name='logo' as={BsShopWindow} />
+          <span>Salchistore</span>
+        </Link>
+        <Box />
+        <Box>
+          <UnorderedList display='flex' alignItems='center' gap='1rem' mr='5rem'>
+            {token
+              ? <>
+                <ListItem>
+                  <div className={s.navLink} onClick={() => handleClick(4)}><MdOutlineFavoriteBorder /></div>
+                </ListItem>
+                <Menu>
+                  <Flex bg='#333333' alignItems='center'>
+                    <Avatar size='sm' mr={2} name={user.email && user.email.split('@')[0]} src='' />
+                    <MenuButton _hover={{ bg: '#333333' }} _active={{ bg: '#333333' }} _focus={{ boxShadow: 'none' }} p={0} fontSize='1rem' fontWeight={700} bg='#333333' as={Button} rightIcon={<AiFillCaretDown />}>{user.firstname ? 'Hola, ' + user.firstname : user.email ? 'Hola, ' + user.email.split('@')[0] : 'Hola, User'}
+                    </MenuButton>
+                  </Flex>
+                  <MenuList bg='#333333' mt='1rem' width='3rem'>
+                    <Link to='/perfil/' onClick={() => handleClick(0)}><MenuItem _focus={{ boxShadow: 'none' }} fontSize='1rem' bg='#333333' name='perfil'>Perfil</MenuItem></Link>
+                    <Link to='/perfil/' onClick={() => handleClick(3)}><MenuItem _focus={{ boxShadow: 'none' }} fontSize='1rem' bg='#333333' name='mis-compras'>Mis compras</MenuItem></Link>
+                    <MenuItem _focus={{ boxShadow: 'none' }} fontSize='1rem' bg='#333333' onClick={handleSubmit} name='salir'>Salir</MenuItem>
+                  </MenuList>
+                </Menu>
                   </>//eslint-disable-line
-                : <ListItem><Link to='#' onClick={handleSubmit} className={styles.navLink} name='ingresar'>Ingresar</Link></ListItem>}
-              <ListItem>
-                <Link to='/cart' className={styles.cartLink}>
-                  {cartProducts > 0 ? <span>{cartProducts}</span> : undefined}
-                  <Icon as={TiShoppingCart} width='2rem' height='2rem' />
-                </Link>
-              </ListItem>
-            </UnorderedList>
-          </nav>
-          {/* <Fade inde in={isOpen}> */}
-          <ModalLogin isRegistrando={isRegistrando} setIsRegistrando={setIsRegistrando} state={modal} setState={setModal}>
-            <Heading color='black' textAlign='center'>{isRegistrando ? 'Registrate' : 'Inicia Sesion'}</Heading>
-            <Text color='black' mt={2} textAlign='center'>Ingresa a tu cuenta para ver tus compras, favoritos, etc.</Text>
-          </ModalLogin>
-          {/* </Fade> */}
+              : <ListItem fontSize='1.25rem' mr='2.5rem'><Link to='#' onClick={handleSubmit} name='ingresar'>Ingresar</Link></ListItem>}
+            <ListItem display='flex' width='100%'>
+              <p className={s.trapecio} />
+            </ListItem>
+          </UnorderedList>
         </Box>
-      </Show>
 
-      {/* Mobile */}
-      <Show breakpoint='(max-width: 640px)'>
-        <Box bg='primary' display='flex' justifyContent='space-between' color='accent' p='1rem'>
-          <Icon as={GrMenu} height='2.5rem' width='2.5rem' cursor='pointer' className={styles.menu} />
-          <Link to='/cart' className={styles.cartLink}>
-            {cartProducts > 0 ? <span>{cartProducts}</span> : undefined}
-            <Icon as={TiShoppingCart} width='2rem' height='2rem' />
-          </Link>
-        </Box>
-      </Show>
-    </>
+        {/* <Fade inde in={isOpen}> */}
+        <ModalLogin isRegistrando={isRegistrando} setIsRegistrando={setIsRegistrando} state={modal} setState={setModal}>
+          <Heading color='black' textAlign='center'>{isRegistrando ? 'Registrate' : 'Inicia Sesion'}</Heading>
+          <Text color='black' mt={2} textAlign='center'>Ingresa a tu cuenta para ver tus compras, favoritos, etc.</Text>
+        </ModalLogin>
+        {/* </Fade> */}
+      </Box>
+      <Box position='absolute' top='-2' left='42%'>
+        <SearchBar />
+        <Link className={token ? s.cartLink : s.cartLink2} to='/cart'>
+          {cartProducts > 0 ? <span>{cartProducts}</span> : undefined}
+          <BsCart fontSize='1.7rem' color='#333333' />
+        </Link>
+      </Box>
+    </Box>
   )
 }
 

@@ -26,9 +26,9 @@ export default function Pagination () {
     <>
       {shouldDisplay &&
         <div className={s.container}>
-          <div onClick={() => handlePages('back')} name='back' disabled={!hasPrevious}><BsFillArrowLeftSquareFill /></div>
+          <div onClick={() => handlePages('back')} name='back' disabled={!hasPrevious}><BsFillArrowLeftSquareFill color='#333333' fontSize='2rem' /></div>
           <span>{currentPage}</span>
-          <div onClick={() => handlePages('next')} name='next' disabled={!hasNext}><BsFillArrowRightSquareFill /></div>
+          <div onClick={() => handlePages('next')} name='next' disabled={!hasNext}><BsFillArrowRightSquareFill color='#333333' fontSize='2rem' /></div>
         </div>}
     </>
   )
