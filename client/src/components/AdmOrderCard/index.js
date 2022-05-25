@@ -48,7 +48,7 @@ export default function OrderCard ({ ordenN, status, total, idUsuario, idPago, k
     try {
       dispatch(updateOrderById(orderId, status))
     } catch (error) {
-      console.log(error)
+      return error
     }
   }
 

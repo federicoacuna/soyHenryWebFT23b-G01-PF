@@ -6,10 +6,10 @@ const get = async (req, res) => {
     const user = await usersService.getUserByEmail(req.user.email)
     if (user.roleId === 2) {
       ordersService.admAllOrders()
-        .then(allOrders => allOrders ? res.json(allOrders) : res.status(404).json({ error: 'No orders' }))
+        .then(allOrders => allOrders ? res.status(200).json(allOrders) : res.status(400).json({ error: 'No orders' }))
     } else {
       ordersService.getOrdersByUser(user.id)
-        .then(retrievedOrders => retrievedOrders ? res.json(retrievedOrders) : res.status(404).json({ error: 'No orders where found matching the search criteria' }))
+        .then(retrievedOrders => retrievedOrders ? res.status(200).json(retrievedOrders) : res.status(400).json({ error: 'No orders where found matching the search criteria' }))
     }
   } catch (error) {
     res.status(400).json(error)
@@ -21,7 +21,7 @@ const getById = async (req, res) => {
   try {
     const user = await usersService.getUserByEmail(req.user.email)
     ordersService.getOrderDetails(orderId, user.id)
-      .then(orderDetails => orderDetails ? res.json(orderDetails) : res.status(404).json({ error: 'Requested order not found' }))
+      .then(orderDetails => orderDetails ? res.status(200).json(orderDetails) : res.status(400).json({ error: 'Requested order not found' }))
   } catch (error) {
     res.status(400).json(error)
   }
@@ -57,7 +57,7 @@ const create = async (req, res) => {
   if (!Object.keys(validationErrors).length) {
     try {
       const newOrder = await ordersService.createOrder(req.body)
-      newOrder ? res.json({ message: `Order successfully created under ID ${newOrder.orderId}`, data: newOrder }) : res.status(400).json({ error: 'Order could not be created' })
+      newOrder ? res.status(200).json({ message: `Order successfully created under ID ${newOrder.orderId}`, data: newOrder }) : res.status(400).json({ error: 'Order could not be created' })
     } catch (error) {
       res.status(400).json(error)
     }
@@ -70,10 +70,11 @@ const update = async (req, res) => {
   const user = await usersService.getUserByEmail(req.user.email)
   const { orderId } = req.params
   try {
-    console.log(orderId, req.body)
-    if (user.roleId === 1) {
+    if (user.roleId === 2) {
       const update = await ordersService.updateOrder(orderId, req.body)
-      update ? res.json(update) : res.status(400).json({ error: 'Error trying update order' })
+      update
+        ? res.status(200).json(update)
+        : res.status(400).json({ error: 'Error trying update order' })
     } else {
       res.json({ message: 'THIS FUNCTION HAS NOT BEEN IMPLEMENTED YET' })
     }
@@ -83,6 +84,7 @@ const update = async (req, res) => {
 }
 
 const remove = async (req, res) => {
+  // update del status a cancelada, update devuelve 0 o 1
   res.json({ message: 'THIS FUNCTION HAS NOT BEEN IMPLEMENTED YET' })
 }
 

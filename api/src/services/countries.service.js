@@ -19,7 +19,7 @@ async function createCountry (data) {
 
 async function updateCountry (data) {
   const { countryId, enabled } = data
-  const [, wasCreated] = await Country.update({ enabled }, { where: { id: countryId } })
+  const wasCreated = await Country.update({ enabled }, { where: { id: countryId } })
   return wasCreated
 }
 

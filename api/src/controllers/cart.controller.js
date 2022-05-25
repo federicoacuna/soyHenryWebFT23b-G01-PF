@@ -6,7 +6,7 @@ const get = async (req, res) => {
   try {
     const user = await userService.getUserByEmail(req.user.email)
     const cart = await cartService.getCartItems(user.id)
-    res.json(cart)
+    res.status(200).json(cart)
   } catch (err) {
     res.status(404).json(err)
   }
@@ -22,7 +22,9 @@ const create = async (req, res) => {
 
       }
       const addedItem = await cartService.addCartItems(data)
-      addedItem ? res.json({ message: 'Item agregado con exito' }) : res.json({ message: 'El item ya fue agregado al carrito' })
+      addedItem
+        ? res.status(200).json({ message: 'Item agregado con exito' })
+        : res.status(400).json({ message: 'El item ya fue agregado al carrito' })
     } else {
       const data = {
         products: req.body,
@@ -32,7 +34,7 @@ const create = async (req, res) => {
       addedProducts ? res.json({ message: 'Items agregados con exito' }) : res.json({ message: 'Los items ya fueron agregados al carrito' })
     }
   } catch (error) {
-    res.json(error)
+    res.status(400).json(error)
   }
 }
 
@@ -44,9 +46,11 @@ const remove = async (req, res) => {
       userId: parseInt(user.id)
     }
     const removedItem = await cartService.removeItem(data)
-    removedItem ? res.json({ message: 'Item removido con exito' }) : res.json({ message: 'El Item no se encuentra en carrito' })
+    removedItem > 0
+      ? res.status(200).json({ message: 'Item removido con exito' })
+      : res.status(400).json({ message: 'El Item no se encuentra en carrito' })
   } catch (error) {
-    res.json(error)
+    res.status(400).json(error)
   }
 }
 
@@ -55,9 +59,11 @@ const removeAll = async (req, res) => {
     const user = await userService.getUserByEmail(req.user.email)
     const userId = parseInt(user.id)
     const removedCart = await cartService.removeAllCart(userId)
-    removedCart ? res.json({ message: 'El carrito ha sido eliminado completamente' }) : res.json({ message: 'El carrito ya se encuentra vacio' })
+    removedCart > 0
+      ? res.status(200).json({ message: 'El carrito ha sido eliminado completamente' })
+      : res.status(400).json({ message: 'El carrito ya se encuentra vacio' })
   } catch (error) {
-    res.json(error)
+    res.status(400).json(error)
   }
 }
 

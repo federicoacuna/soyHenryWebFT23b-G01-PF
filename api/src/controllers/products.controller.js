@@ -3,9 +3,9 @@ const productsService = require('../services/products.service')
 async function get (req, res, next) {
   try {
     const retrievedProducts = await productsService.getProducts(req.query)
-    retrievedProducts ? res.json(retrievedProducts) : res.status(404).json({ error: 'No products where found' })
+    retrievedProducts ? res.status(200).json(retrievedProducts) : res.status(400).json({ error: 'No products where found' })
   } catch (error) {
-    res.json(error)
+    res.status(400).json(error)
   }
 }
 async function getById (req, res, next) {
@@ -17,10 +17,9 @@ async function getById (req, res, next) {
       const canReview = await productsService.canReview(req.params.id, user)
       retrievedProduct.canReview = canReview
     }
-    retrievedProduct ? res.json(retrievedProduct) : res.status(404).json({ error: 'Requested product was not found' })
+    retrievedProduct ? res.status(200).json(retrievedProduct) : res.status(400).json({ error: 'Requested product was not found' })
   } catch (error) {
     res.status(400).json(error)
-    console.log(error)
   }
 }
 
