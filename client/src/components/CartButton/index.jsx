@@ -1,9 +1,8 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addProductToCart } from '../../redux/actions'
-import s from './index.module.css'
-import { Button, useToast } from '@chakra-ui/react'
-import { BsFillCartPlusFill } from 'react-icons/bs'
+import { useToast, Box, Flex } from '@chakra-ui/react'
+import { BsCart } from 'react-icons/bs'
 
 const CartButton = ({ product }) => {
   const dispatch = useDispatch()
@@ -25,9 +24,16 @@ const CartButton = ({ product }) => {
   }
 
   return (
-    <div className={s.container}>
-      <Button leftIcon={<BsFillCartPlusFill />} bg='#2C2C2E' _hover={{ bg: 'black' }} color='white' onClick={!isNaN(exist) ? handleClick : toastAdd}>Agregar al carrito</Button>
-    </div>
+    <Box>
+      <Flex alignItems='center'>
+        <Box width='10rem' height='2.5rem' display='flex' justifyContent='center' alignItems='center' cursor='pointer' p='0.5rem' bg='#0082E3' color='white' onClick={!isNaN(exist) ? handleClick : toastAdd}>Comprar ahora</Box>
+        <Box ml='1rem'>
+          <BsCart fontSize='1.7rem' />
+        </Box>
+
+      </Flex>
+
+    </Box>
   )
 }
 

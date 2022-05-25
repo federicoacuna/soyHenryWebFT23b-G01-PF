@@ -17,6 +17,14 @@ module.exports = (sequelize) => {
     houseNumber: {
       type: DataTypes.STRING(15),
       allowNull: false
+    },
+    phoneNumber: {
+      type: DataTypes.STRING(30),
+      allowNull: true
+    },
+    deleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     }
   })
 }

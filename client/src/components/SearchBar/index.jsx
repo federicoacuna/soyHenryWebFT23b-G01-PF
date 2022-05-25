@@ -1,10 +1,10 @@
 import { useDispatch } from 'react-redux'
 import { useState } from 'react'
-import { addFilterParams, clearFilterParams } from '../../redux/actions/index'
-import { Box, Input, Button, Icon } from '@chakra-ui/react'
-import { BsSearch } from 'react-icons/bs'
+import { addFilterParams } from '../../redux/actions/index'
+import { Box, Input, Icon } from '@chakra-ui/react'
+import { BiSearchAlt } from 'react-icons/bi'
 import styles from './index.module.css'
-import SortingSelector from '../SortingSelector'
+// import SortingSelector from '../SortingSelector'
 
 export default function SearchBar () {
   const dispatch = useDispatch()
@@ -26,40 +26,39 @@ export default function SearchBar () {
     }
   }
 
-  function handleClick (e) {
-    dispatch(clearFilterParams())
-  }
+  // function handleClick (e) {
+  //   dispatch(clearFilterParams())
+  // }
 
   return (
     <Box display='flex' marginTop='2rem' justifyContent='center' marginBottom='2rem'>
       <form onSubmit={handleSubmit} className={styles.form}>
         <Box position='relative'>
           <Input
-            placeholder='Buscar ...'
+            placeholder='Buscar...'
             onChange={handleInputChange}
             value={item}
-            bg='secondary'
+            bg='white'
             color='#000'
             pl='1rem'
             pr='2.5rem'
-            _focus
-            borderRadius='1rem'
-            boxShadow='0px 1px 2px 1px rgba(0,0,0,0.25)'
+            height='2.2rem'
+            _focus={{ outline: 'none' }}
 
           />
           <Icon
-            as={BsSearch}
+            as={BiSearchAlt}
             position='absolute'
             right='1rem'
             top='50%'
             transform='translateY(-50%)'
             w='1.5rem'
             h='1.5rem'
-            color='#ABABAB'
+            color='#333333'
           />
         </Box>
-        <Button bg='primary' color='accent' px='2rem' pb='0.2rem' _hover _active _focus onClick={handleClick} name='Clean'>Limpiar</Button>
-        <SortingSelector />
+        {/* <Button bg='primary' color='accent' px='2rem' pb='0.2rem' _hover _active _focus onClick={handleClick} name='Clean'>Limpiar</Button>
+        <SortingSelector /> */}
       </form>
     </Box>
   )

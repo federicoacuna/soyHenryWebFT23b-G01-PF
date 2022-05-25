@@ -2,19 +2,26 @@ import CartButton from '../CartButton'
 import s from './index.module.css'
 import { Link } from 'react-router-dom'
 import WishListManagerButton from '../WishListManagerButton'
+import { Box, Text } from '@chakra-ui/react'
+import { FcLikePlaceholder } from 'react-icons/fc'
+import { AiFillStar } from 'react-icons/ai'
 export default function ProductCard ({ product, shouldDisplay }) {
-  const { id, name, price, image } = product
+  const { id, price, image } = product
 
   return (
-    <div className={s.cardContainer}>
+    <Box p='1rem' m='1rem' minHeight='320px' width='220px' boxShadow='md' display='flex' flexDirection='column' justifyContent='space-between' alignItems='center'>
+      <Box alignSelf='flex-end'><FcLikePlaceholder fontSize='1.7rem' /></Box>
       <Link className={s.link} to={'/productDetail/' + id}>
-
-        <img src={image[0]} alt='Product' className={s.productImage} />
-        <h3 className={s.productTitle}>{name}</h3>
-        <p>${price}</p>
+        <img src={image[0]} alt='Product' />
       </Link>
-      <CartButton product={product} />
+      <Text alignSelf='flex-start' display='flex'><AiFillStar color='orange' /><AiFillStar color='orange' /><AiFillStar color='orange' /></Text>
+      <Text mt='0.3rem' mb='0.3rem' alignSelf='flex-start'>Periferico requerepiola</Text>
+      <Text mt='0.3rem' mb='0.3rem' alignSelf='flex-start'>{price}</Text>
+      <Box mt='0.3rem' mb='0.3rem' alignSelf='flex-start'>
+        <CartButton product={product} />
+      </Box>
+
       {shouldDisplay && <WishListManagerButton productId={id} />}
-    </div>
+    </Box>
   )
 }

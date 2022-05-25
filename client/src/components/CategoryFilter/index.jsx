@@ -10,8 +10,8 @@ export const CategoryFilter = () => {
   if (categories.length === 0) return <Box>No hay categorías</Box>
 
   return (
-    <Box>
-      <Heading size='sm' mb='0.5rem'>Categorías:</Heading>
+    <Box m='1rem'>
+      <Heading size='sm' mb='0.5rem'>Categorías</Heading>
       <UnorderedList ml='0'>
         {categories.map(category => (
           <ListItem

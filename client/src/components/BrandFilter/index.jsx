@@ -10,8 +10,8 @@ export default function BrandFilter () {
   if (brands.length === 0) return <Box>No hay categorías</Box>
 
   return (
-    <Box mb='1rem'>
-      <Heading size='sm' mb='0.5rem'>Marcas:</Heading>
+    <Box m='1rem'>
+      <Heading size='sm' mb='0.5rem'>Marcas</Heading>
       <UnorderedList ml='0'>
         {brands.map(brand => (
           <ListItem
