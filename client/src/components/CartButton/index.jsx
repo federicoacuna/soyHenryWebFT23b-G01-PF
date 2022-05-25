@@ -6,9 +6,12 @@ import { BsCart } from 'react-icons/bs'
 
 const CartButton = ({ product }) => {
   const dispatch = useDispatch()
-
+  const cartItem = {
+    ...product,
+    quantity: 1
+  }
   const handleClick = () => {
-    dispatch(addCartItem(product))
+    dispatch(addCartItem(cartItem))
   }
 
   return (

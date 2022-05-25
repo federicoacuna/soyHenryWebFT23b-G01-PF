@@ -8,13 +8,13 @@ import ModalLogin from '../../components/ModalLogin'
 import WishList from '../../components/WishList'
 
 export const Cart = () => {
-  const cartProducts = useSelector(state => state.cart.items)
+  const cartProducts = useSelector(state => state.cart.localItems)
   const [modal, setModal] = useState(false)
   const userId = useSelector(state => state.users.user.id)
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const totalProductCount = cartProducts.reduce((acc, p) => acc + (p.quantity * p.price), 0).toString().split('.')[0]
+  const totalProductCount = cartProducts.reduce((acc, p) => acc + (p.quantity * p.price.split('.').join('')), 0)
 
   const handleSubmit = () => {
     dispatch(setOrderItems())

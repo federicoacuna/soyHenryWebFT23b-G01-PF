@@ -13,6 +13,5 @@ export default function WishListButton ({ productId }) {
     <div>
       <Text cursor='pointer' onClick={handleClose}>Eliminar</Text>
     </div>
-
   )
 }
