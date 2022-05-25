@@ -4,7 +4,7 @@ import { WishListCard } from '../WishListCard'
 import { Flex, Box } from '@chakra-ui/react' //eslint-disable-line
 
 export default function WishList () {
-  const product = useSelector(state => state.wishlist)
+  const product = useSelector(state => state.wishlist.data)
 
   if (product.length === 0) return <Box h='43vh'>No has agregado productos a la lista de deseos.</Box>
   return (

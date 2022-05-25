@@ -1,12 +1,12 @@
 
 import { useDispatch } from 'react-redux'
-import { deleteFromWishList } from '../../redux/actions/index.js'
+import { removeFromWishlist } from '../../redux/actions/wishlist.actions'
 import { Text} from '@chakra-ui/react' //eslint-disable-line
 
 export default function WishListButton ({ productId }) {
   const dispatch = useDispatch()
   async function handleClose () {
-    dispatch(deleteFromWishList(productId))
+    dispatch(removeFromWishlist(productId))
   }
 
   return (

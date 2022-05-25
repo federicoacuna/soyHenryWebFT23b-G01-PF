@@ -2,10 +2,10 @@ import { Box, ListItem, UnorderedList, Button } from '@chakra-ui/react'
 import { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { clearCreatedOrder, setCartProducts } from '../../redux/actions'
+import { updateCart } from '../../redux/actions/cart.actions'
+import { getOrderDetails } from '../../redux/actions/orders.actions'
 import AddressCard from '../AddressCard'
 import UserPaymentCard from '../PaymentCard'
-import { getOrderDetails } from '../../redux/actions/orders.actions'
 import s from './index.module.css'
 // import LoadingSpinner from '../LoadingSpinner'
 
@@ -18,10 +18,7 @@ export default function OrderConfirmation () {
 
   useEffect(() => {
     dispatch(getOrderDetails(orderId))
-    dispatch(setCartProducts([]))
-    return () => {
-      dispatch(clearCreatedOrder())
-    }
+    dispatch(updateCart([]))
   }, [createdOrder]) //eslint-disable-line
 
   function handleClick () {

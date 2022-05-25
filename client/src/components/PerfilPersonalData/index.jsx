@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { updateUserData } from '../../redux/actions'
+import { updateUserData } from '../../redux/actions/users.actions'
 import {
   Button,
   FormControl,
@@ -13,7 +13,7 @@ import {
 
 export default function UserPersonalData () {
   const dispatch = useDispatch()
-  const user = useSelector(state => state.user)
+  const user = useSelector(state => state.users.user)
   const [hasTried, setHasTried] = useState(false)
   const [userData, setUserData] = useState({
     email: '',

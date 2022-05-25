@@ -1,19 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { FormControl, Select, Flex, Button, Text, useToast } from '@chakra-ui/react'
-import { getCategories, removeCategory } from '../../redux/actions'
+import { removeCategory } from '../../redux/actions/categories.actions'
 
 export default function AdminCategoryAdd () {
   const dispatch = useDispatch()
-  const categories = useSelector(state => state.categories)
-  const token = useSelector(state => state.token)
+  const categories = useSelector(state => state.categories.data)
+  const token = useSelector(state => state.users.token)
   const toast = useToast()
   const [values, setValues] = useState({ categoryId: 0 })
   const [errors, setErrors] = useState({ categoryId: '' })
-
-  useEffect(() => {
-    dispatch(getCategories())
-  }, [])//eslint-disable-line
 
   function handleChange (e) {
     setValues({ ...values, categoryId: e.target.value })
@@ -21,7 +17,7 @@ export default function AdminCategoryAdd () {
 
   function handleSubmit () {
     if (validate() && token) {
-      dispatch(removeCategory(values))
+      dispatch(removeCategory(values.categoryId))
       setValues({ categoryId: 0 })
     } else {
       toast({

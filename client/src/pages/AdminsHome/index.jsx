@@ -1,8 +1,9 @@
 import React from 'react'
-
-// import s from './index.module.css'
 import { Flex, Tabs, TabPanels, Tab, TabPanel, Box, Heading } from '@chakra-ui/react'
 import { BiUserCircle, BiDirections, BiMoney, BiShoppingBag, BiHeart, BiStar } from 'react-icons/bi'
+
+import AdminCategoriesPanel from '../../components/AdminCategoriesPanel'
+
 export default function AdminsHome () {
   return (
     <Flex w='85vw'>
@@ -30,6 +31,14 @@ export default function AdminsHome () {
               _focus={{ borderColor: 'none' }}
               _active={{ color: 'white' }}
               fontWeight={500}
+            ><BiStar /> <Box textAlign='start' ml='10px'>CATEGORIAS</Box>
+            </Tab>
+            <Tab
+              justifyContent='flex-start'
+              w='100%'
+              _focus={{ borderColor: 'none' }}
+              _active={{ color: 'white' }}
+              fontWeight={500}
             ><BiMoney /> <Box textAlign='start' ml='10px'>SUCURSALES</Box>
             </Tab>
             <Tab
@@ -48,14 +57,6 @@ export default function AdminsHome () {
               fontWeight={500}
             ><BiHeart /> <Box textAlign='start' ml='10px'>ESPACIO PUBLICITARIO</Box>
             </Tab>
-            <Tab
-              justifyContent='flex-start'
-              w='100%'
-              _focus={{ borderColor: 'none' }}
-              _active={{ color: 'white' }}
-              fontWeight={500}
-            ><BiStar /> <Box textAlign='start' ml='10px'>LA CASA DE PAPEL</Box>
-            </Tab>
           </Flex>
 
           <TabPanels bg='secondary' overflow='scroll'>
@@ -66,6 +67,10 @@ export default function AdminsHome () {
               <Heading mb={5}>Gestion de productos</Heading>
             </TabPanel>
             <TabPanel>
+              <Heading mb={5}>Gestion de Categorias</Heading>
+              <AdminCategoriesPanel />
+            </TabPanel>
+            <TabPanel>
               <Heading mb={2}>Gestion de Sucursales</Heading>
             </TabPanel>
             <TabPanel>
@@ -74,9 +79,7 @@ export default function AdminsHome () {
             <TabPanel>
               <Heading mb={5}>Pautas publicitarias</Heading>
             </TabPanel>
-            <TabPanel>
-              <Heading mb={5}>Imprimir billetes a punta de pistola</Heading>
-            </TabPanel>
+
           </TabPanels>
         </Flex>
 
