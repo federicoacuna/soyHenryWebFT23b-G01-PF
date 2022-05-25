@@ -17,6 +17,7 @@ import './App.css'
 import { app } from './config/firebase-config' //eslint-disable-line
 import Payment from './pages/Payment'
 import store from './redux/store'
+import Footer from './components/Footer'
 
 function App () {
   const dispatch = useDispatch()
@@ -52,6 +53,7 @@ function App () {
         <Route exact path='/createreview/:productId' element={<ReviewCreator />} />
         <Route path='/confirmation/:orderId' element={<OrderConfirmation />} />
       </Routes>
+      <Footer />
     </div>
   )
 }

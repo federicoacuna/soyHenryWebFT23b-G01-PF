@@ -1,7 +1,7 @@
 
-import { ImCross } from 'react-icons/im'
 import { useDispatch } from 'react-redux'
 import { deleteFromWishList } from '../../redux/actions/index.js'
+import { Text} from '@chakra-ui/react' //eslint-disable-line
 
 export default function WishListButton ({ productId }) {
   const dispatch = useDispatch()
@@ -11,7 +11,7 @@ export default function WishListButton ({ productId }) {
 
   return (
     <div>
-      <button onClick={handleClose}><ImCross /></button>
+      <Text cursor='pointer' onClick={handleClose}>Eliminar</Text>
     </div>
 
   )
