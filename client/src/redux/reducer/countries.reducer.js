@@ -10,7 +10,7 @@ const countries = (state = initialState, action) => {
     case GET_COUNTRIES:
       return {
         ...state,
-        data: payload
+        data: payload.data
       }
 
     default:

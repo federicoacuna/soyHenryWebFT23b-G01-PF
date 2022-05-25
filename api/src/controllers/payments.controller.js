@@ -6,7 +6,7 @@ async function get (req, res) {
   try {
     const allUserPayments = await userPaymentService.getUserPayments(user.id)
 
-    allUserPayments ? res.status(200).send(allUserPayments) : res.status(400).json({ error: 'No se encontraron direcciones' })
+    allUserPayments ? res.status(200).send({ data: allUserPayments }) : res.status(400).json({ error: 'No se encontraron direcciones' })
   } catch (error) {
     res.status(400).json(error)
   }

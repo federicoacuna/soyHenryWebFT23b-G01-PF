@@ -12,7 +12,7 @@ const payments = (state = initialState, action) => {
     case GET_PAYMENTS:
       return {
         ...state,
-        payments: payload
+        payments: payload.data
       }
 
     default:

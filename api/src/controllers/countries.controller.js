@@ -3,7 +3,7 @@ const Countries = require('../services/countries.service')
 const get = async (req, res) => {
   try {
     const retrievedCountries = await Countries.getCountries()
-    retrievedCountries ? res.status(200).json(retrievedCountries) : res.status(400).json({ error: 'No country was found' })
+    retrievedCountries ? res.status(200).json({ data: retrievedCountries }) : res.status(400).json({ error: 'No country was found' })
   } catch (error) {
     res.status(400).json(error)
   }

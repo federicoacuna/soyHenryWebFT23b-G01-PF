@@ -6,10 +6,10 @@ const get = async (req, res) => {
     const user = await usersService.getUserByEmail(req.user.email)
     if (user.roleId === 2) {
       ordersService.admAllOrders()
-        .then(allOrders => allOrders ? res.status(200).json(allOrders) : res.status(400).json({ error: 'No orders' }))
+        .then(allOrders => allOrders ? res.status(200).json({ data: allOrders }) : res.status(400).json({ error: 'No orders' }))
     } else {
       ordersService.getOrdersByUser(user.id)
-        .then(retrievedOrders => retrievedOrders ? res.status(200).json(retrievedOrders) : res.status(400).json({ error: 'No orders where found matching the search criteria' }))
+        .then(retrievedOrders => retrievedOrders ? res.status(200).json({ data: retrievedOrders }) : res.status(400).json({ error: 'No orders where found matching the search criteria' }))
     }
   } catch (error) {
     res.status(400).json(error)
@@ -21,7 +21,7 @@ const getById = async (req, res) => {
   try {
     const user = await usersService.getUserByEmail(req.user.email)
     ordersService.getOrderDetails(orderId, user.id)
-      .then(orderDetails => orderDetails ? res.status(200).json(orderDetails) : res.status(400).json({ error: 'Requested order not found' }))
+      .then(orderDetails => orderDetails ? res.status(200).json({ data: orderDetails }) : res.status(400).json({ error: 'Requested order not found' }))
   } catch (error) {
     res.status(400).json(error)
   }
@@ -73,7 +73,7 @@ const update = async (req, res) => {
     if (user.roleId === 2) {
       const update = await ordersService.updateOrder(orderId, req.body)
       update
-        ? res.status(200).json(update)
+        ? res.status(200).json({ data: update })
         : res.status(400).json({ error: 'Error trying update order' })
     } else {
       res.json({ message: 'THIS FUNCTION HAS NOT BEEN IMPLEMENTED YET' })

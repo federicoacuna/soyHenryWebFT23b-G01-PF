@@ -10,7 +10,7 @@ async function get (req, res, next) {
     } else {
       const reviewForEmail = await Reviews.getReviewsForUserId(email)
       reviewForEmail
-        ? res.status(200).json(reviewForEmail)
+        ? res.status(200).json({ data: reviewForEmail })
         : res.status(404).json({ error: 'Reviews not found' })
     }
   } catch (error) {
@@ -24,7 +24,7 @@ async function create (req, res, next) {
   try {
     await Reviews.createReview(email, data)
     const reviewForEmail = await Reviews.getReviewsForUserId(email)
-    reviewForEmail ? res.status(200).json(reviewForEmail) : res.status(400).json({ error: 'Error adding review' })
+    reviewForEmail ? res.status(200).json({ data: reviewForEmail }) : res.status(400).json({ error: 'Error adding review' })
   } catch (error) {
     res.status(400).json(error)
   }

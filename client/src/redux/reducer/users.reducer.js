@@ -13,8 +13,8 @@ const users = (state = initialState, action) => {
     case LOG_IN:
       return {
         ...state,
-        user: payload.user,
-        token: payload.token
+        user: payload.data,
+        token: payload.data.token
       }
 
     case LOG_OUT:
@@ -27,7 +27,7 @@ const users = (state = initialState, action) => {
     case GET_USERS:
       return {
         ...state,
-        users: payload
+        users: payload.data
       }
 
     case UPDATE_USER_INFO:
