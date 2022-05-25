@@ -11,8 +11,8 @@ const PriceFilter = () => {
   }
 
   return (
-    <Box mb='1rem'>
-      <Heading size='sm' mb='0.5rem'>Rango de precio:</Heading>
+    <Box m='1rem'>
+      <Heading size='sm' mb='0.5rem'>Precio</Heading>
       <Flex columnGap='1rem' justifyContent='space-around'>
         <Input
           onChange={handleChange}
@@ -22,7 +22,7 @@ const PriceFilter = () => {
           placeholder='Mínimo'
           size='xs'
           bg='accent'
-          borderRadius='0.5rem'
+          borderRadius='0.3rem'
           w='5rem'
           textAlign='center'
           _focus
@@ -36,7 +36,7 @@ const PriceFilter = () => {
           placeholder='Máximo'
           size='xs'
           bg='accent'
-          borderRadius='0.5rem'
+          borderRadius='0.3rem'
           w='5rem'
           textAlign='center'
           _focus

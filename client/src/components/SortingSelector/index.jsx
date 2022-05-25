@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { setSorting } from '../../redux/actions/index'
+import { Box } from '@chakra-ui/react'
+import s from './index.module.css'
 
 export default function SortingSelector () {
   const dispatch = useDispatch()
@@ -10,14 +12,13 @@ export default function SortingSelector () {
   }
 
   return (
-    <>
-      <select onChange={(e) => handleSelect(e)} value={sorting || 'none'}>
-        <option value='none'>Ordenar por</option>
+    <Box bg='#333333'>
+      <select className={s.select} onChange={(e) => handleSelect(e)} value={sorting || 'none'}>
         <option value='rating,desc'>Mas relevantes</option>
         <option value='price,desc'>Mayor Precio</option>
         <option value='price,asc'>Menor Precio</option>
       </select>
-    </>
+    </Box>
 
   )
 }
