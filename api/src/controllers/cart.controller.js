@@ -6,7 +6,7 @@ const get = async (req, res) => {
   try {
     const user = await userService.getUserByEmail(req.user.email)
     const cart = await cartService.getCartItems(user.id)
-    res.status(200).json(cart)
+    res.status(200).json({ data: cart })
   } catch (err) {
     res.status(404).json(err)
   }

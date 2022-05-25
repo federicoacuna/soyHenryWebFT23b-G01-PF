@@ -12,13 +12,13 @@ const orders = (state = initialState, action) => {
     case GET_ORDERS:
       return {
         ...state,
-        orders: payload
+        orders: payload.data
       }
 
     case GET_ORDER_DETAILS:
       return {
         ...state,
-        orderDetails: payload
+        orderDetails: payload.data
       }
 
     case SET_ORDER_ITEMS:

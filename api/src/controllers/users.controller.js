@@ -6,7 +6,7 @@ const get = async (req, res) => {
   try {
     const user = await usersService.createUser(email)
     const userDetails = await usersService.getById(user.id)
-    userDetails ? res.status(200).json(userDetails) : res.status(400).json({ error: 'Error registering / signing in' })
+    userDetails ? res.status(200).json({ data: userDetails }) : res.status(400).json({ error: 'Error registering / signing in' })
   } catch (error) {
     res.status(400).json(error)
   }
@@ -22,7 +22,7 @@ const getById = async (req, res) => {
   }
   try {
     const user = await usersService.getById(id)
-    user ? res.status(200).json(user) : res.status(400).json({ error: 'No user was found' })
+    user ? res.status(200).json({ data: user }) : res.status(400).json({ error: 'No user was found' })
   } catch (error) {
     res.status(400).json(error)
   }
@@ -33,7 +33,7 @@ const create = async (req, res) => {
 
   try {
     const user = await usersService.createUser(email)
-    user ? res.status(200).json(user) : res.status(400).json({ error: 'Error registering / signing in' })
+    user ? res.status(200).json({ data: user }) : res.status(400).json({ error: 'Error registering / signing in' })
   } catch (error) {
     res.status(400).json(error)
   }
@@ -42,7 +42,7 @@ const create = async (req, res) => {
 const update = async (req, res) => {
   try {
     const user = await usersService.updateUser(req)
-    user ? res.status(200).json(user) : res.status(400).json({ error: 'Unable to update user' })
+    user ? res.status(200).json({ data: user }) : res.status(400).json({ error: 'Unable to update user' })
   } catch (error) {
     res.status(404).json(error)
   }

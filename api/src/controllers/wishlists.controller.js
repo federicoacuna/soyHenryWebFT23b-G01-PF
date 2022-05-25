@@ -5,7 +5,7 @@ async function get (req, res) {
   try {
     const user = await usersService.getUserByEmail(req.user.email)
     const wishList = await wishListService.getUserWishList(user.id)
-    res.status(200).json(wishList)
+    res.status(200).json({ data: wishList })
   } catch (error) {
     res.status(400).json(error)
   }
@@ -24,11 +24,11 @@ async function create (req, res) {
     wasCreated
       ? res.status(200).json({
         message: 'El item ha sido agregado con exito a favoritos',
-        payload: newWishList
+        data: newWishList
       })
       : res.status(400).json({
         error: 'El item ya se encuentra en favoritos',
-        payload: newWishList
+        data: newWishList
       })
   } catch (err) {
     res.status(400).json(err)
@@ -48,11 +48,11 @@ async function erase (req, res) {
     wasDeleted
       ? res.status(200).json({
         message: 'El item ha sido eliminado con exito a favoritos',
-        payload: newWishList
+        data: newWishList
       })
       : res.status(400).json({
         error: 'El item no se encuentra en favoritos',
-        payload: newWishList
+        data: newWishList
       })
   } catch (err) {
     res.status(400).json(err)
