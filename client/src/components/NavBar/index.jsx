@@ -74,7 +74,7 @@ const NavBar = () => {
 
   return (
     <Box>
-      <Box position='relative' height='5rem' bg='#333333' display='flex' justifyContent='space-between' color='accent' alignItems='center' pl='7rem' pr='7rem'>
+      <Box position='relative' height='5rem' bg='#333333' display='flex' justifyContent='space-between' color='white' alignItems='center' pl='7rem' pr='7rem'>
         <Link to='/' className={s.logo}>
           <Icon width='1.7rem' height='1.7rem' name='logo' as={BsShopWindow} />
           <span>Salchistore</span>
