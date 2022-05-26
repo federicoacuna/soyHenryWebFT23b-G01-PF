@@ -23,7 +23,11 @@ module.exports = (sequelize) => {
     },
     image: {
       type: DataTypes.ARRAY(DataTypes.STRING),
-      allowNull: false
+      allowNull: false,
+      get () {
+        const rawValue = this.getDataValue('image')
+        return rawValue.map(img => img.split('|')[0])
+      }
     },
     rating: {
       type: DataTypes.FLOAT,
