@@ -1,6 +1,6 @@
-import { Box, Flex, VStack, Text, Circle, Icon } from '@chakra-ui/react'
+import { Box, Flex, VStack, Text, Circle, Icon, VisuallyHidden } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
-import { MdCheckCircleOutline as CheckIcon } from 'react-icons/md'
+import { BsFillCheckCircleFill as CheckIcon } from 'react-icons/bs'
 import { FaCreditCard } from 'react-icons/fa'
 import { ReactComponent as MercadoPagoIcon } from '../../assets/logo/mercadoPago.svg'
 
@@ -10,7 +10,7 @@ export default function PaymentCard ({ id, paymentTypeId, cardNumber, expiration
   const imSelected = selectedId === id
 
   return (
-    <Flex alignItems='center' bg='white' borderRadius={3} mt={2} mb={2} onClick={onclick}>
+    <Flex boxShadow='md' w='100%' alignItems='center' bg='white' borderRadius={3} mt={2} mb={2} onClick={onclick}>
       <Flex w='100%' alignItems='center'>
         <Box m={4}>
           {cardNumber &&
@@ -20,7 +20,7 @@ export default function PaymentCard ({ id, paymentTypeId, cardNumber, expiration
           {paymentTypeId === 3 && <Icon as={MercadoPagoIcon} w='10rem' h='2.5rem' />}
         </Box>
         <VStack pt={3} pb={3} alignItems='flex-start'>
-          {paymentTypeId !== 3 ? <Text>{`${provider} ${cardNumberHidden}`}</Text> : <Text>{`${provider}`}</Text>}
+          {paymentTypeId !== 3 ? <Text>{`${provider} ${cardNumberHidden}`}</Text> : <VisuallyHidden>{`${provider}`}</VisuallyHidden>}
         </VStack>
       </Flex>
       <Flex m={5} justifyContent='center'>

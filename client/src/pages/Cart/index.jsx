@@ -41,7 +41,7 @@ export const Cart = () => {
               <CartItems />
               <Flex w='61.3rem' flexDirection='column' justifyContent='center' alignItems='flex-end'>
                 <Text mt='3.4rem' mb='3.4rem' fontSize='1.5rem'>Total: ${cartProducts.reduce((acc, p) => acc + (p.quantity * p.price), 0).toString().split('.')[0]} </Text>
-                {cartProducts.length > 0 ? <Button mb='2rem' onClick={handleSubmit} bg='accent' color='secondary'>Continuar compra</Button> : <p />}
+                {cartProducts.length > 0 ? <Button mb='2rem' onClick={handleSubmit} bg='accent' borderRadius='none' color='secondary'>Continuar compra</Button> : <p />}
               </Flex>
             </TabPanel>
             <TabPanel>

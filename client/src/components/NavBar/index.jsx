@@ -81,7 +81,7 @@ const NavBar = () => {
         </Link>
         <Box />
         <Box>
-          <UnorderedList display='flex' alignItems='center' gap='1rem' mr='5rem'>
+          <UnorderedList display='flex' alignItems='center' gap='1rem'>
             {token
               ? <>
                 <ListItem>
@@ -102,7 +102,10 @@ const NavBar = () => {
                   </>//eslint-disable-line
               : <ListItem fontSize='1.25rem' mr='2.5rem'><Link to='#' onClick={handleSubmit} name='ingresar'>Ingresar</Link></ListItem>}
             <ListItem display='flex' width='100%'>
-              <p className={s.trapecio} />
+              <Link to='/cart'>
+                {cartProducts > 0 ? <span>{cartProducts}</span> : undefined}
+                <BsCart fontSize='1.7rem' color='white' />
+              </Link>
             </ListItem>
           </UnorderedList>
         </Box>
@@ -116,10 +119,7 @@ const NavBar = () => {
       </Box>
       <Box position='absolute' top='-2' left='42%'>
         <SearchBar />
-        <Link className={token ? s.cartLink : s.cartLink2} to='/cart'>
-          {cartProducts > 0 ? <span>{cartProducts}</span> : undefined}
-          <BsCart fontSize='1.7rem' color='#333333' />
-        </Link>
+
       </Box>
     </Box>
   )

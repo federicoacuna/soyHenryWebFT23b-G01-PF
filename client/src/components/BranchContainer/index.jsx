@@ -1,7 +1,9 @@
 import BranchCard from '../BanchCard'
 import BranchCreateOrModify from '../BranchCreateOrModify'
 import { useState } from 'react'
-import s from './index.module.css'
+// import s from './index.module.css'
+import { Text, Button, Flex, useToast, RadioGroup, Radio, Stack, Box, Divider } from '@chakra-ui/react' //eslint-disable-line
+
 // import { useDispatch } from 'react-redux'
 // import { useSelector } from 'react-redux'
 
@@ -64,26 +66,26 @@ export default function BranchContainer () {
   }
 
   return (
-    <div className={s.container}>
+    <Flex flexDirection='column'>
       <div>
         {branches
           ? branches.map((el, i) =>
 
-            <BranchCard setIdBranch={setIdBranch} key={i} state={el.state} city={el.city} streetName={el.streetName} houseNumber={el.houseNumber} id={el.id} phoneNumber={el.phoneNumber} />
+            <BranchCard setIdBranch={setIdBranch} key={i} idBranch={idBranch} state={el.state} city={el.city} streetName={el.streetName} houseNumber={el.houseNumber} id={el.id} phoneNumber={el.phoneNumber} />
           )
           : 'Aún no hay Sucursales agregadas'}
       </div>
-      <div>
-        <button onClick={handleClick} name='add'>Crear Sucursal</button>
-        <button onClick={handleClick} name='modify'>Modificar</button>
-        <button onClick={handleClick} name='delete'>Eliminar</button>
-      </div>
+      <Flex mt='1.5rem'>
+        <Button _hover={{ bg: 'none' }} border='2px' borderColor='accent' color='accent' bg='white' mr='1rem' borderRadius='none' onClick={handleClick} name='add'>Crear Sucursal</Button>
+        <Button _hover={{ bg: 'none' }} border='2px' borderColor='accent' color='accent' bg='white' mr='1rem' borderRadius='none' onClick={handleClick} name='modify'>Modificar</Button>
+        <Button _hover={{ bg: 'none' }} border='2px' borderColor='accent' color='accent' bg='white' borderRadius='none' onClick={handleClick} name='delete'>Eliminar</Button>
+      </Flex>
       <div>
         {(state) && (idBranch === 'add' || typeof (idBranch) === 'number')
           ? <BranchCreateOrModify id={idBranch} setState={setState} setIdBranch={setIdBranch} state={state} branches={branches} />
           : ''}
       </div>
-    </div>
+    </Flex>
 
   )
 }
