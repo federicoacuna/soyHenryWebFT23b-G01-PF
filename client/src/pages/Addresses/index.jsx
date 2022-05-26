@@ -53,10 +53,10 @@ const AddressSelector = () => {
     <Flex flexDirection='column' justifyContent='center' alignItems='center'>
       <Breadcrumb mt='1rem' p='0rem 0rem 0rem 2rem' w='61.3rem' spacing='8px' separator='<'>
         <BreadcrumbItem>
-          <BreadcrumbLink><Link to='/cart'>Carrito</Link></BreadcrumbLink>
+          <BreadcrumbLink textDecoration='underline'><Link to='/cart'>Carrito</Link></BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbItem>
-          <BreadcrumbLink><Link to='#'>Checkout</Link></BreadcrumbLink>
+          <BreadcrumbLink textDecoration='underline'><Link to='#'>Checkout</Link></BreadcrumbLink>
         </BreadcrumbItem>
       </Breadcrumb>
       <Flex mb='2rem' ml='5.3rem' mr='5.3rem' w='61.3rem' justifyContent='space-between'>
@@ -88,12 +88,12 @@ const AddressSelector = () => {
                   <Text mt='2.3rem' mb='1rem' fontWeight={500} fontSize='larger'>Selecciona una sucursal:</Text>
                   <BranchContainer />
                 </Flex>}
-            <Button mt='2rem' borderRadius='none' name='continuar' color='white' bg='accent' onClick={handleClick}>Continuar</Button>
+            <Button mt='2rem' borderRadius='none' _hover={{ bg: 'accent' }} name='continuar' color='white' bg='accent' onClick={handleClick}>Continuar</Button>
 
           </Flex>
         </Flex>
         {/* column 2 */}
-        <Flex w='25rem' p='2rem 2rem 0rem 2rem' boxShadow='md' flexDirection='column'>
+        <Flex borderLeft='2px' borderColor='secondary' w='25rem' p='2rem 2rem 0rem 2rem' boxShadow='md' flexDirection='column'>
           <Text fontWeight={500} mb='1.3rem' fontSize='larger'>Resumen de la compra</Text>
           <Divider mb='1rem' />
           <Text mb='1rem'>Productos ({cartProducts.reduce(

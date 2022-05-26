@@ -97,9 +97,9 @@ const NavBar = () => {
                     </MenuButton>
                   </Flex>
                   <MenuList bg='#333333' mt='1rem' width='3rem'>
-                    <Link to='/perfil/' onClick={() => handleClick(0)}><MenuItem _focus={{ boxShadow: 'none' }} fontSize='1rem' bg='#333333' name='perfil'>Perfil</MenuItem></Link>
-                    <Link to='/perfil/' onClick={() => handleClick(3)}><MenuItem _focus={{ boxShadow: 'none' }} fontSize='1rem' bg='#333333' name='mis-compras'>Mis compras</MenuItem></Link>
-                    <MenuItem _focus={{ boxShadow: 'none' }} fontSize='1rem' bg='#333333' onClick={handleSubmit} name='salir'>Salir</MenuItem>
+                    <Link to='/perfil/' onClick={() => handleClick(0)}><MenuItem _active={{ bg: '#333333' }} _focus={{ boxShadow: 'none' }} fontSize='1rem' bg='#333333' name='perfil'>Perfil</MenuItem></Link>
+                    <Link to='/perfil/' onClick={() => handleClick(3)}><MenuItem _active={{ bg: '#333333' }} _focus={{ boxShadow: 'none' }} fontSize='1rem' bg='#333333' name='mis-compras'>Mis compras</MenuItem></Link>
+                    <MenuItem _focus={{ boxShadow: 'none' }} _active={{ bg: '#333333' }} fontSize='1rem' bg='#333333' onClick={handleSubmit} name='salir'>Salir</MenuItem>
                   </MenuList>
                 </Menu>
                   </>//eslint-disable-line

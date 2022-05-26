@@ -12,14 +12,13 @@ export const CategoryFilter = () => {
   return (
     <Box m='1rem'>
       <Heading size='sm' mb='0.5rem'>Categorías</Heading>
-      <UnorderedList ml='0'>
+      <UnorderedList ml='0' listStyleType='none'>
         {Array.isArray(categories) && categories.map(category => (
           <ListItem
             key={category.id + category.name}
             cursor='pointer'
             onClick={() => dispatch(addProductFilter({ name: 'category', value: category.id }))}
             color={Number(filters.category) === category.id ? '#000' : 'gray'}
-            textDecor={Number(filters.category) === category.id ? 'underline' : undefined}
           >
             {category.name}
           </ListItem>

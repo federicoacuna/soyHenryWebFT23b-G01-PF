@@ -14,7 +14,7 @@ export const CartItemContainer = () => {
             <CartItem key={product.id + product.name} product={product} />))}
           {/* eslint-disable-next-line */}
           </Flex>
-        : <Box h='20vh'>No hay productos en el carrito</Box>}
+        : <Box minHeight='42.5vh'>No hay productos en el carrito</Box>}
     </>
   )
 }

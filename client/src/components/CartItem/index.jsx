@@ -30,9 +30,9 @@ export default function CartItem ({ product }) {
   }
 
   return (
-    <Flex mt='1rem' mb='1rem' w='61.3rem' flexDirection='column' boxShadow='md'>
+    <Flex _hover={{ boxShadow: 'xl', transform: 'scale(1.010)', transition: 'ease 0.25s' }} transition='ease 0.25s' mt='1rem' mb='1rem' w='61.3rem' flexDirection='column' boxShadow='md'>
       <Flex mr='1.6rem' ml='1.6rem' justifyContent='center' mt='1.6rem'>
-        <Flex border='2px' borderColor='secondary' borderRadius='5px' mr='2.3rem' alignItems='center' w='7.6rem' h='7.6rem'>
+        <Flex borderRadius='5px' mr='2.3rem' alignItems='center' w='7.6rem' h='7.6rem'>
           <Image w='7.2rem' h='7.2rem' objectFit='contain' src={image[0]} alt={name} />
         </Flex>
         <Text mr='6.5rem' w='21.8rem' textOverflow='ellipsis' overflow='hidden'>{name}</Text>
