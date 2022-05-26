@@ -116,32 +116,35 @@ export default function UserPersonalData () {
   }
 
   return (
-    <FormControl onSubmit={handleSubmit} isRequired>
-      <Heading as='h2' size='x1'>DATOS DE SU CUENTA</Heading>
-      <FormLabel htmlFor='email'>Su cuenta de email es</FormLabel>
-      <Input onChange={(e) => handleChange(e)} name='email' type='text' value={userData.email || ''} placeholder={userData.email} disabled />
+    <Flex justifyContent='center' alignItems='center'>
+      <FormControl onSubmit={handleSubmit} isRequired width='75%'>
+        <Heading as='h3' size='x1'>DATOS DE SU CUENTA</Heading>
+        <FormLabel htmlFor='email'>Tu cuenta de email es</FormLabel>
+        <Input onChange={(e) => handleChange(e)} name='email' type='text' value={userData.email || ''} placeholder={userData.email} disabled />
 
-      <Heading as='h2' size='x1'>DATOS PERSONALES</Heading>
-      <FormLabel htmlFor='firstname'>Nombres</FormLabel>
-      <Input onChange={(e) => handleChange(e)} name='firstname' type='text' value={userData.firstname || ''} placeholder={userData.firstname ? userData.firstname : 'No has registrado nombres aún'} />
-      {errors.firstname && <Text color='red'>{errors.firstname}</Text>}
+        <Heading as='h4' size='x1'>DATOS PERSONALES</Heading>
+        <FormLabel htmlFor='firstname'>Nombres</FormLabel>
+        <Input onChange={(e) => handleChange(e)} name='firstname' type='text' value={userData.firstname || ''} placeholder={userData.firstname ? userData.firstname : 'No has registrado nombres aún'} />
+        {errors.firstname && <Text color='red'>{errors.firstname}</Text>}
 
-      <FormLabel htmlFor='lastname'>Apellidos</FormLabel>
-      <Input onChange={(e) => handleChange(e)} name='lastname' type='text' value={userData.lastname || ''} placeholder={userData.lastname ? userData.lastname : 'No has registrado apellidos aún'} />
-      {errors.lastname && <Text color='red'>{errors.lastname}</Text>}
+        <FormLabel htmlFor='lastname'>Apellidos</FormLabel>
+        <Input onChange={(e) => handleChange(e)} name='lastname' type='text' value={userData.lastname || ''} placeholder={userData.lastname ? userData.lastname : 'No has registrado apellidos aún'} />
+        {errors.lastname && <Text color='red'>{errors.lastname}</Text>}
 
-      <FormLabel htmlFor='phone'>Número de movil</FormLabel>
-      <Input onChange={(e) => handleChange(e)} name='phone' type='text' value={userData.phone || ''} placeholder={userData.phone ? userData.phone : 'No has registrado tu movil aún'} />
-      {errors.phone && <Text color='red'>{errors.phone}</Text>}
+        <FormLabel htmlFor='phone'>Número de movil</FormLabel>
+        <Input onChange={(e) => handleChange(e)} name='phone' type='text' value={userData.phone || ''} placeholder={userData.phone ? userData.phone : 'No has registrado tu movil aún'} />
+        {errors.phone && <Text color='red'>{errors.phone}</Text>}
 
-      <FormLabel htmlFor='birthdate'>¿Quieres cambiar tu fecha de nacimiento {userData.birthdate}?</FormLabel>
-      <Input onChange={(e) => handleChange(e)} name='birthdate' type='date' value={userData.birthdate ? userData.birthdate : '2000-01-01'} />
-      {errors.birthname && <Text color='red'>{errors.birthname}</Text>}
+        <FormLabel htmlFor='birthdate'>¿Quieres cambiar tu fecha de nacimiento {userData.birthdate}?</FormLabel>
+        <Input onChange={(e) => handleChange(e)} name='birthdate' type='date' value={userData.birthdate ? userData.birthdate : '2000-01-01'} />
+        {errors.birthname && <Text color='red'>{errors.birthname}</Text>}
 
-      <Flex flexDirection='row' justifyContent='end'>
-        <Button m={3} _hover={{ color: 'gray' }} color='#2C2C2E' border='2px' borderColor='#2C2C2E' onClick={handleClose}>Cancelar</Button>
-        <Button m={3} _hover={{ color: 'gray' }} color='white' bg='#2C2C2E' onClick={handleSubmit}>Guardar</Button>
-      </Flex>
-    </FormControl>
+        <Flex flexDirection='row' justifyContent='end'>
+          <Button m={3} bg='#0082E3' _hover={{ color: 'white', bg: '#0082E3' }} borderRadius='none' color='white' onClick={handleClose}>Cancelar</Button>
+          <Button m={3} bg='#0082E3' _hover={{ color: 'white', bg: '#0082E3' }} borderRadius='none' color='white' onClick={handleSubmit}>Guardar</Button>
+        </Flex>
+      </FormControl>
+    </Flex>
+
   )
 }

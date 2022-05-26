@@ -85,9 +85,7 @@ const NavBar = () => {
           <UnorderedList display='flex' alignItems='center' gap='1rem' mr='5rem'>
             {token
               ? <>
-                <ListItem>
-                  <div className={s.navLink} onClick={() => handleClick(4)}><MdOutlineFavoriteBorder /></div>
-                </ListItem>
+                <div className={s.navLink} onClick={() => handleClick(4)}><MdOutlineFavoriteBorder /></div>
                 <Menu>
                   <Flex bg='#333333' alignItems='center'>
                     <Avatar size='sm' mr={2} name={user.email && user.email.split('@')[0]} src='' />
