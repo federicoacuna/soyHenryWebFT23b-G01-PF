@@ -12,10 +12,14 @@
   cursor:pointer;
 }
 
-.cartLink{
+/* .cartLink{
   position: absolute;
   top: 2rem;
   right: 7.2rem;
+} */
+
+.cartLink span{
+  color: white;
 }
 
 .cart{

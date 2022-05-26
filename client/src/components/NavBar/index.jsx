@@ -79,13 +79,14 @@ const NavBar = () => {
         <Link to='/' className={s.logo}>
           <Icon width='1.7rem' height='1.7rem' name='logo' as={BsShopWindow} />
           <span>Salchistore</span>
+          <Box>
+            <Link to='/administration'><Box color='white'>Admin</Box></Link>
+          </Box>
         </Link>
-        <Box mr='70rem'>
-          <Link to='/administration'><Button color='white'>ADMIN</Button></Link>
-        </Box>
+
         <Box />
         <Box>
-          <UnorderedList display='flex' alignItems='center' gap='1rem' mr='5rem'>
+          <UnorderedList display='flex' alignItems='center' gap='1rem'>
             {token
               ? <>
                 <div className={s.navLink} onClick={() => handleClick(4)}><MdOutlineFavoriteBorder /></div>
@@ -102,11 +103,11 @@ const NavBar = () => {
                   </MenuList>
                 </Menu>
                   </>//eslint-disable-line
-              : <ListItem fontSize='1.25rem' mr='2.5rem'><Link to='#' onClick={handleSubmit} name='ingresar'>Ingresar</Link></ListItem>}
-            <ListItem display='flex' alignItems='flex-start' className={s.trapecio}>
+              : <ListItem listStyleType='none' fontSize='1.25rem' mr='2.5rem'><Link to='#' onClick={handleSubmit} name='ingresar'>Ingresar</Link></ListItem>}
+            <ListItem display='flex' alignItems='flex-start' color='white'>
               <Link to='/cart' className={s.cartLink}>
                 {cartProducts > 0 ? <span>{cartProducts}</span> : undefined}
-                <BsCart fontSize='1.7rem' color='#333333' />
+                <BsCart fontSize='1.7rem' color='white' />
               </Link>
             </ListItem>
           </UnorderedList>
