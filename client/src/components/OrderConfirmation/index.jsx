@@ -2,10 +2,11 @@ import { Box, Flex, Divider, Button, Text, VisuallyHidden } from '@chakra-ui/rea
 import { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { clearCreatedOrder, setCartProducts } from '../../redux/actions'
+import { setCartProducts } from '../../redux/actions/cart.actions'
+import { clearCreatedOrder, getOrderDetails } from '../../redux/actions/orders.actions'
 import AddressCard from '../AddressCard'
 import UserPaymentCard from '../PaymentCard'
-import { getOrderDetails } from '../../redux/actions/orders.actions'
+
 import { BsFillCheckCircleFill } from 'react-icons/bs'
 
 export default function OrderConfirmation () {

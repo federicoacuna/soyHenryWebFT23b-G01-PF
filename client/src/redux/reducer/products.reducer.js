@@ -14,8 +14,8 @@ const productsReducer = (state = initialState, action) => {
     case GET_PRODUCTS:
       return {
         ...state,
-        data: payload.data,
-        pagination: payload.data.pagination
+        data: payload.rows,
+        pagination: payload.pagination
       }
 
     case GET_PRODUCT_DETAILS:

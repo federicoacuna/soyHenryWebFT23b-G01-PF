@@ -11,7 +11,6 @@ export const getProducts = async (options) => {
   }
 
   const { data } = await axios.get(urlString)
-
   return data
 }
 
@@ -23,7 +22,6 @@ export const getProduct = async (productId) => {
       Authorization: `Bearer ${token}`
     }
   })
-
   return data
 }
 

@@ -39,11 +39,11 @@ export const createNewProduct = (newProduct) => {
 export const getProductsList = (searchOptions) => {
   return async (dispatch) => {
     try {
-      const productList = await getProducts(searchOptions)
+      const { data } = await getProducts(searchOptions)
 
       dispatch({
         type: GET_PRODUCTS,
-        payload: productList
+        payload: data
       })
     } catch (error) {
       const toast = {
