@@ -13,7 +13,7 @@ const create = async (req, res) => {
   try {
     if (!state || !city || !streetName || !houseNumber || !countryId) { return res.status(401).json({ message: 'Faltan datos para poder agregar sucursal' }) } else if (phoneNumber && ((isNaN((parseInt(phoneNumber)))))) { return res.status(401).json({ mesagge: 'El telefóno solo puede contener numeros' }) } else {
       const newBranch = await branchService.addNewBranch(req.body)
-      if (Array.isArray(newBranch)) { return res.status(400).json({ message: 'La sucursal ya se encuentra agregada' }) } else {
+      if (newBranch.exists) { return res.status(400).json({ message: 'La sucursal ya se encuentra agregada' }) } else {
         const branches = await branchService.getBranches()
         res.status(200).json({ data: branches, message: 'sucursal agregada con exito' })
       }

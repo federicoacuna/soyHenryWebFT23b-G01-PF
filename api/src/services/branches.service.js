@@ -12,7 +12,7 @@ const getBranches = async () => {
 const addNewBranch = async (branch) => {
   const { state, city, streetName, houseNumber, countryId, phoneNumber } = branch
   try {
-    const query = await Branch.findAll({
+    const query = await Branch.findOne({
       where: {
         countryId,
         state,
@@ -21,13 +21,16 @@ const addNewBranch = async (branch) => {
         houseNumber
       }
     })
-    if (query.length === 0) {
+    if (!query) {
       let newBranch
       if (phoneNumber) {
         newBranch = await Branch.create({ state, city, streetName, houseNumber, countryId, phoneNumber })
       } else { newBranch = await Branch.create({ state, city, streetName, houseNumber, countryId }) }
       return newBranch
-    } else return query
+    } else {
+      query.exists = true
+      return query
+    }
   } catch (error) {
     return error
   }
