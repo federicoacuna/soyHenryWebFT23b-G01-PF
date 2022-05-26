@@ -12,14 +12,13 @@ export default function BrandFilter () {
   return (
     <Box m='1rem'>
       <Heading size='sm' mb='0.5rem'>Marcas</Heading>
-      <UnorderedList ml='0'>
+      <UnorderedList ml='0' listStyleType='none'>
         {brands.map(brand => (
           <ListItem
             key={brand.id + brand.name}
             cursor='pointer'
             onClick={() => dispatch(addProductFilter({ name: 'brand', value: brand.id }))}
             color={Number(options.brand) === brand.id ? '#000' : 'gray'}
-            textDecor={Number(options.brand) === brand.id ? 'underline' : undefined}
           >
             {brand.name}
           </ListItem>

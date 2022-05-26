@@ -26,8 +26,8 @@ export const Cart = () => {
       <Flex mt='1rem' flexDirection='column' justifyContent='center' alignItems='center'>
         <Tabs w='61.3rem'>
           <TabList color='accent' _active={{ color: 'accent' }}>
-            <Tab>Carrito</Tab>
-            <Tab>Lista de deseos</Tab>
+            <Tab _focus={{ outline: 'none' }}>Carrito</Tab>
+            <Tab _focus={{ outline: 'none' }}>Lista de deseos</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>
@@ -36,7 +36,7 @@ export const Cart = () => {
                 {totalProductCount > 0 &&
                   <>
                     <Text mt='3.4rem' mb='3.4rem' fontSize='1.5rem'>Total: ${totalProductCount} </Text>
-                    <Button mb='2rem' onClick={handleSubmit} bg='accent' color='secondary'>Continuar compra</Button>
+                    <Button mb='2rem' onClick={handleSubmit} bg='accent' color='secondary' borderRadius='none' _hover={{ bg: 'accent' }}>Continuar compra</Button>
                   </>}
               </Flex>
             </TabPanel>
