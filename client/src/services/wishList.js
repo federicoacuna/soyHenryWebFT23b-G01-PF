@@ -20,7 +20,6 @@ export const postWishlistItem = async function (productId) {
       Authorization: `Bearer ${token}`
     }
   })
-  console.log(data)
   return data
 }
 

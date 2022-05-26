@@ -80,6 +80,9 @@ const NavBar = () => {
           <Icon width='1.7rem' height='1.7rem' name='logo' as={BsShopWindow} />
           <span>Salchistore</span>
         </Link>
+        <Box mr='70rem'>
+          <Link to='/administration'><Button color='white'>ADMIN</Button></Link>
+        </Box>
         <Box />
         <Box>
           <UnorderedList display='flex' alignItems='center' gap='1rem' mr='5rem'>

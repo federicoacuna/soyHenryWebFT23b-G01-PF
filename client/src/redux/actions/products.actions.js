@@ -4,17 +4,17 @@ import { GET_PRODUCTS, GET_PRODUCT_DETAILS, ADD_PRODUCTS_FILTER, SET_TOAST, CLEA
 export const createNewProduct = (newProduct) => {
   return async (dispatch) => {
     try {
-      const productsList = await postProduct(newProduct)
+      const { data, message } = await postProduct(newProduct)
       const toast = {
         title: 'Producto Agregada!',
-        description: 'Podras ver el progreso de tu compra en tu perfil.',
+        description: message,
         status: 'success',
-        duration: 6500,
+        duration: 5000,
         isClosable: true
       }
       dispatch({
         type: GET_PRODUCTS,
-        payload: productsList
+        payload: data
       })
       dispatch({
         type: SET_TOAST,
@@ -25,7 +25,7 @@ export const createNewProduct = (newProduct) => {
         title: 'Error interno!',
         description: 'No pudimos guardar la producto.',
         status: 'error',
-        duration: 4500,
+        duration: 3500,
         isClosable: true
       }
       dispatch({
@@ -86,20 +86,20 @@ export const getProductDetails = (productId) => {
   }
 }
 
-export const updateProduct = (productId) => {
+export const updateProduct = (productId, newValue) => {
   return async (dispatch) => {
     try {
-      const productsList = await putProduct(productId)
+      const { data, message } = await putProduct(productId, newValue)
       const toast = {
         title: 'Producto Actualizado.',
-        description: 'Se veran reflejados los cambios inmediatamente.',
+        description: message,
         status: 'success',
-        duration: 6500,
+        duration: 5000,
         isClosable: true
       }
       dispatch({
         type: GET_PRODUCTS,
-        payload: productsList
+        payload: data
       })
       dispatch({
         type: SET_TOAST,
@@ -110,7 +110,7 @@ export const updateProduct = (productId) => {
         title: 'Error interno.',
         description: 'No pudimos actualizar el producto.',
         status: 'error',
-        duration: 6500,
+        duration: 3500,
         isClosable: true
       }
       dispatch({
@@ -124,17 +124,17 @@ export const updateProduct = (productId) => {
 export const removeProduct = (productId) => {
   return async (dispatch) => {
     try {
-      const productsList = await deleteProduct(productId)
+      const { data, message } = await deleteProduct(productId)
       const toast = {
         title: 'Producto Eliminado.',
-        description: 'Ya no estara disponible para la venta.',
+        description: message,
         status: 'success',
-        duration: 6500,
+        duration: 5000,
         isClosable: true
       }
       dispatch({
         type: GET_PRODUCTS,
-        payload: productsList
+        payload: data
       })
       dispatch({
         type: SET_TOAST,
@@ -145,7 +145,7 @@ export const removeProduct = (productId) => {
         title: 'Error interno.',
         description: 'No se pudo eliminar la producto.',
         status: 'error',
-        duration: 4500,
+        duration: 3500,
         isClosable: true
       }
       dispatch({
