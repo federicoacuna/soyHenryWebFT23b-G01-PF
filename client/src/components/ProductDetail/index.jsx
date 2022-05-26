@@ -1,13 +1,15 @@
 import CartButton from '../CartButton'
 import s from './index.module.css'
-import { Heading, Center, Container, Flex, Text, Button } from '@chakra-ui/react'
-import { IoMdArrowRoundBack } from 'react-icons/io'
-import { Link, useParams, useNavigate } from 'react-router-dom'
+import { Center, Container, Flex, Text, Button, Box } from '@chakra-ui/react'
+
+import { useParams, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { getProductDetails } from '../../redux/actions/products.actions'
 import ReviewCard from '../ReviewCard'
 import BuyNowButton from '../BuyNowButton'
+import { FcLikePlaceholder } from 'react-icons/fc'
+import { AiFillStar } from 'react-icons/ai'
 
 function ProductDetail () {
   const product = useSelector(state => state.products.productDetail)
@@ -24,26 +26,35 @@ function ProductDetail () {
   }, [])//eslint-disable-line
 
   return (
-    <Flex alignItems='flex-start'>
-      <Link to='/'><Flex position='relative' mt='40px' ml='40px'><IoMdArrowRoundBack size={30} /></Flex></Link>
-      <Center w='100%' p={4}>
-        <Flex flexDirection='column' alignItems='center' gap='1rem'>
-          <Flex alignItems='center' justifyContent='center' boxShadow='lg' borderRadius='10' bg='#E5E5EA' p={4} color='#black'>
-            <Container maxW='md'>
-              <img className={s.product__img} src={product.image} alt={product.name} />
+    <Flex flexDirection='column'>
+      <Flex pl='7rem' pr='7rem' pt='3rem' pb='3rem' justifyContent='center' alignItems='center' borderColor='red'>
+        <Center display='flex' justifyContent='center' alignItems='center' borderColor='blue'>
+          <Flex w='80rem' alignItems='flex-start' justifyContent='center' bg='#white' color='#black'>
+            <Container ml='15rem' mt='3rem' width='100%'>
+              <Flex gap='1rem'>
+                <Flex flexDirection='column' gap='0.5rem' boxShadow='md'>
+                  <img className={s.productImgLittle} src={product.image} alt={product.name} />
+                  <img className={s.productImgLittle} src={product.image} alt={product.name} />
+                  <img className={s.productImgLittle} src={product.image} alt={product.name} />
+                </Flex>
+                <Box boxShadow='md'>
+                  <img className={s.productImg} src={product.image} alt={product.name} />
+                </Box>
+
+              </Flex>
+
             </Container>
-            <Container maxW='md'>
-              <Heading textShadow='2px 2px 5px rgba(0,0,0,0.25)'>{product.name}</Heading>
-              <Text pt={3}>
+            <Container minHeight='10rem' boxShadow='md' mr='15rem' width='15rem' p='1rem' gap='0.2rem' display='flex' flexDirection='column' justifyContent='center' alignItems='center'>
+              <Box alignSelf='flex-end'><FcLikePlaceholder fontSize='1.7rem' /></Box>
+              <Text fontWeight='bold'>{product.name}</Text>
+              <Text alignSelf='flex-start' fontWeight='bold'>
                 {product.category && product.category.name}
               </Text>
-              <Text fontSize='xl' fontWeight='bold' mt={3}>${product.price}</Text>
-              <Text fontWeight='bold' pt={3}>Especificaciones:</Text>
-              <Text>{product.description}</Text>
-              <Text fontWeight='bold' pt={3}>Marca:</Text>
-              <Text>{product.brand && product.brand.name}</Text>
-              <Text fontWeight='bold' pt={3}>Modelo:</Text>
-              <Text>{product.model}</Text>
+              <Text alignSelf='flex-start' mt={3}>${product.price}</Text>
+              <Text fontWeight='bold' pt={3} alignSelf='flex-start'>Marca</Text>
+              <Text alignSelf='flex-start'>{product.brand && product.brand.name}</Text>
+              <Text alignSelf='flex-start' fontWeight='bold' pt={3}>Modelo</Text>
+              <Text alignSelf='flex-start'>{product.model}</Text>
 
               <Flex mt='10px' justifyContent='flex-start'>
                 <BuyNowButton />
@@ -52,21 +63,40 @@ function ProductDetail () {
               </Flex>
             </Container>
           </Flex>
-          <Flex gap='1rem' flexDirection='column' width='100%'>
-            {Array.isArray(product.reviews) && product.reviews.map((r, i) => (
-              <ReviewCard
-                key={r.productId + i}
-                rating={r.rating}
-                review={r.review}
-                productId={r.productId}
-                productName={r.name}
-                productImage={r.image}
-              />
-            ))}
+        </Center>
+      </Flex>
+      <Flex pl='7rem' pr='7rem' pt='3rem' pb='3rem' borderColor='aqua' justifyContent='space-between'>
+        <Flex p='1rem' borderColor='green' ml='6rem' width='50%' flexDirection='column'>
+          <Text fontWeight='bold'>Descripcion del producto</Text>
+          <Text>{product.description}</Text>
+        </Flex>
+        <Flex p='1rem' borderColor='green' width='25%' gap='1rem' flexDirection='column'>
+          <Text fontWeight='bold'>Promedio reviews</Text>
+          <Flex gap='1rem' justifyContent='flex-start' alignItems='center'>
+            <Text fontSize='1.2rem'>3.3</Text>
+            <Text display='flex' gap='0.2rem'><AiFillStar color='orange' fontSize='1.3rem' /><AiFillStar color='orange' fontSize='1.3rem' /><AiFillStar color='orange' fontSize='1.3rem' /></Text>
           </Flex>
         </Flex>
-      </Center>
+      </Flex>
+
+      <Flex pl='7rem' pr='7rem' pt='3rem' pb='3rem' borderColor='orange' flexDirection='column' width='100%'>
+        <Flex boxShadow='md' min-height='5rem' p='1rem' gap='1rem' ml='5rem' flexDirection='column' justifyContent='flex-start' alignItems='flex-start'>
+          <Text display='flex' gap='0.2rem'><AiFillStar color='orange' fontSize='1.3rem' /><AiFillStar color='orange' fontSize='1.3rem' /><AiFillStar color='orange' fontSize='1.3rem' /></Text>
+          <Text>Ea iusto unde qui tempora velit vel enim error aut impedit repellendus rem atque architecto aut dolor autem? Hic galisum natus sed quas quia qui nihil laborum.</Text>
+        </Flex>
+        {Array.isArray(product.reviews) && product.reviews.map((r, i) => (
+          <ReviewCard
+            key={r.productId + i}
+            rating={r.rating}
+            review={r.review}
+            productId={r.productId}
+            productName={r.name}
+            productImage={r.image}
+          />
+        ))}
+      </Flex>
     </Flex>
+
   )
 }
 
