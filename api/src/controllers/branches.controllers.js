@@ -13,7 +13,7 @@ const create = async (req, res) => {
   try {
     if (!state || !city || !streetName || !houseNumber || !countryId) { return res.status(401).json({ message: 'Faltan datos para poder agregar sucursal' }) } else if (phoneNumber && ((isNaN((parseInt(phoneNumber)))))) { return res.status(401).json({ mesagge: 'El telefóno solo puede contener numeros' }) } else {
       const newBranch = await branchService.addNewBranch(req.body)
-      if (newBranch.exists) { return res.status(400).json({ message: 'La sucursal ya se encuentra agregada' }) } else {
+      if (!newBranch) { return res.status(400).json({ message: 'La sucursal ya se encuentra agregada' }) } else {
         const branches = await branchService.getBranches()
         res.status(200).json({ data: branches, message: 'sucursal agregada con exito' })
       }
@@ -29,7 +29,7 @@ const update = async (req, res) => {
   try {
     if (!id || !state || !city || !streetName || !houseNumber || !countryId) { return res.status(400).json({ message: 'Faltan datos para poder modificar la sucursal' }) } else if (phoneNumber && ((isNaN((parseInt(phoneNumber)))))) { return res.status(401).json({ mesagge: 'El telefóno solo puede contener numeros' }) } else {
       const modifiedBranch = await branchService.modifyBranch(req.body)
-      if (!modifiedBranch) { return res.status(404).json({ message: 'La sucursal que busca modificar no existe o fue eliminada' }) } else {
+      if (!modifiedBranch) { return res.status(404).json({ message: 'No se pudo agregar por que ya existe otra con esos datos o fue eliminada' }) } else {
         const branches = await branchService.getBranches()
         res.status(200).json({ data: branches, message: 'Sucursal modificada con exito' })
       }
