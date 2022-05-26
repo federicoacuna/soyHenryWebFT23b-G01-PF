@@ -14,7 +14,7 @@ export const sendToken = async (token) => {
 }
 
 export const updateUser = async function (newData) {
-  const { token } = store.getState()
+  const { token } = store.getState().users
   const { data } = await axios.put(endpoint, newData, {
     headers: {
       Authorization: `Bearer ${token}`

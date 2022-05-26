@@ -1,6 +1,6 @@
 const { Router } = require('express')
 const router = Router()
-const { create, remove, get, update, mpValidator } = require('../controllers/orders.controller')
+const { create, remove, get, getById, update, mpValidator } = require('../controllers/orders.controller')
 const middleware = require('../middleware')
 
 // MERCADO PAGO
@@ -10,7 +10,7 @@ router.use(middleware.decodeToken)
 
 router.get('/', get)
 
-router.get('/:orderId', get)
+router.get('/:orderId', getById)
 
 router.post('/', create)
 

@@ -11,9 +11,9 @@ const get = async (req, res) => {
 
 const create = async (req, res) => {
   try {
-    const category = await CategoriesService.createCategory(req.body)
+    const wasCreated = await CategoriesService.createCategory(req.body)
     const all = await CategoriesService.getAllCategories()
-    category
+    wasCreated
       ? res.status(200).json({
         message: 'La categoría ha sido agregada exitosamente',
         payload: all
@@ -23,7 +23,7 @@ const create = async (req, res) => {
         payload: all
       })
   } catch (error) {
-    res.status(400).json(error)
+    res.status(400).json({ error: error.message })
   }
 }
 
@@ -32,8 +32,9 @@ const remove = async (req, res) => {
 
   try {
     const wasDeleted = await CategoriesService.removeCategory(categoryId)
+    console.log(wasDeleted)
     const all = await CategoriesService.getAllCategories()
-    wasDeleted
+    wasDeleted > 0
       ? res.status(200).json({
         message: 'La categoría ha sido eliminada exitosamente',
         payload: all

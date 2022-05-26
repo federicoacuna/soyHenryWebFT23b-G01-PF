@@ -2,11 +2,11 @@ import { Spinner } from '@chakra-ui/react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserAddresses } from '../../redux/actions/addresses.actions'
-import { setUserAddress } from '../../redux/actions'
+import { setOrderAddress } from '../../redux/actions/orders.actions'
 import AddressCard from '../AddressCard'
 
 export default function AddressContainer () {
-  const addresses = useSelector(state => state.addresses)
+  const addresses = useSelector(state => state.addresses.data)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export default function AddressContainer () {
             city={address.city}
             state={address.state}
             country={address.country.countryName}
-            onclick={() => dispatch(setUserAddress(address.id))}
+            onclick={() => dispatch(setOrderAddress(address))}
                                    />
         )
         : <Spinner />}

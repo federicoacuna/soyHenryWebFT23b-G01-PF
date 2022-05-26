@@ -11,7 +11,7 @@ async function getUserAddresses (userId) {
 
     return userAddresses
   } catch (error) {
-    console.log(error)
+    return error
   }
 }
 
@@ -34,22 +34,21 @@ async function createAddress (newAddress) {
 
     return wasCreated
   } catch (error) {
-    console.log(error)
+    return error
   }
 }
 
 async function removeAddress (addressId) {
   try {
-    const [updatedRows] = await UserAddress.update({
+    const updatedRows = await UserAddress.update({
       deleted: true
     },
     {
       where: { id: addressId }
     })
-
-    return updatedRows === 1
+    return updatedRows
   } catch (error) {
-    console.log(error)
+    return error
   }
 }
 

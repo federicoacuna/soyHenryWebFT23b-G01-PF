@@ -4,8 +4,18 @@ import axios from 'axios'
 const { token } = store.getState()
 const endpoint = '/reviews'
 
-export const updateReview = async function (newData) {
-  const { data } = await axios.put(endpoint, newData, {
+export const putReview = async function (reviewId) {
+  const { data } = await axios.put(`${endpoint}/${reviewId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+
+  return data
+}
+
+export const deleteReview = async function (reviewId) {
+  const { data } = await axios.put(`${endpoint}/${reviewId}`, {
     headers: {
       Authorization: `Bearer ${token}`
     }

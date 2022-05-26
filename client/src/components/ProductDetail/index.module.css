@@ -1,0 +1,13 @@
+.productImg {
+  width: 18.75rem;
+  height: 18.75rem;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.productImgLittle {
+  width: 5.906rem;
+  height: 5.906rem;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}

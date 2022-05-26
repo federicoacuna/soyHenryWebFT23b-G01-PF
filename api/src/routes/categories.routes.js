@@ -6,7 +6,9 @@ const middleware = require('../middleware')
 router.get('/', get)
 
 router.use(middleware.decodeToken)
+
 router.post('/', create)
+
 router.delete('/:categoryId', remove)
 
 module.exports = router
