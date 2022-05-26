@@ -46,7 +46,7 @@ async function create (req, res, next) {
     // Guarda el producto en la base de datos
     const newProduct = await productsService.saveProduct({ name, description, model, price, image, categoryId, brandId })
 
-    res.json({ data: newProduct, message: 'El producto ha sido creado' })
+    res.status(201).json({ data: newProduct, message: 'El producto ha sido creado' })
   } catch (error) {
     console.log(error)
     if (image.every(img => typeof img === 'string')) {
