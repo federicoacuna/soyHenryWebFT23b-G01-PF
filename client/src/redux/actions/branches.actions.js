@@ -4,17 +4,17 @@ import { GET_BRANCHES, SET_TOAST } from '../constants'
 export const createNewBranch = (newBranch) => {
   return async (dispatch) => {
     try {
-      const branchList = await postBranch(newBranch)
+      const { data, message } = await postBranch(newBranch)
       const toast = {
         title: 'Sucursal Agregada!',
-        description: 'Ya se podra operar con la misma.',
+        description: message,
         status: 'success',
-        duration: 6500,
+        duration: 5000,
         isClosable: true
       }
       dispatch({
         type: GET_BRANCHES,
-        payload: branchList
+        payload: data
       })
       dispatch({
         type: SET_TOAST,
@@ -25,7 +25,7 @@ export const createNewBranch = (newBranch) => {
         title: 'Error interno!',
         description: 'No pudimos guardar la sucursal.',
         status: 'error',
-        duration: 4500,
+        duration: 3500,
         isClosable: true
       }
       dispatch({
@@ -50,7 +50,7 @@ export const getBranchesList = () => {
         title: 'Error interno!',
         description: 'No pudimos recuperar la lista de sucursales.',
         status: 'error',
-        duration: 4500,
+        duration: 3500,
         isClosable: true
       }
       dispatch({
@@ -61,20 +61,20 @@ export const getBranchesList = () => {
   }
 }
 
-export const updateBranch = (branchId) => {
+export const updateBranch = (branchId, newValues) => {
   return async (dispatch) => {
     try {
-      const response = await putBranch(branchId)
+      const { data, message } = await putBranch(branchId, newValues)
       const toast = {
         title: 'Sucursal Actualizada.',
-        description: 'Ya se podra consulta la nueva informacion.',
+        description: message,
         status: 'success',
-        duration: 6500,
+        duration: 5000,
         isClosable: true
       }
       dispatch({
         type: GET_BRANCHES,
-        payload: response
+        payload: data
       })
       dispatch({
         type: SET_TOAST,
@@ -85,7 +85,7 @@ export const updateBranch = (branchId) => {
         title: 'Error interno.',
         description: 'No pudimos actualizar la sucursal.',
         status: 'error',
-        duration: 6500,
+        duration: 3500,
         isClosable: true
       }
       dispatch({
@@ -99,17 +99,17 @@ export const updateBranch = (branchId) => {
 export const removeBranch = (branchId) => {
   return async (dispatch) => {
     try {
-      const response = await deleteBranch(branchId)
+      const { data, message } = await deleteBranch(branchId)
       const toast = {
         title: 'Sucursal Eliminada.',
-        description: 'Ya no estara disponible para operar.',
+        description: message,
         status: 'success',
-        duration: 6500,
+        duration: 5000,
         isClosable: true
       }
       dispatch({
         type: GET_BRANCHES,
-        payload: response
+        payload: data
       })
       dispatch({
         type: SET_TOAST,
@@ -120,7 +120,7 @@ export const removeBranch = (branchId) => {
         title: 'Error interno.',
         description: 'No pudimos eliminar la sucursal.',
         status: 'error',
-        duration: 4500,
+        duration: 3500,
         isClosable: true
       }
       dispatch({

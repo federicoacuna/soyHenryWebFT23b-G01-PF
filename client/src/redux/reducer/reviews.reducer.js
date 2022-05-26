@@ -11,7 +11,7 @@ const addresses = (state = initialState, action) => {
     case GET_USER_REVIEWS:
       return {
         ...state,
-        data: payload.data
+        data: payload
       }
 
     default:

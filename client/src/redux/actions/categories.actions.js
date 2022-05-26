@@ -4,7 +4,7 @@ import { GET_CATEGORIES, SET_TOAST } from '../constants'
 export const createNewCategory = (newCategory) => {
   return async (dispatch) => {
     try {
-      const { message, payload } = await postCategory(newCategory)
+      const { message, data } = await postCategory(newCategory)
       const toast = {
         title: 'Categoria Agregada!',
         description: message,
@@ -14,7 +14,7 @@ export const createNewCategory = (newCategory) => {
       }
       dispatch({
         type: GET_CATEGORIES,
-        payload
+        payload: data
       })
       dispatch({
         type: SET_TOAST,
@@ -62,20 +62,20 @@ export const getCategoriesList = () => {
   }
 }
 
-export const updateCategory = (categoryId) => {
+export const updateCategory = (categoryId, values) => {
   return async (dispatch) => {
     try {
-      const categoriesList = await putCategory(categoryId)
+      const { data, message } = await putCategory(categoryId, values)
       const toast = {
         title: 'Categoria Actualizada.',
-        description: 'Ya se podra operar con la misma.',
+        description: message,
         status: 'success',
-        duration: 6500,
+        duration: 5000,
         isClosable: true
       }
       dispatch({
         type: GET_CATEGORIES,
-        payload: categoriesList
+        payload: data
       })
       dispatch({
         type: SET_TOAST,
@@ -86,7 +86,7 @@ export const updateCategory = (categoryId) => {
         title: 'Error interno.',
         description: 'No pudimos actualizar la categoria.',
         status: 'error',
-        duration: 6500,
+        duration: 3500,
         isClosable: true
       }
       dispatch({
@@ -100,17 +100,17 @@ export const updateCategory = (categoryId) => {
 export const removeCategory = (categoryId) => {
   return async (dispatch) => {
     try {
-      const { message, payload } = await deleteCategory(categoryId)
+      const { message, data } = await deleteCategory(categoryId)
       const toast = {
         title: 'Categoria Eliminada.',
         description: message,
         status: 'success',
-        duration: 6500,
+        duration: 5000,
         isClosable: true
       }
       dispatch({
         type: GET_CATEGORIES,
-        payload
+        payload: data
       })
       dispatch({
         type: SET_TOAST,
@@ -121,7 +121,7 @@ export const removeCategory = (categoryId) => {
         title: 'Error interno.',
         description: 'No pudimos eliminar la categoria.',
         status: 'error',
-        duration: 4500,
+        duration: 3500,
         isClosable: true
       }
       dispatch({

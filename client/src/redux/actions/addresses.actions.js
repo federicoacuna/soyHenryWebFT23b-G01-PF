@@ -4,17 +4,17 @@ import { GET_ADDRESSES, SET_TOAST } from '../constants'
 export const createNewAddress = (newAddress) => {
   return async (dispatch) => {
     try {
-      const addressList = await postAddress(newAddress)
+      const { data, message } = await postAddress(newAddress)
       const toast = {
         title: 'Direccion Agregada.',
-        description: 'Ya puedes recibir ahi tu envío.',
+        description: message,
         status: 'success',
-        duration: 6500,
+        duration: 5000,
         isClosable: true
       }
       dispatch({
         type: GET_ADDRESSES,
-        payload: addressList
+        payload: data
       })
       dispatch({
         type: SET_TOAST,
@@ -25,7 +25,7 @@ export const createNewAddress = (newAddress) => {
         title: 'Error interno.',
         description: 'No pudimos guardar tu direccion.',
         status: 'error',
-        duration: 4500,
+        duration: 3500,
         isClosable: true
       }
       dispatch({
@@ -50,7 +50,7 @@ export const getUserAddresses = () => {
         title: 'Error interno.',
         description: 'No pudimos recuperar la lista de direcciones.',
         status: 'error',
-        duration: 4500,
+        duration: 3500,
         isClosable: true
       }
       dispatch({
@@ -61,20 +61,20 @@ export const getUserAddresses = () => {
   }
 }
 
-export const updateAddress = (addressId) => {
+export const updateAddress = (addressId, newValues) => {
   return async (dispatch) => {
     try {
-      const response = await putAddress(addressId)
+      const { data, message } = await putAddress(addressId, newValues)
       const toast = {
         title: 'Direccion Actualizada.',
-        description: 'Tus envios podran llegar ahi.',
+        description: message,
         status: 'success',
-        duration: 6500,
+        duration: 5000,
         isClosable: true
       }
       dispatch({
         type: GET_ADDRESSES,
-        payload: response
+        payload: data
       })
       dispatch({
         type: SET_TOAST,
@@ -85,7 +85,7 @@ export const updateAddress = (addressId) => {
         title: 'Error interno.',
         description: 'No pudimos actualizar la dirección.',
         status: 'success',
-        duration: 6500,
+        duration: 3500,
         isClosable: true
       }
       dispatch({
@@ -99,17 +99,17 @@ export const updateAddress = (addressId) => {
 export const removeAddress = (addressId) => {
   return async (dispatch) => {
     try {
-      const response = await deleteAddress(addressId)
+      const { data, message } = await deleteAddress(addressId)
       const toast = {
         title: 'Direccion Eliminada.',
-        description: 'Ya no recibiras envios ahi.',
+        description: message,
         status: 'success',
-        duration: 6500,
+        duration: 5000,
         isClosable: true
       }
       dispatch({
         type: GET_ADDRESSES,
-        payload: response
+        payload: data
       })
       dispatch({
         type: SET_TOAST,
@@ -120,7 +120,7 @@ export const removeAddress = (addressId) => {
         title: 'Error interno.',
         description: 'No pudimos guardar tu direccion.',
         status: 'error',
-        duration: 4500,
+        duration: 3500,
         isClosable: true
       }
       dispatch({
