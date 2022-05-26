@@ -33,7 +33,7 @@ async function create (req, res) {
         error: 'Ya existe la direccion ingresada'
       })
   } catch (error) {
-    res.status(400).send(error)
+    res.status(400).json(error)
   }
 }
 
@@ -50,7 +50,7 @@ async function remove (req, res) {
     const user = await usersService.getUserByEmail(req.user.email)
     const wasDeleted = await addressService.removeAddress(addressId)
     const allUserAddresses = await addressService.getUserAddresses(user.id)
-    wasDeleted
+    wasDeleted > 0
       ? res.status(200).send({
         payload: allUserAddresses,
         message: 'Se elimino la dirección con éxito'
@@ -60,7 +60,7 @@ async function remove (req, res) {
         error: 'No se pudo eliminar la direccion'
       })
   } catch (error) {
-    res.send(error)
+    res.status(400).json(error)
   }
 }
 
@@ -88,7 +88,7 @@ async function update (req, res) {
         error: 'No se pudo actualizar la dirección'
       })
   } catch (error) {
-    res.send(error)
+    res.status(400).json(error)
   }
 }
 

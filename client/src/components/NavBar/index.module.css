@@ -14,14 +14,8 @@
 
 .cartLink{
   position: absolute;
-  top: 30px;
-  left: 248%;
-}
-
-.cartLink2{
-  position: absolute;
-  top: 30px;
-  left: 248%;
+  top: 2rem;
+  right: 7.2rem;
 }
 
 .cart{
@@ -35,11 +29,11 @@
 }
 
 .trapecio {
-  width: 188px;
+  width: 11.75rem;
     height: 0px;
     border-right: 0px solid transparent;
-    border-left: 70px solid transparent;
-    border-bottom: 80px solid white;
+    border-left: 4.375rem solid transparent;
+    border-bottom: 5rem solid white;
     position: absolute;
     top: 0;
     left: 86%;

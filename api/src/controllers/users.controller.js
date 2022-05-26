@@ -6,7 +6,7 @@ const get = async (req, res) => {
   try {
     const user = await usersService.createUser(email)
     const userDetails = await usersService.getById(user.id)
-    userDetails ? res.json(userDetails) : res.status(400).json({ error: 'Error registering / signing in' })
+    userDetails ? res.status(200).json({ data: userDetails }) : res.status(400).json({ error: 'Error registering / signing in' })
   } catch (error) {
     res.status(400).json(error)
   }
@@ -22,7 +22,7 @@ const getById = async (req, res) => {
   }
   try {
     const user = await usersService.getById(id)
-    user ? res.json(user) : res.status(400).json({ error: 'No user was found' })
+    user ? res.status(200).json({ data: user }) : res.status(400).json({ error: 'No user was found' })
   } catch (error) {
     res.status(400).json(error)
   }
@@ -33,7 +33,7 @@ const create = async (req, res) => {
 
   try {
     const user = await usersService.createUser(email)
-    user ? res.json(user) : res.status(400).json({ error: 'Error registering / signing in' })
+    user ? res.status(200).json({ data: user }) : res.status(400).json({ error: 'Error registering / signing in' })
   } catch (error) {
     res.status(400).json(error)
   }
@@ -42,7 +42,7 @@ const create = async (req, res) => {
 const update = async (req, res) => {
   try {
     const user = await usersService.updateUser(req)
-    user ? res.json(user) : res.status(400).json({ error: 'Unable to update user' })
+    user ? res.status(200).json({ data: user }) : res.status(400).json({ error: 'Unable to update user' })
   } catch (error) {
     res.status(404).json(error)
   }
@@ -59,7 +59,9 @@ const remove = async (req, res) => {
   }
   try {
     const wasRemoved = await usersService.removeUser(id)
-    wasRemoved ? res.json({ message: 'User succesfully removed' }) : res.status(400).json({ error: 'Unable to remove user' })
+    wasRemoved > 0
+      ? res.status(200).json({ message: 'User succesfully removed' })
+      : res.status(400).json({ error: 'Unable to remove user' })
   } catch (error) {
     res.status(400).json(error)
   }

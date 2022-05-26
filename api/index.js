@@ -33,7 +33,7 @@ const { conn } = require('./src/db.js')
 const port = process.env.PORT || 3001
 
 // Syncing all the models at once.
-const force = true// Cambiar a false si quieres que no se borren los registros que has guardado
+const force = false// Cambiar a false si quieres que no se borren los registros que has guardado
 conn.sync({ force }).then(() => {
   if (force)require('./src/utils/superSeeder')
 

@@ -1,21 +1,21 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { addFilterParams } from '../../redux/actions'
 import { BsFillArrowLeftSquareFill, BsFillArrowRightSquareFill } from 'react-icons/bs'
+import { addProductFilter } from '../../redux/actions/products.actions'
 
 import s from './index.module.css'
 export default function Pagination () {
   const dispatch = useDispatch()
-  const { currentPage, hasNext, hasPrevious } = useSelector(state => state.pagination)
+  const { currentPage, hasNext, hasPrevious } = useSelector(state => state.products.pagination)
   const shouldDisplay = !(parseInt(currentPage) === 1 && !hasNext)
-  console.log(shouldDisplay)
+
   function handlePages (e) {
     if (e === 'next' && hasNext) {
-      dispatch(addFilterParams({
+      dispatch(addProductFilter({
         name: 'page',
         value: parseInt(currentPage) + 1
       }))
     } else if (e === 'back' && hasPrevious) {
-      dispatch(addFilterParams({
+      dispatch(addProductFilter({
         name: 'page',
         value: parseInt(currentPage) - 1
       }))

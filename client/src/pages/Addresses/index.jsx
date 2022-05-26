@@ -4,12 +4,14 @@ import { Text, Button, Flex, useToast } from '@chakra-ui/react'
 import { useNavigate, Link } from 'react-router-dom'
 import { IoMdArrowRoundBack } from 'react-icons/io'
 import { getUserAddresses } from '../../redux/actions/addresses.actions'
+import { createMPCheckout } from '../../services/orders'
 import AddressContainer from '../../components/AddressContainer'
 
 const AddressSelector = () => {
-  const userAddresses = useSelector(state => state.addresses)
-  const orderStatus = useSelector(state => state.order)
-  const selectedAddress = useSelector(state => state.order.userAddressId)
+  const userAddresses = useSelector(state => state.addresses.data)
+  const orderStatus = useSelector(state => state.orders.order)
+  const selectedAddress = useSelector(state => state.orders.order.address)
+  const user = useSelector(state => state.users.user)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const toast = useToast()
@@ -19,12 +21,18 @@ const AddressSelector = () => {
     orderStatus.orderItems && dispatch(getUserAddresses())
   }, [])//eslint-disable-line
 
-  const handleClick = (value) => {
+  const handleClick = async (value) => {
     if (value.target.name === 'AddAddress') {
       navigate('/createaddress')
     }
     if (value.target.name === 'continuar' && selectedAddress) {
-      navigate('/payment')
+      const newOrder = {
+        ...orderStatus,
+        user
+      }
+      newOrder.total = newOrder.orderItems.reduce((total, item) => total + (parseInt(item.price.replace('.', '')) * item.quantity), 0)
+      const preferences = await createMPCheckout(newOrder)
+      window.location.replace(preferences.init_point)
     }
     if (value.target.name === 'continuar' && !selectedAddress) {
       toast({

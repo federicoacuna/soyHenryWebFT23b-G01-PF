@@ -2,6 +2,15 @@ require('dotenv').config()
 const axios = require('axios')
 const { Order, OrderItem, UserAddress, UserPayment, PaymentType, Country, Product } = require('../db')
 
+async function admAllOrders () {
+  try {
+    const orders = await Order.findAll()
+    return orders
+  } catch (error) {
+    return { error }
+  }
+}
+
 async function getOrderDetails (orderId, userId) {
   try {
     const orderData = await Order.findOne({
@@ -11,9 +20,6 @@ async function getOrderDetails (orderId, userId) {
       },
       include: [{
         model: UserAddress
-      },
-      {
-        model: UserPayment
       }]
     })
     const order = await orderData.toJSON()
@@ -151,7 +157,18 @@ async function validatePaymentId (paymentId) {
 
     return data
   } catch (error) {
-    console.log(error)
+    return error
+  }
+}
+
+async function updateOrder (orderId, value) {
+  try {
+    const order = await Order.findOne({ where: { id: orderId } })
+
+    order.update(value)
+    return order
+  } catch (error) {
+    return error
   }
 }
 
@@ -160,5 +177,7 @@ module.exports = {
   getOrderDetails,
   getOrdersByUser,
   createOrder,
-  validatePaymentId
+  validatePaymentId,
+  admAllOrders,
+  updateOrder
 }

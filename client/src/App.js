@@ -1,42 +1,43 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getBrands, getCategories, getProducts } from './redux/actions'
+import { getProductsList } from './redux/actions/products.actions'
+import { getCategoriesList } from './redux/actions/categories.actions'
+import { getBrandsList } from './redux/actions/brands.action'
 import { Route, Routes } from 'react-router-dom'
 import NavBar from './components/NavBar'
 import UsersHome from './pages/UsersHome'
+import AdminsHome from './pages/AdminsHome'
 import Cart from './pages/Cart'
-import ProductDetail from './pages/ProductDetail'
+import ProductDetail from './components/ProductDetail'
 import Addresses from './pages/Addresses'
-import Perfil from './pages/Perfil'
+import UserProfile from './pages/UserProfile'
 import AddressCreator from './components/AddressCreator'
-import PaymentCreate from './components/PaymentCreate'
 import ReviewCreator from './components/ReviewsCreator'
 import OrderConfirmation from './components/OrderConfirmation'
 import './App.css'
 
 import { app } from './config/firebase-config' //eslint-disable-line
-import Payment from './pages/Payment'
 import store from './redux/store'
 import Footer from './components/Footer'
 
 function App () {
   const dispatch = useDispatch()
-  const options = useSelector(state => state.options)
+  const options = useSelector(state => state.products.filter)
 
   useEffect(() => {
-    dispatch(getBrands())
-    dispatch(getCategories())
+    dispatch(getBrandsList())
+    dispatch(getCategoriesList())
   }, [])//eslint-disable-line
 
   useEffect(() => {
-    dispatch(getProducts(options))
+    dispatch(getProductsList(options))
   }, [options])//eslint-disable-line
 
   store.subscribe(() =>
-    window.localStorage.setItem('token', store.getState().token))
+    window.localStorage.setItem('token', store.getState().users.token))
 
   store.subscribe(() =>
-    window.localStorage.setItem('cartProducts', JSON.stringify(store.getState().cartProducts)))
+    window.localStorage.setItem('cart', JSON.stringify(store.getState().cart.localItems)))
 
   return (
     <div>
@@ -45,12 +46,11 @@ function App () {
         <Route path='/' element={<UsersHome />} />
         <Route exact path='/cart' element={<Cart />} />
         <Route exact path='/productDetail/:id' element={<ProductDetail />} />
-        <Route exact path='/payment' element={<Payment />} />
         <Route exact path='/addresses' element={<Addresses />} />
-        <Route exact path='/perfil' element={<Perfil />} />
+        <Route exact path='/perfil' element={<UserProfile />} />
         <Route exact path='/createaddress' element={<AddressCreator />} />
-        <Route exact path='/createpayment' element={<PaymentCreate />} />
         <Route exact path='/createreview/:productId' element={<ReviewCreator />} />
+        <Route exact path='/administration' element={<AdminsHome />} />
         <Route path='/confirmation/:orderId' element={<OrderConfirmation />} />
       </Routes>
       <Footer />

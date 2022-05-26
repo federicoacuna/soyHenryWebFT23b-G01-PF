@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import firebase from 'firebase/compat/app'
 import {
   Box, UnorderedList, ListItem, Icon, Heading, Text, Menu,
   MenuButton,
@@ -12,28 +13,28 @@ import {
   useToast
 } from '@chakra-ui/react'
 import { BsCart, BsShopWindow } from 'react-icons/bs'
-
-import s from './index.module.css'
-import ModalLogin from '../../components/ModalLogin'
-import firebase from 'firebase/compat/app'
-import { getWishList, logOut, setProfileTab } from '../../redux/actions'
 import { AiFillCaretDown } from 'react-icons/ai'
-import SearchBar from '../SearchBar'
 import { MdOutlineFavoriteBorder } from 'react-icons/md'
+import s from './index.module.css'
+import { setUsersPanelTab } from '../../redux/actions/system.actions'
+import { logOut } from '../../redux/actions/users.actions'
+import { getUserWishList } from '../../redux/actions/wishlist.actions'
+import ModalLogin from '../../components/ModalLogin'
+import SearchBar from '../SearchBar'
 
 const NavBar = () => {
   const navigate = useNavigate()
-  const cartProducts = useSelector(state => state.cartProducts.reduce((acc, curr) => acc + curr.quantity, 0))
+  const cartProducts = useSelector(state => state.cart.items.reduce((acc, curr) => acc + curr.quantity, 0))
   const [modal, setModal] = useState(false)
   const [isRegistrando, setIsRegistrando] = useState(false)
-  const token = useSelector(state => state.token)
-  const user = useSelector(state => state.user)
-  const toastToDisplay = useSelector(state => state.toast)
+  const token = useSelector(state => state.users.token)
+  const user = useSelector(state => state.users.user)
+  const toastToDisplay = useSelector(state => state.system.toast)
   const dispatch = useDispatch()
   const toast = useToast()
 
   useEffect(() => {
-    dispatch(getWishList())
+    dispatch(getUserWishList())
   }, [token])//eslint-disable-line
 
   useEffect(() => {
@@ -68,7 +69,7 @@ const NavBar = () => {
   }
 
   function handleClick (tab) {
-    dispatch(setProfileTab(tab))
+    dispatch(setUsersPanelTab(tab))
     navigate('/perfil')
   }
 
@@ -101,25 +102,21 @@ const NavBar = () => {
                 </Menu>
                   </>//eslint-disable-line
               : <ListItem fontSize='1.25rem' mr='2.5rem'><Link to='#' onClick={handleSubmit} name='ingresar'>Ingresar</Link></ListItem>}
-            <ListItem display='flex' width='100%'>
-              <p className={s.trapecio} />
+            <ListItem display='flex' alignItems='flex-start' className={s.trapecio}>
+              <Link to='/cart' className={s.cartLink}>
+                {cartProducts > 0 ? <span>{cartProducts}</span> : undefined}
+                <BsCart fontSize='1.7rem' color='#333333' />
+              </Link>
             </ListItem>
           </UnorderedList>
         </Box>
-
-        {/* <Fade inde in={isOpen}> */}
         <ModalLogin isRegistrando={isRegistrando} setIsRegistrando={setIsRegistrando} state={modal} setState={setModal}>
           <Heading color='black' textAlign='center'>{isRegistrando ? 'Registrate' : 'Inicia Sesion'}</Heading>
           <Text color='black' mt={2} textAlign='center'>Ingresa a tu cuenta para ver tus compras, favoritos, etc.</Text>
         </ModalLogin>
-        {/* </Fade> */}
       </Box>
       <Box position='absolute' top='-2' left='42%'>
         <SearchBar />
-        <Link className={token ? s.cartLink : s.cartLink2} to='/cart'>
-          {cartProducts > 0 ? <span>{cartProducts}</span> : undefined}
-          <BsCart fontSize='1.7rem' color='#333333' />
-        </Link>
       </Box>
     </Box>
   )

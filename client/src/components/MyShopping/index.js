@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import CardOrder from '../CardOrder'
 import { useDispatch, useSelector } from 'react-redux'
-import { getOrdersByUser } from '../../redux/actions'
+import { getUserOrders } from '../../redux/actions/orders.actions'
 import s from './index.module.css'
 
 export default function MyShopping () {
@@ -11,7 +11,7 @@ export default function MyShopping () {
   const orders = useSelector(state => state.orders)
 
   useEffect(() => {
-    dispatch(getOrdersByUser(token))
+    dispatch(getUserOrders(token))
   }, [])//eslint-disable-line
 
   return (

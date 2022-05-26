@@ -30,3 +30,4 @@ api/.env.test
 .env.test
 api/package-lock.json
 client/package-lock.json
+package-lock.json
