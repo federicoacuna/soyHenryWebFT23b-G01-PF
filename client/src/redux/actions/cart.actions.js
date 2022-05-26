@@ -1,5 +1,5 @@
 // import { postCartItem, deleteCartItem, deleteCart, getCart } from '../../services/cart'
-import { ADD_CART_ITEM, UPDATE_CART } from '../constants'
+import { ADD_CART_ITEM, UPDATE_CART, SET_CART_PRODUCTS } from '../constants'
 
 // export const getUserCart = () => {
 //   return async (dispatch) => {
@@ -72,6 +72,14 @@ import { ADD_CART_ITEM, UPDATE_CART } from '../constants'
 //     }
 //   }
 // }
+
+// CART
+export const setCartProducts = (products) => {
+  return {
+    type: SET_CART_PRODUCTS,
+    payload: products
+  }
+}
 
 export const updateCart = (cartItems) => {
   return {
