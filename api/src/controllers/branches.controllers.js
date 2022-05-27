@@ -38,7 +38,6 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
   const { id, state, city, streetName, houseNumber, countryId, phoneNumber } = req.body
-  console.log(req.body)
   const user = await usersService.getUserByEmail(req.user.email)
   try {
     if (user.isAdmin) {
@@ -70,7 +69,6 @@ const branchStatus = async (req, res) => {
   const { id } = req.params
   try {
     const user = await usersService.getUserByEmail(req.user.email)
-    console.log('Soy admin', user.isAdmin)
     if (user.isAdmin) {
       if (isNaN(parseInt(id))) {
         const branches = await branchService.getBranches()
@@ -81,11 +79,9 @@ const branchStatus = async (req, res) => {
         if (!deletedBranch) { return res.status(404).json({ data: branches, message: 'La sucursal que busca eliminar no existe' }) } else { return res.status(200).json({ data: branches, message: 'Estado de sucursal modificado con exito' }) }
       }
     } else {
-      console.log('acceso no autorizado')
       res.status(400).json({ message: 'Acceso no autorizado' })
     }
   } catch (error) {
-    console.log(error)
     res.status(400).json(error)
   }
 }
