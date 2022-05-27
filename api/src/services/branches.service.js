@@ -33,6 +33,7 @@ const modifyBranch = async (branch) => {
     data = { state, city, streetName, houseNumber, countryId, phoneNumber }
   } else data = { state, city, streetName, houseNumber, countryId }
   try {
+    console.log('service back', branch)
     let modifiedBranch = await Branch.findOne({
       where: {
         id,
