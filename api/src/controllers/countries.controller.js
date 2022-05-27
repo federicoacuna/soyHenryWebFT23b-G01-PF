@@ -3,7 +3,9 @@ const Countries = require('../services/countries.service')
 const get = async (req, res) => {
   try {
     const retrievedCountries = await Countries.getCountries()
-    retrievedCountries ? res.status(200).json({ data: retrievedCountries }) : res.status(400).json({ error: 'No country was found' })
+    retrievedCountries
+      ? res.status(200).json({ data: retrievedCountries })
+      : res.status(400).json({ error: 'No country was found' })
   } catch (error) {
     res.status(400).json(error)
   }
@@ -16,7 +18,8 @@ const create = async (req, res) => {
     res.status(400).json({ error: 'Must provide a country name' })
   }
   try {
-    await Countries.createCountry(req.body)
+    const wasCreated = await Countries.createCountry(req.body)
+    wasCreated
       ? res.status(200).json({ message: 'The country was succesfully created' })
       : res.status(400).json({ error: 'The country already exists' })
   } catch (error) {
@@ -24,7 +27,7 @@ const create = async (req, res) => {
   }
 }
 
-const update = (req, res) => {
+const update = async (req, res) => {
     const { countryId, enabled } = req.body //eslint-disable-line
 
   if (!parseInt(countryId)) {
@@ -32,7 +35,7 @@ const update = (req, res) => {
   }
   try {
     req.body.countryId = parseInt(countryId)
-    const wasUpdated = Countries.updateCountry(req.body)
+    const wasUpdated = await Countries.updateCountry(req.body)
     wasUpdated > 0
       ? res.status(200).json({ message: 'Country status was succesfully updated' })
       : res.status(400).json({ error: 'Country status could not be updated' })
@@ -41,7 +44,7 @@ const update = (req, res) => {
   }
 }
 
-const remove = (req, res) => {
+const remove = async (req, res) => {
   const { countryId } = req.params
 
   if (!parseInt(countryId)) {
@@ -49,7 +52,7 @@ const remove = (req, res) => {
   }
   try {
     req.params.countryId = parseInt(countryId)
-    const wasRemoved = Countries.removeCountry(req.params.countryId)
+    const wasRemoved = await Countries.removeCountry(req.params.countryId)
     wasRemoved > 0
       ? res.status(200).json({ message: 'Country was succesfully deleted' })
       : res.status(400).json({ error: 'Country could not be deleted' })

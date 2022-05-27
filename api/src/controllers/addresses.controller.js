@@ -5,7 +5,9 @@ async function get (req, res) {
   const user = await usersService.getUserByEmail(req.user.email)
   const allUserAddresses = await addressService.getUserAddresses(user.id)
 
-  allUserAddresses ? res.send(allUserAddresses) : res.status(404).json({ error: 'No se encontraron direcciones' })
+  allUserAddresses
+    ? res.status(200).json({ data: allUserAddresses })
+    : res.status(404).json({ error: 'No se encontraron direcciones' })
 }
 
 async function create (req, res) {
@@ -24,12 +26,12 @@ async function create (req, res) {
     const wasCreated = await addressService.createAddress(newAddress)
     const allUserAddresses = await addressService.getUserAddresses(user.id)
     wasCreated
-      ? res.status(200).send({
-        payload: allUserAddresses,
+      ? res.status(200).json({
+        data: allUserAddresses,
         message: 'Se guardo la nueva dirección con éxito'
       })
       : res.status(400).json({
-        payload: allUserAddresses,
+        data: allUserAddresses,
         error: 'Ya existe la direccion ingresada'
       })
   } catch (error) {
@@ -51,12 +53,12 @@ async function remove (req, res) {
     const wasDeleted = await addressService.removeAddress(addressId)
     const allUserAddresses = await addressService.getUserAddresses(user.id)
     wasDeleted > 0
-      ? res.status(200).send({
-        payload: allUserAddresses,
+      ? res.status(200).json({
+        data: allUserAddresses,
         message: 'Se elimino la dirección con éxito'
       })
       : res.status(400).json({
-        payload: allUserAddresses,
+        data: allUserAddresses,
         error: 'No se pudo eliminar la direccion'
       })
   } catch (error) {
@@ -79,12 +81,12 @@ async function update (req, res) {
     const wasUpdated = await addressService.updateAddress(updatedAddress)
     const allUserAddresses = await addressService.getUserAddresses(user.id)
     wasUpdated
-      ? res.status(200).send({
-        payload: allUserAddresses,
+      ? res.status(200).json({
+        data: allUserAddresses,
         message: 'Se actualizó la dirección con éxito'
       })
       : res.status(400).json({
-        payload: allUserAddresses,
+        data: allUserAddresses,
         error: 'No se pudo actualizar la dirección'
       })
   } catch (error) {

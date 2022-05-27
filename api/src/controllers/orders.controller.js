@@ -57,7 +57,16 @@ const create = async (req, res) => {
   if (!Object.keys(validationErrors).length) {
     try {
       const newOrder = await ordersService.createOrder(req.body)
-      newOrder ? res.status(200).json({ message: `Order successfully created under ID ${newOrder.orderId}`, data: newOrder }) : res.status(400).json({ error: 'Order could not be created' })
+      const all = ordersService.admAllOrders()
+      newOrder
+        ? res.status(200).json({
+          message: `Order successfully created under ID ${newOrder.orderId}`,
+          data: all
+        })
+        : res.status(400).json({
+          error: 'Order could not be created',
+          data: all
+        })
     } catch (error) {
       res.status(400).json(error)
     }
@@ -72,9 +81,15 @@ const update = async (req, res) => {
   try {
     if (user.roleId === 2) {
       const update = await ordersService.updateOrder(orderId, req.body)
+      const all = ordersService.admAllOrders()
       update
-        ? res.status(200).json({ data: update })
-        : res.status(400).json({ error: 'Error trying update order' })
+        ? res.status(200).json({
+          data: all,
+          message: 'Order updated correctly'
+        })
+        : res.status(400).json({
+          error: 'Error trying to update order'
+        })
     } else {
       res.json({ message: 'THIS FUNCTION HAS NOT BEEN IMPLEMENTED YET' })
     }
