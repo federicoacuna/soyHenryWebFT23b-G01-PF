@@ -2,7 +2,7 @@ import { Box, Flex, Divider, Button, Text, VisuallyHidden } from '@chakra-ui/rea
 import { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { setCartProducts } from '../../redux/actions/cart.actions'
+import { updateCart } from '../../redux/actions/cart.actions'
 import { clearCreatedOrder, getOrderDetails } from '../../redux/actions/orders.actions'
 import AddressCard from '../AddressCard'
 import UserPaymentCard from '../PaymentCard'
@@ -18,7 +18,7 @@ export default function OrderConfirmation () {
 
   useEffect(() => {
     dispatch(getOrderDetails(orderId))
-    dispatch(setCartProducts([]))
+    dispatch(updateCart([]))
     return () => {
       dispatch(clearCreatedOrder())
     }

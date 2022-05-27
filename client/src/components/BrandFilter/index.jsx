@@ -1,11 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
 import { addProductFilter } from '../../redux/actions/products.actions'
+import { getBrandsList } from '../../redux/actions/brands.action'
 import { Box, Heading, UnorderedList, ListItem } from '@chakra-ui/react'
 
 export default function BrandFilter () {
   const brands = useSelector(state => state.brands.data)
   const options = useSelector(state => state.products.filter)
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getBrandsList())
+  }, [])//eslint-disable-line
 
   if (brands.length === 0) return <Box>No hay categorías</Box>
 
