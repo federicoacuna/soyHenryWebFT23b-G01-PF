@@ -7,7 +7,15 @@ export const CategoryFilter = () => {
   const filters = useSelector(state => state.products.filter)
   const dispatch = useDispatch()
 
+<<<<<<< Updated upstream
   if (categories.length === 0) return <Box>No hay categorías</Box>
+=======
+  useEffect(() => {
+    getCategoriesList()
+  }, [])
+
+  if (!categories || categories.length === 0) return <Box>No hay categorías</Box>
+>>>>>>> Stashed changes
 
   return (
     <Box m='1rem'>

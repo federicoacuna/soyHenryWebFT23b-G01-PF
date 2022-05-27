@@ -7,7 +7,15 @@ export default function BrandFilter () {
   const options = useSelector(state => state.products.filter)
   const dispatch = useDispatch()
 
+<<<<<<< Updated upstream
   if (brands.length === 0) return <Box>No hay categorías</Box>
+=======
+  useEffect(() => {
+    dispatch(getBrandsList())
+  }, [])//eslint-disable-line
+
+  if (!brands || brands.length === 0) return <Box>No hay marcas</Box>
+>>>>>>> Stashed changes
 
   return (
     <Box m='1rem'>
