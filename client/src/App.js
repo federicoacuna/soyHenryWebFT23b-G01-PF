@@ -1,8 +1,3 @@
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getProductsList } from './redux/actions/products.actions'
-import { getCategoriesList } from './redux/actions/categories.actions'
-import { getBrandsList } from './redux/actions/brands.action'
 import { Route, Routes } from 'react-router-dom'
 import NavBar from './components/NavBar'
 import UsersHome from './pages/UsersHome'
@@ -22,18 +17,6 @@ import Footer from './components/Footer'
 import ChatBotContainer from './components/ChatBotContainer'
 
 function App () {
-  const dispatch = useDispatch()
-  const options = useSelector(state => state.products.filter)
-
-  useEffect(() => {
-    dispatch(getBrandsList())
-    dispatch(getCategoriesList())
-  }, [])//eslint-disable-line
-
-  useEffect(() => {
-    dispatch(getProductsList(options))
-  }, [options])//eslint-disable-line
-
   store.subscribe(() =>
     window.localStorage.setItem('token', store.getState().users.token))
 

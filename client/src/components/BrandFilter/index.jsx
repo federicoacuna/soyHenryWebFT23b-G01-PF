@@ -13,7 +13,7 @@ export default function BrandFilter () {
     dispatch(getBrandsList())
   }, [])//eslint-disable-line
 
-  if (brands.length === 0) return <Box>No hay categorías</Box>
+  if (!brands || brands.length === 0) return <Box>No hay marcas</Box>
 
   return (
     <Box m='1rem'>

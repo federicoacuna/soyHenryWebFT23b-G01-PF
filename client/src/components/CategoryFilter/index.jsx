@@ -13,7 +13,7 @@ export const CategoryFilter = () => {
     getCategoriesList()
   }, [])
 
-  if (categories.length === 0) return <Box>No hay categorías</Box>
+  if (!categories || categories.length === 0) return <Box>No hay categorías</Box>
 
   return (
     <Box m='1rem'>
