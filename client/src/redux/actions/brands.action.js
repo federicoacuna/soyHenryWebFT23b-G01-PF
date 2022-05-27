@@ -39,11 +39,11 @@ export const createNewBrand = (newBrand) => {
 export const getBrandsList = () => {
   return async (dispatch) => {
     try {
-      const brandsList = await getBrands()
+      const { data } = await getBrands()
 
       dispatch({
         type: GET_BRANDS,
-        payload: brandsList
+        payload: data
       })
     } catch (error) {
       const toast = {
