@@ -6,7 +6,9 @@ async function get (req, res, next) {
     const email = req.user.email
     if (productId) {
       const reviewForProd = await Reviews.getReviewsForId(productId)
-      reviewForProd.length ? res.status(200).json(reviewForProd) : res.status(400).json({ error: 'Reviews not found' })
+      reviewForProd.length
+        ? res.status(200).json({ data: reviewForProd })
+        : res.status(400).json({ error: 'Reviews not found' })
     } else {
       const reviewForEmail = await Reviews.getReviewsForUserId(email)
       reviewForEmail
@@ -24,7 +26,9 @@ async function create (req, res, next) {
   try {
     await Reviews.createReview(email, data)
     const reviewForEmail = await Reviews.getReviewsForUserId(email)
-    reviewForEmail ? res.status(200).json({ data: reviewForEmail }) : res.status(400).json({ error: 'Error adding review' })
+    reviewForEmail
+      ? res.status(200).json({ data: reviewForEmail, message: 'Review added successfuly' })
+      : res.status(400).json({ error: 'Error adding review' })
   } catch (error) {
     res.status(400).json(error)
   }

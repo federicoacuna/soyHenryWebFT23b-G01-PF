@@ -6,7 +6,9 @@ async function get (req, res) {
   try {
     const allUserPayments = await userPaymentService.getUserPayments(user.id)
 
-    allUserPayments ? res.status(200).send({ data: allUserPayments }) : res.status(400).json({ error: 'No se encontraron direcciones' })
+    allUserPayments
+      ? res.status(200).json({ data: allUserPayments })
+      : res.status(400).json({ error: 'No se encontraron direcciones' })
   } catch (error) {
     res.status(400).json(error)
   }
@@ -29,7 +31,15 @@ const create = async (req, res) => {
 
   try {
     const wasCreated = await userPaymentService.createUserPayment(req.body)
-    wasCreated ? res.status(200).json({ message: 'Payment method was succesfully registered' }) : res.status(400).json({ error: 'Payment method could not registered' })
+    const allUserPayments = await userPaymentService.getUserPayments(user.id)
+    wasCreated
+      ? res.status(200).json({
+        data: allUserPayments,
+        message: 'Payment method was succesfully registered'
+      })
+      : res.status(400).json({
+        error: 'Payment method could not registered'
+      })
   } catch (error) {
     res.status(400).json(error)
   }

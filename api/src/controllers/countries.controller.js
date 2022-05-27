@@ -3,7 +3,9 @@ const Countries = require('../services/countries.service')
 const get = async (req, res) => {
   try {
     const retrievedCountries = await Countries.getCountries()
-    retrievedCountries ? res.status(200).json({ data: retrievedCountries }) : res.status(400).json({ error: 'No country was found' })
+    retrievedCountries
+      ? res.status(200).json({ data: retrievedCountries })
+      : res.status(400).json({ error: 'No country was found' })
   } catch (error) {
     res.status(400).json(error)
   }
@@ -16,7 +18,8 @@ const create = async (req, res) => {
     res.status(400).json({ error: 'Must provide a country name' })
   }
   try {
-    await Countries.createCountry(req.body)
+    const wasCreated = await Countries.createCountry(req.body)
+    wasCreated
       ? res.status(200).json({ message: 'The country was succesfully created' })
       : res.status(400).json({ error: 'The country already exists' })
   } catch (error) {
