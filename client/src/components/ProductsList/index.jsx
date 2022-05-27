@@ -2,11 +2,10 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Pagination from '../Pagination'
 import ProductCard from '../ProductCard'
-import { getProductsList } from './redux/actions/products.actions'
+import { clearProductFilter, getProductsList } from '../../redux/actions/products.actions'
 import styles from './index.module.css'
 import { Box } from '@chakra-ui/react'
 import SortingSelector from '../SortingSelector'
-import { clearProductFilter } from '../../redux/actions/products.actions'
 
 function ProductList () {
   const products = useSelector(state => state.products.data)
