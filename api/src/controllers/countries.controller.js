@@ -27,7 +27,7 @@ const create = async (req, res) => {
   }
 }
 
-const update = (req, res) => {
+const update = async (req, res) => {
     const { countryId, enabled } = req.body //eslint-disable-line
 
   if (!parseInt(countryId)) {
@@ -35,7 +35,7 @@ const update = (req, res) => {
   }
   try {
     req.body.countryId = parseInt(countryId)
-    const wasUpdated = Countries.updateCountry(req.body)
+    const wasUpdated = await Countries.updateCountry(req.body)
     wasUpdated > 0
       ? res.status(200).json({ message: 'Country status was succesfully updated' })
       : res.status(400).json({ error: 'Country status could not be updated' })
@@ -44,7 +44,7 @@ const update = (req, res) => {
   }
 }
 
-const remove = (req, res) => {
+const remove = async (req, res) => {
   const { countryId } = req.params
 
   if (!parseInt(countryId)) {
@@ -52,7 +52,7 @@ const remove = (req, res) => {
   }
   try {
     req.params.countryId = parseInt(countryId)
-    const wasRemoved = Countries.removeCountry(req.params.countryId)
+    const wasRemoved = await Countries.removeCountry(req.params.countryId)
     wasRemoved > 0
       ? res.status(200).json({ message: 'Country was succesfully deleted' })
       : res.status(400).json({ error: 'Country could not be deleted' })
