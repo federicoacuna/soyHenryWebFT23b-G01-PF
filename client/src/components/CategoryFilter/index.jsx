@@ -1,11 +1,17 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { Box, Heading, UnorderedList, ListItem } from '@chakra-ui/react'
 import { addProductFilter } from '../../redux/actions/products.actions'
+import { useEffect } from 'react'
+import { getCategoriesList } from '../../redux/actions/categories.actions'
 
 export const CategoryFilter = () => {
   const categories = useSelector(state => state.categories.data)
   const filters = useSelector(state => state.products.filter)
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    getCategoriesList()
+  }, [])
 
   if (categories.length === 0) return <Box>No hay categorías</Box>
 
