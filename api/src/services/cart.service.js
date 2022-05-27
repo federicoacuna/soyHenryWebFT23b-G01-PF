@@ -2,12 +2,21 @@ const { Product, CartItem } = require('../db')
 
 async function getCartItems (userId) {
   try {
-    const cartQuery = await CartItem.findAll({ where: { userId } })
-    const query = await Product.findAll({
-      where: { id: cartQuery.map(el => el.productId) },
-      attributes: ['id', 'name', 'image', 'price']
+    const cart = await CartItem.findAll({ where: { userId }, raw: true })
+    let cartItems = await Product.findAll({
+      where: { id: cart.map(el => el.productId) },
+      attributes: ['id', 'name', 'image', 'price'],
+      raw: true
     })
-    return query
+    cartItems = cartItems.map(item => {
+      cart.forEach(product => {
+        if (item.id === product.productId) {
+          item.quantity = product.quantity
+        }
+      })
+      return item
+    })
+    return cartItems
   } catch (error) {
     return error
   }
@@ -19,18 +28,34 @@ async function addCartItems (data) {
       where: {
         userId: data.userId,
         productId: data.productId
-      }
+      },
+      defaults: data
     })
     return addedItem
   } catch (error) {
     return error
   }
 }
+
 async function addAllCart (data) {
-  const productsId = data.products.map(el => { return { productId: el.id, userId: data.userId } })
   try {
-    const addedProducts = await CartItem.bulkCreate(productsId)
+    const addedProducts = await CartItem.bulkCreate(data)
     return addedProducts
+  } catch (error) {
+    return error
+  }
+}
+
+async function updateItemQuantity (itemList) {
+  try {
+    const [updatedRows] = await CartItem.update(itemList, {
+      where: {
+        userId: itemList.userId,
+        productId: itemList.productId
+      }
+    })
+
+    return updatedRows
   } catch (error) {
     return error
   }
@@ -66,6 +91,7 @@ async function removeAllCart (userId) {
 module.exports = {
   getCartItems,
   addCartItems,
+  updateItemQuantity,
   removeItem,
   removeAllCart,
   addAllCart
