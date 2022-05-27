@@ -4,17 +4,17 @@ import { GET_BRANDS, SET_TOAST } from '../constants'
 export const createNewBrand = (newBrand) => {
   return async (dispatch) => {
     try {
-      const brandList = await postBrand(newBrand)
+      const { data, message } = await postBrand(newBrand)
       const toast = {
         title: 'Marca Agregada!',
-        description: 'Ya se podra operar con la misma.',
+        description: message,
         status: 'success',
-        duration: 6500,
+        duration: 5000,
         isClosable: true
       }
       dispatch({
         type: GET_BRANDS,
-        payload: brandList
+        payload: data
       })
       dispatch({
         type: SET_TOAST,
@@ -25,7 +25,7 @@ export const createNewBrand = (newBrand) => {
         title: 'Error interno!',
         description: 'No pudimos guardar la marca.',
         status: 'error',
-        duration: 4500,
+        duration: 3500,
         isClosable: true
       }
       dispatch({
@@ -39,18 +39,18 @@ export const createNewBrand = (newBrand) => {
 export const getBrandsList = () => {
   return async (dispatch) => {
     try {
-      const brandList = await getBrands()
+      const { data } = await getBrands()
 
       dispatch({
         type: GET_BRANDS,
-        payload: brandList
+        payload: data
       })
     } catch (error) {
       const toast = {
         title: 'Error interno!',
         description: 'No pudimos recuperar la lista de marcas.',
         status: 'error',
-        duration: 4500,
+        duration: 3500,
         isClosable: true
       }
       dispatch({
@@ -61,20 +61,20 @@ export const getBrandsList = () => {
   }
 }
 
-export const updateBrand = (brandId) => {
+export const updateBrand = (brandId, newValues) => {
   return async (dispatch) => {
     try {
-      const response = await putBrand(brandId)
+      const { data, message } = await putBrand(brandId, newValues)
       const toast = {
         title: 'Marca Actualizada.',
-        description: 'Ya se podra consulta la nueva informacion.',
+        description: message,
         status: 'success',
-        duration: 6500,
+        duration: 5000,
         isClosable: true
       }
       dispatch({
         type: GET_BRANDS,
-        payload: response
+        payload: data
       })
       dispatch({
         type: SET_TOAST,
@@ -85,7 +85,7 @@ export const updateBrand = (brandId) => {
         title: 'Error interno.',
         description: 'No pudimos actualizar la marca.',
         status: 'error',
-        duration: 6500,
+        duration: 3500,
         isClosable: true
       }
       dispatch({
@@ -99,17 +99,17 @@ export const updateBrand = (brandId) => {
 export const removeBrand = (brandId) => {
   return async (dispatch) => {
     try {
-      const response = await deleteBrand(brandId)
+      const { data, message } = await deleteBrand(brandId)
       const toast = {
         title: 'Marca Eliminada.',
-        description: 'Ya no estara disponible para operar.',
+        description: message,
         status: 'success',
-        duration: 6500,
+        duration: 5000,
         isClosable: true
       }
       dispatch({
         type: GET_BRANDS,
-        payload: response
+        payload: data
       })
       dispatch({
         type: SET_TOAST,
@@ -120,7 +120,7 @@ export const removeBrand = (brandId) => {
         title: 'Error interno.',
         description: 'No pudimos eliminar la marca.',
         status: 'error',
-        duration: 4500,
+        duration: 3500,
         isClosable: true
       }
       dispatch({

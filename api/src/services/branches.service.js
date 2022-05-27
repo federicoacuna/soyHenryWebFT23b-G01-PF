@@ -11,23 +11,16 @@ const getBranches = async () => {
 
 const addNewBranch = async (branch) => {
   const { state, city, streetName, houseNumber, countryId, phoneNumber } = branch
+  let data
+  if (phoneNumber) {
+    data = { state, city, streetName, houseNumber, countryId, phoneNumber }
+  } else data = { state, city, streetName, houseNumber, countryId }
+
   try {
-    const query = await Branch.findAll({
-      where: {
-        countryId,
-        state,
-        city,
-        streetName,
-        houseNumber
-      }
+    const [, query] = await Branch.findOrCreate({
+      where: data
     })
-    if (query.length === 0) {
-      let newBranch
-      if (phoneNumber) {
-        newBranch = await Branch.create({ state, city, streetName, houseNumber, countryId, phoneNumber })
-      } else { newBranch = await Branch.create({ state, city, streetName, houseNumber, countryId }) }
-      return newBranch
-    } else return query
+    return query
   } catch (error) {
     return error
   }
@@ -35,7 +28,12 @@ const addNewBranch = async (branch) => {
 
 const modifyBranch = async (branch) => {
   const { state, city, streetName, houseNumber, countryId, phoneNumber, id } = branch
+  let data
+  if (phoneNumber) {
+    data = { state, city, streetName, houseNumber, countryId, phoneNumber }
+  } else data = { state, city, streetName, houseNumber, countryId }
   try {
+    console.log('service back', branch)
     let modifiedBranch = await Branch.findOne({
       where: {
         id,
@@ -43,17 +41,15 @@ const modifyBranch = async (branch) => {
       }
     })
     if (modifiedBranch) {
-      if (phoneNumber) {
-        modifiedBranch.set({
-          state, city, streetName, houseNumber, countryId, phoneNumber
-        })
-      } else {
-        modifiedBranch.set({
-          state, city, streetName, houseNumber, countryId
-        })
+      // podria existir otra con esos datos pero con otro id
+      const queryCheck = await Branch.findOne({
+        where: { state, city, streetName, houseNumber, countryId }
+      })
+      if (queryCheck) { return null } else {
+        modifiedBranch.set(data)
+        modifiedBranch = await modifiedBranch.save()
+        return modifiedBranch
       }
-      modifiedBranch = await modifiedBranch.save()
-      return modifiedBranch
     } else return modifiedBranch
   } catch (error) {
     return error

@@ -26,9 +26,9 @@ export const postAddress = async function (newAddress) {
   return data
 }
 
-export const putAddress = async function (updatedAddress) {
+export const putAddress = async function (addressId, updatedAddress) {
   const { token } = store.getState().users
-  const { data } = await axios.get(endpoint, updatedAddress, {
+  const { data } = await axios.get(`endpoint/${addressId}`, updatedAddress, {
     headers: {
       Authorization: `Bearer ${token}`
     }

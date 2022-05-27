@@ -152,7 +152,7 @@ export const ModalLogin = ({ children, state, setState, isRegistrando, setIsRegi
       {state &&
         <div className={s.overlay}>
           <div className={s.container}>
-            <Flex flexDirection='column'>
+            <Flex borderRadius='none' flexDirection='column'>
               <Flex cursor='pointer' justifyContent='flex-end'>
                 <AiOutlineClose color='black' onClick={handleClick} size={30} />
               </Flex>
@@ -176,7 +176,7 @@ export const ModalLogin = ({ children, state, setState, isRegistrando, setIsRegi
                   />
                   <Input type={show ? 'text' : 'password'} focusBorderColor='none' isInvalid={errors.password && true} required color='black' name='password' value={values.password} onChange={handleChange} placeholder='Contraseña' />
                   <InputRightElement width='4.5rem'>
-                    <Button h='1.75rem' size='sm' onClick={ShowPassword}>
+                    <Button h='1.75rem' size='sm' bg='none' color='#333333' _active={{ outline: 'none' }} _hover={{ bg: 'none' }} _focus={{ outline: 'none' }} onClick={ShowPassword}>
                       {show ? 'Ocultar' : 'Mostrar'}
                     </Button>
                   </InputRightElement>
@@ -192,7 +192,7 @@ export const ModalLogin = ({ children, state, setState, isRegistrando, setIsRegi
                       />
                       <Input type={show ? 'text' : 'password'} focusBorderColor='none' isInvalid={errors.password && true} required color='black' name='passwordRegister' value={values.passwordRegister} onChange={handleChange} placeholder='Contraseña' />
                       <InputRightElement width='4.5rem'>
-                        <Button h='1.75rem' size='sm' onClick={ShowPassword}>
+                        <Button h='1.75rem' size='sm' bg='none' color='#333333' _active={{ outline: 'none' }} _hover={{ bg: 'none' }} _focus={{ outline: 'none' }} onClick={ShowPassword}>
                           {show ? 'Ocultar' : 'Mostrar'}
                         </Button>
                       </InputRightElement>
@@ -201,9 +201,9 @@ export const ModalLogin = ({ children, state, setState, isRegistrando, setIsRegi
                 {errors.password && <Text color='red'>{errors.password}</Text>}
 
                 <Flex flexDirection='column' justifyContent='center'>
-                  <Button onClick={handleSubmit} color='black' mt={3}>{isRegistrando ? 'Registrarse' : 'Iniciar sesión'}</Button>
-                  <Button onClick={() => handleLogIn('google')} color='black' mt='10px' leftIcon={<FcGoogle />}>Continuar con Google</Button>
-                  <Button color='black' mt='10px' onClick={() => setIsRegistrando(!isRegistrando)}>{isRegistrando ? '¿Ya tienes cuenta? Inicia sesion!' : 'Registrate gratis!'}</Button>
+                  <Button onClick={handleSubmit} _hover={{ bg: 'none' }} color='black' mt={3}>{isRegistrando ? 'Registrarse' : 'Iniciar sesión'}</Button>
+                  <Button onClick={() => handleLogIn('google')} color='black' mt='10px' _hover={{ bg: 'none' }} leftIcon={<FcGoogle />}>Continuar con Google</Button>
+                  <Button color='black' mt='10px' _active={{ outline: 'none' }} _focus={{ outline: 'none' }} _hover={{ bg: 'none' }} onClick={() => setIsRegistrando(!isRegistrando)}>{isRegistrando ? '¿Ya tienes cuenta? Inicia sesion!' : 'Registrate gratis!'}</Button>
                 </Flex>
               </Stack>
             </Flex>

@@ -4,17 +4,17 @@ import { GET_ORDERS, GET_ORDER_DETAILS, SET_ORDER_ADDRESS, SET_ORDER_ITEMS, SET_
 export const createNewOrder = (newOrder) => {
   return async (dispatch) => {
     try {
-      const ordersList = await postOrder(newOrder)
+      const { data, message } = await postOrder(newOrder)
       const toast = {
         title: 'Orden Agregada!',
-        description: 'Podras ver el progreso de tu compra en tu perfil.',
+        description: message,
         status: 'success',
-        duration: 6500,
+        duration: 5000,
         isClosable: true
       }
       dispatch({
         type: GET_ORDERS,
-        payload: ordersList
+        payload: data
       })
       dispatch({
         type: SET_TOAST,
@@ -25,7 +25,7 @@ export const createNewOrder = (newOrder) => {
         title: 'Error interno!',
         description: 'No pudimos guardar la orden.',
         status: 'error',
-        duration: 4500,
+        duration: 3500,
         isClosable: true
       }
       dispatch({
@@ -39,18 +39,18 @@ export const createNewOrder = (newOrder) => {
 export const getUserOrders = () => {
   return async (dispatch) => {
     try {
-      const orderList = await getOrders()
+      const { data } = await getOrders()
 
       dispatch({
         type: GET_ORDERS,
-        payload: orderList
+        payload: data
       })
     } catch (error) {
       const toast = {
         title: 'Error interno!',
         description: 'No pudimos recuperar la lista de ordenes.',
         status: 'error',
-        duration: 4500,
+        duration: 3500,
         isClosable: true
       }
       dispatch({
@@ -64,18 +64,18 @@ export const getUserOrders = () => {
 export const getOrdersList = (filters) => {
   return async (dispatch) => {
     try {
-      const orderList = await getOrders(filters)
+      const { data } = await getOrders(filters)
 
       dispatch({
         type: GET_ORDERS,
-        payload: orderList
+        payload: data
       })
     } catch (error) {
       const toast = {
         title: 'Error interno!',
         description: 'No pudimos recuperar la lista de ordenes.',
         status: 'error',
-        duration: 4500,
+        duration: 3500,
         isClosable: true
       }
       dispatch({
@@ -89,11 +89,10 @@ export const getOrdersList = (filters) => {
 export const getOrderDetails = (orderId) => {
   return async (dispatch) => {
     try {
-      const order = await getOrder(orderId)
-      console.log(order)
+      const { data } = await getOrder(orderId)
       dispatch({
         type: GET_ORDER_DETAILS,
-        payload: order
+        payload: data
       })
     } catch (error) {
       const toast = {
@@ -111,20 +110,20 @@ export const getOrderDetails = (orderId) => {
   }
 }
 
-export const updateOrder = (orderId) => {
+export const updateOrder = (orderId, newValues) => {
   return async (dispatch) => {
     try {
-      const ordersList = await putOrder(orderId)
+      const { data, message } = await putOrder(orderId, newValues)
       const toast = {
         title: 'Orden Actualizada.',
-        description: 'Se veran reflejados los cambios inmediatamente.',
+        description: message,
         status: 'success',
         duration: 6500,
         isClosable: true
       }
       dispatch({
         type: GET_ORDERS,
-        payload: ordersList
+        payload: data
       })
       dispatch({
         type: SET_TOAST,
@@ -135,7 +134,7 @@ export const updateOrder = (orderId) => {
         title: 'Error interno.',
         description: 'No pudimos actualizar la orden.',
         status: 'error',
-        duration: 6500,
+        duration: 3500,
         isClosable: true
       }
       dispatch({
@@ -149,17 +148,17 @@ export const updateOrder = (orderId) => {
 export const removeOrder = (orderId) => {
   return async (dispatch) => {
     try {
-      const ordersList = await deleteOrder(orderId)
+      const { data, message } = await deleteOrder(orderId)
       const toast = {
         title: 'Orden Eliminada.',
-        description: 'La orden fue cancelada y los stocks reestablecidos.',
+        description: message,
         status: 'success',
-        duration: 6500,
+        duration: 5000,
         isClosable: true
       }
       dispatch({
         type: GET_ORDERS,
-        payload: ordersList
+        payload: data
       })
       dispatch({
         type: SET_TOAST,
@@ -170,7 +169,7 @@ export const removeOrder = (orderId) => {
         title: 'Error interno.',
         description: 'No se pudo eliminar la orden.',
         status: 'error',
-        duration: 4500,
+        duration: 3500,
         isClosable: true
       }
       dispatch({

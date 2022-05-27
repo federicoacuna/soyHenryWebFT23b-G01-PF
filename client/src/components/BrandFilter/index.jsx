@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
 import { addProductFilter } from '../../redux/actions/products.actions'
+import { getBrandsList } from '../../redux/actions/brands.action'
 import { Box, Heading, UnorderedList, ListItem } from '@chakra-ui/react'
 
 export default function BrandFilter () {
@@ -7,27 +9,22 @@ export default function BrandFilter () {
   const options = useSelector(state => state.products.filter)
   const dispatch = useDispatch()
 
-<<<<<<< Updated upstream
-  if (brands.length === 0) return <Box>No hay categorías</Box>
-=======
   useEffect(() => {
     dispatch(getBrandsList())
   }, [])//eslint-disable-line
 
   if (!brands || brands.length === 0) return <Box>No hay marcas</Box>
->>>>>>> Stashed changes
 
   return (
     <Box m='1rem'>
       <Heading size='sm' mb='0.5rem'>Marcas</Heading>
-      <UnorderedList ml='0'>
+      <UnorderedList ml='0' listStyleType='none'>
         {brands.map(brand => (
           <ListItem
             key={brand.id + brand.name}
             cursor='pointer'
             onClick={() => dispatch(addProductFilter({ name: 'brand', value: brand.id }))}
             color={Number(options.brand) === brand.id ? '#000' : 'gray'}
-            textDecor={Number(options.brand) === brand.id ? 'underline' : undefined}
           >
             {brand.name}
           </ListItem>

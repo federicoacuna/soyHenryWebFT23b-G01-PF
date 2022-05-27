@@ -30,7 +30,7 @@ function ProductDetail () {
       <Flex pl='7rem' pr='7rem' pt='3rem' pb='3rem' justifyContent='center' alignItems='center' borderColor='red'>
         <Center display='flex' justifyContent='center' alignItems='center' borderColor='blue'>
           <Flex w='80rem' alignItems='flex-start' justifyContent='center' bg='#white' color='#black'>
-            <Container ml='15rem' mt='3rem' width='100%'>
+            <Container ml='11rem' mt='3rem' width='100%'>
               <Flex gap='1rem'>
                 <Flex flexDirection='column' gap='0.5rem' boxShadow='md'>
                   <img className={s.productImgLittle} src={product.image} alt={product.name} />
@@ -44,8 +44,8 @@ function ProductDetail () {
               </Flex>
 
             </Container>
-            <Container minHeight='10rem' boxShadow='md' mr='15rem' width='15rem' p='1rem' gap='0.2rem' display='flex' flexDirection='column' justifyContent='center' alignItems='center'>
-              <Box alignSelf='flex-end'><FcLikePlaceholder fontSize='1.7rem' /></Box>
+            <Container minHeight='10rem' boxShadow='md' mr='10rem' width='15rem' p='1rem' gap='0.2rem' display='flex' flexDirection='column' justifyContent='center' alignItems='center'>
+              <Box alignSelf='flex-end' mb='1rem'><FcLikePlaceholder fontSize='1.7rem' /></Box>
               <Text fontWeight='bold'>{product.name}</Text>
               <Text alignSelf='flex-start' fontWeight='bold'>
                 {product.category && product.category.name}
@@ -66,12 +66,12 @@ function ProductDetail () {
         </Center>
       </Flex>
       <Flex pl='7rem' pr='7rem' pt='3rem' pb='3rem' borderColor='aqua' justifyContent='space-between'>
-        <Flex p='1rem' borderColor='green' ml='6rem' width='50%' flexDirection='column'>
+        <Flex p='1rem' borderColor='green' ml='6rem' min-height='5rem' width='50%' flexDirection='column'>
           <Text fontWeight='bold'>Descripcion del producto</Text>
           <Text>{product.description}</Text>
         </Flex>
         <Flex p='1rem' borderColor='green' width='25%' gap='1rem' flexDirection='column'>
-          <Text fontWeight='bold'>Promedio reviews</Text>
+          <Text fontWeight='bold'>Promedio rating</Text>
           <Flex gap='1rem' justifyContent='flex-start' alignItems='center'>
             <Text fontSize='1.2rem'>3.3</Text>
             <Text display='flex' gap='0.2rem'><AiFillStar color='orange' fontSize='1.3rem' /><AiFillStar color='orange' fontSize='1.3rem' /><AiFillStar color='orange' fontSize='1.3rem' /></Text>
@@ -80,7 +80,7 @@ function ProductDetail () {
       </Flex>
 
       <Flex pl='7rem' pr='7rem' pt='3rem' pb='3rem' borderColor='orange' flexDirection='column' width='100%'>
-        <Flex boxShadow='md' min-height='5rem' p='1rem' gap='1rem' ml='5rem' flexDirection='column' justifyContent='flex-start' alignItems='flex-start'>
+        <Flex boxShadow='md' min-height='5rem' width='50%' p='1rem' gap='1rem' ml='6rem' flexDirection='column' justifyContent='flex-start' alignItems='flex-start'>
           <Text display='flex' gap='0.2rem'><AiFillStar color='orange' fontSize='1.3rem' /><AiFillStar color='orange' fontSize='1.3rem' /><AiFillStar color='orange' fontSize='1.3rem' /></Text>
           <Text>Ea iusto unde qui tempora velit vel enim error aut impedit repellendus rem atque architecto aut dolor autem? Hic galisum natus sed quas quia qui nihil laborum.</Text>
         </Flex>

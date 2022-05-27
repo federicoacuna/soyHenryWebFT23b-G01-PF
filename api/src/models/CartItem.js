@@ -4,9 +4,7 @@ module.exports = (sequelize) => {
   sequelize.define('cartItem', {
     quantity: {
       type: DataTypes.INTEGER,
-      validate: {
-        min: 1
-      }
+      defaultValue: 1
     }
   })
 }

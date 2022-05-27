@@ -11,7 +11,7 @@ const wishlist = (state = initialState, action) => {
     case GET_WISHLIST:
       return {
         ...state,
-        data: payload.data
+        data: payload
       }
     default:
       return state

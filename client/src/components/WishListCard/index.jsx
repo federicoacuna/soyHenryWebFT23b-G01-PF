@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom'
 
 export function WishListCard ({ image, id, price, name }) {
   return (
-    <Flex bg='white' mt='1rem' mb='1rem' w='61.3rem' flexDirection='column' boxShadow='md'>
+    <Flex bg='white' mt='1rem' mb='1rem' maxWidth='58rem' minHeight='10rem' flexDirection='column' boxShadow='md'>
       <Flex mr='1.6rem' ml='2.3rem' justifyContent='flex-start' mt='1.6rem'>
-        <Flex border='2px' borderColor='secondary' borderRadius='5px' mr='2.3rem' alignItems='center' w='7.6rem' h='7.6rem'>
+        <Flex borderRadius='5px' mr='2.3rem' alignItems='center' w='7.6rem' h='7.6rem'>
           <Link to={'/productDetail/' + id}>
             <Image w='7.2rem' h='7.2rem' objectFit='contain' src={image[0]} alt={name} />
           </Link>

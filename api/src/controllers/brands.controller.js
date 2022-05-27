@@ -3,7 +3,9 @@ const Brands = require('../services/brands.service')
 const get = async (req, res) => {
   try {
     const retrievedBrands = await Brands.getAllBrands()
-    retrievedBrands ? res.json(retrievedBrands) : res.status(404).json({ error: 'No brands where found' })
+    retrievedBrands
+      ? res.status(200).json({ data: retrievedBrands })
+      : res.status(400).json({ error: 'No brands where found' })
   } catch (error) {
     res.status(400).json(error)
   }

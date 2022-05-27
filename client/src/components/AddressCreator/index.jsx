@@ -168,8 +168,8 @@ function AddressCreator ({ handleClickAddress }) {
           {errors.deliveryInstructions && <Text color='red'>{errors.deliveryInstructions}</Text>}
         </FormControl>
         <Flex mt='1rem' width='30rem' flexDirection='row' justifyContent='flex-end' alignItems='center'>
-          <Button _hover={{ color: 'gray' }} color='#2C2C2E' border='2px' borderColor='#2C2C2E' name='Close' onClick={handleSubmit}>Cancelar</Button>
-          <Button ml='1rem' _hover={{ color: 'gray' }} bg='#2C2C2E' color='white' name='Submit' onClick={handleSubmit}>Guardar</Button>
+          <Button m={3} bg='#0082E3' _hover={{ color: 'white', bg: '#0082E3' }} borderRadius='none' color='white' onClick={handleSubmit}>Cancelar</Button>
+          <Button m={3} bg='#0082E3' _hover={{ color: 'white', bg: '#0082E3' }} borderRadius='none' color='white' onClick={handleSubmit}>Guardar</Button>
         </Flex>
       </Box>
 

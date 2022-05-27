@@ -4,17 +4,17 @@ import { postReview, getReviews, putReview, deleteReview } from '../../services/
 export const createReview = (newReview) => {
   return async (dispatch) => {
     try {
-      const reviewsList = await postReview(newReview)
+      const { data, message } = await postReview(newReview)
       const toast = {
         title: 'Reseña creada.',
-        description: 'Te agradecemos tus comentarios!',
+        description: message,
         status: 'success',
-        duration: 6500,
+        duration: 5000,
         isClosable: true
       }
       dispatch({
         type: CREATE_REVIEW,
-        payload: reviewsList
+        payload: data
       })
       dispatch({
         type: SET_TOAST,
@@ -25,7 +25,7 @@ export const createReview = (newReview) => {
         title: 'Error interno.',
         description: 'No pudimos guardar tu reseña.',
         status: 'error',
-        duration: 4500,
+        duration: 3500,
         isClosable: true
       }
       dispatch({
@@ -39,18 +39,18 @@ export const createReview = (newReview) => {
 export const getUserReviews = () => {
   return async (dispatch) => {
     try {
-      const reviewsList = await getReviews()
+      const { data } = await getReviews()
 
       dispatch({
         type: GET_USER_REVIEWS,
-        payload: reviewsList
+        payload: data
       })
     } catch (error) {
       const toast = {
         title: 'Error interno.',
         description: 'No pudimos obtener las reseñas.',
         status: 'error',
-        duration: 4500,
+        duration: 3500,
         isClosable: true
       }
 
@@ -62,21 +62,25 @@ export const getUserReviews = () => {
   }
 }
 
-export const updateReview = (reviewId) => {
+export const updateReview = (reviewId, newValues) => {
   return async (dispatch) => {
     try {
-      const reviewsList = await putReview(reviewId)
+      const { data, message } = await putReview(reviewId, newValues)
 
       dispatch({
         type: GET_USER_REVIEWS,
-        payload: reviewsList
+        payload: data
+      })
+      dispatch({
+        type: SET_TOAST,
+        payload: message
       })
     } catch (error) {
       const toast = {
         title: 'Error interno.',
         description: 'No pudimos obtener las reseñas.',
         status: 'error',
-        duration: 4500,
+        duration: 3500,
         isClosable: true
       }
 
@@ -91,21 +95,24 @@ export const updateReview = (reviewId) => {
 export const removeReview = (reviewId) => {
   return async (dispatch) => {
     try {
-      const reviewsList = await deleteReview(reviewId)
+      const { data, message } = await deleteReview(reviewId)
 
       dispatch({
         type: GET_USER_REVIEWS,
-        payload: reviewsList
+        payload: data
+      })
+      dispatch({
+        type: SET_TOAST,
+        payload: message
       })
     } catch (error) {
       const toast = {
         title: 'Error interno.',
         description: 'No pudimos obtener las reseñas.',
         status: 'error',
-        duration: 4500,
+        duration: 3500,
         isClosable: true
       }
-
       dispatch({
         type: GET_USER_REVIEWS,
         payload: toast

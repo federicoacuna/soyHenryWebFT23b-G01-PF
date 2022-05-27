@@ -15,7 +15,7 @@ export const getCountriesList = () => {
         title: 'Error interno!',
         description: 'No pudimos recuperar la lista de paises.',
         status: 'error',
-        duration: 4500,
+        duration: 3500,
         isClosable: true
       }
       dispatch({

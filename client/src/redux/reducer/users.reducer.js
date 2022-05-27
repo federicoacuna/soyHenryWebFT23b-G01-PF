@@ -13,7 +13,7 @@ const users = (state = initialState, action) => {
     case LOG_IN:
       return {
         ...state,
-        user: payload.user.data,
+        user: payload.data,
         token: payload.token
       }
 

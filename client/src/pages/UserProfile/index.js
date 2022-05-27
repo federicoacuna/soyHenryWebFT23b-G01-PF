@@ -78,7 +78,7 @@ export default function UserProfile () {
               </Tab>
             </Flex>
 
-            <TabPanels bg='white' borderLeft='2px' borderStyle='inherit' ml='1rem' borderColor='#333333' overflow='auto'>
+            <TabPanels bg='white' borderLeft='2px' borderStyle='inherit' ml='1rem' borderColor='secondary' overflow='auto'>
               <TabPanel>
                 <Heading mb={5}>Datos personales</Heading>
                 <DatosPersonales />
@@ -92,7 +92,7 @@ export default function UserProfile () {
                 {!Click.address
                   ? <>
                     <AddressContainer />
-                    <Button _hover={{ color: 'white' }} color='white' bg='#2C2C2E' onClick={handleClickAddress}>Agregar una dirección</Button>
+                    <Button borderRadius='none' mr='1rem' _hover={{ bg: 'none' }} name='AddAddress' border='2px' borderColor='accent' color='accent' bg='white' onClick={handleClickAddress}>Agregar una dirección</Button>
                     {/* eslint-disable-next-line */}
                 </>
                   : <>

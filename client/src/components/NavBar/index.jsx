@@ -79,10 +79,14 @@ const NavBar = () => {
         <Link to='/' className={s.logo}>
           <Icon width='1.7rem' height='1.7rem' name='logo' as={BsShopWindow} />
           <span>Salchistore</span>
+          <Box>
+            <Link to='/administration'><Box color='white'>Admin</Box></Link>
+          </Box>
         </Link>
+
         <Box />
         <Box>
-          <UnorderedList display='flex' alignItems='center' gap='1rem' mr='5rem'>
+          <UnorderedList display='flex' alignItems='center' gap='1rem'>
             {token
               ? <>
                 <div className={s.navLink} onClick={() => handleClick(4)}><MdOutlineFavoriteBorder /></div>
@@ -93,17 +97,17 @@ const NavBar = () => {
                     </MenuButton>
                   </Flex>
                   <MenuList bg='#333333' mt='1rem' width='3rem'>
-                    <Link to='/perfil/' onClick={() => handleClick(0)}><MenuItem _focus={{ boxShadow: 'none' }} fontSize='1rem' bg='#333333' name='perfil'>Perfil</MenuItem></Link>
-                    <Link to='/perfil/' onClick={() => handleClick(3)}><MenuItem _focus={{ boxShadow: 'none' }} fontSize='1rem' bg='#333333' name='mis-compras'>Mis compras</MenuItem></Link>
-                    <MenuItem _focus={{ boxShadow: 'none' }} fontSize='1rem' bg='#333333' onClick={handleSubmit} name='salir'>Salir</MenuItem>
+                    <Link to='/perfil/' onClick={() => handleClick(0)}><MenuItem _active={{ bg: '#333333' }} _focus={{ boxShadow: 'none' }} fontSize='1rem' bg='#333333' name='perfil'>Perfil</MenuItem></Link>
+                    <Link to='/perfil/' onClick={() => handleClick(3)}><MenuItem _active={{ bg: '#333333' }} _focus={{ boxShadow: 'none' }} fontSize='1rem' bg='#333333' name='mis-compras'>Mis compras</MenuItem></Link>
+                    <MenuItem _focus={{ boxShadow: 'none' }} _active={{ bg: '#333333' }} fontSize='1rem' bg='#333333' onClick={handleSubmit} name='salir'>Salir</MenuItem>
                   </MenuList>
                 </Menu>
                   </>//eslint-disable-line
-              : <ListItem fontSize='1.25rem' mr='2.5rem'><Link to='#' onClick={handleSubmit} name='ingresar'>Ingresar</Link></ListItem>}
-            <ListItem display='flex' alignItems='flex-start' className={s.trapecio}>
+              : <ListItem listStyleType='none' fontSize='1.25rem' mr='2.5rem'><Link to='#' onClick={handleSubmit} name='ingresar'>Ingresar</Link></ListItem>}
+            <ListItem display='flex' alignItems='flex-start' color='white'>
               <Link to='/cart' className={s.cartLink}>
                 {cartProducts > 0 ? <span>{cartProducts}</span> : undefined}
-                <BsCart fontSize='1.7rem' color='#333333' />
+                <BsCart fontSize='1.7rem' color='white' />
               </Link>
             </ListItem>
           </UnorderedList>

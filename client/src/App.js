@@ -14,6 +14,7 @@ import './App.css'
 import { app } from './config/firebase-config' //eslint-disable-line
 import store from './redux/store'
 import Footer from './components/Footer'
+import ChatBotContainer from './components/ChatBotContainer'
 
 function App () {
   store.subscribe(() =>
@@ -36,6 +37,7 @@ function App () {
         <Route exact path='/administration' element={<AdminsHome />} />
         <Route path='/confirmation/:orderId' element={<OrderConfirmation />} />
       </Routes>
+      <ChatBotContainer />
       <Footer />
     </div>
   )
