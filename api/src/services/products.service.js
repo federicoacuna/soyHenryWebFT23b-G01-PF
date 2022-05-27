@@ -1,5 +1,6 @@
 const { Product, Category, Brand, Review, User, Order, OrderItem } = require('../db')
 const { Op } = require('sequelize')
+const cloudinary = require('../config/cloudinary-config')
 
 async function getProducts (options) {
   const { search, brand, minPrice, maxPrice, category, sort, page = 1 } = options
@@ -84,6 +85,24 @@ async function canReview (productId, email) {
   }
 }
 
+async function uploadImage (filePath) {
+  return await cloudinary.uploader.upload(filePath, {
+    folder: 'e-commercepf'
+  })
+}
+
+async function deleteImage (id) {
+  return await cloudinary.uploader.destroy(id)
+}
+
+async function saveProduct (product) {
+  let [savedProduct, category] = await Promise.all([Product.create(product), Category.findOne({ where: { id: product.categoryId } })])
+  savedProduct = savedProduct.toJSON()
+  savedProduct.category = { name: category.name }
+
+  return savedProduct
+}
+
 async function updateProduct () {
   // placeholder function
 }
@@ -95,7 +114,10 @@ async function removeProduct () {
 module.exports = {
   getProducts,
   getProductDetail,
+  canReview,
+  uploadImage,
+  deleteImage,
+  saveProduct,
   updateProduct,
-  removeProduct,
-  canReview
+  removeProduct
 }
