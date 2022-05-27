@@ -39,18 +39,18 @@ export const createReview = (newReview) => {
 export const getUserReviews = () => {
   return async (dispatch) => {
     try {
-      const reviewsList = await getReviews()
+      const { data } = await getReviews()
 
       dispatch({
         type: GET_USER_REVIEWS,
-        payload: reviewsList
+        payload: data
       })
     } catch (error) {
       const toast = {
         title: 'Error interno.',
         description: 'No pudimos obtener las reseñas.',
         status: 'error',
-        duration: 4500,
+        duration: 3500,
         isClosable: true
       }
 

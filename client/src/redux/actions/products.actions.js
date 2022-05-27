@@ -64,11 +64,11 @@ export const getProductsList = (searchOptions) => {
 export const getProductDetails = (productId) => {
   return async (dispatch) => {
     try {
-      const product = await getProduct(productId)
+      const { data } = await getProduct(productId)
 
       dispatch({
         type: GET_PRODUCT_DETAILS,
-        payload: product
+        payload: data
       })
     } catch (error) {
       const toast = {

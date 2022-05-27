@@ -39,11 +39,11 @@ export const createNewAddress = (newAddress) => {
 export const getUserAddresses = () => {
   return async (dispatch) => {
     try {
-      const addressList = await getAddresses()
+      const { data } = await getAddresses()
 
       dispatch({
         type: GET_ADDRESSES,
-        payload: addressList
+        payload: data
       })
     } catch (error) {
       const toast = {
