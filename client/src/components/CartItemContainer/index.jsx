@@ -4,7 +4,10 @@ import CartItem from '../CartItem'
 import { Flex, Box } from '@chakra-ui/react' //eslint-disable-line
 
 export const CartItemContainer = () => {
-  const cartProducts = useSelector(state => state.cart.localItems)
+  const user = useSelector(state => state.users.user)
+  const localCart = useSelector(state => state.cart.localItems)
+  const remoteCart = useSelector(state => state.cart.items)
+  const cartProducts = user && user.id ? remoteCart : localCart
 
   return (
     <>

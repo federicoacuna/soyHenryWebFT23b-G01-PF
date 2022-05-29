@@ -11,7 +11,7 @@ router.post('/:productId', cartController.create)
 
 router.post('/', cartController.create)
 
-router.put('/', cartController.updateQuantity)
+router.put('/', cartController.updateCart)
 
 router.delete('/:productId', cartController.remove)
 

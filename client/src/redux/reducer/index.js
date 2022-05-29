@@ -12,7 +12,7 @@ import system from './system.reducer'
 import users from './users.reducer'
 import wishlist from './wishlist.reducer'
 
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
   addresses,
   branches,
   brands,
@@ -27,4 +27,15 @@ const rootReducer = combineReducers({
   wishlist
 })
 
+const rootReducer = (state, action) => {
+  if (action.type === 'LOG_OUT') {
+    return appReducer({
+      brands: state.brands,
+      categories: state.categories,
+      products: state.products
+    }, action)
+  }
+
+  return appReducer(state, action)
+}
 export default rootReducer

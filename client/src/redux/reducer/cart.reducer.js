@@ -1,4 +1,4 @@
-import { ADD_CART_ITEM, UPDATE_CART } from '../constants'
+import { ADD_CART_ITEM, UPDATE_CART, CLEAR_CART, UPDATE_REMOTE_CART } from '../constants'
 
 const initialState = {
   items: [],
@@ -17,8 +17,21 @@ const cart = (state = initialState, action) => {
     case ADD_CART_ITEM:
       return {
         ...state,
-        localItems: state.localItems.findIndex(item => item.id === payload.id) !== -1 ? [...state.localItems, payload] : [...state.localItems, payload]
+        localItems: state.localItems.findIndex(item => item.id === payload.id) !== -1 ? [...state.localItems] : [...state.localItems, payload]
       }
+
+    case CLEAR_CART:
+      return {
+        ...state,
+        localItems: []
+      }
+
+    case UPDATE_REMOTE_CART:
+      return {
+        ...state,
+        items: payload
+      }
+
     default:
       return state
   }

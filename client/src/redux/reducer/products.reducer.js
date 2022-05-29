@@ -21,8 +21,7 @@ const productsReducer = (state = initialState, action) => {
     case GET_PRODUCT_DETAILS:
       return {
         ...state,
-        productDetail: payload.data
-
+        productDetail: payload
       }
 
     case ADD_PRODUCTS_FILTER:

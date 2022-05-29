@@ -40,11 +40,11 @@ export const createNewCategory = (newCategory) => {
 export const getCategoriesList = () => {
   return async (dispatch) => {
     try {
-      const categoriesList = await getCategories()
+      const { data } = await getCategories()
 
       dispatch({
         type: GET_CATEGORIES,
-        payload: categoriesList
+        payload: data
       })
     } catch (error) {
       const toast = {

@@ -27,13 +27,13 @@ const users = (state = initialState, action) => {
     case GET_USERS:
       return {
         ...state,
-        users: payload.data
+        users: payload
       }
 
     case UPDATE_USER_INFO:
       return {
         ...state,
-        details: payload
+        user: payload
       }
 
     default:

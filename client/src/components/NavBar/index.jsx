@@ -21,22 +21,34 @@ import { logOut } from '../../redux/actions/users.actions'
 import { getUserWishList } from '../../redux/actions/wishlist.actions'
 import ModalLogin from '../../components/ModalLogin'
 import SearchBar from '../SearchBar'
+import { getRemoteCart, mergeLocalCart, updateCart } from '../../redux/actions/cart.actions'
 
 const NavBar = () => {
   const navigate = useNavigate()
-  const cartProducts = useSelector(state => state.cart.items.reduce((acc, curr) => acc + curr.quantity, 0))
-  const [modal, setModal] = useState(false)
-  const [isRegistrando, setIsRegistrando] = useState(false)
   const token = useSelector(state => state.users.token)
   const user = useSelector(state => state.users.user)
   const toastToDisplay = useSelector(state => state.system.toast)
+  const localCart = useSelector(state => state.cart.localItems).slice()
+  const remoteCart = useSelector(state => state.cart.items).slice()
+  const [modal, setModal] = useState(false)
+  const [isRegistrando, setIsRegistrando] = useState(false)
   const dispatch = useDispatch()
   const toast = useToast()
+  const cartCounter = token ? remoteCart.length : localCart.length
 
   useEffect(() => {
     dispatch(getUserWishList())
+    token && mergeCarts()
   }, [token])//eslint-disable-line
 
+  function mergeCarts () {
+    if (user && user.id && Array.isArray(localCart) && localCart.length) {
+      dispatch(mergeLocalCart(localCart))
+      dispatch(updateCart([]))
+    } else {
+      dispatch(getRemoteCart())
+    }
+  }
   useEffect(() => {
     toastToDisplay.title && toast(toastToDisplay)
   }, [toastToDisplay])//eslint-disable-line
@@ -106,7 +118,7 @@ const NavBar = () => {
               : <ListItem listStyleType='none' fontSize='1.25rem' mr='2.5rem'><Link to='#' onClick={handleSubmit} name='ingresar'>Ingresar</Link></ListItem>}
             <ListItem display='flex' alignItems='flex-start' color='white'>
               <Link to='/cart' className={s.cartLink}>
-                {cartProducts > 0 ? <span>{cartProducts}</span> : undefined}
+                {cartCounter > 0 ? <span>{cartCounter}</span> : undefined}
                 <BsCart fontSize='1.7rem' color='white' />
               </Link>
             </ListItem>

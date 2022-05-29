@@ -27,7 +27,7 @@ export const Cart = () => {
         <Tabs w='61.3rem'>
           <TabList color='accent' _active={{ color: 'accent' }}>
             <Tab _focus={{ outline: 'none' }}>Carrito</Tab>
-            <Tab _focus={{ outline: 'none' }}>Lista de deseos</Tab>
+            {token && <Tab _focus={{ outline: 'none' }}>Lista de deseos</Tab>}
           </TabList>
           <TabPanels>
             <TabPanel>
@@ -40,9 +40,10 @@ export const Cart = () => {
                   </>}
               </Flex>
             </TabPanel>
-            <TabPanel>
-              <WishList />
-            </TabPanel>
+            {token &&
+              <TabPanel>
+                <WishList />
+              </TabPanel>}
           </TabPanels>
 
         </Tabs>

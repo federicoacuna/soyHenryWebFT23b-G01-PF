@@ -61,17 +61,17 @@ export const getUsersList = (filters) => {
 export const updateUserData = (newData) => {
   return async (dispatch) => {
     try {
-      const updatedUser = await updateUser(newData)
+      const { data, message } = await updateUser(newData)
       const toast = {
         title: 'Actualizado.',
-        description: 'Ya tenemos tu nueva informacion guardada.',
+        description: message,
         status: 'success',
         duration: 5000,
         isClosable: true
       }
       dispatch({
         type: UPDATE_USER_INFO,
-        payload: updatedUser
+        payload: data
       })
       dispatch({
         type: SET_TOAST,

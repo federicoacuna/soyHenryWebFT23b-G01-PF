@@ -22,7 +22,7 @@ export const addToWishlist = (productId) => {
       })
     } catch (error) {
       const toast = {
-        title: 'Error interno.',
+        title: 'Error wishlist.',
         description: 'No pudimos recuperar el listado de favoritos.',
         status: 'error',
         duration: 3500,
