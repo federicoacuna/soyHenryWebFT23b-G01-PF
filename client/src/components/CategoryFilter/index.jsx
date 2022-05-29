@@ -10,8 +10,8 @@ export const CategoryFilter = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    getCategoriesList()
-  }, [])
+    dispatch(getCategoriesList())
+  }, [])//eslint-disable-line
 
   if (!categories || categories.length === 0) return <Box>No hay categorías</Box>
 

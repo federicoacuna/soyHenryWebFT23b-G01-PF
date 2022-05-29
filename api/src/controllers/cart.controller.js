@@ -24,11 +24,11 @@ const create = async (req, res) => {
       const newCart = await cartService.getCartItems(user.id)
       addedItem
         ? res.status(200).json({
-          message: 'Item agregado con exito',
+          message: 'Producto agregado al carrito',
           data: newCart
         })
         : res.status(400).json({
-          message: 'El item ya fue agregado al carrito',
+          message: 'El producto ya se encuentra en el carrito',
           data: newCart
         })
     } else {
@@ -54,24 +54,48 @@ const create = async (req, res) => {
   }
 }
 
-const updateQuantity = async (req, res) => {
+const updateCart = async (req, res) => {
+  const updateInfo = req.body.slice()
   try {
     const user = await userService.getUserByEmail(req.user.email)
-    req.body.userId = user.id
-    const updated = await cartService.updateItemQuantity(req.body)
-    const newCart = await cartService.getCartItems(user.id)
-    updated
-      ? res.status(200).json({
-        message: 'Item actualizado con exito',
-        data: newCart
+    if (!_validateMerge(updateInfo, user.id)) {
+      return res.status(404).json({ message: 'Informacion invalida para realizar merge' })
+    }
+    const localCart = updateInfo.map(item => {
+      item.userId = user.id
+      return item
+    })
+    const mergedCart = await cartService.mergeCarts(localCart, user.id)
+    mergedCart
+      ? res.json({
+        message: 'Los carritos fueron combinados!',
+        data: mergedCart
       })
-      : res.status(400).json({
-        message: 'El Item no se encuentra en carrito',
-        data: newCart
+      : res.status(500).json({
+        message: 'No se pudieron combinarse los carritos',
+        data: mergedCart
       })
   } catch (error) {
     res.status(400).json(error.message)
   }
+}
+
+function _validateMerge (localCart, userId) {
+  if (!Array.isArray(localCart) || !localCart.length) return false
+  localCart = localCart.map(item => {
+    const newItem = {
+      productId: item.id,
+      quantity: item.quantity,
+      userId
+    }
+    return newItem
+  })
+  let valid = true
+  localCart.forEach(item => {
+    item.productId || (valid = false)
+    item.quantity || (valid = false)
+  })
+  return valid
 }
 
 const remove = async (req, res) => {
@@ -120,7 +144,7 @@ const removeAll = async (req, res) => {
 module.exports = {
   get,
   create,
-  updateQuantity,
+  updateCart,
   remove,
   removeAll
 }

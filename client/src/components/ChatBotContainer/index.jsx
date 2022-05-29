@@ -7,7 +7,6 @@ import chatboticon from './img/chatboticon.png'
 const ChatBotContainer = () => {
   const user = useSelector(state => state.users.user)
   const [usuario, setUsuario] = useState(user.email) //eslint-disable-line
-  console.log(user)
 
   const steps = [
     {

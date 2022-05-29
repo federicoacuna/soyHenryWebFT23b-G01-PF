@@ -1,85 +1,5 @@
-// import { postCartItem, deleteCartItem, deleteCart, getCart } from '../../services/cart'
-import { ADD_CART_ITEM, UPDATE_CART, SET_CART_PRODUCTS } from '../constants'
-
-// export const getUserCart = () => {
-//   return async (dispatch) => {
-//     try {
-//       const response = await getCart()
-
-//       dispatch({
-//         type: GET_CART,
-//         payload: response
-//       })
-//     } catch (error) {
-//       dispatch({
-//         type: GET_CART,
-//         payload: error
-//       })
-//     }
-//   }
-// }
-
-// export const clearCartItems = () => {
-//   return async (dispatch) => {
-//     try {
-//       const response = await deleteCart()
-
-//       dispatch({
-//         type: CLEAR_CART_ITEMS,
-//         payload: response
-//       })
-//     } catch (error) {
-//       dispatch({
-//         type: CLEAR_CART_ITEMS,
-//         payload: error
-//       })
-//     }
-//   }
-// }
-
-// export const removeCartItem = (productId) => {
-//   return async (dispatch) => {
-//     try {
-//       const response = await deleteCartItem(productId)
-
-//       dispatch({
-//         type: DELETE_CART_ITEM,
-//         payload: response
-//       })
-//     } catch (error) {
-//       dispatch({
-//         type: DELETE_CART_ITEM,
-//         payload: error
-//       })
-//     }
-//   }
-// }
-
-// export const addCartItem = (productId) => {
-//   return async (dispatch) => {
-//     try {
-//       const response = await postCartItem(productId)
-
-//       dispatch({
-//         type: UPDATE_CART_USER,
-//         payload: response
-//       })
-//     } catch (error) {
-//       dispatch({
-//         type: UPDATE_CART_USER,
-//         payload: error
-//       })
-//     }
-//   }
-// }
-
-// CART
-export const setCartProducts = (products) => {
-  return {
-    type: SET_CART_PRODUCTS,
-    payload: products
-  }
-}
+import { postCart, putCartItem, postCartItem, deleteCartItem, getCart, putMergeCarts } from '../../services/cart'
+import { ADD_CART_ITEM, UPDATE_CART, CLEAR_CART, UPDATE_REMOTE_CART, SET_TOAST } from '../constants'
 
 export const updateCart = (cartItems) => {
   return {
@@ -92,5 +12,188 @@ export const addCartItem = (product) => {
   return {
     type: ADD_CART_ITEM,
     payload: product
+  }
+}
+
+export const clearLocalCart = () => {
+  return {
+    type: CLEAR_CART
+  }
+}
+
+export const setRemoteCartProducts = (cartList) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await postCart(cartList)
+
+      dispatch({
+        type: UPDATE_REMOTE_CART,
+        payload: data
+      })
+    } catch (error) {
+      const toast = {
+        title: 'Error interno!',
+        description: error.message,
+        status: 'error',
+        duration: 3500,
+        isClosable: true
+      }
+      dispatch({
+        type: SET_TOAST,
+        payload: toast
+      })
+    }
+  }
+}
+
+export const changeRemoteCartItemQuantity = (cartItem) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await putCartItem(cartItem)
+
+      dispatch({
+        type: UPDATE_REMOTE_CART,
+        payload: data
+      })
+    } catch (error) {
+      const toast = {
+        title: 'Error interno!',
+        description: error.message,
+        status: 'error',
+        duration: 3500,
+        isClosable: true
+      }
+      dispatch({
+        type: SET_TOAST,
+        payload: toast
+      })
+    }
+  }
+}
+
+export const addRemoteCartItem = (productId) => {
+  return async (dispatch) => {
+    try {
+      const { data, message } = await postCartItem(productId)
+
+      const toast = {
+        title: 'Agregado!',
+        description: message,
+        status: 'success',
+        duration: 5000,
+        isClosable: true
+      }
+      dispatch({
+        type: UPDATE_REMOTE_CART,
+        payload: data
+      })
+      dispatch({
+        type: SET_TOAST,
+        payload: toast
+      })
+    } catch (error) {
+      const { data, message } = error
+      console.log(data, message)
+      const toast = {
+        title: 'Error interno!',
+        description: error.message,
+        status: 'error',
+        duration: 3500,
+        isClosable: true
+      }
+      dispatch({
+        type: SET_TOAST,
+        payload: toast
+      })
+    }
+  }
+}
+
+export const removeRemoteCartItem = (productId) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await deleteCartItem(productId)
+
+      dispatch({
+        type: UPDATE_REMOTE_CART,
+        payload: data
+      })
+    } catch (error) {
+      const toast = {
+        title: 'Error interno!',
+        description: error.message,
+        status: 'error',
+        duration: 3500,
+        isClosable: true
+      }
+      dispatch({
+        type: SET_TOAST,
+        payload: toast
+      })
+    }
+  }
+}
+
+export const getRemoteCart = () => {
+  return async (dispatch) => {
+    try {
+      const { data } = await getCart()
+
+      dispatch({
+        type: UPDATE_REMOTE_CART,
+        payload: data
+      })
+    } catch (error) {
+      const toast = {
+        title: 'Error interno!',
+        description: error.message,
+        status: 'error',
+        duration: 3500,
+        isClosable: true
+      }
+      dispatch({
+        type: SET_TOAST,
+        payload: toast
+      })
+    }
+  }
+}
+
+export const mergeLocalCart = (localCart) => {
+  return async (dispatch) => {
+    try {
+      console.log(localCart)
+      const { data, message } = await putMergeCarts(localCart)
+      console.log(data)
+      dispatch({
+        type: UPDATE_REMOTE_CART,
+        payload: data
+      })
+      if (message) {
+        const toast = {
+          title: 'Carrito guardado!',
+          description: message,
+          status: 'success',
+          duration: 5000,
+          isClosable: true
+        }
+        dispatch({
+          type: SET_TOAST,
+          payload: toast
+        })
+      }
+    } catch (error) {
+      const toast = {
+        title: 'Error!',
+        description: error.message,
+        status: 'error',
+        duration: 3500,
+        isClosable: true
+      }
+      dispatch({
+        type: SET_TOAST,
+        payload: toast
+      })
+    }
   }
 }

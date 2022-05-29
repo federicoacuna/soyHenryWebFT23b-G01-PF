@@ -1,17 +1,16 @@
-import React, { useEffect } from 'react' //eslint-disable-line
+import React, { useEffect } from 'react'
 import s from '../ModalLogin/index.module.css'
 import { Stack, InputGroup, Input, Button, Flex, Text, InputLeftElement, InputRightElement, useToast } from '@chakra-ui/react'
 import { FcGoogle } from 'react-icons/fc'
 import { AiOutlineClose } from 'react-icons/ai'
 import { MdAlternateEmail, MdOutlineLock } from 'react-icons/md'
-import { logIn} from '../../redux/actions/users.actions' //eslint-disable-line
+import { logIn } from '../../redux/actions/users.actions'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 import { useDispatch } from 'react-redux'
 
 export const ModalLogin = ({ children, state, setState, isRegistrando, setIsRegistrando }) => {
-  const dispatch = useDispatch() //eslint-disable-line
-  // TOAST DE CHAKRA
+  const dispatch = useDispatch()
   const toast = useToast()
 
   const [values, setValues] = React.useState({
@@ -25,8 +24,6 @@ export const ModalLogin = ({ children, state, setState, isRegistrando, setIsRegi
   })
   const [show, setShow] = React.useState(false)
 
-  // USE EFFECT CON EL DISPATCH DE LOGIN & LA FN DE VALIDATE
-
   useEffect(() => {
     firebase.auth().onIdTokenChanged(user => {
       if (user) {
@@ -38,7 +35,6 @@ export const ModalLogin = ({ children, state, setState, isRegistrando, setIsRegi
     validate()
   }, [values]) //eslint-disable-line
 
-  // HANDLES
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value })
   }
@@ -102,15 +98,7 @@ export const ModalLogin = ({ children, state, setState, isRegistrando, setIsRegi
   }
 
   // FIREBASE
-
   function handleLogIn (type, correo, password) {
-    // async function passToken () {
-    //   firebase.auth().currentUser.getIdToken().then(token => {
-    //     dispatch(logIn(token))
-    //     dispatch(getWishList())
-    //   })
-    // }
-
     function toaster (message = 'Login exitoso') {
       toast({
         description: message,
@@ -122,17 +110,14 @@ export const ModalLogin = ({ children, state, setState, isRegistrando, setIsRegi
     try {
       if (type === 'google') {
         firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())
-          // .then(user => user && passToken())
           .then(() => toaster())
       }
       if (type === 'email') {
         firebase.auth().signInWithEmailAndPassword(correo, password)
-          // .then(user => user && passToken())
           .then(() => (toaster()))
       }
       if (type === 'register') {
         firebase.auth().createUserWithEmailAndPassword(correo, password)
-          // .then(user => user && passToken())
           .then(() => (toaster('Usuario Registrado con Exito')))
       }
       setState(false)

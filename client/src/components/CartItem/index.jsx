@@ -1,16 +1,26 @@
-import { Link } from 'react-router-dom'
 import { Flex, Text, Image } from '@chakra-ui/react'
 import { HiPlusSm, HiMinus } from 'react-icons/hi'
 import { useSelector, useDispatch } from 'react-redux'
-import { updateCart } from '../../redux/actions/cart.actions'
+import { updateCart, setRemoteCartProducts } from '../../redux/actions/cart.actions'
+import { addToWishlist } from '../../redux/actions/wishlist.actions'
 
 export default function CartItem ({ product }) {
   const { name, image, price, quantity } = product
   const cartList = useSelector(state => state.cart.localItems)
+  const remoteCartList = useSelector(state => state.cart.items)
+  const user = useSelector(state => state.users.user)
   const dispatch = useDispatch()
 
   function handleClick (operation) {
-    let updatedCartList = cartList.slice()
+    let updatedCartList = user && user.id ? remoteCartList.slice() : cartList.slice()
+    if (operation === 'wishlist') {
+      dispatch(addToWishlist(product.id))
+      return null
+    }
+    if (operation === 'buynow') {
+      // PROCEDER AL CHECKOUT
+      return null
+    }
     if (operation === 'increase') {
       updatedCartList = updatedCartList.map(item => {
         item.id === product.id && item.quantity++
@@ -26,7 +36,16 @@ export default function CartItem ({ product }) {
     if (operation === 'remove') {
       updatedCartList = updatedCartList.filter(item => item.id !== product.id)
     }
-    dispatch(updateCart(updatedCartList))
+
+    if (user && user.id) {
+      updatedCartList = updatedCartList.map(item => {
+        item.productId = item.id
+        return item
+      })
+      dispatch(setRemoteCartProducts(updatedCartList))
+    } else {
+      dispatch(updateCart(updatedCartList))
+    }
   }
 
   return (
@@ -47,8 +66,8 @@ export default function CartItem ({ product }) {
       </Flex>
       <Flex width='30rem' ml='2.3rem' mt='2rem' justifyContent='space-between' mb='1.6rem' color='accent'>
         <Text cursor='pointer' onClick={() => handleClick('remove')}>Eliminar</Text>
-        <Link to=''><Text>Guardar en lista de deseos</Text></Link>
-        <Link to=''><Text>Comprar ahora</Text></Link>
+        {user && user.id && <Text cursor='pointer' onClick={() => handleClick('wishlist')}>Guardar en lista de deseos</Text>}
+        <Text cursor='pointer' onClick={() => handleClick('buynow')}>Comprar ahora</Text>
       </Flex>
 
     </Flex>

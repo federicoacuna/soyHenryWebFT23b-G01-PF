@@ -88,11 +88,42 @@ async function removeAllCart (userId) {
   }
 }
 
+async function mergeCarts (localCart, userId) {
+  try {
+    let currentCart = await getCartItems(userId)
+    await removeAllCart(userId)
+    currentCart = currentCart.map(item => {
+      return {
+        productId: item.id,
+        userId,
+        quantity: item.quantity
+      }
+    })
+    localCart.forEach(item => {
+      const colissionItem = currentCart.find(currentItem => currentItem.productId === item.id)
+      if (colissionItem) {
+        colissionItem.quantity = colissionItem.quantity + item.quantity
+      } else {
+        currentCart.push({
+          productId: item.id,
+          userId,
+          quantity: item.quantity
+        })
+      }
+    })
+    const resultingMergedCart = await addAllCart(currentCart)
+    return resultingMergedCart
+  } catch (error) {
+    return error
+  }
+}
+
 module.exports = {
   getCartItems,
   addCartItems,
   updateItemQuantity,
   removeItem,
   removeAllCart,
-  addAllCart
+  addAllCart,
+  mergeCarts
 }
