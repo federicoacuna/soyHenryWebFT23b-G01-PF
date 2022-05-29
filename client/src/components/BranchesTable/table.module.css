@@ -1,0 +1,20 @@
+.inputTable{
+    margin: 50px auto;
+    border-radius: 5px;    
+    width: 30%;
+}
+
+.input{
+    border: 2px solid rgb(175, 173, 173) ;
+}
+
+.input:focus{
+    background-color: rgb(235, 235, 235);
+}
+.filterNumber{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
