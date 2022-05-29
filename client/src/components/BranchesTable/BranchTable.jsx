@@ -10,7 +10,8 @@ export default function BranchTable () {
   useEffect(() => {
     dispatch(getCountriesList())
     dispatch(getBranchesList())
-    }, []) //eslint-disable-line
+  }, []) // eslint-disable-line 
+  // commit
 
   const branches = useSelector(state => state.branches.data)
   const countries = useSelector(state => state.countries.data)

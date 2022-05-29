@@ -52,6 +52,7 @@ export function GlobalFilter ({
     </div>
   )
 }
+// commit
 export function SelectColumnFilter ({
   column: { filterValue, setFilter, preFilteredRows, id }
 }) {
