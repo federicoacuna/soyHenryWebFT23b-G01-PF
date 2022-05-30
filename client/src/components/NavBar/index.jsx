@@ -101,7 +101,7 @@ const NavBar = () => {
           <UnorderedList display='flex' alignItems='center' gap='1rem'>
             {token
               ? <>
-                <div className={s.navLink} onClick={() => handleClick(4)}><MdOutlineFavoriteBorder /></div>
+                <div className={s.navLink} onClick={() => handleClick(3)}><MdOutlineFavoriteBorder /></div>
                 <Menu>
                   <Flex bg='#333333' alignItems='center'>
                     <Avatar size='sm' mr={2} name={user.email && user.email.split('@')[0]} src='' />
@@ -110,7 +110,7 @@ const NavBar = () => {
                   </Flex>
                   <MenuList bg='#333333' mt='1rem' width='3rem'>
                     <Link to='/perfil/' onClick={() => handleClick(0)}><MenuItem _active={{ bg: '#333333' }} _focus={{ boxShadow: 'none' }} fontSize='1rem' bg='#333333' name='perfil'>Perfil</MenuItem></Link>
-                    <Link to='/perfil/' onClick={() => handleClick(3)}><MenuItem _active={{ bg: '#333333' }} _focus={{ boxShadow: 'none' }} fontSize='1rem' bg='#333333' name='mis-compras'>Mis compras</MenuItem></Link>
+                    <Link to='/perfil/' onClick={() => handleClick(2)}><MenuItem _active={{ bg: '#333333' }} _focus={{ boxShadow: 'none' }} fontSize='1rem' bg='#333333' name='mis-compras'>Mis compras</MenuItem></Link>
                     <MenuItem _focus={{ boxShadow: 'none' }} _active={{ bg: '#333333' }} fontSize='1rem' bg='#333333' onClick={handleSubmit} name='salir'>Salir</MenuItem>
                   </MenuList>
                 </Menu>
