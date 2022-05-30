@@ -3,6 +3,7 @@ import { Flex, Tabs, TabPanels, Tab, TabPanel, Box, Heading } from '@chakra-ui/r
 import { BiUserCircle, BiDirections, BiMoney, BiShoppingBag, BiHeart, BiStar } from 'react-icons/bi'
 
 import AdminCategoriesPanel from '../../components/AdminCategoriesPanel'
+import InventoryPanel from '../../components/InventoryPanel'
 
 export default function AdminsHome () {
   return (
@@ -57,6 +58,14 @@ export default function AdminsHome () {
               fontWeight={500}
             ><BiHeart /> <Box textAlign='start' ml='10px'>ESPACIO PUBLICITARIO</Box>
             </Tab>
+            <Tab
+              justifyContent='flex-start'
+              w='100%'
+              _focus={{ borderColor: 'none' }}
+              _active={{ color: 'white' }}
+              fontWeight={500}
+            ><BiHeart /> <Box textAlign='start' ml='10px'>Inventario</Box>
+            </Tab>
           </Flex>
 
           <TabPanels bg='secondary' overflow='scroll'>
@@ -78,6 +87,10 @@ export default function AdminsHome () {
             </TabPanel>
             <TabPanel>
               <Heading mb={5}>Pautas publicitarias</Heading>
+            </TabPanel>
+            <TabPanel>
+              <Heading mb={5}>Gestión de inventario</Heading>
+              <InventoryPanel />
             </TabPanel>
 
           </TabPanels>
