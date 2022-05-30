@@ -1,18 +1,18 @@
-import CartButton from '../CartButton'
+import { useEffect } from 'react'
 import s from './index.module.css'
 import { Center, Container, Flex, Text, Button, Box } from '@chakra-ui/react'
-
 import { useParams, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { useEffect } from 'react'
 import { getProductDetails } from '../../redux/actions/products.actions'
-import ReviewCard from '../ReviewCard'
-import BuyNowButton from '../BuyNowButton'
-import { FcLikePlaceholder } from 'react-icons/fc'
 import { AiFillStar } from 'react-icons/ai'
+import ReviewCard from '../ReviewCard'
+import WishListManagerButton from '../WishListManagerButton'
+import CartButton from '../CartButton'
+import BuyNowButton from '../BuyNowButton'
 
 function ProductDetail () {
   const product = useSelector(state => state.products.productDetail)
+  const token = useSelector(state => state.users.token)
   const dispatch = useDispatch()
   const { id } = useParams()
   const navigate = useNavigate()
@@ -45,7 +45,7 @@ function ProductDetail () {
 
             </Container>
             <Container minHeight='10rem' boxShadow='md' mr='10rem' width='15rem' p='1rem' gap='0.2rem' display='flex' flexDirection='column' justifyContent='center' alignItems='center'>
-              <Box alignSelf='flex-end' mb='1rem'><FcLikePlaceholder fontSize='1.7rem' /></Box>
+              <Box alignSelf='flex-end' mb='1rem'>{token && <WishListManagerButton productId={product.id} />}</Box>
               <Text fontWeight='bold'>{product.name}</Text>
               <Text alignSelf='flex-start' fontWeight='bold'>
                 {product.category && product.category.name}
