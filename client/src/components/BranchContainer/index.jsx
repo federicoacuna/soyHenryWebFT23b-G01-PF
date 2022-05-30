@@ -1,5 +1,5 @@
 import BranchCard from '../BanchCard'
-import BranchCreateOrModify from '../BranchCreateOrModify'
+import BranchCreateOrModify from '../BranchCreateOrModifyModal'
 import { useState } from 'react'
 import s from './index.module.css'
 // import { useDispatch } from 'react-redux'
