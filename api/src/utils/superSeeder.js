@@ -4,7 +4,6 @@ const {
   Product,
   Country,
   Branch,
-  Role,
   PaymentType,
   User,
   CartItem,
@@ -579,12 +578,6 @@ const branches = [
   }
 ]
 
-// Roles
-const roles = [
-  { name: 'Usuario' }, // 1
-  { name: 'Administrador' }// 2
-]
-
 const paymentTypes = [
   {
     paymentName: 'Tarjeta Crédito'
@@ -606,7 +599,8 @@ const users = [
     lastname: 'Ecommerce',
     phone: '+54922445218',
     birthdate: '1996-11-11',
-    roleId: 2
+    isAdmin: true,
+    enabled: true
   }, // 1
   // Usuarios
   {
@@ -615,7 +609,8 @@ const users = [
     lastname: 'Acuña',
     phone: '+54912345678',
     birthdate: '1990-01-01',
-    roleId: 1
+    isAdmin: false,
+    enabled: true
   }, // 2
   {
     email: 'marce@gmail.com',
@@ -623,7 +618,8 @@ const users = [
     lastname: 'Utria',
     phone: '+57922305678',
     birthdate: '1999-07-05',
-    roleId: 1
+    isAdmin: false,
+    enabled: true
   }, // 3
   {
     email: 'herny@gmail.com',
@@ -631,7 +627,8 @@ const users = [
     lastname: 'Herny',
     phone: '+54942901678',
     birthdate: '2000-07-05',
-    roleId: 1
+    isAdmin: true,
+    enabled: true
   }// 4
   // ACÁ SE PUEDEN AGREGAR MÁS USUARIOS SIGUIENDO EL EJEMPLO ANTERIOR
 ]
@@ -872,12 +869,6 @@ const superSeeder = async () => {
     await Branch.create(branches[i])
   }
   console.log('Sucursales cargadas en la base de datos --> ✅')
-
-  // Carga de roles
-  for (let i = 0; i < roles.length; i++) {
-    await Role.create(roles[i])
-  }
-  console.log('Roles cargados en la base de datos --> ✅')
 
   // Carga de tipos de pago
   for (let i = 0; i < paymentTypes.length; i++) {

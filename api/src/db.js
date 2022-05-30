@@ -45,9 +45,6 @@ UserPayment.belongsTo(User)
 PaymentType.hasMany(UserPayment)
 UserPayment.belongsTo(PaymentType)
 
-Role.hasMany(User)
-User.belongsTo(Role)
-
 User.belongsToMany(Product, { through: 'review' })
 Product.belongsToMany(User, { through: 'review' })
 

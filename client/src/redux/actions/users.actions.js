@@ -105,7 +105,7 @@ export const adminUpdatesUserData = (newValues) => {
         isClosable: true
       }
       dispatch({
-        type: UPDATE_USER_INFO,
+        type: GET_USERS,
         payload: data
       })
       dispatch({

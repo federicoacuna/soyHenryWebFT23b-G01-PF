@@ -28,6 +28,14 @@ module.exports = sequelize => {
     deleted: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
+    },
+    enabled: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    },
+    isAdmin: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     }
   })
 }
