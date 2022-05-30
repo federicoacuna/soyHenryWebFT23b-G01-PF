@@ -25,7 +25,7 @@ export default function UserProfile () {
     dispatch(getUserAddresses())
   }, [])//eslint-disable-line
 
-  const tabIndex = useSelector(state => state.profileTab)
+  const tabIndex = useSelector(state => state.system.usersPanelSelectedTab)
   const handleClickAddress = () => {
     // setClick(true)
     Click.address === false ? setClick({ ...Click, address: true }) : setClick({ ...Click, address: false })
