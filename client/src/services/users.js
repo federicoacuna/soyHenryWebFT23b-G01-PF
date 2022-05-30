@@ -15,25 +15,25 @@ export const sendToken = async (token) => {
 
 export const getUsers = async () => {
   const { token } = store.getState().users
-  const { data } = await axios.get('/', {
+  const { data } = await axios.get(`${endpoint}/list`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
   })
-
+  console.log(data)
   return data
 }
 
 export const updateUser = async function (newData) {
   const { token } = store.getState().users
   let urlString = endpoint
-  if (newData.userId) urlString += `/${newData.userId}`
+  if (newData.id) urlString += `/${newData.id}`
 
   const { data } = await axios.put(urlString, newData, {
     headers: {
       Authorization: `Bearer ${token}`
     }
   })
-
+  console.log(data)
   return data
 }
