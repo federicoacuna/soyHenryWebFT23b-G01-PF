@@ -1,16 +1,30 @@
-const { Inventory } = require('../db')
+const { Inventory, Product, Branch } = require('../db')
+const { Op } = require('sequelize')
 
 async function getAllProducts () {
-  const result = await Inventory.findAll()
-  return result
+  try {
+    const branchs = await Branch.findAll()
+    const stock = branchs.map(branch => branch.getStock())
+    const result = await Promise.all(stock)
+    return result
+  } catch (error) {
+    return error
+  }
 }
 
-async function getProductExist (productId) {
+async function getProductExist (product) {
   try {
-    const result = await Inventory.findAll({ where: { productId } })
-    if (result) {
-      return result
-    }
+    const products = await Product.findAll({
+      where: {
+        name: {
+          [Op.iLike]: `%${product}%`
+        }
+      }
+    })
+
+    const stock = products.map(product => product.getStock())
+    const result = await Promise.all(stock)
+    return result
   } catch (error) {
     return error
   }
@@ -18,21 +32,29 @@ async function getProductExist (productId) {
 
 async function getStockBranch (branchId) {
   try {
-    const result = await Inventory.findAll({ where: { branchId } })
-    if (result) {
-      return result
-    }
+    const branch = await Branch.findOne({ where: { id: branchId } })
+
+    const stock = await branch.getStock()
+
+    return stock
   } catch (error) {
     return error
   }
 }
 
-async function getStockProductBranch (productId, branchId) {
+async function getStockProductBranch (product, branchId) {
   try {
-    const result = await Inventory.findOne({ where: { productId, branchId } })
-    if (result) {
-      return result
-    }
+    const branch = await Branch.findOne({ where: { id: branchId } })
+
+    const stock = await branch.getStock({
+      where: {
+        name: {
+          [Op.iLike]: `%${product}%`
+        }
+      }
+    })
+
+    return stock
   } catch (error) {
     return error
   }

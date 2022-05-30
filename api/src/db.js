@@ -54,8 +54,8 @@ Product.belongsToMany(User, { through: 'review' })
 User.belongsToMany(Product, { through: 'cartItem' })
 Product.belongsToMany(User, { through: 'cartItem' })
 
-Product.belongsToMany(Branch, { through: 'inventory' })
-Branch.belongsToMany(Product, { through: 'inventory' })
+Product.belongsToMany(Branch, { as: 'Stock', through: 'inventory' })
+Branch.belongsToMany(Product, { as: 'Stock', through: 'inventory' })
 
 User.hasMany(Order, { foreignKey: { allowNull: false } })
 Order.belongsTo(User)
