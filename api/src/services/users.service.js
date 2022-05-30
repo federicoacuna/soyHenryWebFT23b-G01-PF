@@ -15,6 +15,16 @@ async function getById (userId) {
   return user
 }
 
+async function getUsers (userId) {
+  const user = await User.findAll({
+    include: [{ model: UserAddress, attributes: ['id', 'postalCode', 'city', 'streetName', 'houseNumber', 'state'] },
+      { model: UserPayment, attributes: ['id', 'cardNumber', 'provider'] }]
+  })
+  const users = user.filter(elem => elem.id !== userId)
+
+  return users
+}
+
 async function createUser (email) {
   const [user, wasCreated] = await User.findOrCreate({
     where: {
@@ -31,10 +41,18 @@ async function createUser (email) {
   return user
 }
 
-async function updateUser (req) {
-  const user = await getUserByEmail(req.user.email)
-  user && await user.update(req.body)
-  return user
+async function updateUser (req, id) {
+  if (!id) {
+    const { firstname, lastname, phone, birthdate } = req.body
+    const user = await getUserByEmail(req.user.email)
+    user && await user.update({ firstname, lastname, phone, birthdate })
+    return user
+  } else {
+    const { isAdmin, enabled, deleted } = req.body
+    const user = await getById(id)
+    user && await user.update({ isAdmin, enabled, deleted }, { where: { id: user.id } })
+    return user
+  }
 }
 
 async function removeUser (userId) {
@@ -46,5 +64,6 @@ module.exports = {
   getById,
   createUser,
   updateUser,
-  removeUser
+  removeUser,
+  getUsers
 }
