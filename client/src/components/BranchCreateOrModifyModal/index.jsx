@@ -11,7 +11,8 @@ export default function BranchCreateorModify ({ branch, countries }) {
     city: '',
     streetName: '',
     houseNumber: '',
-    phoneNumber: ''
+    phoneNumber: '',
+    id: ''
   })
   let [errors, setErrors] = useState({})
 
@@ -23,7 +24,8 @@ export default function BranchCreateorModify ({ branch, countries }) {
         city: branch.city,
         streetName: branch.streetName,
         houseNumber: branch.houseNumber,
-        phoneNumber: branch.phoneNumber ? branch.phoneNumber : ''
+        phoneNumber: branch.phoneNumber ? branch.phoneNumber : '',
+        id: branch.id
       })
     }
   }, [])
@@ -33,7 +35,7 @@ export default function BranchCreateorModify ({ branch, countries }) {
 
   function handleSubmit (e, branchData, branch) {
     e.preventDefault()
-    if (Object.values(branch).length === 0) { dispatch(createNewBranch(branchData)) } else { dispatch(updateBranch(branch.id)) }
+    if (Object.values(branch).length === 0) { dispatch(createNewBranch(branchData)) } else { dispatch(updateBranch(branchData)) }
   }
 
   function handleChange (e) {
@@ -98,7 +100,7 @@ export default function BranchCreateorModify ({ branch, countries }) {
           <Input onChange={handleChange} type='text' name='phoneNumber' value={branchData.phoneNumber} />
           <FormLabel>{errors.phoneNumber}</FormLabel>
         </p>
-        <Input type='submit' value={Object.values(branch).length === 0 ? 'Crear Surcursal' : 'Modificar Sucursal'} disabled={Object.values(errors).length > 0} />
+        <Input bg='teal' fontWeight='700' type='submit' value={Object.values(branch).length === 0 ? 'Crear Surcursal' : 'Modificar Sucursal'} disabled={Object.values(errors).length > 0} />
       </FormControl>
     </form>
 

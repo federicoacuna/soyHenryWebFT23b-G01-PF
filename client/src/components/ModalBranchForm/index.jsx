@@ -25,23 +25,22 @@ export function ModalBranchDelete ({ isOpen, onClose, branch }) {
   const dispatch = useDispatch()
 
   function handleChangeBranchStatus (branch = {}) {
-    console.log(branch)
-    dispatch(removeBranch(branch.id))
+    dispatch(removeBranch(branch))
   }
   return (
     <div>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent colorScheme='whatsapp'>
           <ModalHeader>Activar o Desactivar Sucursal</ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton bg='tomato' color='black' variant='ghost' />
           <ModalBody>
-            <Box margin='0.8rem'>
+            <Box margin='0.8rem' color='blackAlpha' fontWeight='500'>
               ¿Esta seguro que desea Modificar el estado actual de la sucursal?
             </Box>
             <Box margin='0.8rem'>
-              <Button margin='0.8 rem' onClick={() => handleChangeBranchStatus(branch)}>Confirmar</Button>
-              <Button onClick={onClose}>Cancelar</Button>
+              <Button marginX='2.1rem' colorScheme='whatsapp' color='black' marginY='1rem' onClick={() => handleChangeBranchStatus(branch)}>Confirmar</Button>
+              <Button marginX='2.1rem' colorScheme='red' marginY='1rem' onClick={onClose}>Cancelar</Button>
             </Box>
           </ModalBody>
           <ModalFooter />
