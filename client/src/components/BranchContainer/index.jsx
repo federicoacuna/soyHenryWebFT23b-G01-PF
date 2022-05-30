@@ -1,5 +1,5 @@
 import BranchCard from '../BanchCard'
-import BranchCreateOrModify from '../BranchCreateOrModify'
+import BranchCreateOrModify from '../BranchCreateOrModifyModal'
 import { useState } from 'react'
 // import s from './index.module.css'
 import { Text, Button, Flex, useToast, RadioGroup, Radio, Stack, Box, Divider } from '@chakra-ui/react' //eslint-disable-line
