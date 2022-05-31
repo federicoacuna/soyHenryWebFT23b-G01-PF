@@ -2,25 +2,24 @@ const inventoriesService = require('../services/inventories.service')
 
 async function get (req, res) {
   try {
-    const result = await inventoriesService.getAllProducts()
-    result ? res.status(200).json(result) : res.status(400).json({ error: 'El inventario esta vacio' })
+    const stock = await inventoriesService.getAllProducts()
+    stock ? res.status(200).json(stock) : res.status(400).json({ error: 'El inventario esta vacio' })
   } catch (error) {
     res.status(400).json(error)
   }
 }
 
 async function getByQuery (req, res) {
-  console.log(req.query.productId)
   try {
-    if (req.query.productId && !isNaN(parseInt(req.query.productId))) {
-      const result = await inventoriesService.getProductExist(parseInt(req.query.productId))
-      result ? res.status(200).json(result) : res.status(400).json({ error: 'No se encontro el producto' })
-    } else if (req.query.branchId && !isNaN(parseInt(req.query.branchId))) {
-      const result = await inventoriesService.getStockBranch(parseInt(req.query.branchId))
-      result ? res.status(200).json(result) : res.status(400).json({ error: 'No hay productos en esta sucursal' })
-    } else if (req.query.productId && req.query.branchId && !isNaN(parseInt(req.query.productId)) && !isNaN(parseInt(req.query.branchId))) {
-      const result = await inventoriesService.getStockProductBranch(parseInt(req.query.productId), parseInt(req.query.branchId))
-      result ? res.status(200).json(result) : res.status(400).json({ error: 'No existe ese producto en esta sucursal' })
+    if (typeof req.query.product === 'string') {
+      const stock = await inventoriesService.getProductExist(req.query.product)
+      stock ? res.status(200).json(stock) : res.status(400).json({ error: 'No se encontraron productos' })
+    } else if (!isNaN(parseInt(req.query.branchId))) {
+      const stock = await inventoriesService.getStockBranch(parseInt(req.query.branchId))
+      stock ? res.status(200).json(stock) : res.status(400).json({ error: 'No se encontraron productos en esta sucursal' })
+    } else if (typeof req.query.product === 'string' && !isNaN(parseInt(req.query.branchId))) {
+      const stock = await inventoriesService.getStockProductBranch(typeof req.query.product === 'string', parseInt(req.query.branchId))
+      stock ? res.status(200).json(stock) : res.status(400).json({ error: 'No se encontraron productos ES MAGICO' })
     }
   } catch (error) {
     res.status(400).json(error)

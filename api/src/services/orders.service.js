@@ -1,11 +1,27 @@
 require('dotenv').config()
 const axios = require('axios')
+// const { Op } = require('sequelize')
 const { Order, OrderItem, UserAddress, UserPayment, PaymentType, Country, Product } = require('../db')
 
-async function admAllOrders () {
+async function admAllOrders (options = {}) {
   try {
-    const orders = await Order.findAll()
-    return orders
+    const { search, status } = options
+    if (search) {
+      const results = await Order.findAll({ where: { id: search } })
+      if (status) {
+        const allOrders = await Order.findAll({ where: { id: search, status } })
+        return allOrders
+      } else {
+        return results
+      }
+    }
+    if (status) {
+      const results = await Order.findAll({ where: { status } })
+      return results
+    } else {
+      const allOrders = await Order.findAll()
+      return allOrders
+    }
   } catch (error) {
     return { error }
   }
@@ -163,10 +179,9 @@ async function validatePaymentId (paymentId) {
 
 async function updateOrder (orderId, value) {
   try {
-    const order = await Order.findOne({ where: { id: orderId } })
+    // const order = await Order.findOne({ where: { id: orderId } })
 
-    order.update(value)
-    return order
+    return await Order.update(value, { where: { id: orderId } })
   } catch (error) {
     return error
   }

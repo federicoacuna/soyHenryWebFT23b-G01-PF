@@ -16,19 +16,18 @@ export const getBranches = async function () {
 export const postBranch = async function (newBranch) {
   newBranch.countryId = Number(newBranch.countryId)
   const { token } = store.getState().users
-  console.log(token)
   const { data } = await axios.post(endpoint, newBranch, {
     headers: {
       Authorization: `Bearer ${token}`
     }
   })
-  console.log(data)
+
   return data
 }
 
 export const putBranch = async function (updatedBranch) {
   const { token } = store.getState().users
-  const { data } = await axios.get(endpoint, updatedBranch, {
+  const { data } = await axios.put(endpoint, updatedBranch, {
     headers: {
       Authorization: `Bearer ${token}`
     }
@@ -38,8 +37,9 @@ export const putBranch = async function (updatedBranch) {
 }
 
 export const deleteBranch = async function (branchId) {
+  const obj = { id: branchId }
   const { token } = store.getState().users
-  const { data } = await axios.delete(`${endpoint}/${branchId}`, {
+  const { data } = await axios.put(`${endpoint}/${branchId}`, obj, {
     headers: {
       Authorization: `Bearer ${token}`
     }
