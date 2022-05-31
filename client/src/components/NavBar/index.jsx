@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import firebase from 'firebase/compat/app'
 import {
@@ -29,12 +29,13 @@ const NavBar = () => {
   const user = useSelector(state => state.users.user)
   const toastToDisplay = useSelector(state => state.system.toast)
   const localCart = useSelector(state => state.cart.localItems).slice()
-  const remoteCart = useSelector(state => state.cart.items).slice()
+  // FIXME: const remoteCart = useSelector(state => state.cart.items).slice()
   const [modal, setModal] = useState(false)
   const [isRegistrando, setIsRegistrando] = useState(false)
   const dispatch = useDispatch()
   const toast = useToast()
-  const cartCounter = token ? remoteCart.length : localCart.length
+  // FIXME: const cartCounter = token ? remoteCart.length : localCart.length
+  const { pathname } = useLocation()
 
   useEffect(() => {
     dispatch(getUserWishList())
@@ -49,6 +50,7 @@ const NavBar = () => {
       dispatch(getRemoteCart())
     }
   }
+
   useEffect(() => {
     toastToDisplay.title && toast(toastToDisplay)
   }, [toastToDisplay])//eslint-disable-line
@@ -91,9 +93,10 @@ const NavBar = () => {
         <Link to='/' className={s.logo}>
           <Icon width='1.7rem' height='1.7rem' name='logo' as={BsShopWindow} />
           <span>Salchistore</span>
-          <Box>
-            <Link to='/administration'><Box color='white'>Admin</Box></Link>
-          </Box>
+          {user.isAdmin &&
+            <Box>
+              <Link to='/administration'><Box color='white'>Admin</Box></Link>
+            </Box>}
         </Link>
 
         <Box />
@@ -118,7 +121,7 @@ const NavBar = () => {
               : <ListItem listStyleType='none' fontSize='1.25rem' mr='2.5rem'><Link to='#' onClick={handleSubmit} name='ingresar'>Ingresar</Link></ListItem>}
             <ListItem display='flex' alignItems='flex-start' color='white'>
               <Link to='/cart' className={s.cartLink}>
-                {cartCounter > 0 ? <span>{cartCounter}</span> : undefined}
+                {/* FIXME: {cartCounter > 0 ? <span>{cartCounter}</span> : undefined} */}
                 <BsCart fontSize='1.7rem' color='white' />
               </Link>
             </ListItem>
@@ -130,7 +133,7 @@ const NavBar = () => {
         </ModalLogin>
       </Box>
       <Box position='absolute' top='-2' left='42%'>
-        <SearchBar />
+        {pathname === '/' && <SearchBar />}
       </Box>
     </Box>
   )

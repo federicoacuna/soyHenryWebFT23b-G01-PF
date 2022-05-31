@@ -47,7 +47,16 @@ export const putProduct = async (productId) => {
 
 export const postProduct = async (newProduct) => {
   const { token } = store.getState().users
-  const { data } = await axios.delete(endpoint, newProduct, {
+  const newProductForm = new FormData()
+
+  for (const key in newProduct) {
+    if (key === 'image') {
+      newProduct.image.forEach(img => newProductForm.append('image', img))
+    }
+    newProductForm.append(key, newProduct[key])
+  }
+
+  const { data } = await axios.post(endpoint, newProductForm, {
     headers: {
       Authorization: `Bearer ${token}`
     }

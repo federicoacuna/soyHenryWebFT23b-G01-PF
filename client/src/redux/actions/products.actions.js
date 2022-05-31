@@ -6,7 +6,7 @@ export const createNewProduct = (newProduct) => {
     try {
       const { data, message } = await postProduct(newProduct)
       const toast = {
-        title: 'Producto Agregada!',
+        title: 'Producto Agregado!',
         description: message,
         status: 'success',
         duration: 5000,
