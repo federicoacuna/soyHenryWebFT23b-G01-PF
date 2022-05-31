@@ -1,7 +1,7 @@
 import store from '../redux/store'
 import axios from 'axios'
 
-const { token } = store.getState()
+const { token } = store.getState().users
 const endpoint = '/reviews'
 
 export const putReview = async function (reviewId) {
