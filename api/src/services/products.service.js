@@ -2,7 +2,7 @@ const { Product, Category, Brand, Review, User, Order, OrderItem } = require('..
 const { Op } = require('sequelize')
 const cloudinary = require('../config/cloudinary-config')
 
-async function getProducts (options) {
+async function getProducts (options = {}) {
   const { search, brand, minPrice, maxPrice, category, sort, page = 1 } = options
   const itemsPerPage = 8
   const offset = itemsPerPage * (page - 1)
@@ -13,7 +13,8 @@ async function getProducts (options) {
     },
     limit: itemsPerPage,
     offset,
-    where: {}
+    where: {},
+    order: [['id', 'ASC']]
   }
   search && (dbSearchOptions.where.name = { [Op.iLike]: `%${search}%` })
   brand && (dbSearchOptions.where.brandId = brand)

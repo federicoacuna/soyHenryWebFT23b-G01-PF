@@ -1,4 +1,5 @@
 const productsService = require('../services/products.service')
+const usersService = require('../services/users.service')
 const fs = require('fs/promises')
 
 async function get (req, res, next) {
@@ -25,7 +26,18 @@ async function getById (req, res, next) {
 }
 
 async function create (req, res, next) {
-  const { name, description, model, price, categoryId, brandId } = req.body
+  const user = await usersService.getUserByEmail(req.user.email)
+  if (!user.isAdmin) return res.status(401).json({ error: 'You are not an admin' })
+
+  const {
+    name,
+    description,
+    model,
+    price,
+    categoryId,
+    brandId
+
+  } = req.body || {}
   let { image } = req.files || {}
 
   if (!name || !description || !price || !image || !categoryId || !brandId) return res.status(400).json({ error: 'Missing required fields' })
@@ -44,9 +56,10 @@ async function create (req, res, next) {
     await fs.rmdir('./tmp', { recursive: true })
 
     // Guarda el producto en la base de datos
-    const newProduct = await productsService.saveProduct({ name, description, model, price, image, categoryId, brandId })
+    await productsService.saveProduct({ name, description, model, price, image, categoryId, brandId })
+    const allProducts = await productsService.getProducts()
 
-    res.status(201).json({ data: newProduct, message: 'El producto ha sido creado' })
+    res.status(201).json({ data: allProducts, message: 'El producto ha sido creado' })
   } catch (error) {
     console.log(error)
     if (image.every(img => typeof img === 'string')) {
