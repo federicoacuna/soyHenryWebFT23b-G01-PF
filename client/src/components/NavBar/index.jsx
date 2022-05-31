@@ -22,6 +22,7 @@ import { getUserWishList } from '../../redux/actions/wishlist.actions'
 import ModalLogin from '../../components/ModalLogin'
 import SearchBar from '../SearchBar'
 import { getRemoteCart, mergeLocalCart, updateCart } from '../../redux/actions/cart.actions'
+import { getUserOrders } from '../../redux/actions/orders.actions'
 
 const NavBar = () => {
   const navigate = useNavigate()
@@ -29,16 +30,19 @@ const NavBar = () => {
   const user = useSelector(state => state.users.user)
   const toastToDisplay = useSelector(state => state.system.toast)
   const localCart = useSelector(state => state.cart.localItems).slice()
-  // FIXME: const remoteCart = useSelector(state => state.cart.items).slice()
+  const cartCounter = useSelector(state => {
+    if (state.users.token === '') return state.cart.localItems.length
+    return state.cart.items.length
+  })
   const [modal, setModal] = useState(false)
   const [isRegistrando, setIsRegistrando] = useState(false)
   const dispatch = useDispatch()
   const toast = useToast()
-  // FIXME: const cartCounter = token ? remoteCart.length : localCart.length
   const { pathname } = useLocation()
 
   useEffect(() => {
-    dispatch(getUserWishList())
+    token && dispatch(getUserWishList())
+    token && dispatch(getUserOrders())
     token && mergeCarts()
   }, [token])//eslint-disable-line
 
@@ -121,7 +125,7 @@ const NavBar = () => {
               : <ListItem listStyleType='none' fontSize='1.25rem' mr='2.5rem'><Link to='#' onClick={handleSubmit} name='ingresar'>Ingresar</Link></ListItem>}
             <ListItem display='flex' alignItems='flex-start' color='white'>
               <Link to='/cart' className={s.cartLink}>
-                {/* FIXME: {cartCounter > 0 ? <span>{cartCounter}</span> : undefined} */}
+                {cartCounter > 0 ? <span>{cartCounter}</span> : undefined}
                 <BsCart fontSize='1.7rem' color='white' />
               </Link>
             </ListItem>

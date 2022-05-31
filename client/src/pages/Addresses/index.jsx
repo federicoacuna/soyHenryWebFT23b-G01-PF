@@ -16,8 +16,7 @@ const AddressSelector = () => {
   const navigate = useNavigate()
   const toast = useToast()
   const [radioValue, setRadioValue] = React.useState('1')
-  const cartProducts = useSelector(state => state.cart.localItems)
-  console.log(cartProducts)
+  const cartProducts = useSelector(state => state.cart.items)
 
   useEffect(() => {
     orderStatus.orderItems || navigate('/')
@@ -99,7 +98,7 @@ const AddressSelector = () => {
           <Text mb='1rem'>Productos ({cartProducts.reduce(
             (previousValue, p) => previousValue + p.quantity, 0)})
           </Text>
-          <Text>Total: ${cartProducts.reduce((acc, p) => acc + (p.quantity * p.price), 0).toString().split('.')[0]}</Text>
+          <Text>Total: ${cartProducts.reduce((acc, p) => acc + (p.quantity * p.price.split('.').join('')), 0)}</Text>
         </Flex>
       </Flex>
     </Flex>

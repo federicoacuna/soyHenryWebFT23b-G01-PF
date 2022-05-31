@@ -21,7 +21,7 @@ export const postOrder = async (newOrder) => {
   return data
 }
 
-export const getOrders = async (options) => {
+export const getOrders = async (options = {}) => {
   const { token } = store.getState().users
 
   let urlString = endpoint

@@ -8,7 +8,10 @@ import ModalLogin from '../../components/ModalLogin'
 import WishList from '../../components/WishList'
 
 export const Cart = () => {
-  const cartProducts = useSelector(state => state.cart.localItems)
+  const cartProducts = useSelector(state => {
+    if (state.users.token === '') return state.cart.localItems
+    return state.cart.items
+  })
   const [modal, setModal] = useState(false)
   const token = useSelector(state => state.users.token)
   const navigate = useNavigate()
@@ -45,7 +48,6 @@ export const Cart = () => {
                 <WishList />
               </TabPanel>}
           </TabPanels>
-
         </Tabs>
       </Flex>
       <ModalLogin state={modal} setState={setModal}>

@@ -111,8 +111,9 @@ async function mergeCarts (localCart, userId) {
         })
       }
     })
-    const resultingMergedCart = await addAllCart(currentCart)
-    return resultingMergedCart
+    await addAllCart(currentCart)
+    const newCart = await getCartItems(userId)
+    return newCart
   } catch (error) {
     return error
   }

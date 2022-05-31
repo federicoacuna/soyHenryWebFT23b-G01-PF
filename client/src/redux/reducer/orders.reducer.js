@@ -19,7 +19,7 @@ const orders = (state = initialState, action) => {
     case GET_ORDER_DETAILS:
       return {
         ...state,
-        orderDetails: payload.data
+        orderDetails: payload
       }
 
     case SET_ORDER_ITEMS:
