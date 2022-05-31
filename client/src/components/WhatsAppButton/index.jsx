@@ -21,7 +21,7 @@ export default function WhatsAppButton ({ branches }) {
         right={['16px', '100px']}
         zIndex={1}
         colorScheme='whatsapp'
-        icon={<BsWhatsapp size='xl' />}
+        icon={<BsWhatsapp size='55' />}
         size='lg'
         variant='outline'
       >Sucursal

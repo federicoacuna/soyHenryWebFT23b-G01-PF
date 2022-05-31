@@ -4,6 +4,9 @@ import { BiUserCircle, BiDirections, BiMoney, BiShoppingBag, BiHeart, BiStar } f
 
 import AdminCategoriesPanel from '../../components/AdminCategoriesPanel'
 import InventoryPanel from '../../components/InventoryPanel'
+import AdmOrderPanel from '../../components/AdmOrderPanel/Table'
+import AdmUserPanel from '../../components/AdmUserContainer/AdminUsersPanel'
+import BranchesTable from '../../components/BranchesTable/BranchesTable'
 
 export default function AdminsHome () {
   return (
@@ -71,6 +74,7 @@ export default function AdminsHome () {
           <TabPanels bg='secondary' overflow='scroll'>
             <TabPanel>
               <Heading mb={5}>Gestion de ordenes</Heading>
+              <AdmOrderPanel />
             </TabPanel>
             <TabPanel>
               <Heading mb={5}>Gestion de productos</Heading>
@@ -81,9 +85,11 @@ export default function AdminsHome () {
             </TabPanel>
             <TabPanel>
               <Heading mb={2}>Gestion de Sucursales</Heading>
+              <BranchesTable />
             </TabPanel>
             <TabPanel>
               <Heading mb={5}>Gestion de Usuarios</Heading>
+              <AdmUserPanel />
             </TabPanel>
             <TabPanel>
               <Heading mb={5}>Pautas publicitarias</Heading>
