@@ -11,6 +11,7 @@ import reviews from './reviews.reducer'
 import system from './system.reducer'
 import users from './users.reducer'
 import wishlist from './wishlist.reducer'
+import inventories from './inventories.reducer'
 
 const appReducer = combineReducers({
   addresses,
@@ -19,6 +20,7 @@ const appReducer = combineReducers({
   cart,
   categories,
   countries,
+  inventories,
   orders,
   products,
   reviews,
