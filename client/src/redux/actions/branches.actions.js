@@ -61,10 +61,10 @@ export const getBranchesList = () => {
   }
 }
 
-export const updateBranch = (branchId, newValues) => {
+export const updateBranch = (newValues) => {
   return async (dispatch) => {
     try {
-      const { data, message } = await putBranch(branchId, newValues)
+      const { data, message } = await putBranch(newValues)
       const toast = {
         title: 'Sucursal Actualizada.',
         description: message,
