@@ -14,7 +14,7 @@ export default function CardOrder ({ id, total, date, orderItems }) {
     <div className={s.container}>
       <UnorderedList>
         <Heading as='h5' size='sm'>Productos</Heading>
-        {orderItems.length && orderItems.map(e => {
+        {orderItems?.length && orderItems.map(e => {
           return <ListItem key={e.id}>{e.name} x{e.orderItem.quantity} ARS${e.price}</ListItem>
         })}
       </UnorderedList>

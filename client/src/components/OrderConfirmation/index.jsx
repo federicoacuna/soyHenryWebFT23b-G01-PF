@@ -1,4 +1,4 @@
-import { Box, Flex, Divider, Button, Text, VisuallyHidden } from '@chakra-ui/react'
+import { Box, Flex, Divider, Button, Text, VisuallyHidden, UnorderedList, ListItem } from '@chakra-ui/react'
 import { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -11,7 +11,7 @@ import { BsFillCheckCircleFill } from 'react-icons/bs'
 
 export default function OrderConfirmation () {
   const dispatch = useDispatch()
-  const createdOrder = useSelector(state => state.orderDetails)
+  const createdOrder = useSelector(state => state.orders.orderDetails)
   const navigate = useNavigate()
   const { userPayment, userAddress, branch } = createdOrder
   const { orderId } = useParams()
@@ -82,7 +82,10 @@ export default function OrderConfirmation () {
           }
             <Divider />
             <Text mt='1rem' fontWeight={500}>Compraste</Text>
-            {createdOrder.orderItems && createdOrder.orderItems.map((item, index) => <Text color='black' key={index}>{item.name}</Text>)}
+            <UnorderedList mt='1rem'>
+              {createdOrder.products && createdOrder.products.map((item, index) =>
+                <ListItem color='black' key={index}>{item.name}</ListItem>)}
+            </UnorderedList>
             <Flex mt='1rem' justifyContent='flex-end'>
               <Button border='1px' borderColor='white' _hover={{ color: 'white' }} bg='success' color='white' onClick={handleClick}>Aceptar</Button>
             </Flex>

@@ -8,7 +8,7 @@ export default function MyShopping () {
   const dispatch = useDispatch()
 
   const token = useSelector(state => state.token)
-  const orders = useSelector(state => state.orders)
+  const orders = useSelector(state => state.orders.data)
 
   useEffect(() => {
     dispatch(getUserOrders(token))

@@ -36,6 +36,12 @@ async function getOrderDetails (orderId, userId) {
       },
       include: [{
         model: UserAddress
+      },
+      {
+        model: UserPayment
+      },
+      {
+        model: Product
       }]
     })
     const order = await orderData.toJSON()
