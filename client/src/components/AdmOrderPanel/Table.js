@@ -279,10 +279,10 @@ function TablaData ({ columns, data }) {
             <GrChapterPrevious />
           </Button>{' '}
           <Button size='xs' onClick={() => previousPage()} disabled={!canPreviousPage}>
-            <BsFillArrowLeftSquareFill size='md' />
+            <BsFillArrowLeftSquareFill size='25' />
           </Button>{' '}
           <Button size='xs' onClick={() => nextPage()} disabled={!canNextPage}>
-            <BsFillArrowRightSquareFill size='md' />
+            <BsFillArrowRightSquareFill size='25' />
           </Button>{' '}
           <Button backgroundColor='darkgray' size='xs' onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
             <GrChapterNext />
