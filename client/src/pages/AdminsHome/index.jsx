@@ -60,21 +60,14 @@ export default function AdminsHome () {
               fontWeight={500}
             ><BiShoppingBag /> <Box textAlign='start' ml='10px'>USUARIOS</Box>
             </Tab>
+
             <Tab
               justifyContent='flex-start'
               w='100%'
               _focus={{ borderColor: 'none' }}
               _active={{ color: 'white' }}
               fontWeight={500}
-            ><BiHeart /> <Box textAlign='start' ml='10px'>ESPACIO PUBLICITARIO</Box>
-            </Tab>
-            <Tab
-              justifyContent='flex-start'
-              w='100%'
-              _focus={{ borderColor: 'none' }}
-              _active={{ color: 'white' }}
-              fontWeight={500}
-            ><BiHeart /> <Box textAlign='start' ml='10px'>Inventario</Box>
+            ><BiHeart /> <Box textAlign='start' ml='10px'>INVENTARIO</Box>
             </Tab>
           </Flex>
 
