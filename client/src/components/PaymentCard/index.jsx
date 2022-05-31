@@ -6,7 +6,7 @@ import { ReactComponent as MercadoPagoIcon } from '../../assets/logo/mercadoPago
 
 export default function PaymentCard ({ id, paymentTypeId, cardNumber, expirationDate, provider, onclick }) {
   const cardNumberHidden = cardNumber && `****-****-****-${cardNumber.slice(-4)}`
-  const selectedId = useSelector(state => state.order.userPaymentId)
+  const selectedId = useSelector(state => state.orders.userPayment)
   const imSelected = selectedId === id
 
   return (
