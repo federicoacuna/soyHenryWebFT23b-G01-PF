@@ -1,5 +1,5 @@
 import { postOrder, getOrders, getOrder, putOrder, deleteOrder } from '../../services/orders'
-import { GET_ORDERS, GET_ORDER_DETAILS, SET_ORDER_ADDRESS, SET_ORDER_ITEMS, SET_TOAST, CLEAR_CREATED_ORDER } from '../constants'
+import { GET_ORDERS, GET_ORDER_DETAILS, SET_ORDER_ADDRESS, SET_ORDER_ITEMS, SET_TOAST, CLEAR_CREATED_ORDER, ADD_ORDERS_FILTER, CLEAR_ORDERS_FILTER } from '../constants'
 
 export const createNewOrder = (newOrder) => {
   return async (dispatch) => {
@@ -197,5 +197,18 @@ export const setOrderItems = (orderItems) => {
 export const clearCreatedOrder = () => {
   return {
     type: CLEAR_CREATED_ORDER
+  }
+}
+
+export const addOrderFilter = (filter) => {
+  return {
+    type: ADD_ORDERS_FILTER,
+    payload: filter
+  }
+}
+
+export const clearOrdersFilter = (filter) => {
+  return {
+    type: CLEAR_ORDERS_FILTER
   }
 }

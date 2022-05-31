@@ -4,8 +4,8 @@ const usersService = require('../services/users.service')
 const get = async (req, res) => {
   try {
     const user = await usersService.getUserByEmail(req.user.email)
-    if (user.roleId === 2) {
-      ordersService.admAllOrders()
+    if (user.isAdmin) {
+      ordersService.admAllOrders(req.query)
         .then(allOrders => allOrders ? res.status(200).json({ data: allOrders }) : res.status(400).json({ error: 'No orders' }))
     } else {
       ordersService.getOrdersByUser(user.id)
@@ -79,10 +79,11 @@ const update = async (req, res) => {
   const user = await usersService.getUserByEmail(req.user.email)
   const { orderId } = req.params
   try {
-    if (user.roleId === 2) {
+    if (user.isAdmin) {
       const update = await ordersService.updateOrder(orderId, req.body)
-      const all = ordersService.admAllOrders()
-      update
+      const all = await ordersService.admAllOrders()
+      console.log(all)
+      update[0] > 0
         ? res.status(200).json({
           data: all,
           message: 'Order updated correctly'

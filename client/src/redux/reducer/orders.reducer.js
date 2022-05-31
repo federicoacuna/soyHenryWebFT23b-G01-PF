@@ -1,9 +1,10 @@
-import { GET_ORDERS, GET_ORDER_DETAILS, SET_ORDER_ITEMS, SET_ORDER_ADDRESS } from '../constants'
+import { GET_ORDERS, GET_ORDER_DETAILS, SET_ORDER_ITEMS, SET_ORDER_ADDRESS, ADD_ORDERS_FILTER, CLEAR_ORDERS_FILTER } from '../constants'
 
 const initialState = {
   data: [],
   orderDetails: {},
-  order: {}
+  order: {},
+  filter: {}
 }
 
 const orders = (state = initialState, action) => {
@@ -12,7 +13,7 @@ const orders = (state = initialState, action) => {
     case GET_ORDERS:
       return {
         ...state,
-        orders: payload.data
+        data: payload
       }
 
     case GET_ORDER_DETAILS:
@@ -37,6 +38,21 @@ const orders = (state = initialState, action) => {
           ...state.order,
           address: payload
         }
+      }
+
+    case ADD_ORDERS_FILTER:
+      return {
+        ...state,
+        filter: {
+          ...state.filter,
+          page: 1,
+          [payload.name]: [payload.value]
+        }
+      }
+    case CLEAR_ORDERS_FILTER:
+      return {
+        ...state,
+        filter: {}
       }
 
     default:
