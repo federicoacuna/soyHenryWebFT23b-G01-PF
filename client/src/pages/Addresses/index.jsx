@@ -5,17 +5,17 @@ import { useNavigate, Link } from 'react-router-dom'
 import { getUserAddresses } from '../../redux/actions/addresses.actions'
 import { createMPCheckout } from '../../services/orders'
 import AddressContainer from '../../components/AddressContainer'
-import BranchContainer from '../../components/BranchContainer'
+// import BranchContainer from '../../components/BranchContainer'
 
 const AddressSelector = () => {
-  const userAddresses = useSelector(state => state.addresses.data)
+  // const userAddresses = useSelector(state => state.addresses.data)
   const orderStatus = useSelector(state => state.orders.order)
   const selectedAddress = useSelector(state => state.orders.order.address)
   const user = useSelector(state => state.users.user)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const toast = useToast()
-  const [radioValue, setRadioValue] = React.useState('1')
+  // const [radioValue, setRadioValue] = React.useState('1')
   const cartProducts = useSelector(state => state.cart.items)
 
   useEffect(() => {
@@ -62,31 +62,30 @@ const AddressSelector = () => {
 
         {/* column 1 */}
         <Flex p='2rem 2rem 0rem 2rem' flexDirection='column' w='30rem'>
-          <Text mb='2.3rem' fontWeight={500} fontSize='larger'>¿Cómo quieres recibir tu compra?</Text>
+          {/* <Text mb='2.3rem' fontWeight={500} fontSize='larger'>¿Cómo quieres recibir tu compra?</Text>
           <RadioGroup onChange={setRadioValue} value={radioValue}>
             <Stack direction='column'>
               <Radio value='1'>Recibir la compra</Radio>
               <Radio value='2'>Retirar la compra</Radio>
             </Stack>
-          </RadioGroup>
+          </RadioGroup> */}
           <Flex flexDirection='column'>
 
-            {userAddresses && radioValue === '1'
-              ? <Flex flexDirection='column'>
-                <Text fontSize='larger' mt='2.3rem' mb='1rem' fontWeight={500}>
-                  Selecciona una dirección de envío:
-                </Text>
-                <AddressContainer />
-                <Flex mt='1.5rem'>
-                  <Button borderRadius='none' mr='1rem' _hover={{ bg: 'none' }} name='AddAddress' onClick={handleClick} border='2px' borderColor='accent' color='accent' bg='white'>Agregar dirección</Button>
+            <Flex flexDirection='column'>
+              <Text fontSize='larger' mt='2.3rem' mb='1rem' fontWeight={500}>
+                Selecciona una dirección de envío:
+              </Text>
+              <AddressContainer />
+              <Flex mt='1.5rem'>
+                <Button borderRadius='none' mr='1rem' _hover={{ bg: 'none' }} name='AddAddress' onClick={handleClick} border='2px' borderColor='accent' color='accent' bg='white'>Agregar dirección</Button>
+              </Flex>
+              {/* eslint-disable-next-line */}
                 </Flex>
-                {/* eslint-disable-next-line */}
-                </Flex>
-              : radioValue === '2' &&
-                <Flex flexDirection='column'>
-                  <Text mt='2.3rem' mb='1rem' fontWeight={500} fontSize='larger'>Selecciona una sucursal:</Text>
-                  <BranchContainer />
-                </Flex>}
+
+            {/* <Flex flexDirection='column'>
+              <Text mt='2.3rem' mb='1rem' fontWeight={500} fontSize='larger'>Selecciona una sucursal:</Text>
+              <BranchContainer />
+            </Flex> */}
             <Button mt='2rem' borderRadius='none' _hover={{ bg: 'accent' }} name='continuar' color='white' bg='accent' onClick={handleClick}>Continuar</Button>
 
           </Flex>
