@@ -1,16 +1,23 @@
-import React from 'react'
-import { Flex, Tabs, TabPanels, Tab, TabPanel, Box, Heading } from '@chakra-ui/react'
+import { Flex, Tabs, TabPanels, Tab, TabPanel, Box, Heading, Spinner } from '@chakra-ui/react'
 import { BiUserCircle, BiDirections, BiMoney, BiShoppingBag, BiHeart, BiStar } from 'react-icons/bi'
+import { Navigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 import AdminCategoriesPanel from '../../components/AdminCategoriesPanel'
 import InventoryPanel from '../../components/InventoryPanel'
 import AdmOrderPanel from '../../components/AdmOrderPanel/Table'
 import AdmUserPanel from '../../components/AdmUserContainer/AdminUsersPanel'
 import BranchesTable from '../../components/BranchesTable/BranchesTable'
+import AdminProductsPanel from '../../components/AdminProductsPanel'
 
 export default function AdminsHome () {
+  const { user } = useSelector(state => state.users)
+
+  if (user.isAdmin === undefined) return <Spinner />
+  if (!user.isAdmin) return <Navigate to='/' replace />
+
   return (
-    <Flex w='85vw'>
+    <Flex display={!user.isAdmin ? 'none' : 'flex'}>
       <Tabs borderColor='active' w='100%'>
         <Flex flexDirection='row' h='75vh'>
           <Flex alignItems='flex-start' bg='primary' color='white' flexWrap='wrap' flexDirection='column' justifyContent='space-around'>
@@ -53,21 +60,14 @@ export default function AdminsHome () {
               fontWeight={500}
             ><BiShoppingBag /> <Box textAlign='start' ml='10px'>USUARIOS</Box>
             </Tab>
+
             <Tab
               justifyContent='flex-start'
               w='100%'
               _focus={{ borderColor: 'none' }}
               _active={{ color: 'white' }}
               fontWeight={500}
-            ><BiHeart /> <Box textAlign='start' ml='10px'>ESPACIO PUBLICITARIO</Box>
-            </Tab>
-            <Tab
-              justifyContent='flex-start'
-              w='100%'
-              _focus={{ borderColor: 'none' }}
-              _active={{ color: 'white' }}
-              fontWeight={500}
-            ><BiHeart /> <Box textAlign='start' ml='10px'>Inventario</Box>
+            ><BiHeart /> <Box textAlign='start' ml='10px'>INVENTARIO</Box>
             </Tab>
           </Flex>
 
@@ -76,8 +76,9 @@ export default function AdminsHome () {
               <Heading mb={5}>Gestion de ordenes</Heading>
               <AdmOrderPanel />
             </TabPanel>
-            <TabPanel>
-              <Heading mb={5}>Gestion de productos</Heading>
+            <TabPanel overflow='hidden'>
+              <Heading mb={5}>Gestión de productos</Heading>
+              <AdminProductsPanel />
             </TabPanel>
             <TabPanel>
               <Heading mb={5}>Gestion de Categorias</Heading>
@@ -92,16 +93,12 @@ export default function AdminsHome () {
               <AdmUserPanel />
             </TabPanel>
             <TabPanel>
-              <Heading mb={5}>Pautas publicitarias</Heading>
-            </TabPanel>
-            <TabPanel>
               <Heading mb={5}>Gestión de inventario</Heading>
               <InventoryPanel />
             </TabPanel>
-
           </TabPanels>
-        </Flex>
 
+        </Flex>
       </Tabs>
     </Flex>
   )
