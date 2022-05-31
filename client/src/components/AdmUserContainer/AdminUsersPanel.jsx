@@ -380,8 +380,6 @@ function App () {
     []
   )
 
-  // const data = useMemo(() => users || [], [users])
-
   return (
     <div>
       <TablaData columns={columns} data={users} />
