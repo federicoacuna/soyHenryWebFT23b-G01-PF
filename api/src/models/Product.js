@@ -26,6 +26,7 @@ module.exports = (sequelize) => {
       allowNull: false,
       get () {
         const rawValue = this.getDataValue('image')
+        if (!rawValue) return
         return rawValue.map(img => img.split('|')[0])
       }
     },

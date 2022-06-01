@@ -138,7 +138,7 @@ function ProductTable ({ columns, data }) {
                     <Flex justifyContent='center' columnGap='2rem'>
                       <Tooltip label='Editar'>
                         <Box as='span' display='block' w='min-content' cursor='pointer'>
-                          <Button disabled onClick={() => handleEdit(row.original)}>
+                          <Button onClick={() => handleEdit(row.original)}>
                             <AiFillEdit />
                           </Button>
                         </Box>

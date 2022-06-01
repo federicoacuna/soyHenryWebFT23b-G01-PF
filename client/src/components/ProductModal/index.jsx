@@ -23,7 +23,7 @@ import {
   Spinner
 } from '@chakra-ui/react'
 import { HiOutlineUpload } from 'react-icons/hi'
-import { createNewProduct } from '../../redux/actions/products.actions'
+import { createNewProduct, updateProduct } from '../../redux/actions/products.actions'
 
 function ProductModal ({ isOpen, onClose, product, setProduct }) {
   const [errors, setErrors] = useState({})
@@ -33,13 +33,14 @@ function ProductModal ({ isOpen, onClose, product, setProduct }) {
   const categories = useSelector(state => state.categories.data)
   const brands = useSelector(state => state.brands.data)
   const products = useSelector(state => state.products.data)
+  const toast = useSelector(state => state.system.toast)
   const dispatch = useDispatch()
 
   useEffect(() => {
     if (firstRender.current) return
     setLoading(false)
     onClose()
-  }, [products])//eslint-disable-line
+  }, [products,toast])//eslint-disable-line
 
   useEffect(() => {
     if (firstRender.current) {
@@ -64,12 +65,14 @@ function ProductModal ({ isOpen, onClose, product, setProduct }) {
     setErrors(errors)
   }
 
-  const handleCreateProduct = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (Object.keys(errors).length > 0) {
       return
     }
-    dispatch(createNewProduct(product))
+    if (product.isNew)dispatch(createNewProduct(product))
+    else dispatch(updateProduct(product))
+
     setLoading(true)
   }
 
@@ -78,6 +81,18 @@ function ProductModal ({ isOpen, onClose, product, setProduct }) {
       ...product,
       [e.target.name]: e.target.value
     })
+  }
+
+  const imageValue = () => {
+    if (product.image.length === 0) return ''
+
+    if (typeof product.image[0] === 'string') {
+      return product.image.map((file) => file.name).join(', ')
+    }
+
+    if (product.image[0] instanceof File) {
+      return product.image.map((file) => file.name).join(', ')
+    }
   }
 
   const handleImageChange = (e) => {
@@ -114,7 +129,7 @@ function ProductModal ({ isOpen, onClose, product, setProduct }) {
         </ModalHeader>
         {!loading && <ModalCloseButton />}
         <ModalBody>
-          <form style={{ maxWidth: '75ch', margin: '0 auto' }} id='createProduct' onSubmit={handleCreateProduct}>
+          <form style={{ maxWidth: '75ch', margin: '0 auto' }} id='createProduct' onSubmit={handleSubmit}>
             <FormControl isRequired isDisabled={loading} isInvalid={errors.name !== undefined} mb='1rem'>
               <FormLabel htmlFor='name'>Nombre</FormLabel>
               <Input
@@ -208,7 +223,7 @@ function ProductModal ({ isOpen, onClose, product, setProduct }) {
             {product.image.length > 0 && (
               <HStack gap='1rem' wrap='wrap'>
                 {product.image.length > 0 && product.image.map((img) => {
-                  const src = window.URL.createObjectURL(img)
+                  const src = img instanceof File ? window.URL.createObjectURL(img) : img
                   return (
                     <Image
                       key={Date.now().toString() + img.name + Math.random()}
@@ -236,33 +251,16 @@ function ProductModal ({ isOpen, onClose, product, setProduct }) {
                   style={{ display: 'none' }}
                   onChange={handleImageChange}
                 />
-                {product.isNew
-                  ? (
-                    <Input
-                      id='productImages'
-                      placeholder='HP-12345.jpg'
-                      onClick={() => inputRef.current.click()}
-                      value={product.image.map((file) => file.name).join(', ')}
-                      cursor='pointer'
-                      readOnly
-                      isRequired
-                      isDisabled={loading}
-                    />
-                    )
-                  : (
-                    <Input
-                      id='productImages'
-                      placeholder='HP-12345.jpg'
-                      onClick={() => inputRef.current.click()}
-                      value={product.image[0]?.name !== undefined
-                        ? product.image.map((file) => file.name).join(', ')
-                        : product.image.join(', ')}
-                      cursor='pointer'
-                      readOnly
-                      isRequired
-                      isDisabled={loading}
-                    />
-                    )}
+                <Input
+                  id='productImages'
+                  placeholder='HP-12345.jpg'
+                  onClick={() => inputRef.current.click()}
+                  value={imageValue()}
+                  cursor='pointer'
+                  readOnly
+                  isRequired
+                  isDisabled={loading}
+                />
               </InputGroup>
               <FormErrorMessage>{errors.image}</FormErrorMessage>
             </FormControl>

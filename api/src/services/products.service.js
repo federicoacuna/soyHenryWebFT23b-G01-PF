@@ -104,8 +104,8 @@ async function saveProduct (product) {
   return savedProduct
 }
 
-async function updateProduct () {
-  // placeholder function
+async function updateProduct (newValues, id) {
+  return await Product.update(newValues, { where: { id } })
 }
 
 async function removeProduct () {

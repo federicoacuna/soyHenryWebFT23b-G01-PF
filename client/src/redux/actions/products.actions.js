@@ -86,10 +86,10 @@ export const getProductDetails = (productId) => {
   }
 }
 
-export const updateProduct = (productId, newValue) => {
+export const updateProduct = (newValues) => {
   return async (dispatch) => {
     try {
-      const { data, message } = await putProduct(productId, newValue)
+      const { data, message } = await putProduct(newValues)
       const toast = {
         title: 'Producto Actualizado.',
         description: message,
