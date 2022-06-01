@@ -1,10 +1,9 @@
 import { useEffect } from 'react'
 import s from './index.module.css'
-import { Center, Container, Flex, Text, Button, Box } from '@chakra-ui/react'
+import { Center, Container, Flex, Text, Box } from '@chakra-ui/react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { getProductDetails } from '../../redux/actions/products.actions'
-import { AiFillStar } from 'react-icons/ai'
 import ReviewCard from '../ReviewCard'
 import WishListManagerButton from '../WishListManagerButton'
 import CartButton from '../CartButton'
@@ -55,11 +54,11 @@ function ProductDetail () {
               <Text alignSelf='flex-start'>{product.brand && product.brand.name}</Text>
               <Text alignSelf='flex-start' fontWeight='bold' pt={3}>Modelo</Text>
               <Text alignSelf='flex-start'>{product.model}</Text>
+              {product.canReview === true ? <Box onClick={handleClick} ml='0.1rem' alignSelf='flex-start' width='10rem' height='2.5rem' display='flex' justifyContent='center' alignItems='center' cursor='pointer' p='0.5rem' bg='#0082E3' color='white'>Agregar reseña</Box> : null}
 
               <Flex mt='10px' justifyContent='flex-start'>
                 <BuyNowButton product={product} />
                 <CartButton product={product} />
-                {product.canReview === true ? <Button mr='10px' color='white' bg='#2C2C2E' _hover={{ bg: 'black' }} onClick={handleClick}> Agregar Reseña </Button> : null}
               </Flex>
             </Container>
           </Flex>
@@ -70,30 +69,22 @@ function ProductDetail () {
           <Text fontWeight='bold'>Descripcion del producto</Text>
           <Text>{product.description}</Text>
         </Flex>
-        <Flex p='1rem' borderColor='green' width='25%' gap='1rem' flexDirection='column'>
-          <Text fontWeight='bold'>Promedio rating</Text>
-          <Flex gap='1rem' justifyContent='flex-start' alignItems='center'>
-            <Text fontSize='1.2rem'>3.3</Text>
-            <Text display='flex' gap='0.2rem'><AiFillStar color='orange' fontSize='1.3rem' /><AiFillStar color='orange' fontSize='1.3rem' /><AiFillStar color='orange' fontSize='1.3rem' /></Text>
-          </Flex>
-        </Flex>
       </Flex>
 
       <Flex pl='7rem' pr='7rem' pt='3rem' pb='3rem' borderColor='orange' flexDirection='column' width='100%'>
-        <Flex boxShadow='md' min-height='5rem' width='50%' p='1rem' gap='1rem' ml='6rem' flexDirection='column' justifyContent='flex-start' alignItems='flex-start'>
-          <Text display='flex' gap='0.2rem'><AiFillStar color='orange' fontSize='1.3rem' /><AiFillStar color='orange' fontSize='1.3rem' /><AiFillStar color='orange' fontSize='1.3rem' /></Text>
-          <Text>Ea iusto unde qui tempora velit vel enim error aut impedit repellendus rem atque architecto aut dolor autem? Hic galisum natus sed quas quia qui nihil laborum.</Text>
+        <Flex min-height='5rem' width='50%' gap='1rem' ml='6rem' flexDirection='column' justifyContent='flex-start' alignItems='flex-start'>
+          {Array.isArray(product.reviews) && product.reviews.map((r, i) => (
+            <ReviewCard
+              key={r.productId + i}
+              rating={r.rating}
+              review={r.review}
+              productId={r.productId}
+              productName={r.name}
+              productImage={r.image}
+            />
+          ))}
         </Flex>
-        {Array.isArray(product.reviews) && product.reviews.map((r, i) => (
-          <ReviewCard
-            key={r.productId + i}
-            rating={r.rating}
-            review={r.review}
-            productId={r.productId}
-            productName={r.name}
-            productImage={r.image}
-          />
-        ))}
+
       </Flex>
     </Flex>
 
