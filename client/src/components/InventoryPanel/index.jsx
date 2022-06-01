@@ -78,7 +78,7 @@ const InventoryPanel = () => {
         </Flex>
 
         {!isEditing && <TableContainer>
-          <Table variant='striped'>
+          <Table variant='striped' colorScheme='blackAlpha'>
             {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
             <Thead>
               <Tr>

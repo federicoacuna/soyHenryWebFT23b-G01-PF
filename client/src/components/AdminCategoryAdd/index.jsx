@@ -66,9 +66,9 @@ export default function AdminCategoryAdd () {
           <Input onChange={(e) => handleChange(e)} htmlSize={4} width='20rem' variant='outline' bg='white' name='name' type='text' value={category.name || ''} placeholder={category.name ? category.name : 'Ingrese nombre de categoría'} />
           {errors.name && <Text color='red'>{errors.name}</Text>}
         </Flex>
-        <Flex flexDirection='row' justifyContent='end'>
-          <Button m={0} _hover={{ color: 'gray' }} width='6rem' color='#2C2C2E' border='2px' borderColor='#2C2C2E' onClick={handleClose}>Cancelar</Button>
-          <Button m={0} _hover={{ color: 'gray' }} width='6rem' color='white' bg='#2C2C2E' onClick={handleSubmit}>Agregar</Button>
+        <Flex flexDirection='row' justifyContent='end' gap='1rem'>
+          <Button m={0} _hover={{ color: 'gray' }} borderRadius='none' width='6rem' color='#2C2C2E' border='2px' borderColor='#2C2C2E' onClick={handleClose}>Cancelar</Button>
+          <Button m={0} _hover={{ color: 'gray' }} borderRadius='none' width='6rem' color='white' bg='#2C2C2E' onClick={handleSubmit}>Agregar</Button>
         </Flex>
       </Flex>
     </FormControl>

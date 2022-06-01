@@ -17,10 +17,10 @@ export default function AdminsHome () {
   if (!user.isAdmin) return <Navigate to='/' replace />
 
   return (
-    <Flex display={!user.isAdmin ? 'none' : 'flex'}>
+    <Flex display={!user.isAdmin ? 'none' : 'flex'} p='7rem'>
       <Tabs borderColor='active' w='100%'>
         <Flex flexDirection='row' h='75vh'>
-          <Flex alignItems='flex-start' bg='primary' color='white' flexWrap='wrap' flexDirection='column' justifyContent='space-around'>
+          <Flex alignItems='flex-start' bg='white' color='black' borderRight='2px' borderColor='grey' flexWrap='wrap' flexDirection='column' justifyContent='space-around'>
             <Tab
               justifyContent='flex-start'
               w='100%' _focus={{ borderColor: 'none' }}
