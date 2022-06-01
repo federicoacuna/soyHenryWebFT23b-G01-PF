@@ -18,6 +18,7 @@ const Footer = () => {
     e.preventDefault()
     console.log('handlesubmit', email)
     dispatch(sendEmail(email))
+    setEmail('')
   }
 
   return (
