@@ -41,33 +41,41 @@ const ChatBotContainer = () => {
         // When we need to show a number of
         // options to choose we create alist
         // like this
-        { value: 1, label: 'Ver métodos de pago', trigger: '5' }
+        { value: 1, label: 'Ver métodos de pago', trigger: '5' },
+        { value: 2, label: 'Ver marcas que trabajan con nosotros', trigger: '6' }
 
       ]
     }, {
       id: '5',
       message: 'Aceptamos Mercado Pago como medio de pago. Es rápido, seguro y no tiene costo adicional.',
-      trigger: '6'
-    }, {
+      trigger: '7'
+    },
+    {
       id: '6',
+      component: (
+        <div> Trabajamos con marcas como: Dell, Asus, Logitech, Redragon, Nisuta, Samsung, iQual, HyperX, Xiaomi, y más. </div>
+      ),
+      trigger: '7'
+    }, {
+      id: '7',
 
       // This message appears in
       // the bot chat bubble
       message: '¿Te puedo ayudar en algo más?',
-      trigger: '7'
+      trigger: '8'
     }, {
-      id: '7',
+      id: '8',
       options: [
 
         // When we need to show a number of
         // options to choose we create alist
         // like this
-        { value: 1, label: 'Eso es todo', trigger: '8' },
+        { value: 1, label: 'Eso es todo', trigger: '9' },
         { value: 2, label: 'Si', trigger: '4' }
 
       ]
     }, {
-      id: '8',
+      id: '9',
       message: '¡Perfecto! Gracias por visitar Salchistore.',
       end: true
     }
