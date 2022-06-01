@@ -19,7 +19,6 @@ function ProductList () {
   }, [options])//eslint-disable-line
 
   if (products.message !== undefined) return <div>{products.message}</div>
-  if (products.length === 0) return <div>No hay productos</div>
 
   return (
     <Box display='flex' flexDirection='column' width='70%'>

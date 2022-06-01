@@ -6,24 +6,25 @@ import {
   ListIcon, //eslint-disable-line
   OrderedList, //eslint-disable-line
   UnorderedList,
-  Heading
+  Box,
+  Text
 } from '@chakra-ui/react'
 
 export default function CardOrder ({ id, total, date, orderItems }) {
   return (
-    <div className={s.container}>
+    <Box width='100%' boxShadow='md' minHeight='150px' display='flex' justifyContent='space-between'>
       <UnorderedList>
-        <Heading as='h5' size='sm'>Productos</Heading>
+        <Text>Productos</Text>
         {orderItems?.length && orderItems.map(e => {
           return <ListItem key={e.id}>{e.name} x{e.orderItem.quantity} ARS${e.price}</ListItem>
         })}
       </UnorderedList>
       <div className={s.div2}>
-        <Heading as='h4' size='md'>Fecha: {date.slice(0, 10)}</Heading>
-        <Heading as='h4' size='md'>Total: ${total}</Heading>
-        <Heading as='h4' size='md'>N° de orden {id}</Heading>
+        <Text>Fecha: {date.slice(0, 10)}</Text>
+        <Text>Total: ${total}</Text>
+        <Text>N° de orden {id}</Text>
       </div>
+    </Box>
 
-    </div>
   )
 }

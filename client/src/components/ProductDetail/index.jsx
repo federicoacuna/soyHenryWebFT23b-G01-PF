@@ -1,23 +1,26 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import s from './index.module.css'
 import { Center, Container, Flex, Text, Box } from '@chakra-ui/react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { getProductDetails } from '../../redux/actions/products.actions'
 import ReviewCard from '../ReviewCard'
 import WishListManagerButton from '../WishListManagerButton'
 import CartButton from '../CartButton'
 import BuyNowButton from '../BuyNowButton'
+import ModalReview from '../ModalReview'
 
 function ProductDetail () {
   const product = useSelector(state => state.products.productDetail)
   const token = useSelector(state => state.users.token)
   const dispatch = useDispatch()
   const { id } = useParams()
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
+  const [modal, setModal] = useState(false)
 
   function handleClick () {
-    navigate(`/createreview/${product.id}`)
+    // navigate(`/createreview/${product.id}`)
+    setModal(true)
   }
 
   useEffect(() => {
@@ -54,7 +57,7 @@ function ProductDetail () {
               <Text alignSelf='flex-start'>{product.brand && product.brand.name}</Text>
               <Text alignSelf='flex-start' fontWeight='bold' pt={3}>Modelo</Text>
               <Text alignSelf='flex-start'>{product.model}</Text>
-              {product.canReview === true ? <Box onClick={handleClick} ml='0.1rem' alignSelf='flex-start' width='10rem' height='2.5rem' display='flex' justifyContent='center' alignItems='center' cursor='pointer' p='0.5rem' bg='#0082E3' color='white'>Agregar reseña</Box> : null}
+              {product.canReview === true ? <Box onClick={handleClick} ml='0.1rem' alignSelf='flex-start' width='10rem' height='2.5rem' justifyContent='center' alignItems='center' cursor='pointer' p='0.5rem' bg='#0082E3' color='white'>Agregar reseña</Box> : null}
 
               <Flex mt='10px' justifyContent='flex-start'>
                 <BuyNowButton product={product} />
@@ -86,6 +89,7 @@ function ProductDetail () {
         </Flex>
 
       </Flex>
+      <ModalReview id={product.id} state={modal} setState={setModal} />
     </Flex>
 
   )
