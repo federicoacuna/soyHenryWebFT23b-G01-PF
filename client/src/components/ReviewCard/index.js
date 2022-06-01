@@ -1,23 +1,17 @@
 import React from 'react'
-import s from './index.module.css'
 import { AiFillStar } from 'react-icons/ai'
-import { Flex, Heading } from '@chakra-ui/react'
+import { Flex, Text, Box } from '@chakra-ui/react'
 
 export default function ReviewCard ({ rating, review, productId, productName, productImage }) {
   return (
-    <div className={s.container}>
-      <div>
-        <Heading as='h4' size='md'>{productName}</Heading>
-        <br />
-        <Heading as='h5' size='sm'>{review}</Heading>
-        <br />
-      </div>
-      <div className={s.div}>
-        <Flex className={s.rat} alignItems='center' justifyContent='center'>{rating} <AiFillStar size={50} className={s.star} /></Flex>
-      </div>
-      <div />
-      <p>ID:{productId}</p>
+    <Box boxShadow='md' width='100%' minHeight='75px'>
 
-    </div>
+      <Text fontSize='1.2rem' fontWeight='600'>{productName}</Text>
+
+      <Text>{review}</Text>
+
+      <Flex alignSelf='flex-end' alignItems='center' justifyContent='center'>{rating} <AiFillStar size={20} color='orange' /></Flex>
+    </Box>
+
   )
 }

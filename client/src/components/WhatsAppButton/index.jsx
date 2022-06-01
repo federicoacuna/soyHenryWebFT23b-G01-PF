@@ -24,6 +24,9 @@ export default function WhatsAppButton ({ branches }) {
         icon={<BsWhatsapp size='55' />}
         size='lg'
         variant='outline'
+        _focus={{ outline: 'none' }}
+        _hover={{ color: 'whatsapp' }}
+        _active={{ color: 'whatsapp' }}
       >Sucursal
       </IconButton>
       <ModalWhatsAppBranches
