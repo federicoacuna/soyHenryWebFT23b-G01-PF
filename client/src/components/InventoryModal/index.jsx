@@ -34,15 +34,16 @@ export const InventoryModal = ({ state, setState, InventoryItems }) => {
   }
 
   const handlePost = (id, name) => {
-    const productoYaExiste = InventoryItems[0] && InventoryItems.filter(item => item.id === id)
-    if (productoYaExiste.length > 0) {
+    const productoYaExiste = InventoryItems.length > 0 && InventoryItems.find(item => item.id === id) !== undefined
+    console.log(productoYaExiste)
+    if (productoYaExiste) {
       toast({
         description: 'Este producto ya está en el inventario',
         status: 'info',
         duration: 9000,
         isClosable: true
       })
-    } else {
+    } else if (!productoYaExiste) {
       setIsPosting(true)
       setCurrentProduct({
         ...currentProduct,
@@ -70,6 +71,7 @@ export const InventoryModal = ({ state, setState, InventoryItems }) => {
       isClosable: true
     })
     setIsPosting(false)
+    setState(false)
   }
 
   return (
