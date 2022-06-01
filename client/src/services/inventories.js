@@ -20,7 +20,8 @@ export const getAllInventoryService = async () => {
 }
 
 export const getAllStockBranchService = async (branchId) => {
-  const { data } = await axios.get(`/name?branchId=/${branchId}`)
+  const { data } = await axios.get(`/inventories/name?branchId=${branchId}`)
+  // console.log(data)
   return data
 }
 

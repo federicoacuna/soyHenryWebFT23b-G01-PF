@@ -1,4 +1,4 @@
-import { GET_ALL_INVENTORY, GET_ALL_STOCK_BRANCH, GET_PRODUCT_EXIST, GET_STOCK_PRODUCT_BRANCH, POST_PRODUCT_INVENTORY, PUT_PRODUCT_INVENTORY } from '../constants'
+import { GET_ALL_INVENTORY, GET_ALL_STOCK_BRANCH, GET_PRODUCT_EXIST, GET_STOCK_PRODUCT_BRANCH, POST_PRODUCT_INVENTORY, PUT_PRODUCT_INVENTORY, CLEAN_INVENTORY } from '../constants'
 import { getProductExistService, getAllInventoryService, getAllStockBranchService, getStockProductBranchService, postProductInventory, putProductInventory } from '../../services/inventories'
 
 export const postStock = (newStock) => {
@@ -83,5 +83,12 @@ export const getStockProductBranch = (options, branchId) => {
     } catch (error) {
       return error
     }
+  }
+}
+
+export const cleanInventory = () => {
+  return {
+    type: CLEAN_INVENTORY,
+    payload: []
   }
 }
