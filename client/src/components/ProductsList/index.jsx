@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Pagination from '../Pagination'
 import ProductCard from '../ProductCard'
 import { clearProductFilter, getProductsList } from '../../redux/actions/products.actions'
 import styles from './index.module.css'
-import { Box } from '@chakra-ui/react'
+import { Box, Heading, Text } from '@chakra-ui/react'
 import SortingSelector from '../SortingSelector'
+import ModalLogin from '../ModalLogin'
 
 function ProductList () {
   const products = useSelector(state => state.products.data)
@@ -13,6 +14,7 @@ function ProductList () {
   const options = useSelector(state => state.products.filter)
   const dispatch = useDispatch()
   const shouldDisplay = !!token
+  const [modal, setModal] = useState(false)
 
   useEffect(() => {
     dispatch(getProductsList(options))
@@ -29,6 +31,8 @@ function ProductList () {
       <Box display='flex' flexWrap='wrap' alignSelf='flex-end'>
         {Array.isArray(products) && products.map(product => (
           <ProductCard
+            state={modal}
+            setState={setModal}
             key={product.id + product.name}
             product={product}
             shouldDisplay={shouldDisplay}
@@ -36,6 +40,10 @@ function ProductList () {
         ))}
       </Box>
       <Pagination className={styles.pagination} />
+      <ModalLogin state={modal} setState={setModal}>
+        <Heading color='black' textAlign='center'>No has iniciado sesión</Heading>
+        <Text color='black' mt={2} textAlign='center'>Para seguir con tu compra debes registrarte o iniciar sesión.</Text>
+      </ModalLogin>
     </Box>
   )
 }
