@@ -12,6 +12,7 @@ import system from './system.reducer'
 import users from './users.reducer'
 import wishlist from './wishlist.reducer'
 import inventories from './inventories.reducer'
+import buyNow from './buyNow.reducer'
 
 const appReducer = combineReducers({
   addresses,
@@ -26,7 +27,8 @@ const appReducer = combineReducers({
   reviews,
   system,
   users,
-  wishlist
+  wishlist,
+  buyNow
 })
 
 const rootReducer = (state, action) => {

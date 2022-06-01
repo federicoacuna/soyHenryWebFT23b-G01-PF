@@ -2,6 +2,7 @@
 import WishListRemoveButton from '../WishListRemoveButton'
 import { Flex, Box, Text, Image } from '@chakra-ui/react' //eslint-disable-line
 import { Link } from 'react-router-dom'
+import BuyNowButton from '../BuyNowButton'
 
 export function WishListCard ({ image, id, price, name }) {
   return (
@@ -17,7 +18,7 @@ export function WishListCard ({ image, id, price, name }) {
       </Flex>
       <Flex width='15rem' ml='2.3rem' mt='2rem' justifyContent='space-between' mb='1.6rem' color='accent'>
         <WishListRemoveButton productId={id} />
-        <Link to=''><Text>Comprar ahora</Text></Link>
+        <BuyNowButton product={{ id, price, name, image }} />
       </Flex>
 
     </Flex>

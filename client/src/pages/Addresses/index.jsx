@@ -5,6 +5,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import { getUserAddresses } from '../../redux/actions/addresses.actions'
 import { createMPCheckout } from '../../services/orders'
 import AddressContainer from '../../components/AddressContainer'
+
 // import BranchContainer from '../../components/BranchContainer'
 
 const AddressSelector = () => {
@@ -16,7 +17,10 @@ const AddressSelector = () => {
   const navigate = useNavigate()
   const toast = useToast()
   // const [radioValue, setRadioValue] = React.useState('1')
+  const buyNowItem = useSelector(state => state.buyNow.item)
   const cartProducts = useSelector(state => state.cart.items)
+  let checkOutItems
+  if (Array.isArray(buyNowItem) && buyNowItem.length === 1) { checkOutItems = buyNowItem } else { checkOutItems = cartProducts }
 
   useEffect(() => {
     orderStatus.orderItems || navigate('/')
@@ -94,10 +98,10 @@ const AddressSelector = () => {
         <Flex borderLeft='2px' borderColor='secondary' w='25rem' p='2rem 2rem 0rem 2rem' boxShadow='md' flexDirection='column'>
           <Text fontWeight={500} mb='1.3rem' fontSize='larger'>Resumen de la compra</Text>
           <Divider mb='1rem' />
-          <Text mb='1rem'>Productos ({cartProducts.reduce(
+          <Text mb='1rem'>Productos ({checkOutItems.reduce(
             (previousValue, p) => previousValue + p.quantity, 0)})
           </Text>
-          <Text>Total: ${cartProducts.reduce((acc, p) => acc + (p.quantity * p.price.split('.').join('')), 0)}</Text>
+          <Text>Total: ${checkOutItems.reduce((acc, p) => acc + (p.quantity * p.price.split('.').join('')), 0)}</Text>
         </Flex>
       </Flex>
     </Flex>

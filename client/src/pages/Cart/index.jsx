@@ -1,13 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Heading, Text, Flex, Button, Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import { setOrderItems } from '../../redux/actions/orders.actions'
 import CartItemContainer from '../../components/CartItemContainer'
 import ModalLogin from '../../components/ModalLogin'
 import WishList from '../../components/WishList'
+import { removeBuyNowItem } from '../../redux/actions/buyNow.actions'
 
 export const Cart = () => {
+  useEffect(() => {
+    dispatch(removeBuyNowItem())
+  })
   const cartProducts = useSelector(state => {
     if (state.users.token === '') return state.cart.localItems
     return state.cart.items

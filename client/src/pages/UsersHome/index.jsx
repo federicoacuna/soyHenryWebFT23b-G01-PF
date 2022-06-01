@@ -5,9 +5,14 @@ import 'firebase/compat/auth'
 import { logIn } from '../../redux/actions/users.actions'
 import { useDispatch } from 'react-redux'
 import { Box } from '@chakra-ui/react'
+import { useEffect } from 'react'
+import { removeBuyNowItem } from '../../redux/actions/buyNow.actions'
 
 function UsersHome () {
   const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(removeBuyNowItem())
+  })
 
   firebase.auth().onIdTokenChanged(user => {
     if (user) {
