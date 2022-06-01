@@ -12,6 +12,10 @@ export const UPDATE_CART = 'UPDATE_CART'
 export const ADD_CART_ITEM = 'ADD_CART_ITEM'
 export const CLEAR_CART = 'CLEAR_CART'
 export const UPDATE_REMOTE_CART = 'UPDATE_REMOTE_CART'
+
+//
+export const ADD_BUY_NOW = 'ADD_BUY_NOW'
+export const REMOVE_BUY_NOW = 'REMOVE_BUY_NOW'
 // CATEGORIES
 export const GET_CATEGORIES = 'GET_CATEGORIES'
 

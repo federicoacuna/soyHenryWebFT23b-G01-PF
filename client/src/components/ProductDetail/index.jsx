@@ -57,7 +57,7 @@ function ProductDetail () {
               <Text alignSelf='flex-start'>{product.model}</Text>
 
               <Flex mt='10px' justifyContent='flex-start'>
-                <BuyNowButton />
+                <BuyNowButton product={product} />
                 <CartButton product={product} />
                 {product.canReview === true ? <Button mr='10px' color='white' bg='#2C2C2E' _hover={{ bg: 'black' }} onClick={handleClick}> Agregar Reseña </Button> : null}
               </Flex>

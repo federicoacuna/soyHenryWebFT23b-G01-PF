@@ -3,6 +3,7 @@ import { HiPlusSm, HiMinus } from 'react-icons/hi'
 import { useSelector, useDispatch } from 'react-redux'
 import { updateCart, setRemoteCartProducts } from '../../redux/actions/cart.actions'
 import { addToWishlist } from '../../redux/actions/wishlist.actions'
+import BuyNowButton from '../BuyNowButton'
 
 export default function CartItem ({ product }) {
   const { name, image, price, quantity } = product
@@ -18,7 +19,8 @@ export default function CartItem ({ product }) {
       return null
     }
     if (operation === 'buynow') {
-      // PROCEDER AL CHECKOUT
+      <BuyNowButton product={product} />
+      console.log(product)
       return null
     }
     if (operation === 'increase') {
@@ -67,7 +69,7 @@ export default function CartItem ({ product }) {
       <Flex width='30rem' ml='2.3rem' mt='2rem' justifyContent='space-between' mb='1.6rem' color='accent'>
         <Text cursor='pointer' onClick={() => handleClick('remove')}>Eliminar</Text>
         {user && user.id && <Text cursor='pointer' onClick={() => handleClick('wishlist')}>Guardar en lista de deseos</Text>}
-        <Text cursor='pointer' onClick={() => handleClick('buynow')}>Comprar ahora</Text>
+        <BuyNowButton product={product} />
       </Flex>
 
     </Flex>
