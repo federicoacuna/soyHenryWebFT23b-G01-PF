@@ -50,15 +50,15 @@ export default function AdminCategoryAdd () {
   }
 
   return (
-    <FormControl onSubmit={handleSubmit} isRequired>
+    <FormControl onSubmit={handleSubmit} isRequired mt='1rem'>
       <Flex flexDirection='row' justifyContent='space-between'>
         <Select mb='1rem' _focus={{ outline: 'none' }} width='20rem' variant='outline' bg='white' value={values.categoryId} onChange={(e) => handleChange(e)} name='categoryId' placeholder='Elija una categoría para borrar'>
           {categories && categories.map(category => <option key={category.id} value={category.id}>{category.name}</option>)}
         </Select>
         {errors.categoryId && <Text color='red'>{errors.categoryId}</Text>}
-        <Flex flexDirection='row' justifyContent='end'>
-          <Button m={0} _hover={{ color: 'gray' }} width='6rem' color='#2C2C2E' border='2px' borderColor='#2C2C2E' name='Close' onClick={handleClose}>Cancelar</Button>
-          <Button m={0} _hover={{ color: 'gray' }} width='6rem' color='white' bg='#2C2C2E' name='Submit' onClick={handleSubmit}>Borrar</Button>
+        <Flex flexDirection='row' justifyContent='end' gap='1rem'>
+          <Button m={0} _hover={{ color: 'gray' }} borderRadius='none' width='6rem' color='#2C2C2E' border='2px' borderColor='#2C2C2E' name='Close' onClick={handleClose}>Cancelar</Button>
+          <Button m={0} _hover={{ color: 'gray' }} borderRadius='none' width='6rem' color='white' bg='#2C2C2E' name='Submit' onClick={handleSubmit}>Borrar</Button>
         </Flex>
       </Flex>
     </FormControl>

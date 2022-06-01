@@ -14,12 +14,12 @@ export default function AdminCategoryList () {
 
   return (
     <>
-      <Flex alignItems='center' bg='white' borderRadius={3} mt={2} mb={2}>
+      <Flex alignItems='center' borderRadius={3} mt={2} mb={2}>
         <Flex w='100%' alignItems='center'>
           <Box m={4}>
             <SimpleGrid columns={[2, null, 4]} spacingX={6} spacingY={2}>
               {Array.isArray(productsCategories) && productsCategories.map(category => (
-                <Box bg='#E2E8F0' width={120} height={8} textAlign='center' key={category.id}>{category.name}</Box>
+                <Box bg='#E2E8F0' width={120} height={8} textAlign='center' border='2px' key={category.id}>{category.name}</Box>
               ))}
             </SimpleGrid>
           </Box>
