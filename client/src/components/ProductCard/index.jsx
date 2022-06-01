@@ -16,7 +16,7 @@ export default function ProductCard ({ product, shouldDisplay }) {
       </Link>
 
       <Text mt='0.3rem' mb='0.3rem' alignSelf='flex-start'>{name}</Text>
-      <Text mt='0.3rem' mb='0.3rem' alignSelf='flex-start'>{price}</Text>
+      <Text fontWeight={500} mt='0.3rem' mb='0.3rem' alignSelf='flex-start'>${price}</Text>
       <Flex mt='0.3rem' mb='0.3rem' alignSelf='flex-start'>
         <BuyNowButton product={product} />
         <CartButton product={product} />
