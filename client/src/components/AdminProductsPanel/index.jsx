@@ -1,19 +1,32 @@
+import { useRef, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useMemo } from 'react'
-import { getProductsList } from '../../redux/actions/products.actions'
+
+import { clearProductFilter, getProductsList } from '../../redux/actions/products.actions'
 import ProductsTable from '../ProductsTable'
 import { getBrandsList } from '../../redux/actions/brands.action'
 
 function AdminProductPanel () {
+  const firstRender = useRef(true)
   const { data } = useSelector(state => state.products)
   const { data: brands } = useSelector(state => state.brands)
-  const dispatch = useDispatch()
   const options = useSelector(state => state.products.filter)
+  const dispatch = useDispatch()
 
   useEffect(() => {
+    dispatch(clearProductFilter())
+
+    return () => dispatch(clearProductFilter())
+  }, [])// eslint-disable-line
+
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false
+      return
+    }
+
     dispatch(getProductsList(options))
     dispatch(getBrandsList())
-  }, [options, dispatch])
+  }, [options])//eslint-disable-line
 
   const columns = useMemo(() => [
     {

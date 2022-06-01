@@ -15,7 +15,7 @@ router.get('/:id', getById)
 
 router.post('/', fileUpload, create)
 
-router.put('/:id', update)
+router.put('/:id', fileUpload, update)
 
 router.delete('/:id', remove)
 

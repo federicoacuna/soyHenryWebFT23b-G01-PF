@@ -35,9 +35,21 @@ export const deleteProduct = async (productId) => {
   return data
 }
 
-export const putProduct = async (productId) => {
+export const putProduct = async (newValues) => {
   const { token } = store.getState().users
-  const { data } = await axios.delete(`${endpoint}/${productId}`, {
+  const { currentPage } = store.getState().products.pagination
+  const { id: productId, ...newProduct } = newValues
+  newProduct.page = currentPage
+  const newProductForm = new FormData()
+
+  for (const key in newProduct) {
+    if (key === 'image') {
+      newProduct.image.forEach(img => newProductForm.append('image', img))
+    }
+    newProductForm.append(key, newProduct[key])
+  }
+
+  const { data } = await axios.put(`${endpoint}/${productId}`, newProductForm, {
     headers: {
       Authorization: `Bearer ${token}`
     }
