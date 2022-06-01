@@ -17,11 +17,11 @@ export default function WhatsAppButton ({ branches }) {
         border='none'
         onClick={(e) => handleModal(e)}
         position='fixed'
-        bottom='35px'
-        right={['16px', '100px']}
+        bottom='111px'
+        right={['32px', '30px']}
         zIndex={1}
         colorScheme='whatsapp'
-        icon={<BsWhatsapp size='55' />}
+        icon={<BsWhatsapp color='primary' size='55' />}
         size='lg'
         variant='outline'
         _focus={{ outline: 'none' }}

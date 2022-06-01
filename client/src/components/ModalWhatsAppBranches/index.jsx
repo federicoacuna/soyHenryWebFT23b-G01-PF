@@ -13,14 +13,14 @@ export default function ModalBranches ({ isOpen, onClose, onOpen, branches }) {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader
-            bg='black'
-            color='gray.200'
+            bg='primary'
+            color='secondary'
             fontWeight='semibold'
             letterSpacing='wide'
-          >Contactanos por WhatsApp !
+          >Contáctanos por WhatsApp
           </ModalHeader>
-          <ModalCloseButton borderRadius='md' bg='tomato' color='white' px={4} h={8} mt='0.4rem' />
-          <ModalBody bg='gray'>
+          <ModalCloseButton _hover={{ bg: 'primary' }} borderRadius='md' bg='primary' color='white' px={4} h={8} mt='0.4rem' />
+          <ModalBody bg='white'>
 
             <Box w='100%'>
               {Array.isArray(branches)
