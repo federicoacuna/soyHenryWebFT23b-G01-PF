@@ -1,5 +1,6 @@
 const productsService = require('../services/products.service')
 const usersService = require('../services/users.service')
+const reviewsService = require('../services/reviews.service')
 const fs = require('fs/promises')
 
 async function get (req, res, next) {
@@ -13,6 +14,8 @@ async function get (req, res, next) {
 async function getById (req, res, next) {
   try {
     const retrievedProduct = await productsService.getProductDetail(req.params.id)
+    const productReviews = await reviewsService.getReviewsForId(req.params.id)
+    retrievedProduct.reviews = productReviews
 
     if (req.user) {
       const user = req.user.email

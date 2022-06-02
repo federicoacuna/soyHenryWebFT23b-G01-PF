@@ -13,14 +13,12 @@ import ModalReview from '../ModalReview'
 
 function ProductDetail () {
   const product = useSelector(state => state.products.productDetail)
-  const allReviews = useSelector(state => state.reviews.data)
+  const userReviews = useSelector(state => state.reviews.data)
   const token = useSelector(state => state.users.token)
   const dispatch = useDispatch()
   const { id } = useParams()
-  // const navigate = useNavigate()
   const [modal, setModal] = useState(false)
   function handleClick () {
-    // navigate(`/createreview/${product.id}`)
     setModal(true)
   }
 
@@ -29,7 +27,7 @@ function ProductDetail () {
     dispatch(getUserReviews())
   }, [])//eslint-disable-line
 
-  const hasReview = allReviews[0] && allReviews.filter(review => product.id === review.productId)
+  const didReview = !!userReviews.find(review => review.product.id === product.id)
 
   return (
     <Flex flexDirection='column'>
@@ -61,7 +59,7 @@ function ProductDetail () {
               <Text alignSelf='flex-start'>{product.brand && product.brand.name}</Text>
               <Text alignSelf='flex-start' fontWeight='bold' pt={3}>Modelo</Text>
               <Text alignSelf='flex-start'>{product.model}</Text>
-              {product.canReview === true && !hasReview.length > 0 ? <Box onClick={handleClick} ml='0.1rem' alignSelf='flex-start' width='10rem' height='2.5rem' justifyContent='center' alignItems='center' cursor='pointer' p='0.5rem' bg='#0082E3' color='white'>Agregar reseña</Box> : null}
+              {product.canReview && !didReview ? <Box onClick={handleClick} ml='0.1rem' alignSelf='flex-start' width='10rem' height='2.5rem' justifyContent='center' alignItems='center' cursor='pointer' p='0.5rem' bg='#0082E3' color='white'>Agregar reseña</Box> : null}
 
               <Flex mt='10px' justifyContent='flex-start'>
                 <BuyNowButton product={product} />

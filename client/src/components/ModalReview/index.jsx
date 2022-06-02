@@ -61,7 +61,7 @@ export const ModalReview = ({ state, setState, id }) => {
                 {/* <h1>{productName}</h1> */}
                 <Box display='flex' justifyContent='center' alignItems='center' p='7rem'>
                   <Box display='flex' flexDirection='column' gap='1rem'>
-                    <Slider color='black' width='150px' mb='1rem' defaultValue={1} min={1} max={5} step={1} onChangeEnd={(rating) => setValues({ ...values, rating })}>
+                    <Slider color='black' width='150px' mb='1rem' defaultValue={values.rating} min={1} max={5} step={1} onChangeEnd={(rating) => setValues({ ...values, rating })}>
                       <SliderMark value={1} mt='1' fontSize='sm'><AiFillStar size={20} color='orange' /></SliderMark>
                       <SliderMark value={2} mt='1' fontSize='sm'><AiFillStar size={20} color='orange' /></SliderMark>
                       <SliderMark value={3} mt='1' fontSize='sm'><AiFillStar size={20} color='orange' /></SliderMark>
