@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import s from './index.module.css'
-import { Center, Container, Flex, Text, Box } from '@chakra-ui/react'
+import { Center, Container, Flex, Text, Box, Heading } from '@chakra-ui/react'
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { getProductDetails } from '../../redux/actions/products.actions'
@@ -10,6 +10,7 @@ import WishListManagerButton from '../WishListManagerButton'
 import CartButton from '../CartButton'
 import BuyNowButton from '../BuyNowButton'
 import ModalReview from '../ModalReview'
+import ModalLogin from '../ModalLogin'
 
 function ProductDetail () {
   const product = useSelector(state => state.products.productDetail)
@@ -18,6 +19,8 @@ function ProductDetail () {
   const dispatch = useDispatch()
   const { id } = useParams()
   const [modal, setModal] = useState(false)
+  const [modalLogin, setModalLogin] = useState(false)
+
   function handleClick () {
     setModal(true)
   }
@@ -62,7 +65,7 @@ function ProductDetail () {
               {product.canReview && !didReview ? <Box onClick={handleClick} ml='0.1rem' alignSelf='flex-start' width='10rem' height='2.5rem' justifyContent='center' alignItems='center' cursor='pointer' p='0.5rem' bg='#0082E3' color='white'>Agregar reseña</Box> : null}
 
               <Flex mt='10px' justifyContent='flex-start'>
-                <BuyNowButton product={product} />
+                <BuyNowButton state={modalLogin} setState={setModalLogin} product={product} />
                 <CartButton product={product} />
               </Flex>
             </Container>
@@ -92,6 +95,10 @@ function ProductDetail () {
 
       </Flex>
       <ModalReview id={product.id} state={modal} setState={setModal} />
+      <ModalLogin state={modalLogin} setState={setModalLogin}>
+        <Heading color='black' textAlign='center'>No has iniciado sesión</Heading>
+        <Text color='black' mt={2} textAlign='center'>Para seguir con tu compra debes registrarte o iniciar sesión.</Text>
+      </ModalLogin>
     </Flex>
 
   )
