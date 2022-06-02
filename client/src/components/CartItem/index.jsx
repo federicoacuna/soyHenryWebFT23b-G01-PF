@@ -69,7 +69,7 @@ export default function CartItem ({ product }) {
       <Flex width='30rem' ml='2.3rem' mt='2rem' justifyContent='space-between' mb='1.6rem' color='accent'>
         <Text cursor='pointer' onClick={() => handleClick('remove')}>Eliminar</Text>
         {user && user.id && <Text cursor='pointer' onClick={() => handleClick('wishlist')}>Guardar en lista de deseos</Text>}
-        <BuyNowButton product={product} />
+
       </Flex>
 
     </Flex>
