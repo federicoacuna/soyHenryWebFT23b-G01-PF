@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Flex, Text, Input } from '@chakra-ui/react'
+import { Flex, Text, Input, Button } from '@chakra-ui/react'
 import { TiSocialTwitter, TiSocialYoutube, TiSocialInstagram, TiSocialFacebook } from 'react-icons/ti'
 import { sendEmail } from '../../redux/actions/nodemailer.action'
 import { useDispatch } from 'react-redux'
@@ -29,7 +29,7 @@ const Footer = () => {
           <Flex w='400px'>
             <form onSubmit={handleSubmit} className={s.container}>
               <Input type='email' onChange={handleChange} value={email} bg='secondary' mr='15px' placeholder='E-mail...' />
-              <Input w='20%' type='submit' color='white' colorScheme='button1' />
+              <Button w='20%' type='submit' color='white' colorScheme='button1'>Enviar</Button>
             </form>
           </Flex>
         </Flex>
