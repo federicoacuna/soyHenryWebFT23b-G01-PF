@@ -4,7 +4,7 @@ const initialState = {
   data: []
 }
 
-const addresses = (state = initialState, action) => {
+const reviews = (state = initialState, action) => {
   const { payload, type } = action
 
   switch (type) {
@@ -19,4 +19,4 @@ const addresses = (state = initialState, action) => {
   }
 }
 
-export default addresses
+export default reviews

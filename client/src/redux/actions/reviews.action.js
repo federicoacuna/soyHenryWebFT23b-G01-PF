@@ -1,9 +1,10 @@
-import { CREATE_REVIEW, GET_USER_REVIEWS, SET_TOAST } from '../constants'
+import { GET_USER_REVIEWS, SET_TOAST } from '../constants'
 import { postReview, getReviews, putReview, deleteReview } from '../../services/reviews'
 
 export const createReview = (newReview) => {
   return async (dispatch) => {
     try {
+      console.log(newReview)
       const { data, message } = await postReview(newReview)
       const toast = {
         title: 'Reseña creada.',
@@ -13,7 +14,7 @@ export const createReview = (newReview) => {
         isClosable: true
       }
       dispatch({
-        type: CREATE_REVIEW,
+        type: GET_USER_REVIEWS,
         payload: data
       })
       dispatch({
@@ -21,7 +22,7 @@ export const createReview = (newReview) => {
         payload: toast
       })
     } catch (error) {
-      error.toast = {
+      const toast = {
         title: 'Error interno.',
         description: 'No pudimos guardar tu reseña.',
         status: 'error',
@@ -29,8 +30,8 @@ export const createReview = (newReview) => {
         isClosable: true
       }
       dispatch({
-        type: CREATE_REVIEW,
-        payload: error
+        type: SET_TOAST,
+        payload: toast
       })
     }
   }
@@ -39,24 +40,16 @@ export const createReview = (newReview) => {
 export const getUserReviews = () => {
   return async (dispatch) => {
     try {
-      const { data } = await getReviews()
-
+      let { data } = await getReviews()
+      data = data || []
       dispatch({
         type: GET_USER_REVIEWS,
         payload: data
       })
     } catch (error) {
-      const toast = {
-        title: 'Error interno.',
-        description: 'No pudimos obtener las reseñas.',
-        status: 'error',
-        duration: 3500,
-        isClosable: true
-      }
-
       dispatch({
         type: GET_USER_REVIEWS,
-        payload: toast
+        payload: []
       })
     }
   }
