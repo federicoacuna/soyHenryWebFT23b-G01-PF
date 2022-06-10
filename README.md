@@ -24,7 +24,7 @@ This is a student group project done as a first big assigment, in wich join all 
 HTML, CSS, Chakra UI, Javascript, React, Redux
 
 ### Back End:
-Node.js, Express, Firebase, Json web token authentication, Nodemailer, Sequelize.
+Node.js, Express, Firebase, Nodemailer, Sequelize.
 
 ### Database:
 PostgreSQL
