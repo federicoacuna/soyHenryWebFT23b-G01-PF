@@ -93,17 +93,18 @@ const NavBar = () => {
 
   return (
     <Box>
-      <Box position='relative' height='5rem' bg='#333333' display='flex' justifyContent='space-between' color='white' alignItems='center' pl='7rem' pr='7rem'>
+      <Box position='relative' p='1rem' width='80vw' margin='auto' height='5rem' bg='#333333' display='flex' justifyContent='space-between' color='white' alignItems='center'>
         <Link to='/' className={s.logo}>
-          <Icon width='1.7rem' height='1.7rem' name='logo' as={BsShopWindow} />
+          <Icon width='30px' height='30px' name='logo' as={BsShopWindow} />
           <span>Salchistore</span>
           {user.isAdmin &&
             <Box>
               <Link to='/administration'><Box color='white'>Admin</Box></Link>
             </Box>}
         </Link>
-
-        <Box />
+        <Box>
+          {pathname === '/' && <SearchBar />}
+        </Box>
         <Box>
           <UnorderedList display='flex' alignItems='center' gap='1rem'>
             {token
@@ -135,9 +136,6 @@ const NavBar = () => {
           <Heading color='black' textAlign='center'>{isRegistrando ? 'Registrate' : 'Inicia Sesion'}</Heading>
           <Text color='black' mt={2} textAlign='center'>Ingresa a tu cuenta para ver tus compras, favoritos, etc.</Text>
         </ModalLogin>
-      </Box>
-      <Box position='absolute' top='-2' left='42%'>
-        {pathname === '/' && <SearchBar />}
       </Box>
     </Box>
   )

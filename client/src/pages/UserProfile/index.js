@@ -32,7 +32,7 @@ export default function UserProfile () {
   }
 
   return (
-    <Flex justifyContent='center' pl='7rem' pr='7rem' pt='3rem' pb='3rem'>
+    <Flex justifyContent='center' bg='white' width='80vw' margin='auto' pt='3rem' pb='3rem'>
       <Flex w='100%'>
         <Tabs borderColor='active' boxShadow='md' w='100%' index={tabIndex} onChange={(index) => dispatch(setUsersPanelTab(index))}>
           <Flex flexDirection='row' h='75vh'>

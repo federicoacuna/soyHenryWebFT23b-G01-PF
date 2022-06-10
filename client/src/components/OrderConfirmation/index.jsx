@@ -29,7 +29,7 @@ export default function OrderConfirmation () {
   }
 
   return (
-    <Flex flexDirection='column' alignItems='center' justifyContent='center'>
+    <Flex flexDirection='column' bg='white' alignItems='center' justifyContent='center' width='80vw' margin='auto'>
       <Flex h='150px' w='100%' bg='success'><VisuallyHidden>asdas</VisuallyHidden></Flex>
       <Flex w='37rem' position='relative' top='-100px' flexDirection='column' mt='1rem' mb='1rem' bg='white' border='1px' borderColor='secondary' borderRadius='5px' boxShadow='md'>
         <Flex bg='white' justifyContent='center' borderRadius='5px 5px 0px 0px'>
