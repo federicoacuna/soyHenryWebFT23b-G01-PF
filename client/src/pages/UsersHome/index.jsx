@@ -23,9 +23,9 @@ function UsersHome () {
   })
 
   return (
-    <Box pl='7rem' pr='7rem' pt='4rem' pb='4rem' display='flex' flexDirection='column' justifyContent='center' alignSelf='center'>
+    <Box width='80vw' bg='white' margin='auto' pt='4rem' pb='4rem' display='flex' flexDirection='column' justifyContent='center' alignSelf='center'>
 
-      <Box display='flex' justifyContent='center'>
+      <Box display='flex' justifyContent='space-between' alignItems='center'>
         <FilterContainer />
         <ProductList />
       </Box>

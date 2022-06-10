@@ -22,25 +22,23 @@ const Footer = () => {
   }
 
   return (
-    <Flex justifyContent='center' bg='primary'>
-      <Flex w='76.1rem' pr='7.3rem' pl='7.3rem' pt='1rem' justifyContent='center' h='200px'>
-        <Flex mr='30.6rem' flexDirection='column'>
-          <Text color='secondary' mb={3}>Suscribite a nuestro newsletter</Text>
-          <Flex w='400px'>
-            <form onSubmit={handleSubmit} className={s.container}>
-              <Input type='email' onChange={handleChange} value={email} bg='secondary' mr='15px' placeholder='E-mail...' />
-              <Button w='20%' type='submit' color='white' colorScheme='button1'>Enviar</Button>
-            </form>
-          </Flex>
+    <Flex justifyContent='space-between' bg='primary' width='80vw' margin='auto' minHeight='150px' p='1rem'>
+      <Flex flexDirection='column' justifyContent='center' alignItems='center'>
+        <Text color='secondary' mb={3} alignSelf='flex-start'>Suscribite a nuestro newsletter</Text>
+        <Flex w='400px' alignSelf='flex-start'>
+          <form onSubmit={handleSubmit} className={s.container}>
+            <Input type='email' outline='none' _focus={{ outline: 'none' }} onChange={handleChange} value={email} bg='secondary' mr='15px' placeholder='E-mail...' />
+            <Button w='20%' type='submit' color='white' colorScheme='button1'>Enviar</Button>
+          </form>
         </Flex>
-        <Flex w='250px' flexDirection='column'>
-          <Text color='secondary' mb={3}>Seguinos en:</Text>
-          <Flex color='secondary' justifyContent='space-between'>
-            <Link to='#'><TiSocialTwitter size={37} /></Link>
-            <Link to='#'><TiSocialYoutube size={37} /></Link>
-            <Link to='#'><TiSocialInstagram size={37} /></Link>
-            <Link to='#'><TiSocialFacebook size={37} /></Link>
-          </Flex>
+      </Flex>
+      <Flex flexDirection='column' justifyContent='center' alignItems='center'>
+        <Text color='secondary' ml='1rem' alignSelf='flex-start' mb={3}>Seguinos en</Text>
+        <Flex color='secondary' alignSelf='flex-start'>
+          <Link className={s.socialMediaIcons} to='#'><TiSocialTwitter size={37} /></Link>
+          <Link className={s.socialMediaIcons} to='#'><TiSocialYoutube size={37} /></Link>
+          <Link className={s.socialMediaIcons} to='#'><TiSocialInstagram size={37} /></Link>
+          <Link className={s.socialMediaIcons} to='#'><TiSocialFacebook size={37} /></Link>
         </Flex>
       </Flex>
     </Flex>

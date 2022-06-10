@@ -29,7 +29,7 @@ export const Cart = () => {
   }
 
   return (
-    <Flex flexDirection='column' justifyContent='center'>
+    <Flex flexDirection='column' bg='white' width='80vw' margin='auto' minHeight='80vh' justifyContent='center'>
       <Flex mt='1rem' flexDirection='column' justifyContent='center' alignItems='center'>
         <Tabs w='61.3rem'>
           <TabList color='accent' _active={{ color: 'accent' }}>

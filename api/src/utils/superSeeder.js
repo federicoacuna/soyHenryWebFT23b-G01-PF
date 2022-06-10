@@ -54,7 +54,7 @@ const brands = [
 // Portátiles
 const laptops = [
   {
-    name: 'Notebook Dell Inspiron 3505 gris 15.6", AMD Ryzen 5 3450U 16GB de RAM 1TB HDD 256GB SSD, AMD Radeon RX Vega 8 60 Hz 1366x768px Windows 10 Home',
+    name: 'Notebook Dell Inspiron 3505 gris 15.6"',
     description: faker.lorem.paragraph(),
     model: '3505',
     price: '134.999',
@@ -121,7 +121,7 @@ const mouses = [
     brandId: 3
   },
   {
-    name: 'Mouse de juego Redragon Centrophorus2 M601-RGB black',
+    name: 'Mouse Redragon Centrophorus2 M601-RGB black',
     description: faker.lorem.paragraph(),
     model: 'M601-RGB',
     price: '1.769',
@@ -130,7 +130,7 @@ const mouses = [
     brandId: 4
   },
   {
-    name: 'Mouse de juego inalámbrico recargable Logitech G Series Lightspeed G502 negro',
+    name: 'Mouse inalámbrico recargable Logitech G Series Lightspeed G502 negro',
     description: faker.lorem.paragraph(),
     model: 'G502',
     price: '11.327',
@@ -139,7 +139,7 @@ const mouses = [
     brandId: 3
   },
   {
-    name: 'Mouse de juego Redragon Griffin M607 blanco',
+    name: 'Mouse Redragon Griffin M607 blanco',
     description: faker.lorem.paragraph(),
     model: 'M607',
     price: '2.099',
@@ -152,7 +152,7 @@ const mouses = [
 // Teclados
 const keyboards = [
   {
-    name: 'Teclado gamer Redragon Kumara K552 QWERTY Outemu Red español latinoamérica color blanco con luz RGB',
+    name: 'Teclado gamer Redragon Kumara K552 QWERTY Outemu Red',
     description: faker.lorem.paragraph(),
     model: 'K552W',
     price: '6.799',
@@ -161,7 +161,7 @@ const keyboards = [
     brandId: 4
   },
   {
-    name: 'Teclado gamer Redragon Kumara K552 QWERTY Outemu Blue español latinoamérica color negro con luz RGB',
+    name: 'Teclado gamer Redragon Kumara K552 QWERTY Outemu Blue',
     description: faker.lorem.paragraph(),
     model: 'K552',
     price: '7.073',
@@ -170,7 +170,7 @@ const keyboards = [
     brandId: 4
   },
   {
-    name: 'Teclado gamer Redragon Dragonborn K630 QWERTY Redragon Brown inglés US color negro con luz RGB',
+    name: 'Teclado gamer Redragon Dragonborn K630 QWERTY Redragon Brown',
     description: faker.lorem.paragraph(),
     model: 'K630',
     price: '5.799',
@@ -179,7 +179,7 @@ const keyboards = [
     brandId: 4
   },
   {
-    name: 'Teclado gamer Redragon Shiva K512 RGB QWERTY español latinoamérica color negro con luz RGB',
+    name: 'Teclado gamer Redragon Shiva K512 RGB QWERTY',
     description: faker.lorem.paragraph(),
     model: 'K512 RGB',
     price: '3.999',
@@ -188,7 +188,7 @@ const keyboards = [
     brandId: 4
   },
   {
-    name: 'Teclado gamer Nisuta NSKBGZ61 QWERTY Outemu Blue español España color negro con luz RGB',
+    name: 'Teclado gamer Nisuta NSKBGZ61 QWERTY Outemu Blue',
     description: faker.lorem.paragraph(),
     model: 'NSKBGZ61',
     price: '6.399',
@@ -201,7 +201,7 @@ const keyboards = [
 // Monitores
 const monitors = [
   {
-    name: 'Monitor gamer curvo Samsung F390 Series C24F390FH led 24 " black high glossy 100V/240V',
+    name: 'Monitor gamer curvo Samsung F390 Series C24F390FH led 24"',
     description: faker.lorem.paragraph(),
     model: 'C24F390FH',
     price: '34.999',
@@ -210,7 +210,7 @@ const monitors = [
     brandId: 6
   },
   {
-    name: 'Monitor gamer iQual iQ24H led 23.6 " negro 100V/240V',
+    name: 'Monitor gamer iQual iQ24H led 23.6"',
     description: faker.lorem.paragraph(),
     model: 'iQ24H',
     price: '27.999',
@@ -219,7 +219,7 @@ const monitors = [
     brandId: 7
   },
   {
-    name: 'Monitor gamer Samsung F22T35 led 22 " dark blue gray 100V/240V',
+    name: 'Monitor gamer Samsung F22T35 led 22"',
     description: faker.lorem.paragraph(),
     model: 'F22T35',
     price: '36.999',
@@ -228,7 +228,7 @@ const monitors = [
     brandId: 6
   },
   {
-    name: 'Monitor gamer curvo Samsung F390 Series C27F390FH led 27 " negro 100V/240V',
+    name: 'Monitor gamer curvo Samsung F390 Series C27F390FH led 27"',
     description: faker.lorem.paragraph(),
     model: 'C27F390FH',
     price: '44.819',
@@ -237,7 +237,7 @@ const monitors = [
     brandId: 6
   },
   {
-    name: 'Monitor gamer Samsung Odyssey G3 F24G35T LCD 24 " negro 100V/240V',
+    name: 'Monitor gamer Samsung Odyssey G3 F24G35T LCD 24"',
     description: faker.lorem.paragraph(),
     model: 'F24G35T',
     price: '46.490',
@@ -268,7 +268,7 @@ const headsets = [
     brandId: 3
   },
   {
-    name: 'Auriculares gamer inalámbricos HyperX Cloud Stinger Core Wireless + 7.1 negro',
+    name: 'Auriculares gamer inalámbricos HyperX Cloud Stinger Core Wireless',
     description: faker.lorem.paragraph(),
     model: 'HHSS1C-BA',
     price: '11.727',
@@ -348,7 +348,7 @@ const webcams = [
 // Tablets
 const tablets = [
   {
-    name: 'Tablet con funda Gadnic Taurus Phone TAB0024C 10.1" con red móvil 32GB blanca y 2GB de memoria RAM',
+    name: 'Tablet con funda Gadnic Taurus Phone TAB0024C 10.1"',
     description: faker.lorem.paragraph(),
     model: 'TAB0024C',
     price: '25.000',
@@ -366,7 +366,7 @@ const tablets = [
     brandId: 12
   },
   {
-    name: 'Tablet con funda T-Go TABI Argos EUTB-758 7" 32GB verde y 2GB de memoria RAM',
+    name: 'Tablet con funda T-Go TABI Argos EUTB-758 7"',
     description: faker.lorem.paragraph(),
     model: 'EUTB-758',
     price: '16.290',
@@ -397,7 +397,7 @@ const tablets = [
 // Smartphones
 const smartphones = [
   {
-    name: 'Xiaomi Redmi Note 10 Pro (Global) Dual SIM 128 GB gris ónix 6 GB RAM',
+    name: 'Xiaomi Redmi Note 10 Pro (Global) Dual SIM 128 GB',
     description: faker.lorem.paragraph(),
     model: 'Note 10 Pro (Global)',
     price: '77.999',
@@ -473,7 +473,7 @@ const consoles = [
     brandId: 18
   },
   {
-    name: 'Nintendo Switch 32GB Standard color rojo neón, azul neón y negro',
+    name: 'Nintendo Switch 32GB Standard',
     description: faker.lorem.paragraph(),
     model: 'Switch',
     price: '74.999',
@@ -567,14 +567,16 @@ const branches = [
     city: 'Ciénaga',
     streetName: 'Calle 20',
     houseNumber: '11-23',
-    countryId: 14
+    countryId: 14,
+    phoneNumber: '123123123'
   },
   {
     state: 'Provincia de Buenos Aires',
     city: 'Buenos Aires, Capital Federal',
     streetName: 'Av. Eva Perón',
     houseNumber: '9612',
-    countryId: 3
+    countryId: 3,
+    phoneNumber: '123123123'
   }
 ]
 

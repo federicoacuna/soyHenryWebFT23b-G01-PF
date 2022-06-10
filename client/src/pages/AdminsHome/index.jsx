@@ -17,7 +17,7 @@ export default function AdminsHome () {
   if (!user.isAdmin) return <Navigate to='/' replace />
 
   return (
-    <Flex display={!user.isAdmin ? 'none' : 'flex'} p='7rem'>
+    <Flex display={!user.isAdmin ? 'none' : 'flex'} width='80vw' margin='auto' bg='white' pt='3rem' pb='3rem'>
       <Tabs borderColor='active' w='100%'>
         <Flex flexDirection='row' h='75vh'>
           <Flex alignItems='flex-start' bg='white' color='black' borderRight='2px' borderColor='grey' flexWrap='wrap' flexDirection='column' justifyContent='space-around'>
@@ -71,7 +71,7 @@ export default function AdminsHome () {
             </Tab>
           </Flex>
 
-          <TabPanels bg='secondary' overflow='scroll'>
+          <TabPanels bg='secondary' borderLeft='2px' borderStyle='inherit' ml='1rem' borderColor='secondary' overflow='scroll'>
             <TabPanel>
               <Heading mb={5}>Gestion de ordenes</Heading>
               <AdmOrderPanel />

@@ -31,7 +31,7 @@ export default function SearchBar () {
   // }
 
   return (
-    <Box display='flex' marginTop='2rem' justifyContent='center' marginBottom='2rem'>
+    <Box display='flex' justifyContent='center'>
       <form onSubmit={handleSubmit} className={styles.form}>
         <Box position='relative'>
           <Input
@@ -44,6 +44,7 @@ export default function SearchBar () {
             pr='2.5rem'
             height='2.2rem'
             _focus={{ outline: 'none' }}
+            borderRadius='none'
 
           />
           <Icon

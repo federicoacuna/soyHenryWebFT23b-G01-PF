@@ -33,8 +33,8 @@ function ProductDetail () {
   const didReview = !!userReviews.find(review => review.product.id === product.id)
 
   return (
-    <Flex flexDirection='column'>
-      <Flex pl='7rem' pr='7rem' pt='3rem' pb='3rem' justifyContent='center' alignItems='center' borderColor='red'>
+    <Flex flexDirection='column' bg='white' justifyContent='center' alignItems='center' pt='2rem' pb='2rem' width='80vw' margin='auto' minHeight='100vh'>
+      <Flex justifyContent='center' alignItems='center' borderColor='red'>
         <Center display='flex' justifyContent='center' alignItems='center' borderColor='blue'>
           <Flex w='80rem' alignItems='flex-start' justifyContent='center' bg='#white' color='#black'>
             <Container ml='11rem' mt='3rem' width='100%'>
@@ -72,28 +72,24 @@ function ProductDetail () {
           </Flex>
         </Center>
       </Flex>
-      <Flex pl='7rem' pr='7rem' pt='3rem' pb='3rem' borderColor='aqua' justifyContent='space-between'>
-        <Flex p='1rem' borderColor='green' ml='6rem' min-height='5rem' width='50%' flexDirection='column'>
+      <Flex borderColor='aqua' mt='3rem' justifyContent='space-between' mb='3rem'>
+        <Flex borderColor='green' ml='6rem' min-height='5rem' width='50%' flexDirection='column'>
           <Text fontWeight='bold'>Descripcion del producto</Text>
           <Text>{product.description}</Text>
         </Flex>
       </Flex>
 
-      <Flex pl='7rem' pr='7rem' pt='3rem' pb='3rem' borderColor='orange' flexDirection='column' width='100%'>
-        <Flex min-height='5rem' width='50%' gap='1rem' ml='6rem' flexDirection='column' justifyContent='flex-start' alignItems='flex-start'>
-          {Array.isArray(product.reviews) && product.reviews.map((r, i) => (
-            <ReviewCard
-              key={r.productId + i}
-              rating={r.rating}
-              review={r.review}
-              productId={r.productId}
-              productName={r.name}
-              productImage={r.image}
-            />
-          ))}
-        </Flex>
+      {Array.isArray(product.reviews) && product.reviews.map((r, i) => (
+        <ReviewCard
+          key={r.productId + i}
+          rating={r.rating}
+          review={r.review}
+          productId={r.productId}
+          productName={r.name}
+          productImage={r.image}
+        />
+      ))}
 
-      </Flex>
       <ModalReview id={product.id} state={modal} setState={setModal} />
       <ModalLogin state={modalLogin} setState={setModalLogin}>
         <Heading color='black' textAlign='center'>No has iniciado sesión</Heading>

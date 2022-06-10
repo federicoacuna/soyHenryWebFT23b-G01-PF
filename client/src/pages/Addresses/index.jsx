@@ -53,7 +53,7 @@ const AddressSelector = () => {
 
   return (
 
-    <Flex flexDirection='column' justifyContent='center' alignItems='center'>
+    <Flex flexDirection='column' justifyContent='center' width='80vw' margin='auto' bg='white' minHeight='80vh' alignItems='center'>
       <Breadcrumb mt='1rem' p='0rem 0rem 0rem 2rem' w='61.3rem' spacing='8px' separator='<'>
         <BreadcrumbItem>
           <BreadcrumbLink textDecoration='underline'><Link to='/cart'>Carrito</Link></BreadcrumbLink>
