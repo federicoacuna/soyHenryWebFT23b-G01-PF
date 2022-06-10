@@ -21,7 +21,7 @@ This is a student group project done as a first big assigment, in wich join all 
 ## Stack of Technologies
 
 ### Front End:
-HTML, CSS, Javascript, React, React-Bootstrap, Redux
+HTML, CSS, Chakra UI, Javascript, React, Redux
 
 ### Back End:
 Node.js, Express, Firebase, Json web token authentication, Nodemailer, Sequelize.
